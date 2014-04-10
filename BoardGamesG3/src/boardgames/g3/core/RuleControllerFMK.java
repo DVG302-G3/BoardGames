@@ -25,6 +25,7 @@ public class RuleControllerFMK {
 		return false;
 	}
 	
+	
 	public void throwDiceHighestStart(){
 		
 	}

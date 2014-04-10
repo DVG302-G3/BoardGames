@@ -17,6 +17,11 @@ public class FiaMedKnuffGameState implements GameState {
 	private String message;
 	private int numberOfPlayers;
 	
+	public FiaMedKnuffGameState(){
+	
+
+	}
+	
 	
     public FiaMedKnuffGameState(List<Player> player, Board board, int numberOfPlayers ) {
         this.player = player;
@@ -25,8 +30,12 @@ public class FiaMedKnuffGameState implements GameState {
         this.numberOfPlayers = numberOfPlayers;
     }    
 	
-	
-	
+    public int createPlayers(){
+    	
+    	return 0;
+    }
+    
+    
 	@Override
 	public Board getBoard() {
 		return board;
