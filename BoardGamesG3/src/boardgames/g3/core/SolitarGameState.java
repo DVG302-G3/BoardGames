@@ -7,7 +7,7 @@ import game.impl.Board;
 import game.impl.Move;
 import game.impl.Player;
 
-public class SolitarConsole implements GameState {
+public class SolitarGameState implements GameState {
 
 	@Override
 	public Board getBoard() {
