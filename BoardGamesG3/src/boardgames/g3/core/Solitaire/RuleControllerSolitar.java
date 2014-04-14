@@ -1,4 +1,4 @@
-package boardgames.g3.core;
+package boardgames.g3.core.Solitaire;
 
 import game.api.GameState;
 import game.impl.Move;
@@ -6,15 +6,16 @@ import game.impl.Move;
 public class RuleControllerSolitar {
 
 	public Boolean isValidMove(Move move){
-		return null;
+		if(move.getPiece() == null)
+			return false;
+		else
+		{
+			return true;
+		}
 		
 	}
 	
-	
 	public Boolean isGameFinished(GameState gamestate){
-		return null;
+		return false;
 	}
-	
-	
-	
 }
