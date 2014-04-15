@@ -3,6 +3,7 @@ package boardgames.g3.core.Solitaire;
 import game.api.GameState;
 import game.impl.Board;
 import game.impl.BoardLocation;
+import game.impl.GamePiece;
 import game.impl.Move;
 import game.impl.Player;
 
@@ -23,8 +24,17 @@ public class SolitarGameState implements GameState {
 		this.ROWS = 7;
 		this.COLS = 7;
 		this.board = new Board(createBoardLocations());
-		this.player = new Player(null, null);
+		putAllTheBeadsOnTheBoard();
+		this.player = new Player("Playah!", null);
 		ruler = new RuleControllerSolitar();
+	}
+
+	private void putAllTheBeadsOnTheBoard() {
+		for (BoardLocation b : board.getLocations()) {
+			b.setPiece(new GamePiece("O"));
+		}
+
+		board.getLocations().get(24).setPiece(null);
 	}
 
 	private List<BoardLocation> createBoardLocations() {
@@ -94,7 +104,14 @@ public class SolitarGameState implements GameState {
 
 	@Override
 	public Boolean proposeMove(Move move) {
-		return ruler.isValidMove(move);
+		if (ruler.isValidMove(move)) {
+			move.execute();
+			removeBeadInBetween(move);
+			return Boolean.TRUE;
+		} else {
+			return Boolean.FALSE;
+
+		}
 	}
 
 	@Override
@@ -102,4 +119,28 @@ public class SolitarGameState implements GameState {
 
 	}
 
+	private void removeBeadInBetween(Move move) {
+		BoardLocation destination = move.getDestination();
+		BoardLocation source = move.getSource();
+
+		int sourceRow = Integer.parseInt(source.getId().substring(0, 1));
+		int sourceCol = Integer.parseInt(source.getId().substring(1, 2));
+
+		int destRow = Integer.parseInt(destination.getId().substring(0, 1));
+		int destCol = Integer.parseInt(destination.getId().substring(1, 2));
+
+		int deltaRow = (sourceRow - destRow);
+		int deltaCol = (sourceCol - destCol);
+		int middlePieceRow = destRow + deltaRow / 2;
+		int middlePieceCol = destCol + deltaCol / 2;
+
+		String middleLoc = Integer.toString(middlePieceRow)
+				+ Integer.toString(middlePieceCol);
+
+		System.out.println(middleLoc);
+		BoardLocation middle = SolitarHelpMethods
+				.getBoardLocationFromCoordinate(middleLoc, board);
+		middle.setPiece(null);
+
+	}
 }

@@ -2,6 +2,7 @@ package boardgames.g3.core;
 
 import game.api.GameState;
 import game.impl.BoardLocation;
+import game.impl.GamePiece;
 import game.io.OutputUnit;
 
 import java.util.List;
@@ -14,21 +15,29 @@ public class SolitairConsoleOutput implements OutputUnit {
 	public void publish(GameState state) {
 
 		List<BoardLocation> locations = state.getBoard().getLocations();
-		
-		
+
+		System.out.print("  1 2 3 4 5 6 7");
+		int rowCounter = 1;
 		for (int i = 0; i < locations.size(); i++) {
 			String col = locations.get(i).getId();
-			if(col == null){
-				System.out.print("   ");
-			}
-			else{
-				System.out.print(col+" ");
-			}
+			GamePiece piece = locations.get(i).getPiece();
 			
-			if ((i + 1) % COLS == 0)
+			if (i % COLS == 0) {
 				System.out.println();
-		}
+				System.out.print(rowCounter++ + " ");
+			}
 
+			if (col == null) {
+				System.out.print("  ");
+			} else {
+				if(piece == null)
+					System.out.print("X ");
+				else
+					System.out.print("O ");
+			}
+		}
+		
+		
 	}
 
 }
