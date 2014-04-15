@@ -22,17 +22,19 @@ public class BoardGamesCoreGUI extends JFrame {
 
 	private JFrame mainFrame;
 	private JPanel mainPanel;
-	private JPanel mainBorderTitlePanel;
 
 	private String title;
 
 	private JMenuBar menuBar;
-	private JMenu menuMenu;
-	private JMenu menuAbout;
-
-	private JMenuItem menuItemNewGame;
-	private JMenuItem menuItemNewSettings;
-	private JMenuItem menuItemQuit;
+	 
+	private JMenu menuMenu, 
+	              menuAbout, 
+	              menuItemNewGame;
+	
+	private JMenuItem menuItemNewGameFMK,
+	                  menuItemNewGameSolitar,
+	                  menuItemNewSettings,
+	                  menuItemQuit;
 
 	private ImageIcon backgroundImage;
 	private JLabel backgroundLabel;
@@ -41,7 +43,7 @@ public class BoardGamesCoreGUI extends JFrame {
 
 		createAllComponents();
 		settingsUpTheJFrameAndPanel();
-		setMainTitle("Menu");
+
 		
 		makesButtons();
 	}
@@ -54,23 +56,23 @@ public class BoardGamesCoreGUI extends JFrame {
 		menuMenu = new JMenu("Menu");
 		menuAbout = new JMenu("About");
 		
-		menuItemNewGame = new JMenuItem("Choose Game");
+		menuItemNewGame = new JMenu("Choose Game");
+		menuItemNewGameFMK = new JMenuItem("Fia Med Knuff");
+    menuItemNewGameSolitar = new JMenuItem("Solitär");
+		
 		menuItemNewSettings = new JMenuItem("Settings");
 		menuItemQuit = new JMenuItem("Quit");
 		
 		mainFrame = new JFrame("BoardGames");
-		mainBorderTitlePanel = new JPanel();
-		
 		mainPanel = new JPanel();
 	}
 
 	private void settingsUpTheJFrameAndPanel() {
 	
-		menuMenu.setMnemonic(KeyEvent.VK_1);
+		menuItemNewGame.add(menuItemNewGameFMK);
+		menuItemNewGame.add(menuItemNewGameSolitar);
 		
 		mainPanel.add(backgroundLabel);
-
-		mainBorderTitlePanel.add(mainPanel);
 
 		// Setting up the frame and menubar.
 		menuBar.add(menuMenu);
@@ -81,7 +83,7 @@ public class BoardGamesCoreGUI extends JFrame {
 		menuMenu.add(menuItemQuit);
 
 		mainFrame.setJMenuBar(menuBar);
-		mainFrame.setContentPane(mainBorderTitlePanel);
+		mainFrame.setContentPane(mainPanel);
 		mainFrame.setBounds(200, 50, 900, 700);
 		mainFrame.setVisible(true);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -98,40 +100,39 @@ public class BoardGamesCoreGUI extends JFrame {
 
 		menuAbout.addActionListener(new BoardGamesListenersAbout());
 
-		menuItemNewGame.addActionListener(new newGamesListeners());
+		menuItemNewGameFMK.addActionListener(new newGamesListenersFiaMedKnuff());
+		menuItemNewGameSolitar.addActionListener(new newGamesListenersSolitar());
 
 		menuItemNewSettings
 				.addActionListener(new BoardGamesListenersNewSettings());
 
 	}
-	public void setMainTitle(String title){
-		this.title = title;
-		mainBorderTitlePanel.setBorder(BorderFactory.createTitledBorder(
-				BorderFactory.createEtchedBorder(), title,
-				TitledBorder.LEFT, TitledBorder.TOP));
-		mainFrame.revalidate();
-	}
 	
-	public void setMainPanelContent(JPanel mainConcent){
+	public void setMainPanelContent(JPanel mainContent){
 		this.mainPanel.removeAll();
-		mainPanel.add(mainConcent);
+		mainPanel.add(mainContent);
 		mainFrame.revalidate();
 		}
 
+
 	
-	class newGamesListeners implements ActionListener{
+	class newGamesListenersFiaMedKnuff implements ActionListener{
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			setMainPanelContent(new BoardGamesNewGamewsGUI());
-			setMainTitle("GAMES");
+			setMainPanelContent(new BoardGamesFiaMedKnuffGUI());
+	
 			
 		}
-		
-		
-		
-		
-	}
+	}	
+	
+ class newGamesListenersSolitar implements ActionListener{
+    
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      setMainPanelContent(new BoardGamesSolitarGUI());   
+    }
+  } 
 	
 }
 

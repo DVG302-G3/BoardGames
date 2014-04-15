@@ -5,7 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
-public class BoardGamesNewGamewsGUI extends JPanel {
+public class BoardGamesSolitarGUI extends JPanel {
 
  
  private ImageIcon mainBackground = new ImageIcon(
@@ -13,7 +13,7 @@ public class BoardGamesNewGamewsGUI extends JPanel {
  private JLabel backgroundLabel; 
  
  
- public BoardGamesNewGamewsGUI(){
+ public BoardGamesSolitarGUI(){
   backgroundLabel = new JLabel(mainBackground);
   this.add(backgroundLabel);
  }
