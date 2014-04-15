@@ -1,19 +1,22 @@
 package boardgames.g3.GUI;
 
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 
-public class BoardGamesNewGamewsGUI extends BoardGamesCoreGUI {
+public class BoardGamesNewGamewsGUI extends JPanel {
 
- static String title = "Games";
- static ImageIcon mainTitle = new ImageIcon(
+ 
+ private ImageIcon mainBackground = new ImageIcon(
    "src\\boardgames\\img\\gameboardfmk.png");
+ private JLabel backgroundLabel; 
+ 
  
  public BoardGamesNewGamewsGUI(){
-  super(title, mainTitle);
+  backgroundLabel = new JLabel(mainBackground);
+  this.add(backgroundLabel);
  }
- 
-
  
  
 }
