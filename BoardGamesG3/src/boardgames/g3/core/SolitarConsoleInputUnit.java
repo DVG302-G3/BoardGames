@@ -1,4 +1,4 @@
-package boardgames.g3.core.Solitaire;
+package boardgames.g3.core;
 
 import game.api.GameState;
 import game.impl.BoardLocation;
@@ -11,7 +11,9 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
 
-public class SolitarInputUnit extends InputUnit {
+import boardgames.g3.core.Solitaire.SolitarHelpMethods;
+
+public class SolitarConsoleInputUnit extends InputUnit {
 	BufferedReader br;
 
 	@Override

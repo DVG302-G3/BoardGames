@@ -3,10 +3,9 @@ package boardgames.g3.core;
 import game.io.InputUnit;
 import game.io.IoFactory;
 import game.io.OutputUnit;
-import boardgames.g3.core.Solitaire.SolitarInputUnit;
 
-public class SolitarIOFactory implements IoFactory{
-	SolitarInputUnit inputUnit = new SolitarInputUnit();
+public class SolitarConsoleIOFactory implements IoFactory{
+	SolitarConsoleInputUnit inputUnit = new SolitarConsoleInputUnit();
 	SolitairConsoleOutput outputUnit = new SolitairConsoleOutput();
 	
 	
@@ -19,12 +18,4 @@ public class SolitarIOFactory implements IoFactory{
 	public OutputUnit getOutputUnit() {
 		return outputUnit;
 	}
-
-	public IoFactory run() {
-		// TODO Auto-generated method stub
-		return null;
-	}	
-	
-
-
 }

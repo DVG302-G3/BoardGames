@@ -12,7 +12,6 @@ public class SolitarHelpMethods {
 				if (b.getId().equals(location)) {
 					return b;
 				}
-
 			}
 		}
 		return null;
