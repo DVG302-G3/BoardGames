@@ -1,4 +1,4 @@
-package boardgames.listeners;
+package boardgames.g3.core;
 
 import java.util.Random;
 

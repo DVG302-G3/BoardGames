@@ -2,9 +2,7 @@ package boardgames.g3.GUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -12,7 +10,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.border.TitledBorder;
 
 import boardgames.listeners.BoardGamesListenersAbout;
 import boardgames.listeners.BoardGamesListenersNewSettings;
@@ -26,15 +23,11 @@ public class BoardGamesCoreGUI extends JFrame {
 	private String title;
 
 	private JMenuBar menuBar;
-	 
-	private JMenu menuMenu, 
-	              menuAbout, 
-	              menuItemNewGame;
-	
-	private JMenuItem menuItemNewGameFMK,
-	                  menuItemNewGameSolitar,
-	                  menuItemNewSettings,
-	                  menuItemQuit;
+
+	private JMenu menuMenu, menuAbout, menuItemNewGame;
+
+	private JMenuItem menuItemNewGameFMK, menuItemNewGameSolitar,
+			menuItemNewSettings, menuItemQuit;
 
 	private ImageIcon backgroundImage;
 	private JLabel backgroundLabel;
@@ -44,34 +37,34 @@ public class BoardGamesCoreGUI extends JFrame {
 		createAllComponents();
 		settingsUpTheJFrameAndPanel();
 
-		
 		makesButtons();
 	}
 
 	private void createAllComponents() {
-		backgroundImage = new ImageIcon("src\\boardgames\\img\\menubackground.png");
+		backgroundImage = new ImageIcon(
+				"src\\boardgames\\img\\menubackground.png");
 		backgroundLabel = new JLabel(backgroundImage);
-		
+
 		menuBar = new JMenuBar();
 		menuMenu = new JMenu("Menu");
 		menuAbout = new JMenu("About");
-		
+
 		menuItemNewGame = new JMenu("Choose Game");
 		menuItemNewGameFMK = new JMenuItem("Fia Med Knuff");
 		menuItemNewGameSolitar = new JMenuItem("Solitär");
-		
+
 		menuItemNewSettings = new JMenuItem("Settings");
 		menuItemQuit = new JMenuItem("Quit");
-		
+
 		mainFrame = new JFrame("BoardGames");
 		mainPanel = new JPanel();
 	}
 
 	private void settingsUpTheJFrameAndPanel() {
-	
+
 		menuItemNewGame.add(menuItemNewGameFMK);
 		menuItemNewGame.add(menuItemNewGameSolitar);
-		
+
 		mainPanel.add(backgroundLabel);
 
 		// Setting up the frame and menubar.
@@ -88,10 +81,10 @@ public class BoardGamesCoreGUI extends JFrame {
 		mainFrame.setVisible(true);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setResizable(false);
+		
 
 	}
 
-	
 	private void makesButtons() {
 
 		menuItemQuit.addActionListener(new BoardGamesListenersQuit());
@@ -100,40 +93,39 @@ public class BoardGamesCoreGUI extends JFrame {
 
 		menuAbout.addActionListener(new BoardGamesListenersAbout());
 
-		menuItemNewGameFMK.addActionListener(new newGamesListenersFiaMedKnuff());
-		menuItemNewGameSolitar.addActionListener(new newGamesListenersSolitar());
+		menuItemNewGameFMK
+				.addActionListener(new newGamesListenersFiaMedKnuff());
+		menuItemNewGameSolitar
+				.addActionListener(new newGamesListenersSolitar());
 
 		menuItemNewSettings
 				.addActionListener(new BoardGamesListenersNewSettings());
 
 	}
-	
-	public void setMainPanelContent(JPanel mainContent){
+
+	public void setMainPanelContent(JPanel mainContent) {
 		this.mainPanel.removeAll();
-		mainPanel.add(mainContent);
-		mainFrame.revalidate();
-		}
-
-
-	
-	class newGamesListenersFiaMedKnuff implements ActionListener{
 		
+		mainPanel.add(mainContent);
+		mainFrame.pack();
+		mainFrame.revalidate();
+	}
+
+	class newGamesListenersFiaMedKnuff implements ActionListener {
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			setMainPanelContent(new BoardGamesFiaMedKnuffGUI());
-	
-			
+
 		}
-	}	
-	
- class newGamesListenersSolitar implements ActionListener{
-    
-    @Override
-    public void actionPerformed(ActionEvent e) {
-      setMainPanelContent(new BoardGamesSolitarGUI());   
-    }
-  } 
-	
+	}
+
+	class newGamesListenersSolitar implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			setMainPanelContent(new BoardGamesSolitarGUI());
+		}
+	}
+
 }
-
-
