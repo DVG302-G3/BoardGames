@@ -58,7 +58,7 @@ public class BoardGamesCoreGUI extends JFrame {
 		
 		menuItemNewGame = new JMenu("Choose Game");
 		menuItemNewGameFMK = new JMenuItem("Fia Med Knuff");
-    menuItemNewGameSolitar = new JMenuItem("Solitär");
+		menuItemNewGameSolitar = new JMenuItem("Solitär");
 		
 		menuItemNewSettings = new JMenuItem("Settings");
 		menuItemQuit = new JMenuItem("Quit");

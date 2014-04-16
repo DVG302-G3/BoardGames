@@ -63,15 +63,13 @@ public class BoardGamesFiaMedKnuffGUI extends JPanel {
   
   buttonGroup       = new ButtonGroup();
   
-  
-  
   redC              = new JCheckBox();
   blueC             = new JCheckBox();
   yellowC           = new JCheckBox();
   greenC            = new JCheckBox();
   diceCheckBox      = new JCheckBox();
   
-  diceButton        = new JButton("Throw Dice");
+  diceButton        = new JButton("Roll Dice");
  }
  
  private void setUpButtonGroupAndCheckBoxes(){
@@ -132,7 +130,7 @@ public class BoardGamesFiaMedKnuffGUI extends JPanel {
   
   
   topPanelDice.setBorder(BorderFactory.createTitledBorder(
-    BorderFactory.createEtchedBorder(), "Turn The Dice", 
+    BorderFactory.createEtchedBorder(), "Roll The Dice", 
     TitledBorder.LEFT,
     TitledBorder.TOP)); 
   topPanelDice.add(diceButton);
