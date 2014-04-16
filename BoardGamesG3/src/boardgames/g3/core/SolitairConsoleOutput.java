@@ -21,7 +21,7 @@ public class SolitairConsoleOutput implements OutputUnit {
 		for (int i = 0; i < locations.size(); i++) {
 			String col = locations.get(i).getId();
 			GamePiece piece = locations.get(i).getPiece();
-			
+
 			if (i % COLS == 0) {
 				System.out.println();
 				System.out.print(rowCounter++ + " ");
@@ -30,14 +30,13 @@ public class SolitairConsoleOutput implements OutputUnit {
 			if (col == null) {
 				System.out.print("  ");
 			} else {
-				if(piece == null)
+				if (piece == null)
 					System.out.print(". ");
 				else
 					System.out.print("O ");
 			}
 		}
-		
-		
+
 	}
 
 }

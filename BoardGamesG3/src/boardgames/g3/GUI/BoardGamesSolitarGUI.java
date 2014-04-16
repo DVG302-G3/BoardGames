@@ -3,8 +3,6 @@ package boardgames.g3.GUI;
 import game.api.GameState;
 import game.impl.BoardLocation;
 import game.impl.GamePiece;
-import game.impl.Move;
-import game.io.InputUnit;
 import game.io.OutputUnit;
 
 import java.awt.BorderLayout;
@@ -20,7 +18,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
-import boardgames.g3.core.SolitarGUIIOFactory;
 import boardgames.g3.core.SolitarGUIInputUnit;
 
 public class BoardGamesSolitarGUI extends JPanel implements OutputUnit {
@@ -35,12 +32,12 @@ public class BoardGamesSolitarGUI extends JPanel implements OutputUnit {
 
 	int ROWS = 7;
 	int COLS = 7;
-	
 
 	public BoardGamesSolitarGUI() {
 		createComponents();
 		setUpPanels();
-		inputUnit  = new SolitarGUIInputUnit();
+		inputUnit = new SolitarGUIInputUnit();
+		publish(inputUnit.state);
 	}
 
 	private void createComponents() {
@@ -81,54 +78,75 @@ public class BoardGamesSolitarGUI extends JPanel implements OutputUnit {
 
 	}
 
-
 	@Override
 	public void publish(GameState gameState) {
-		
 
-		  button = new JButton[ROWS][COLS];
-		  for(int r = 0; r < ROWS; r++){
-			for(int c = 0; c < COLS; c++){
-				button[r][c] = new JButton(""+ r + c);
-				button[r][c].setSize(70,50);
-			
-				button[r][c].addActionListener(new ButtonBeadslisterners());
-				
-				midPanel.add(button[r][c]);	
-			}
-		  }
-		
+		System.out.println("Hej?");
+		midPanel.removeAll();
+		button = new JButton[ROWS][COLS];
+
 		List<BoardLocation> locations = gameState.getBoard().getLocations();
 
-		int rowCounter = 0;
-		for (int i = 0; i < locations.size(); i++) {
-			String col = locations.get(i).getId();
-			GamePiece piece = locations.get(i).getPiece();
-			button[rowCounter][i % COLS] = new JButton(); 
+		int index = 0;
+		for (int rows = 0; rows < ROWS; rows++) {
+			for (int cols = 0; cols < COLS; cols++) {
+				button[rows][cols] = new JButton();
+				button[rows][cols]
+						.addActionListener(new ButtonBeadslisterners());
+				midPanel.add(button[rows][cols]);
+
+				String col = locations.get(index).getId();
+				GamePiece piece = locations.get(index++).getPiece();
+
+				if (col == null) {
+					button[rows][cols].setVisible(false);
+				} else {
+					if (piece == null)
+						button[rows][cols].setText(" ");
+					else
+						button[rows][cols].setText(" O ");
+				}
+
+			}
+
+		}
+		
+		
+		List<BoardLocation> locations2 = gameState.getBoard().getLocations();
+
+		System.out.print("  1 2 3 4 5 6 7");
+		int rowCounter = 1;
+		for (int i = 0; i < locations2.size(); i++) {
+			String col = locations2.get(i).getId();
+			GamePiece piece = locations2.get(i).getPiece();
+
 			if (i % COLS == 0) {
-					rowCounter++;
+				System.out.println();
+				System.out.print(rowCounter++ + " ");
 			}
 
 			if (col == null) {
-				button[rowCounter][i % COLS].setVisible(false);
+				System.out.print("  ");
 			} else {
-				if(piece == null)
-					button[rowCounter][i % COLS].setText(" ");
+				if (piece == null)
+					System.out.print(". ");
 				else
-					button[rowCounter][i % COLS].setText(" O ");
+					System.out.print("O ");
 			}
 		}
+
+	
+		midPanel.revalidate();
 	}
-	
-	
+
 	class ButtonBeadslisterners implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			inputUnit.onClick("");
+			publish(inputUnit.state);
+			
 		}
 
 	}
-
-
 }

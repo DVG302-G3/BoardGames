@@ -23,6 +23,7 @@ public class SolitarConsoleInputUnit extends InputUnit {
 			notifyListenersOfMove(getNextMove(state));
 		}
 	}
+	
 
 	private Move getNextMove(GameState state) {
 		List<String> input;
