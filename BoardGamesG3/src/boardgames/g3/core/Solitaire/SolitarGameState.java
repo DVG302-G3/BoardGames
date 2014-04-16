@@ -137,7 +137,6 @@ public class SolitarGameState implements GameState {
 		String middleLoc = Integer.toString(middlePieceRow)
 				+ Integer.toString(middlePieceCol);
 
-		System.out.println(middleLoc);
 		BoardLocation middle = SolitarHelpMethods
 				.getBoardLocationFromCoordinate(middleLoc, board);
 		middle.setPiece(null);

@@ -1,7 +1,6 @@
 package boardgames.g3.core.Solitaire;
 
 import game.api.GameState;
-import game.impl.Board;
 import game.impl.BoardLocation;
 import game.impl.Move;
 import game.io.InputUnit;
@@ -27,22 +26,37 @@ public class SolitarInputUnit extends InputUnit {
 		List<String> input;
 		BoardLocation source = null;
 		BoardLocation destination = null;
+		boolean inputOK = false;
+		while (!inputOK) {
+			try {
+				System.out.println();
+				System.out.print("Mata in nästa drag:");
+				input = Arrays.asList(br.readLine().split(" "));
 
-		try {
-			System.out.println();
-			System.out.print("Mata in nästa drag:");
-			input = Arrays.asList(br.readLine().split(" "));
+				source = SolitarHelpMethods.getBoardLocationFromCoordinate(
+						input.get(0), state.getBoard());
+				destination = SolitarHelpMethods
+						.getBoardLocationFromCoordinate(input.get(1),
+								state.getBoard());
 
-			source = SolitarHelpMethods.getBoardLocationFromCoordinate(input.get(0), state.getBoard());
-			destination = SolitarHelpMethods.getBoardLocationFromCoordinate(input.get(1), state.getBoard());
+			} catch (ArrayIndexOutOfBoundsException e) {
+				System.out
+						.println("Felaktigt antal parametrar. Mata in enligt SS DD");
+				e.printStackTrace();
+			}
 
-		} catch (IOException e) {
-			e.printStackTrace();
+			catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			if (source != null && destination != null)
+				inputOK = true;
+			else
+				System.out.println("Incorrect inmatning. Testa igen");
+
 		}
 
 		return new Move(state.getPlayerInTurn(), source, destination);
 	}
-
-	
 
 }
