@@ -1,12 +1,17 @@
 package boardgames.g3.GUI;
 
 import game.api.GameState;
+import game.impl.BoardLocation;
+import game.impl.GamePiece;
+import game.impl.Move;
+import game.io.InputUnit;
 import game.io.OutputUnit;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -16,8 +21,11 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 import boardgames.g3.core.SolitarGUIIOFactory;
+import boardgames.g3.core.SolitarGUIInputUnit;
 
 public class BoardGamesSolitarGUI extends JPanel implements OutputUnit {
+
+	SolitarGUIInputUnit inputUnit;
 
 	private ImageIcon mainBackground;
 	private JLabel backgroundLabel;
@@ -25,12 +33,14 @@ public class BoardGamesSolitarGUI extends JPanel implements OutputUnit {
 
 	private JPanel topPanel, topPanelBeadsLeft, topPanelBeadsTaken, midPanel;
 
-	int rows = 7;
-	int cols = 7;
+	int ROWS = 7;
+	int COLS = 7;
+	
 
 	public BoardGamesSolitarGUI() {
 		createComponents();
 		setUpPanels();
+		inputUnit  = new SolitarGUIInputUnit();
 	}
 
 	private void createComponents() {
@@ -63,7 +73,7 @@ public class BoardGamesSolitarGUI extends JPanel implements OutputUnit {
 		topPanel.add(topPanelBeadsLeft);
 		topPanel.add(topPanelBeadsTaken);
 
-		midPanel.setLayout(new GridLayout(rows, cols));
+		midPanel.setLayout(new GridLayout(ROWS, COLS));
 
 		setLayout(new BorderLayout());
 		this.add(topPanel, BorderLayout.NORTH);
@@ -71,12 +81,14 @@ public class BoardGamesSolitarGUI extends JPanel implements OutputUnit {
 
 	}
 
-	private void updateButtonsView(){
 
+	@Override
+	public void publish(GameState gameState) {
 		
-		  button = new JButton[rows][cols];
-		  for(int r = 0; r < rows; r++){
-			for(int c = 0; c < cols; c++){
+
+		  button = new JButton[ROWS][COLS];
+		  for(int r = 0; r < ROWS; r++){
+			for(int c = 0; c < COLS; c++){
 				button[r][c] = new JButton(""+ r + c);
 				button[r][c].setSize(70,50);
 			
@@ -84,25 +96,37 @@ public class BoardGamesSolitarGUI extends JPanel implements OutputUnit {
 				
 				midPanel.add(button[r][c]);	
 			}
-		  }	
-	}
+		  }
+		
+		List<BoardLocation> locations = gameState.getBoard().getLocations();
 
-	@Override
-	public void publish(GameState gameState) {
-		buttons()
-		
-		
-		
-	}
+		int rowCounter = 0;
+		for (int i = 0; i < locations.size(); i++) {
+			String col = locations.get(i).getId();
+			GamePiece piece = locations.get(i).getPiece();
+			button[rowCounter][i % COLS] = new JButton(); 
+			if (i % COLS == 0) {
+					rowCounter++;
+			}
 
+			if (col == null) {
+				button[rowCounter][i % COLS].setVisible(false);
+			} else {
+				if(piece == null)
+					button[rowCounter][i % COLS].setText(" ");
+				else
+					button[rowCounter][i % COLS].setText(" O ");
+			}
+		}
+	}
+	
+	
 	class ButtonBeadslisterners implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			new SolitarGUIIOFactory()
-			
-			;
-	}
+			inputUnit.onClick("");
+		}
 
 	}
 
