@@ -1,7 +1,6 @@
 package boardgames.g3.GUI;
 
 import game.api.GameState;
-import game.io.InputUnit;
 import game.io.OutputUnit;
 
 import java.awt.BorderLayout;
@@ -16,8 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
-import boardgames.g3.GUI.BoardGamesFiaMedKnuffGUI.BoardGamesListenersDice;
-import boardgames.g3.core.SolitarGUIInputUnit;
+import boardgames.g3.core.SolitarGUIIOFactory;
 
 public class BoardGamesSolitarGUI extends JPanel implements OutputUnit {
 
@@ -73,7 +71,7 @@ public class BoardGamesSolitarGUI extends JPanel implements OutputUnit {
 
 	}
 
-	public void buttons(){
+	private void updateButtonsView(){
 
 		
 		  button = new JButton[rows][cols];
@@ -90,7 +88,9 @@ public class BoardGamesSolitarGUI extends JPanel implements OutputUnit {
 	}
 
 	@Override
-	public void publish(GameState arg0) {
+	public void publish(GameState gameState) {
+		buttons()
+		
 		
 		
 	}
@@ -99,7 +99,9 @@ public class BoardGamesSolitarGUI extends JPanel implements OutputUnit {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			new SolitarGUIInputUnit();
+			new SolitarGUIIOFactory()
+			
+			;
 	}
 
 	}
