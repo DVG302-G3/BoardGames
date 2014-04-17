@@ -40,6 +40,7 @@ public class BoardGamesFiaMedKnuffGUI extends JPanel {
 		createComponents();
 		setUpPanels();
 		setUpButtonGroupAndCheckBoxes();
+		buttons();
 	}
 
 	private void createComponents() {

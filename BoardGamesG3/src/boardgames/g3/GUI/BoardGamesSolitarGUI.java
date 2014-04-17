@@ -25,110 +25,107 @@ import boardgames.g3.core.SolitarGUIInputUnit;
 
 public class BoardGamesSolitarGUI extends JPanel implements OutputUnit {
 
-	SolitarGUIInputUnit inputUnit;
+ SolitarGUIInputUnit inputUnit;
 
-	private ImageIcon mainBackground;
-	private JLabel backgroundLabel;
-	private JButton button[][];
+ private ImageIcon mainBackground;
+ private JLabel backgroundLabel;
+ private JButton button[][];
 
-	private JPanel topPanel, topPanelBeadsLeft, topPanelBeadsTaken, midPanel;
+ private JPanel topPanel, 
+                topPanelBeadsLeft, 
+                topPanelBeadsTaken, 
+                midPanel;
 
-	int ROWS = 7;
-	int COLS = 7;
-	
+ int ROWS = 7;
+ int COLS = 7;
 
-	public BoardGamesSolitarGUI() {
-		createComponents();
-		setUpPanels();
-		inputUnit  = new SolitarGUIInputUnit();
-	}
+ public BoardGamesSolitarGUI() {
+  createComponents();
+  setUpPanels();
+  inputUnit = new SolitarGUIInputUnit();
+ }
 
-	private void createComponents() {
-		mainBackground = new ImageIcon(
-				"src\\boardgames\\img\\menubackgroundFMK.png");
-		backgroundLabel = new JLabel(mainBackground);
+ private void createComponents() {
+  mainBackground = new ImageIcon("src\\boardgames\\img\\menubackgroundFMK.png");
+  backgroundLabel = new JLabel(mainBackground);
 
-		topPanel = new JPanel(new GridLayout(0, 2));
-		topPanelBeadsLeft = new JPanel();
-		topPanelBeadsTaken = new JPanel();
+  topPanel = new JPanel(new GridLayout(0, 2));
+  topPanelBeadsLeft = new JPanel();
+  topPanelBeadsTaken = new JPanel();
 
-		midPanel = new JPanel();
+  midPanel = new JPanel();
 
-	}
+ }
 
-	private void setUpPanels() {
+ private void setUpPanels() {
 
-		topPanel.setBorder(BorderFactory.createTitledBorder(
-				BorderFactory.createEtchedBorder(), "Solitär",
-				TitledBorder.LEFT, TitledBorder.TOP));
+  topPanel.setBorder(BorderFactory.createTitledBorder(
+    BorderFactory.createEtchedBorder(), "Solitär", TitledBorder.LEFT,
+    TitledBorder.TOP));
 
-		topPanelBeadsLeft.setBorder(BorderFactory.createTitledBorder(
-				BorderFactory.createEtchedBorder(), "Beads Left",
-				TitledBorder.LEFT, TitledBorder.TOP));
+  topPanelBeadsLeft.setBorder(BorderFactory.createTitledBorder(
+    BorderFactory.createEtchedBorder(), "Beads Left", TitledBorder.LEFT,
+    TitledBorder.TOP));
 
-		topPanelBeadsTaken.setBorder(BorderFactory.createTitledBorder(
-				BorderFactory.createEtchedBorder(), "Beads Taken",
-				TitledBorder.LEFT, TitledBorder.TOP));
+  topPanelBeadsTaken.setBorder(BorderFactory.createTitledBorder(
+    BorderFactory.createEtchedBorder(), "Beads Taken", TitledBorder.LEFT,
+    TitledBorder.TOP));
 
-		topPanel.add(topPanelBeadsLeft);
-		topPanel.add(topPanelBeadsTaken);
+  topPanel.add(topPanelBeadsLeft);
+  topPanel.add(topPanelBeadsTaken);
 
-		midPanel.setLayout(new GridLayout(ROWS, COLS));
+  midPanel.setLayout(new GridLayout(ROWS, COLS));
 
-		setLayout(new BorderLayout());
-		this.add(topPanel, BorderLayout.NORTH);
-		this.add(midPanel, BorderLayout.CENTER);
+  setLayout(new BorderLayout());
+  this.add(topPanel, BorderLayout.NORTH);
+  this.add(midPanel, BorderLayout.CENTER);
 
-	}
+ }
 
+ @Override
+ public void publish(GameState gameState) {
 
-	@Override
-	public void publish(GameState gameState) {
-		
+  button = new JButton[ROWS][COLS];
+  for (int r = 0; r < ROWS; r++) {
+   for (int c = 0; c < COLS; c++) {
+    button[r][c] = new JButton("" + r + c);
+    button[r][c].setSize(70, 50);
 
-		  button = new JButton[ROWS][COLS];
-		  for(int r = 0; r < ROWS; r++){
-			for(int c = 0; c < COLS; c++){
-				button[r][c] = new JButton(""+ r + c);
-				button[r][c].setSize(70,50);
-			
-				button[r][c].addActionListener(new ButtonBeadslisterners());
-				
-				midPanel.add(button[r][c]);	
-			}
-		  }
-		
-		List<BoardLocation> locations = gameState.getBoard().getLocations();
+    button[r][c].addActionListener(new ButtonBeadslisterners());
 
-		int rowCounter = 0;
-		for (int i = 0; i < locations.size(); i++) {
-			String col = locations.get(i).getId();
-			GamePiece piece = locations.get(i).getPiece();
-			button[rowCounter][i % COLS] = new JButton(); 
-			if (i % COLS == 0) {
-					rowCounter++;
-			}
+    midPanel.add(button[r][c]);
+   }
+  }
 
-			if (col == null) {
-				button[rowCounter][i % COLS].setVisible(false);
-			} else {
-				if(piece == null)
-					button[rowCounter][i % COLS].setText(" ");
-				else
-					button[rowCounter][i % COLS].setText(" O ");
-			}
-		}
-	}
-	
-	
-	class ButtonBeadslisterners implements ActionListener {
+  List<BoardLocation> locations = gameState.getBoard().getLocations();
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			inputUnit.onClick("");
-		}
+  int rowCounter = 0;
+  for (int i = 0; i < locations.size(); i++) {
+   String col = locations.get(i).getId();
+   GamePiece piece = locations.get(i).getPiece();
+   button[rowCounter][i % COLS] = new JButton();
+   if (i % COLS == 0) {
+    rowCounter++;
+   }
 
-	}
+   if (col == null) {
+    button[rowCounter][i % COLS].setVisible(false);
+   } else {
+    if (piece == null)
+     button[rowCounter][i % COLS].setText(" ");
+    else
+     button[rowCounter][i % COLS].setText(" O ");
+   }
+  }
+ }
 
+ class ButtonBeadslisterners implements ActionListener {
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
+   inputUnit.onClick("");
+  }
+
+ }
 
 }
