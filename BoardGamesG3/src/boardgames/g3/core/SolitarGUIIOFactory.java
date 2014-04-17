@@ -7,7 +7,7 @@ import game.io.OutputUnit;
 
 public class SolitarGUIIOFactory implements IoFactory{
 	SolitarGUIInputUnit inputUnit = new SolitarGUIInputUnit();
-	BoardGamesSolitarGUI outputUnit;
+	SolitarGUIOutputUnit outputUnit;
 	
 	@Override
 	public InputUnit getInputUnit() {
@@ -17,7 +17,7 @@ public class SolitarGUIIOFactory implements IoFactory{
 	@Override
 	public OutputUnit getOutputUnit() {
 		if(outputUnit == null){
-			outputUnit = new BoardGamesSolitarGUI();
+			outputUnit = new SolitarGUIOutputUnit();
 		}
 		return outputUnit;
 	}

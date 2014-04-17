@@ -31,9 +31,9 @@ public class SolitairConsoleOutput implements OutputUnit {
 				System.out.print("  ");
 			} else {
 				if (piece == null)
-					System.out.print(". ");
+					System.out.print(" . ");
 				else
-					System.out.print("O ");
+					System.out.print(" O ");
 			}
 		}
 
