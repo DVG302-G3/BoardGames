@@ -2,6 +2,7 @@ package Test;
 
 import static org.junit.Assert.*;
 import game.impl.BoardLocation;
+import game.impl.GamePiece;
 import game.impl.Move;
 
 import org.junit.Before;
@@ -46,6 +47,18 @@ public class SolitairGameStateTest {
 		}
 
 		assertTrue(gameState.hasEnded());
+	
+		int index = 0;
+		for (BoardLocation b : gameState.getBoard().getLocations()) {
+			if(index%2 == 0)
+				b.setPiece(null);
+			else
+				b.setPiece(new GamePiece("O"));
+		}
+
+		assertTrue(gameState.hasEnded());
+
+	
 	}
 
 }
