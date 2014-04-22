@@ -26,9 +26,9 @@ public class SolitarGameState implements GameState {
 		this.board = new Board(createBoardLocations());
 		putAllTheBeadsOnTheBoard();
 		this.player = new Player("Playah!", null);
-		ruler = new RuleControllerSolitar();
+		ruler = new RuleControllerSolitar(ROWS, COLS);
 	}
-	
+
 	private void putAllTheBeadsOnTheBoard() {
 		for (BoardLocation b : board.getLocations()) {
 			b.setPiece(new GamePiece("O"));
@@ -99,39 +99,7 @@ public class SolitarGameState implements GameState {
 
 	@Override
 	public Boolean hasEnded() {
-		boolean movePossible = false;
-		BoardLocation[][] tmpBoard = SolitarHelpMethods.get2DBoard(ROWS, COLS, board.getLocations());
-		for(int r = 0;r<ROWS;r++){
-			for(int c = 0;c<COLS;c++){
-				GamePiece currentPiece = tmpBoard[r][c].getPiece();
-				if(currentPiece != null){
-					if(c<(COLS-2)){
-						GamePiece rightPiece = tmpBoard[r][c+1].getPiece();
-						GamePiece secondRightPiece = tmpBoard[r][c+2].getPiece();
-						if(rightPiece != null && secondRightPiece == null)
-						{
-							movePossible = true;
-							break;
-						}
-					}
-					
-					else{
-						if(r<(ROWS-2)){
-							GamePiece pieceBelow = tmpBoard[r+1][c].getPiece();
-							GamePiece twoBelow = tmpBoard[r+2][c].getPiece();
-							if(pieceBelow != null && twoBelow == null){
-								movePossible = true;
-								break;
-							}
-						}
-					}
-					
-				}
-			}
-		}
-		
-		
-		return !movePossible;
+		return ruler.isGameFinished(this);
 	}
 
 	@Override
