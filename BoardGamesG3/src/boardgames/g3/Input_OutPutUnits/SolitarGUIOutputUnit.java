@@ -92,28 +92,6 @@ public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 			}
 		}
 
-		List<BoardLocation> locations2 = gameState.getBoard().getLocations();
-		System.out.println("");
-		System.out.print("  1 2 3 4 5 6 7");
-		int rowCounter = 1;
-		for (int i = 0; i < locations2.size(); i++) {
-			String col = locations2.get(i).getId();
-			GamePiece piece = locations2.get(i).getPiece();
-
-			if (i % COLS == 0) {
-				System.out.println();
-				System.out.print(rowCounter++ + " ");
-			}
-
-			if (col == null) {
-				System.out.print("  ");
-			} else {
-				if (piece == null)
-					System.out.print(". ");
-				else
-					System.out.print("O ");
-			}
-		}
 		backgroundPanel.revalidate();
 	}
 
