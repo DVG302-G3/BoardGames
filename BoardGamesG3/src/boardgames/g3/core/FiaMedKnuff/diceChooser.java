@@ -1,4 +1,4 @@
-package boardgames.g3.core;
+package boardgames.g3.core.FiaMedKnuff;
 
 import java.util.Random;
 

@@ -3,24 +3,22 @@ package boardgames.g3.GUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
 
 import boardgames.listeners.BoardGamesListenersAbout;
-import boardgames.listeners.BoardGamesListenersNewSettings;
 import boardgames.listeners.BoardGamesListenersQuit;
 
 public class BoardGamesCoreGUI extends JFrame {
 
 	private JFrame mainFrame;
 	private JPanel mainPanel;
-
-	private String title;
 
 	private JMenuBar menuBar;
 
@@ -29,8 +27,7 @@ public class BoardGamesCoreGUI extends JFrame {
 	private JMenuItem menuItemNewGameFMK, menuItemNewGameSolitar,
 			menuItemNewSettings, menuItemQuit;
 
-	private ImageIcon backgroundImage;
-	private JLabel backgroundLabel;
+	ImagePanel backgroundPanel;
 
 	public BoardGamesCoreGUI() {
 
@@ -41,9 +38,9 @@ public class BoardGamesCoreGUI extends JFrame {
 	}
 
 	private void createAllComponents() {
-		backgroundImage = new ImageIcon(
-				"src\\boardgames\\img\\menubackground.png");
-		backgroundLabel = new JLabel(backgroundImage);
+
+		backgroundPanel = new ImagePanel(new ImageIcon(
+				"src\\boardgames\\img\\menubackground.png").getImage());
 
 		menuBar = new JMenuBar();
 		menuMenu = new JMenu("Menu");
@@ -65,7 +62,7 @@ public class BoardGamesCoreGUI extends JFrame {
 		menuItemNewGame.add(menuItemNewGameFMK);
 		menuItemNewGame.add(menuItemNewGameSolitar);
 
-		mainPanel.add(backgroundLabel);
+		mainPanel.add(backgroundPanel);
 
 		// Setting up the frame and menubar.
 		menuBar.add(menuMenu);
@@ -77,11 +74,11 @@ public class BoardGamesCoreGUI extends JFrame {
 
 		mainFrame.setJMenuBar(menuBar);
 		mainFrame.setContentPane(mainPanel);
-		mainFrame.setBounds(200, 50, 900, 700);
+		mainFrame.setBounds(200, 50, 900, 800);
 		mainFrame.setVisible(true);
+		mainFrame.pack();
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setResizable(false);
-		
 
 	}
 
@@ -89,26 +86,25 @@ public class BoardGamesCoreGUI extends JFrame {
 
 		menuItemQuit.addActionListener(new BoardGamesListenersQuit());
 
-		// quitButton.addActionListener(new BoardGamesListenersQuit());
-
 		menuAbout.addActionListener(new BoardGamesListenersAbout());
 
 		menuItemNewGameFMK
 				.addActionListener(new newGamesListenersFiaMedKnuff());
+
 		menuItemNewGameSolitar
 				.addActionListener(new newGamesListenersSolitar());
 
 		menuItemNewSettings
-				.addActionListener(new BoardGamesListenersNewSettings());
+				.addActionListener(new newSettingsListenersSolitar());
 
 	}
 
 	public void setMainPanelContent(JPanel mainContent) {
 		this.mainPanel.removeAll();
-		
-		mainPanel.add(mainContent);
+		this.mainPanel.invalidate();
+		this.mainPanel.add(mainContent);
 		mainFrame.pack();
-		mainFrame.revalidate();
+		this.mainFrame.revalidate();
 	}
 
 	class newGamesListenersFiaMedKnuff implements ActionListener {
@@ -116,7 +112,6 @@ public class BoardGamesCoreGUI extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			setMainPanelContent(new BoardGamesFiaMedKnuffGUI());
-
 		}
 	}
 
@@ -125,6 +120,14 @@ public class BoardGamesCoreGUI extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			setMainPanelContent(new BoardGamesSolitarGUI());
+		}
+	}
+
+	class newSettingsListenersSolitar implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			setMainPanelContent(new BoardGamesSettingsGUI());
 		}
 	}
 

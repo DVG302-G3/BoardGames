@@ -1,4 +1,4 @@
-package boardgames.g3.core;
+package boardgames.g3.Input_OutPutUnits;
 
 import game.api.GameState;
 import game.impl.BoardLocation;
@@ -7,7 +7,7 @@ import game.io.OutputUnit;
 
 import java.util.List;
 
-public class SolitairConsoleOutput implements OutputUnit {
+public class SolitarConsoleOutput implements OutputUnit {
 	final int ROWS = 7;
 	final int COLS = 7;
 
@@ -31,9 +31,9 @@ public class SolitairConsoleOutput implements OutputUnit {
 				System.out.print("  ");
 			} else {
 				if (piece == null)
-					System.out.print(". ");
+					System.out.print(" . ");
 				else
-					System.out.print("O ");
+					System.out.print(" O ");
 			}
 		}
 

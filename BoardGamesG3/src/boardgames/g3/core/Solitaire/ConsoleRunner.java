@@ -1,6 +1,6 @@
 package boardgames.g3.core.Solitaire;
 
-import boardgames.g3.core.SolitarConsoleIOFactory;
+import boardgames.g3.Input_OutPutUnits.SolitarConsoleIOFactory;
 import game.init.Runner;
 
 public class ConsoleRunner{

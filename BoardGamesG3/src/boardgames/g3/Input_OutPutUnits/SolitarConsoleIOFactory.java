@@ -1,4 +1,4 @@
-package boardgames.g3.core;
+package boardgames.g3.Input_OutPutUnits;
 
 import game.io.InputUnit;
 import game.io.IoFactory;
@@ -6,7 +6,7 @@ import game.io.OutputUnit;
 
 public class SolitarConsoleIOFactory implements IoFactory{
 	SolitarConsoleInputUnit inputUnit = new SolitarConsoleInputUnit();
-	SolitairConsoleOutput outputUnit = new SolitairConsoleOutput();
+	SolitarConsoleOutput outputUnit = new SolitarConsoleOutput();
 	
 	
 	@Override
