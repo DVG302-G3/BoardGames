@@ -5,9 +5,9 @@ import java.awt.Graphics;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
-import javax.swing.JPanel;
+import javax.swing.JLabel;
 
-public class ImagePanel extends JPanel {
+public class ImagePanel extends JLabel {
 
  private Image img;
 
