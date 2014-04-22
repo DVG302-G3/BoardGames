@@ -49,39 +49,42 @@ public class RuleControllerSolitar {
 
 	public Boolean isGameFinished(GameState gamestate) {
 		boolean movePossible = false;
-		BoardLocation[][] tmpBoard = SolitarHelpMethods.get2DBoard(ROWS, COLS,
-				gamestate.getBoard().getLocations());
-		for (int r = 0; r < ROWS; r++) {
-			for (int c = 0; c < COLS; c++) {
+		BoardLocation[][] tmpBoard = SolitarHelpMethods.get2DBoard(ROWS, COLS,gamestate.getBoard().getLocations());
+		movePossible = iterateBoardForMoves(tmpBoard);
+		return !movePossible;
+	}
+
+	private boolean iterateBoardForMoves(BoardLocation[][] tmpBoard) {
+		boolean movePossible = false;
+		for (int r = 0; r < ROWS && !movePossible; r++) {
+			for (int c = 0; c < COLS && !movePossible; c++) {
 				GamePiece currentPiece = tmpBoard[r][c].getPiece();
 				if (currentPiece != null) {
-					if (c < (COLS - 2)) {
+					if (withinBoundsCols(c)) {
 						GamePiece rightPiece = tmpBoard[r][c + 1].getPiece();
-						GamePiece secondRightPiece = tmpBoard[r][c + 2]
-								.getPiece();
-						if (rightPiece != null && secondRightPiece == null) {
-							movePossible = true;
-							break;
-						}
+						GamePiece secondRightPiece = tmpBoard[r][c + 2].getPiece();
+						movePossible = movePossible(rightPiece,secondRightPiece);
 					}
-
-					else {
-						if (r < (ROWS - 2)) {
-							GamePiece pieceBelow = tmpBoard[r + 1][c]
-									.getPiece();
-							GamePiece twoBelow = tmpBoard[r + 2][c].getPiece();
-							if (pieceBelow != null && twoBelow == null) {
-								movePossible = true;
-								break;
-							}
-						}
+					if (withinBoundsRows(r)) {
+						GamePiece pieceBelow = tmpBoard[r + 1][c].getPiece();
+						GamePiece twoBelow = tmpBoard[r + 2][c].getPiece();
+						movePossible = movePossible(pieceBelow, twoBelow);
 					}
-
 				}
 			}
 		}
+		return movePossible;
+	}
 
-		return !movePossible;
+	private boolean withinBoundsRows(int r) {
+		return r < (ROWS - 2);
+	}
 
+	private boolean withinBoundsCols(int c) {
+		return c < (COLS - 2);
+	}
+
+	private boolean movePossible(GamePiece firstPiece, GamePiece secondPiece) {
+		return firstPiece != null && secondPiece == null;
 	}
 }
