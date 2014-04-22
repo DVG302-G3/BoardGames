@@ -1,4 +1,4 @@
-package boardgames.g3.core;
+package boardgames.g3.Input_OutPutUnits;
 
 import boardgames.g3.GUI.BoardGamesSolitarGUI;
 import game.io.InputUnit;

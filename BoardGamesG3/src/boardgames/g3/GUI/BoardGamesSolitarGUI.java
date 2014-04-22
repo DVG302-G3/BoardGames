@@ -4,15 +4,19 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
-import boardgames.g3.core.SolitarGUIOutputUnit;
+import boardgames.g3.Input_OutPutUnits.SolitarGUIOutputUnit;
 
 public class BoardGamesSolitarGUI extends JPanel{
 
 	private JPanel topPanel, topPanelBeadsLeft, topPanelBeadsTaken, midPanel;
-
+	
+	ImagePanel backgroundPanel; 
+	
 	public BoardGamesSolitarGUI() {
 		createComponents();
 		setUpPanels();
@@ -23,13 +27,15 @@ public class BoardGamesSolitarGUI extends JPanel{
 	}
 
 	private void createComponents() {
+	  backgroundPanel = new ImagePanel(new ImageIcon(
+      "src\\boardgames\\img\\backgroundSolitaire.png").getImage());
 
 		topPanel = new JPanel(new GridLayout(0, 2));
 		topPanelBeadsLeft = new JPanel();
 		topPanelBeadsTaken = new JPanel();
 
 		midPanel = new JPanel();
-
+		
 	}
 
 	private void setUpPanels() {
@@ -49,16 +55,22 @@ public class BoardGamesSolitarGUI extends JPanel{
 		topPanel.add(topPanelBeadsLeft);
 		topPanel.add(topPanelBeadsTaken);
 
+		midPanel.add(backgroundPanel);
+		
 		this.setLayout(new BorderLayout());
 	  this.add(topPanel, BorderLayout.NORTH);
+	  this.add(midPanel, BorderLayout.CENTER);
 
 	}
 	
 	private void setNewMidPanel(JPanel newMidPanel){
 	 this.midPanel.removeAll();
+	 this.midPanel.invalidate();
+	 this.midPanel.add(newMidPanel);
 	 
-   this.add(newMidPanel, BorderLayout.CENTER);
-	 this.revalidate();
+//	 newMidPanel.add(backgroundLabel);
+//   this.add(newMidPanel, BorderLayout.CENTER);
+   this.revalidate();
 	 
 	}
 

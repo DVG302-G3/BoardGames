@@ -1,4 +1,4 @@
-package boardgames.g3.core;
+ package boardgames.g3.Input_OutPutUnits;
 
 import game.api.GameState;
 import game.impl.BoardLocation;
@@ -33,7 +33,7 @@ public class SolitarConsoleInputUnit extends InputUnit {
 		while (!inputOK) {
 			try {
 				System.out.println();
-				System.out.print("Mata in nästa drag:");
+				System.out.print("Mata in nï¿½sta drag:");
 				input = Arrays.asList(br.readLine().split(" "));
 
 				source = SolitarHelpMethods.getBoardLocationFromCoordinate(

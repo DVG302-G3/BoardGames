@@ -1,4 +1,4 @@
-package boardgames.g3.core;
+package boardgames.g3.Input_OutPutUnits;
 
 import game.api.GameState;
 import game.impl.BoardLocation;
@@ -10,9 +10,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.xml.crypto.KeySelector.Purpose;
+
+import boardgames.g3.core.GUIGridButtonID;
 
 public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 
@@ -25,6 +27,7 @@ public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 
  public SolitarGUIOutputUnit() {
   this.setLayout(new GridLayout(ROWS, COLS));
+  
   inputUnit = new SolitarGUIInputUnit();
   publish(inputUnit.state);
  }
@@ -35,13 +38,18 @@ public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
   this.removeAll();
   button = new JButton[ROWS][COLS];
 
+  
   List<BoardLocation> locations = gameState.getBoard().getLocations();
 
   int index = 0;
   for (int rows = 0; rows < ROWS; rows++) {
    for (int cols = 0; cols < COLS; cols++) {
-    button[rows][cols] = new JButton();
+    button[rows][cols] = new GUIGridButtonID(Integer.toString((rows + 1)) + Integer.toString((cols + 1)));
+    button[rows][cols].setBorderPainted(false);
+    button[rows][cols].setContentAreaFilled(false);
+    
     button[rows][cols].addActionListener(new ButtonBeadslisterners());
+
     this.add(button[rows][cols]);
 
     String col = locations.get(index).getId();
@@ -51,9 +59,9 @@ public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
      button[rows][cols].setVisible(false);
     } else {
      if (piece == null)
-      button[rows][cols].setText(" ☻ ");
+      button[rows][cols].setIcon(new ImageIcon("src\\boardgames\\img\\emptybeadsolitaire.png"));
      else
-      button[rows][cols].setText(" ☺ ");
+      button[rows][cols].setIcon(new ImageIcon("src\\boardgames\\img\\beadsolitaire.png"));
     }
    }
   }
@@ -87,7 +95,11 @@ public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 
   @Override
   public void actionPerformed(ActionEvent e) {
-   inputUnit.onClick("");
+   GUIGridButtonID buttonGUI = (GUIGridButtonID) e.getSource();
+
+    inputUnit.onClick(buttonGUI.getStringId());
+
+   System.out.println(buttonGUI.getStringId());
    publish(inputUnit.state);
   }
  }
