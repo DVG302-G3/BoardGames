@@ -3,7 +3,7 @@ package boardgames.g3.core;
 import game.api.GameState;
 import game.impl.Board;
 import game.impl.BoardLocation;
-import game.impl.DieRollFactory;
+//import game.impl.DieRollFactory;
 import game.impl.GamePiece;
 import game.impl.Move;
 import game.impl.Player;
