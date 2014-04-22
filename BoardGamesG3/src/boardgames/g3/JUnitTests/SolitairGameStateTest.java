@@ -1,4 +1,4 @@
-package Test;
+package boardgames.g3.JUnitTests;
 
 import static org.junit.Assert.*;
 import game.impl.BoardLocation;
