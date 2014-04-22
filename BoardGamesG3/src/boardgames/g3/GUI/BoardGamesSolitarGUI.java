@@ -1,14 +1,19 @@
 package boardgames.g3.GUI;
 
+import game.api.GameState;
+import game.init.Runner;
+
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
+import boardgames.g3.Input_OutPutUnits.SolitarGUIIOFactory;
+import boardgames.g3.Input_OutPutUnits.SolitarGUIInputUnit;
 import boardgames.g3.Input_OutPutUnits.SolitarGUIOutputUnit;
+import boardgames.g3.core.Solitaire.SolitarGameState;
 
 public class BoardGamesSolitarGUI extends JPanel{
 
@@ -18,9 +23,12 @@ public class BoardGamesSolitarGUI extends JPanel{
 	public BoardGamesSolitarGUI() {
 		createComponents();
 		setUpPanels();
-
 		
-		setNewMidPanel(new SolitarGUIOutputUnit());
+
+		SolitarGUIInputUnit in = new SolitarGUIInputUnit();
+		SolitarGUIOutputUnit out = new SolitarGUIOutputUnit(in);
+		new Runner(new SolitarGameState(), new SolitarGUIIOFactory(in, out)).run();
+		setNewMidPanel(out);
 	
 	}
 

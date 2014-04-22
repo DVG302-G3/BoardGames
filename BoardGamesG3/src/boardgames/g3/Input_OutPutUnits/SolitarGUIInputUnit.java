@@ -1,31 +1,35 @@
 package boardgames.g3.Input_OutPutUnits;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.naming.ldap.SortControl;
 
 import game.api.GameState;
 import game.impl.BoardLocation;
 import game.impl.Move;
 import game.io.InputUnit;
+import boardgames.g3.core.FiaMedKnuff.GUIGridButtonID;
 import boardgames.g3.core.Solitaire.SolitarGameState;
 import boardgames.g3.core.Solitaire.SolitarHelpMethods;
 
-public class SolitarGUIInputUnit extends InputUnit {
+public class SolitarGUIInputUnit extends InputUnit implements ActionListener {
 
-	public GameState state = new SolitarGameState();
+	public GameState state;
 
 	BoardLocation sourceClick = null;
 	BoardLocation destinationClick = null;
 
 	@Override
 	public void setup(GameState arg0) {
+		System.out.println(arg0);
 		state = arg0;
 
 	}
 
 	public void onClick(String coordinate) {
 
-		 
-	   if (sourceClick == null) {
+		if (sourceClick == null) {
 	    sourceClick = SolitarHelpMethods.getBoardLocationFromCoordinate(coordinate,
 	      state.getBoard());
 	
@@ -36,7 +40,8 @@ public class SolitarGUIInputUnit extends InputUnit {
 	    destinationClick = SolitarHelpMethods.getBoardLocationFromCoordinate(
 	      coordinate, state.getBoard());
 	    
-	    state.proposeMove(new Move(state.getPlayerInTurn(), sourceClick,
+	    System.out.println("hejsan");
+	    notifyListenersOfMove(new Move(state.getPlayerInTurn(), sourceClick,
 	    	      destinationClick));
    
     sourceClick = null;
@@ -45,4 +50,10 @@ public class SolitarGUIInputUnit extends InputUnit {
 
  
  }
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		GUIGridButtonID buttonGUI = (GUIGridButtonID) arg0.getSource();
+		onClick(buttonGUI.getStringId());		
+	}
 }

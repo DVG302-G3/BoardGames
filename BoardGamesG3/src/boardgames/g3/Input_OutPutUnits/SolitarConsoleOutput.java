@@ -16,6 +16,9 @@ public class SolitarConsoleOutput implements OutputUnit {
 
 		List<BoardLocation> locations = state.getBoard().getLocations();
 
+		
+		
+		
 		System.out.print("  1 2 3 4 5 6 7");
 		int rowCounter = 1;
 		for (int i = 0; i < locations.size(); i++) {

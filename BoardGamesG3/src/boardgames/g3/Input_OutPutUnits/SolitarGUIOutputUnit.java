@@ -22,43 +22,34 @@ import boardgames.g3.core.FiaMedKnuff.GUIGridButtonID;
 
 public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 
-	SolitarGUIInputUnit inputUnit;
-
 	ImagePanel backgroundPanel;
-	
+
 	private JPanel mainPanel;
+	private SolitarGUIInputUnit in;
 
 	private JButton button[][];
 
 	int ROWS = 7;
 	int COLS = 7;
 
-	public SolitarGUIOutputUnit() {
+	public SolitarGUIOutputUnit(SolitarGUIInputUnit input) {
 		this.setLayout(new GridLayout(ROWS, COLS));
-
+		in = input;
 		backgroundPanel = new ImagePanel(new ImageIcon(
 				"src\\boardgames\\img\\backgroundSolitaire.png").getImage());
 
-		
-		inputUnit = new SolitarGUIInputUnit();
-		
 		setLayout(new BorderLayout());
 		add(backgroundPanel);
 		backgroundPanel.setLayout(new GridLayout(ROWS, COLS));
-		
-		publish(inputUnit.state);
-		
+
 	}
 
 	@Override
 	public void publish(GameState gameState) {
 
-		
 		backgroundPanel.removeAll();
 		button = new JButton[ROWS][COLS];
 
-
-		
 		List<BoardLocation> locations = gameState.getBoard().getLocations();
 
 		int index = 0;
@@ -70,8 +61,7 @@ public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 				button[rows][cols].setBorderPainted(false);
 				button[rows][cols].setContentAreaFilled(false);
 
-				button[rows][cols]
-						.addActionListener(new ButtonBeadslisterners());
+				button[rows][cols].addActionListener(in);
 
 				backgroundPanel.add(button[rows][cols]);
 
@@ -95,16 +85,4 @@ public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 		backgroundPanel.revalidate();
 	}
 
-	class ButtonBeadslisterners implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			GUIGridButtonID buttonGUI = (GUIGridButtonID) e.getSource();
-
-			inputUnit.onClick(buttonGUI.getStringId());
-
-			System.out.println(buttonGUI.getStringId());
-			publish(inputUnit.state);
-		}
-	}
 }

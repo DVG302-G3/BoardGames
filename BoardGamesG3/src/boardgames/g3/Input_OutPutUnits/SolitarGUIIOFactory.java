@@ -1,13 +1,17 @@
 package boardgames.g3.Input_OutPutUnits;
 
-import boardgames.g3.GUI.BoardGamesSolitarGUI;
 import game.io.InputUnit;
 import game.io.IoFactory;
 import game.io.OutputUnit;
 
 public class SolitarGUIIOFactory implements IoFactory{
-	SolitarGUIInputUnit inputUnit = new SolitarGUIInputUnit();
+	SolitarGUIInputUnit inputUnit;
 	SolitarGUIOutputUnit outputUnit;
+	
+	public SolitarGUIIOFactory(SolitarGUIInputUnit in, SolitarGUIOutputUnit out) {
+		inputUnit = in;
+		outputUnit = out;
+	}
 	
 	@Override
 	public InputUnit getInputUnit() {
@@ -16,9 +20,6 @@ public class SolitarGUIIOFactory implements IoFactory{
 
 	@Override
 	public OutputUnit getOutputUnit() {
-		if(outputUnit == null){
-			outputUnit = new SolitarGUIOutputUnit();
-		}
 		return outputUnit;
 	}
 }
