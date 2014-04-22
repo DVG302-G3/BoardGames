@@ -3,12 +3,14 @@ package boardgames.g3.GUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
 
 import boardgames.listeners.BoardGamesListenersAbout;
 import boardgames.listeners.BoardGamesListenersQuit;
@@ -62,6 +64,7 @@ public class BoardGamesCoreGUI extends JFrame {
 
   mainPanel.add(backgroundPanel);
 
+  
   // Setting up the frame and menubar.
   menuBar.add(menuMenu);
   menuBar.add(menuAbout);
@@ -73,7 +76,7 @@ public class BoardGamesCoreGUI extends JFrame {
   mainFrame.setJMenuBar(menuBar);
   mainFrame.getContentPane().add(mainPanel);
   // mainFrame.setContentPane(mainPanel);
-  mainFrame.setBounds(200, 50, 900, 700);
+  mainFrame.setBounds(200, 50, 900, 800);
   mainFrame.setVisible(true);
   mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   mainFrame.setResizable(false);
@@ -96,8 +99,9 @@ public class BoardGamesCoreGUI extends JFrame {
 
  public void setMainPanelContent(JPanel mainContent) {
   this.mainPanel.removeAll();
+  this.mainPanel.invalidate();
   this.mainPanel.add(mainContent);
-  this.mainPanel.revalidate();
+  this.mainFrame.revalidate();
  }
  
 

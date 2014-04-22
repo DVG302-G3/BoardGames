@@ -14,7 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import boardgames.g3.core.GUIGridButtonID;
+import boardgames.g3.core.FiaMedKnuff.GUIGridButtonID;
 
 public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 

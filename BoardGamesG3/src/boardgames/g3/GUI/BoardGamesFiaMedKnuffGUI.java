@@ -15,7 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
-import boardgames.g3.core.diceChooser;
+import boardgames.g3.core.FiaMedKnuff.diceChooser;
 
 public class BoardGamesFiaMedKnuffGUI extends JPanel {
 

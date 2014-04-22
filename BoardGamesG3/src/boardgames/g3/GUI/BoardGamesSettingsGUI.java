@@ -1,9 +1,7 @@
 package boardgames.g3.GUI;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import javax.swing.border.TitledBorder;
 
 public class BoardGamesSettingsGUI extends JPanel {
 
@@ -19,16 +17,12 @@ public class BoardGamesSettingsGUI extends JPanel {
  private void createAllComponents() {
 
   backgroundPanel = new ImagePanel(new ImageIcon(
-    "src\\boardgames\\img\\menubackground.png").getImage());
+    "src\\boardgames\\img\\menubackgroundSettings.png").getImage());
 
  }
 
  private void settingsUpTheJFrameAndPanel() {
 
-  setBorder(BorderFactory.createTitledBorder(
-    BorderFactory.createEtchedBorder(), "Settings", TitledBorder.LEFT,
-    TitledBorder.TOP));
-  
   add(backgroundPanel);
 
  }
