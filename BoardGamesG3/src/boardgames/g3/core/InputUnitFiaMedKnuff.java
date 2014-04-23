@@ -52,14 +52,4 @@ public class InputUnitFiaMedKnuff extends InputUnit{
         }
         return new Move(state.getPlayerInTurn(),source, destination);
     }
-        /*
-		try {
-			br.readLine();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Move move = new Move(state.getPlayerInTurn(), new BoardLocation("11"), new BoardLocation("22"));
-		return move;
-                */
-	}
+   }

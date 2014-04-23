@@ -14,8 +14,13 @@ import java.util.List;
 
 
 public class GameStateFiaMedKnuff implements GameState {
+	
     Board board;
-    Player player;
+    List<Player> players;
+    private List<GamePiece> playerOnesPieces;
+    private List<GamePiece> playerTwosPieces;
+    private List<GamePiece> playerThreesPieces;
+    private List<GamePiece> playerFoursPieces;
     RuleControllerFiaMedKnuff ruler;
     public final int ROWS;
     public final int COLS;
@@ -26,32 +31,26 @@ public class GameStateFiaMedKnuff implements GameState {
     public GameStateFiaMedKnuff(){
         this.ROWS = 11;
         this.COLS = 11;
+        this.players = new ArrayList<Player>();
+        this.playerOnesPieces = new ArrayList<GamePiece>();
+        this.playerTwosPieces = new ArrayList<GamePiece>();
+        this.playerThreesPieces = new ArrayList<GamePiece>();
+        this.playerFoursPieces = new ArrayList<GamePiece>();
         this.board = new Board(createBoardLocations());
         putAllTheBeadsOnTheBoard();
-        this.player = new Player("Playah!", null);
         ruler = new RuleControllerFiaMedKnuff();
 
 	}
-	
-	/*
-    public GameStateFiaMedKnuff(List<Player> player, Board board, int numberOfPlayers ) {
-        this.player = player;
-        this.board = board;
-        this.ruleController = new RuleControllerFiaMedKnuff();
-        this.numberOfPlayers = numberOfPlayers;
-        this.COLS = 11;
-        this.ROWS = 11;
-    }*/
-        private void putAllTheBeadsOnTheBoard() {
-		for (BoardLocation b : board.getLocations()) {
-			b.setPiece(new GamePiece("O"));
-		}
-
-		board.getLocations().get(24).setPiece(null);
-	}
+    
+    private void putAllTheBeadsOnTheBoard() {
+    	for (BoardLocation b : board.getLocations()) {
+    		b.setPiece(new GamePiece("O"));
+    		}
+    	board.getLocations().get(24).setPiece(null);
+    	}
     
     private List<BoardLocation> createBoardLocations() {
-		List<BoardLocation> boardLocations = new ArrayList<BoardLocation>();
+    	List<BoardLocation> boardLocations = new ArrayList<BoardLocation>();
 		List<String> listOfRows = null;
 		try {
 			listOfRows = FileHandlerFiaMedKnuff.readCoordinate();
@@ -65,26 +64,103 @@ public class GameStateFiaMedKnuff implements GameState {
 		}
 
 		return boardLocations;
-
-	}
+		
+    }
+    
     private List<BoardLocation> getBoardLocationFromRow(String row) {
 		String[] locations = row.split(";");
 		List<BoardLocation> boardLocations = new ArrayList<BoardLocation>();
 		for (String s : locations) {
 			if (s.equals("null"))
 				s = null;
-
+			
 			boardLocations.add(new BoardLocation(s));
 		}
 		return boardLocations;
-	}
-    
-    /*
-    public int createPlayers(){
-    	
-    	return 0;
+		
     }
-    */
+    
+    
+    public void createPlayer(String nameForPlayer){
+    	
+    	if(numberOfPlayers ==0){
+    		
+    		Player player = new Player(nameForPlayer, playerOnesPieces);
+    		players.add(player);
+    		numberOfPlayers ++;
+    		System.out.println(numberOfPlayers);
+    		System.out.println(player.getName());
+    		
+    	}else if(numberOfPlayers == 1){
+    		
+    		Player player = new Player(nameForPlayer, playerTwosPieces);
+    		players.add(player);
+    		numberOfPlayers ++;
+    		System.out.println(numberOfPlayers);
+    		System.out.println(player.getName());
+    		
+    	}else if (numberOfPlayers == 2){
+    		
+    		Player player = new Player(nameForPlayer, playerThreesPieces);
+    		players.add(player);
+    		numberOfPlayers ++;
+    		System.out.println(numberOfPlayers);
+    		System.out.println(player.getName());
+    		
+    	} else {
+    		
+    		Player player = new Player(nameForPlayer, playerFoursPieces);
+    		players.add(player);
+    		numberOfPlayers ++;
+    		System.out.println(numberOfPlayers);
+    		System.out.println(player.getName());
+    	}
+    	}
+    
+    public void createPiecesToPlayerOne(String colorForPieces){
+    	int i = 0;
+    	while(!(i==4)){
+    		i++;
+    		GamePiece gamePiece = new GamePiece(colorForPieces+i);
+    		System.out.println(gamePiece.getId());
+    		playerOnesPieces.add(gamePiece);
+    	}
+    	
+    }    
+    
+    public void createPiecesToPlayerTwo(String colorForPieces){
+    	int i = 0;
+    	while(!(i==4)){
+    		i++;
+    		GamePiece gamePiece = new GamePiece(colorForPieces+i);
+    		System.out.println(gamePiece.getId());
+    		playerTwosPieces.add(gamePiece);
+    	}
+    	
+    }
+    
+    public void createPiecesToPlayerThree(String colorForPieces){
+    	int i = 0;
+    	while(!(i==4)){
+    		i++;
+    		GamePiece gamePiece = new GamePiece(colorForPieces+i);
+    		System.out.println(gamePiece.getId());
+    		playerThreesPieces.add(gamePiece);
+    	}
+    	
+    }
+    
+    public void createPiecesToPlayerFour(String colorForPieces){
+    	int i = 0;
+    	while(!(i==4)){
+    		i++;
+    		GamePiece gamePiece = new GamePiece(colorForPieces+i);
+    		System.out.println(gamePiece.getId());
+    		playerFoursPieces.add(gamePiece);
+    	}
+    	
+    }
+    
     
 	@Override
 	public Board getBoard() {
@@ -93,7 +169,7 @@ public class GameStateFiaMedKnuff implements GameState {
 
 	@Override
 	public Player getLastPlayer() {
-		return null;//player.get(1 - turnCounter % numberOfPlayers);
+		return players.get(3 - turnCounter % numberOfPlayers);
 	}
 
 	@Override
@@ -103,12 +179,12 @@ public class GameStateFiaMedKnuff implements GameState {
 
 	@Override
 	public Player getPlayerInTurn() {
-		return null;//player.get(turnCounter % numberOfPlayers);
+		return players.get(turnCounter % numberOfPlayers);
 	}
 
 	@Override
 	public List<Player> getPlayers() {
-		return null;//player;
+		return players;
 	}
 
 	@Override

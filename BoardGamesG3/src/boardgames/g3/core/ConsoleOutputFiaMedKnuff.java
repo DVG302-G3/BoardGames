@@ -22,17 +22,21 @@ public class ConsoleOutputFiaMedKnuff implements OutputUnit{
 			GamePiece piece = locations.get(i).getPiece();
 			
 			if (i % COLS == 0) {
-				System.out.println();
+				System.out.println("");
 				System.out.print(rowCounter++ + " ");
 			}
 
 			if (col == null) {
 				System.out.print("  ");
-			} else {
+			} else { 
+				
 				if(piece == null)
 					System.out.print(". ");
+
+
 				else
 					System.out.print("O ");
+					
 			}
 		}
     }
