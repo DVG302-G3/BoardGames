@@ -1,4 +1,3 @@
-
 package boardgames.g3.core;
 
 import game.api.GameState;
@@ -7,47 +6,46 @@ import game.impl.GamePiece;
 import game.io.OutputUnit;
 import java.util.List;
 
-public class ConsoleOutputFiaMedKnuff implements OutputUnit{
-    final int ROWS = 11;
-    final int COLS = 11;
+public class ConsoleOutputFiaMedKnuff implements OutputUnit {
+	final int ROWS = 11;
+	final int COLS = 11;
 
-    @Override
-    public void publish(GameState state) {
-        List<BoardLocation> locations = state.getBoard().getLocations();
-        System.out.print("  1 2 3 4 5 6 7 8 9 10 11");
-        int rowCounter = 1;
-        
-        for (int i = 0; i < locations.size(); i++) {
-			String col = locations.get(i).getId();
-			GamePiece piece = locations.get(i).getPiece();
-			
+	@Override
+	public void publish(GameState state) {
+		System.out.print("  A B C D E F G H I J K");
+
+		char cordRow = 'A';
+		char cordCol = 'A';
+
+		for (int i = 0; i < ROWS * COLS; i++) {
+
 			if (i % COLS == 0) {
-				System.out.println("");
-				System.out.print(rowCounter++ + " ");
+				System.out.println();
+				System.out.print(cordRow + " ");
+				cordCol = 'A';
+				cordRow++;
 			}
-			
+
+
+			String coordinate = Character.toString(cordRow)
+					+ Character.toString(cordCol);
+			String col;
+			BoardLocation location = HelpMethodsFinaMedKnuff
+					.getBoardLocationFromCoordinate(coordinate,
+							state.getBoard());
+			if (location == null)
+				col = null;
+			else
+				col = location.getId();
 
 			if (col == null) {
 				System.out.print("  ");
-			} else { 
-				
-				if(piece == null)
-					System.out.print("o ");
-
-
-				else if (piece.getId() == "R"){
-					System.out.println("R");
-				}else
-					System.out.print("O ");
-					
+			} else {
+				System.out.print("X ");
 			}
+
+			cordCol++;
+
 		}
-    }
-    
-    /*
-    public String getRow(GameState state){
-        return "";//getLocationAsString(state.getBoard());
-    } 
-    */
-    
+	}
 }

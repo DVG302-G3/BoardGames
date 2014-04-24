@@ -13,7 +13,7 @@ public class FileHandlerFiaMedKnuff {
 			throws IOException {
 		
 		List<String> lines = new ArrayList<String>();
-		BufferedReader br = new BufferedReader(new FileReader("src\\FiaMedKnuffSpelplan.txt"));
+		BufferedReader br = new BufferedReader(new FileReader("src\\FiaMedKnuffSpelplan2.txt"));
 		
 		while (true) {
 			String line = br.readLine();
