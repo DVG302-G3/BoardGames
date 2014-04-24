@@ -3,6 +3,7 @@ package boardgames.g3.core.Solitaire;
 import game.api.GameState;
 import game.impl.Board;
 import game.impl.BoardLocation;
+import game.impl.DieRollFactory;
 import game.impl.GamePiece;
 import game.impl.Move;
 import game.impl.Player;
@@ -141,5 +142,11 @@ public class SolitarGameState implements GameState {
 				.getBoardLocationFromCoordinate(middleLoc, board);
 		middle.setPiece(null);
 
+	}
+
+	@Override
+	public DieRollFactory getDieRollFactory() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

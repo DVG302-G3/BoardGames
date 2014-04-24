@@ -2,6 +2,7 @@ package boardgames.g3.core.FiaMedKnuff;
 
 import game.api.GameState;
 import game.impl.Board;
+import game.impl.DieRollFactory;
 import game.impl.Move;
 import game.impl.Player;
 
@@ -82,6 +83,12 @@ public class FiaMedKnuffGameState implements GameState {
 	@Override
 	public void reset() {
 
+	}
+
+
+	@Override
+	public DieRollFactory getDieRollFactory() {
+		return null;
 	}
 
 }

@@ -5,7 +5,7 @@ import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 
-public class diceChooser extends JCheckBox {
+public class diceChooser extends JCheckBox  {
 
  private Random diceRandom = new Random();
  private int diceNumber;
