@@ -12,40 +12,38 @@ public class ConsoleOutputFiaMedKnuff implements OutputUnit {
 
 	@Override
 	public void publish(GameState state) {
-		System.out.print("  A B C D E F G H I J K");
+		System.out.println("  A B C D E F G H I J K");
 
 		char cordRow = 'A';
 		char cordCol = 'A';
 
-		for (int i = 0; i < ROWS * COLS; i++) {
+		for (int r = 0; r < ROWS; r++) {
+			System.out.print(cordRow + " ");
 
-			if (i % COLS == 0) {
-				System.out.println();
-				System.out.print(cordRow + " ");
-				cordCol = 'A';
-				cordRow++;
+			for (int c = 0; c < COLS; c++) {
+
+				String coordinate = Character.toString(cordRow)
+						+ Character.toString(cordCol++);
+				String col;
+				BoardLocation location = HelpMethodsFinaMedKnuff
+						.getBoardLocationFromCoordinate(coordinate,
+								state.getBoard());
+
+				if (location == null)
+					col = null;
+				else
+					col = location.getId();
+
+				if (col == null) {
+					System.out.print("  ");
+				} else {
+					System.out.print("X ");
+				}
 			}
-
-
-			String coordinate = Character.toString(cordRow)
-					+ Character.toString(cordCol);
-			String col;
-			BoardLocation location = HelpMethodsFinaMedKnuff
-					.getBoardLocationFromCoordinate(coordinate,
-							state.getBoard());
-			if (location == null)
-				col = null;
-			else
-				col = location.getId();
-
-			if (col == null) {
-				System.out.print("  ");
-			} else {
-				System.out.print("X ");
-			}
-
-			cordCol++;
-
+			System.out.println();
+			cordCol= 'A';
+			cordRow++;
 		}
+
 	}
 }
