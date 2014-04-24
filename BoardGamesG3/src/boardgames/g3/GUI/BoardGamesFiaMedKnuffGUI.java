@@ -18,6 +18,7 @@ import javax.swing.border.TitledBorder;
 import boardgames.g3.Input_OutPutUnits.LUDOGUIIOFactory;
 import boardgames.g3.Input_OutPutUnits.LUDOGUIInputUnit;
 import boardgames.g3.Input_OutPutUnits.LUDOGUIOutputUnit;
+import boardgames.g3.core.FiaMedKnuff.FiaMedKnuffGameState;
 import boardgames.g3.core.FiaMedKnuff.diceChooser;
 import boardgames.g3.core.Solitaire.SolitarGameState;
 
@@ -35,6 +36,9 @@ public class BoardGamesFiaMedKnuffGUI extends JPanel {
 	private JCheckBox diceCheckBox;
 
 	private ButtonGroup buttonGroup;
+	
+	LUDOGUIInputUnit inputUnit;
+	LUDOGUIOutputUnit outputUnit;
 
 	public BoardGamesFiaMedKnuffGUI() {
 
@@ -44,10 +48,10 @@ public class BoardGamesFiaMedKnuffGUI extends JPanel {
 		buttons();
 		
 		
-		LUDOGUIInputUnit in = new LUDOGUIInputUnit();
-		LUDOGUIOutputUnit out = new LUDOGUIOutputUnit(in);
-		new Runner(new SolitarGameState(), new LUDOGUIIOFactory(in, out)).run();
-		setNewMidPanel(out);
+		inputUnit = new LUDOGUIInputUnit();
+		outputUnit = new LUDOGUIOutputUnit(inputUnit);
+		new Runner(new FiaMedKnuffGameState(), new LUDOGUIIOFactory(inputUnit, outputUnit)).run();
+		setNewMidPanel(outputUnit);
 
 	}
 
