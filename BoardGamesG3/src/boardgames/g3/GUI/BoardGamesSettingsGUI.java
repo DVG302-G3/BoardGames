@@ -5,7 +5,7 @@ import javax.swing.JPanel;
 
 public class BoardGamesSettingsGUI extends JPanel {
 
- ImagePanel backgroundPanel;
+ ImageLabel backgroundPanel;
 
  public BoardGamesSettingsGUI() {
 
@@ -16,7 +16,7 @@ public class BoardGamesSettingsGUI extends JPanel {
 
  private void createAllComponents() {
 
-  backgroundPanel = new ImagePanel(new ImageIcon(
+  backgroundPanel = new ImageLabel(new ImageIcon(
     "src\\boardgames\\img\\menubackgroundSettings.png").getImage());
 
  }

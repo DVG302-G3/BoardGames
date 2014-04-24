@@ -3,14 +3,12 @@ package boardgames.g3.GUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.border.TitledBorder;
 
 import boardgames.listeners.BoardGamesListenersAbout;
 import boardgames.listeners.BoardGamesListenersQuit;
@@ -27,7 +25,7 @@ public class BoardGamesCoreGUI extends JFrame {
 	private JMenuItem menuItemNewGameFMK, menuItemNewGameSolitar,
 			menuItemNewSettings, menuItemQuit;
 
-	ImagePanel backgroundPanel;
+	ImageLabel backgroundPanel;
 
 	public BoardGamesCoreGUI() {
 
@@ -39,7 +37,7 @@ public class BoardGamesCoreGUI extends JFrame {
 
 	private void createAllComponents() {
 
-		backgroundPanel = new ImagePanel(new ImageIcon(
+		backgroundPanel = new ImageLabel(new ImageIcon(
 				"src\\boardgames\\img\\menubackground.png").getImage());
 
 		menuBar = new JMenuBar();

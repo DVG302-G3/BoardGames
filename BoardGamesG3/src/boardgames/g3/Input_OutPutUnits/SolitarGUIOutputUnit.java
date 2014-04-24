@@ -6,51 +6,46 @@ import game.impl.GamePiece;
 import game.io.OutputUnit;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import boardgames.g3.GUI.ImagePanel;
+import boardgames.g3.GUI.ImageLabel;
 import boardgames.g3.core.FiaMedKnuff.GUIGridButtonID;
 
 public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 
-	ImagePanel backgroundPanel;
+	ImageLabel backgroundLabel;
 
-	private JPanel mainPanel;
-	private SolitarGUIInputUnit in;
+	private SolitarGUIInputUnit inputUnit;
 
-	private JButton button[][];
+	private GUIGridButtonID button[][];
 
 	int ROWS = 7;
 	int COLS = 7;
 
-	public SolitarGUIOutputUnit(SolitarGUIInputUnit input) {
-		this.setLayout(new GridLayout(ROWS, COLS));
-		in = input;
-		backgroundPanel = new ImagePanel(new ImageIcon(
+	public SolitarGUIOutputUnit(SolitarGUIInputUnit inputUnit) {
+		
+		this.inputUnit = inputUnit;
+		backgroundLabel = new ImageLabel(new ImageIcon(
 				"src\\boardgames\\img\\backgroundSolitaire.png").getImage());
-
+		
 		setLayout(new BorderLayout());
-		add(backgroundPanel);
-		backgroundPanel.setLayout(new GridLayout(ROWS, COLS));
+		add(backgroundLabel);
+		backgroundLabel.setLayout(new GridLayout(ROWS, COLS));
 
 	}
 
 	@Override
 	public void publish(GameState gameState) {
 
-		backgroundPanel.removeAll();
-		button = new JButton[ROWS][COLS];
+		backgroundLabel.removeAll();
 
 		List<BoardLocation> locations = gameState.getBoard().getLocations();
+
+		button = new GUIGridButtonID[ROWS][COLS];
 
 		int index = 0;
 		for (int rows = 0; rows < ROWS; rows++) {
@@ -58,12 +53,10 @@ public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 				button[rows][cols] = new GUIGridButtonID(
 						Integer.toString((rows + 1))
 								+ Integer.toString((cols + 1)));
-				button[rows][cols].setBorderPainted(false);
-				button[rows][cols].setContentAreaFilled(false);
 
-				button[rows][cols].addActionListener(in);
+				button[rows][cols].addActionListener(inputUnit);
 
-				backgroundPanel.add(button[rows][cols]);
+				backgroundLabel.add(button[rows][cols]);
 
 				String col = locations.get(index).getId();
 				GamePiece piece = locations.get(index++).getPiece();
@@ -72,17 +65,14 @@ public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 					button[rows][cols].setVisible(false);
 				} else {
 					if (piece == null)
-						button[rows][cols]
-								.setIcon(new ImageIcon(
-										"src\\boardgames\\img\\emptybeadsolitaire.png"));
+						button[rows][cols].setButtonEmptyBead();
 					else
-						button[rows][cols].setIcon(new ImageIcon(
-								"src\\boardgames\\img\\beadsolitaire.png"));
+						button[rows][cols].setButtonWithBead();
 				}
 			}
 		}
 
-		backgroundPanel.revalidate();
+		backgroundLabel.revalidate();
 	}
 
 }

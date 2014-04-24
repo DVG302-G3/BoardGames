@@ -13,7 +13,7 @@ import boardgames.g3.core.Solitaire.SolitarHelpMethods;
 
 public class SolitarGUIInputUnit extends InputUnit implements ActionListener {
 
-	public GameState state;
+	private GameState state;
 
 	BoardLocation sourceClick = null;
 	BoardLocation destinationClick = null;
@@ -43,13 +43,16 @@ public class SolitarGUIInputUnit extends InputUnit implements ActionListener {
     sourceClick = null;
     destinationClick = null;
    }
-
- 
  }
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		GUIGridButtonID buttonGUI = (GUIGridButtonID) event.getSource();
-		onClick(buttonGUI.getStringId());		
+		buttonGUI.setButtonMarked();
+		
+		if(buttonGUI.equals(event.getSource()))
+		onClick(buttonGUI.getStringId());
+
+	    	
 	}
 }
