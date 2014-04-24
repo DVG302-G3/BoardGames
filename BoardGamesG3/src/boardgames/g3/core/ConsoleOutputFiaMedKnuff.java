@@ -25,16 +25,19 @@ public class ConsoleOutputFiaMedKnuff implements OutputUnit{
 				System.out.println("");
 				System.out.print(rowCounter++ + " ");
 			}
+			
 
 			if (col == null) {
 				System.out.print("  ");
 			} else { 
 				
 				if(piece == null)
-					System.out.print(". ");
+					System.out.print("o ");
 
 
-				else
+				else if (piece.getId() == "R"){
+					System.out.println("R");
+				}else
 					System.out.print("O ");
 					
 			}
