@@ -37,7 +37,7 @@ public class SolitairGameStateTest {
 						.getBoardLocationFromCoordinate("34",
 								gameState.getBoard()))));
 
-		assertTrue(gameState.proposeMove(new Move(
+		assertFalse(gameState.proposeMove(new Move(
 				gameState.getPlayerInTurn(), SolitarHelpMethods
 						.getBoardLocationFromCoordinate("14",
 								gameState.getBoard()), SolitarHelpMethods

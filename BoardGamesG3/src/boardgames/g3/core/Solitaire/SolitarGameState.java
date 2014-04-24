@@ -104,7 +104,7 @@ public class SolitarGameState implements GameState {
 
 	@Override
 	public Boolean proposeMove(Move move) {
-		if (ruler.isValidMove(move)) {
+		if (ruler.isValidMove(move, board)) {
 			move.execute();
 			removeBeadInBetween(move);
 			return Boolean.TRUE;

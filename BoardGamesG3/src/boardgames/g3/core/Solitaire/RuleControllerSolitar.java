@@ -1,6 +1,7 @@
 package boardgames.g3.core.Solitaire;
 
 import game.api.GameState;
+import game.impl.Board;
 import game.impl.BoardLocation;
 import game.impl.GamePiece;
 import game.impl.Move;
@@ -15,9 +16,26 @@ public class RuleControllerSolitar {
 		this.COLS = cols;
 	}
 
-	public Boolean isValidMove(Move move) {
+	private boolean thereIsNotABeadInBetween(int destRow, int destCol,
+			int sourceRow, int sourceCol, Board board) {
+		int deltaRow = (sourceRow - destRow);
+		int deltaCol = (sourceCol - destCol);
+		int middlePieceRow = destRow + deltaRow / 2;
+		int middlePieceCol = destCol + deltaCol / 2;
+
+		String middleLoc = Integer.toString(middlePieceRow)
+				+ Integer.toString(middlePieceCol);
+
+		BoardLocation middle = SolitarHelpMethods
+				.getBoardLocationFromCoordinate(middleLoc, board);
+
+		return middle.getPiece() == null;
+	}
+
+	public Boolean isValidMove(Move move, Board board) {
 		if (move.getSource().getPiece() == null) {
 			return false;
+
 		} else {
 
 			int sourceRow, sourceCol, destRow, destCol;
@@ -34,6 +52,9 @@ public class RuleControllerSolitar {
 			destRow = Integer.parseInt(destination.getId().substring(0, 1));
 			destCol = Integer.parseInt(destination.getId().substring(1, 2));
 
+			if(thereIsNotABeadInBetween(destRow, destCol, sourceRow, sourceCol, board))
+				return false;
+			
 			int deltaRow = Math.abs((sourceRow - destRow));
 			int deltaCol = Math.abs((sourceCol - destCol));
 			if (deltaRow == 2 && deltaCol == 0)
@@ -49,7 +70,8 @@ public class RuleControllerSolitar {
 
 	public Boolean isGameFinished(GameState gamestate) {
 		boolean movePossible = false;
-		BoardLocation[][] tmpBoard = SolitarHelpMethods.get2DBoard(ROWS, COLS,gamestate.getBoard().getLocations());
+		BoardLocation[][] tmpBoard = SolitarHelpMethods.get2DBoard(ROWS, COLS,
+				gamestate.getBoard().getLocations());
 		movePossible = iterateBoardForMoves(tmpBoard);
 		return !movePossible;
 	}
@@ -60,15 +82,24 @@ public class RuleControllerSolitar {
 			for (int c = 0; c < COLS && !movePossible; c++) {
 				GamePiece currentPiece = tmpBoard[r][c].getPiece();
 				if (currentPiece != null) {
-					if (withinBoundsCols(c)) {
-						GamePiece rightPiece = tmpBoard[r][c + 1].getPiece();
-						GamePiece secondRightPiece = tmpBoard[r][c + 2].getPiece();
-						movePossible = movePossible(rightPiece,secondRightPiece);
-					}
 					if (withinBoundsRows(r)) {
 						GamePiece pieceBelow = tmpBoard[r + 1][c].getPiece();
 						GamePiece twoBelow = tmpBoard[r + 2][c].getPiece();
 						movePossible = movePossible(pieceBelow, twoBelow);
+						if (movePossible) {
+							break;
+						}
+
+					}
+
+					if (withinBoundsCols(c)) {
+						GamePiece rightPiece = tmpBoard[r][c + 1].getPiece();
+						GamePiece secondRightPiece = tmpBoard[r][c + 2]
+								.getPiece();
+						movePossible = movePossible(rightPiece,
+								secondRightPiece);
+						if (movePossible)
+							break;
 					}
 				}
 			}
