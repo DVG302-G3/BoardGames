@@ -1,6 +1,5 @@
 package boardgames.g3.GUI;
 
-import game.api.GameState;
 import game.init.Runner;
 
 import java.awt.BorderLayout;
@@ -15,32 +14,30 @@ import boardgames.g3.Input_OutPutUnits.SolitarGUIInputUnit;
 import boardgames.g3.Input_OutPutUnits.SolitarGUIOutputUnit;
 import boardgames.g3.core.Solitaire.SolitarGameState;
 
-public class BoardGamesSolitarGUI extends JPanel{
+public class BoardGamesSolitarGUI extends JPanel {
 
 	private JPanel topPanel, topPanelBeadsLeft, topPanelBeadsTaken, midPanel;
- 
-	
+
 	public BoardGamesSolitarGUI() {
 		createComponents();
 		setUpPanels();
-		
 
 		SolitarGUIInputUnit in = new SolitarGUIInputUnit();
 		SolitarGUIOutputUnit out = new SolitarGUIOutputUnit(in);
-		new Runner(new SolitarGameState(), new SolitarGUIIOFactory(in, out)).run();
+		new Runner(new SolitarGameState(), new SolitarGUIIOFactory(in, out))
+				.run();
 		setNewMidPanel(out);
-	
+
 	}
 
 	private void createComponents() {
-	  
 
 		topPanel = new JPanel(new GridLayout(0, 2));
 		topPanelBeadsLeft = new JPanel();
 		topPanelBeadsTaken = new JPanel();
 
 		midPanel = new JPanel();
-		
+
 	}
 
 	private void setUpPanels() {
@@ -60,23 +57,19 @@ public class BoardGamesSolitarGUI extends JPanel{
 		topPanel.add(topPanelBeadsLeft);
 		topPanel.add(topPanelBeadsTaken);
 
-		
 		this.setLayout(new BorderLayout());
-	  this.add(topPanel, BorderLayout.NORTH);
-	  this.add(midPanel, BorderLayout.CENTER);
+		this.add(topPanel, BorderLayout.NORTH);
+		this.add(midPanel, BorderLayout.CENTER);
 
 	}
-	
-	private void setNewMidPanel(JPanel newMidPanel){
-	 this.midPanel.removeAll();
-	 this.midPanel.invalidate();
-	 this.midPanel.add(newMidPanel);
-	 
-//	 newMidPanel.add(backgroundLabel);
-//   this.add(newMidPanel, BorderLayout.CENTER);
-   this.revalidate();
-	 
+
+	private void setNewMidPanel(JPanel newMidPanel) {
+		this.midPanel.removeAll();
+		this.midPanel.invalidate();
+		this.midPanel.add(newMidPanel);
+
+		this.revalidate();
+
 	}
 
 }
-

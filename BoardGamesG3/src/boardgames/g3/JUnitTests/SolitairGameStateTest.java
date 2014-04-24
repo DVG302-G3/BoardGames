@@ -30,12 +30,20 @@ public class SolitairGameStateTest {
 				null,
 				SolitarHelpMethods.getBoardLocationFromCoordinate("24",
 						gameState.getBoard()).getPiece());
-		
+
 		assertFalse(gameState.proposeMove(new Move(gameState.getPlayerInTurn(),
 				SolitarHelpMethods.getBoardLocationFromCoordinate("24",
 						gameState.getBoard()), SolitarHelpMethods
 						.getBoardLocationFromCoordinate("34",
 								gameState.getBoard()))));
+
+		assertTrue(gameState.proposeMove(new Move(
+				gameState.getPlayerInTurn(), SolitarHelpMethods
+						.getBoardLocationFromCoordinate("14",
+								gameState.getBoard()), SolitarHelpMethods
+						.getBoardLocationFromCoordinate("34",
+								gameState.getBoard()))));
+
 	}
 
 	@Test
@@ -47,10 +55,10 @@ public class SolitairGameStateTest {
 		}
 
 		assertTrue(gameState.hasEnded());
-	
+
 		int index = 0;
 		for (BoardLocation b : gameState.getBoard().getLocations()) {
-			if(index%2 == 0)
+			if (index % 2 == 0)
 				b.setPiece(null);
 			else
 				b.setPiece(new GamePiece("O"));
@@ -58,7 +66,6 @@ public class SolitairGameStateTest {
 
 		assertTrue(gameState.hasEnded());
 
-	
 	}
 
 }
