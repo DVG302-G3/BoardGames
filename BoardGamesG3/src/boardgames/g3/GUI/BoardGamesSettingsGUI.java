@@ -3,9 +3,11 @@ package boardgames.g3.GUI;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import boardgames.g3.BGForLabelsButtons.BackGroundLabel;
+
 public class BoardGamesSettingsGUI extends JPanel {
 
- ImageLabel backgroundPanel;
+ BackGroundLabel backgroundPanel;
 
  public BoardGamesSettingsGUI() {
 
@@ -16,7 +18,7 @@ public class BoardGamesSettingsGUI extends JPanel {
 
  private void createAllComponents() {
 
-  backgroundPanel = new ImageLabel(new ImageIcon(
+  backgroundPanel = new BackGroundLabel(new ImageIcon(
     "src\\boardgames\\img\\menubackgroundSettings.png").getImage());
 
  }

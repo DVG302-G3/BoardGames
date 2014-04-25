@@ -15,16 +15,14 @@ import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
+import boardgames.g3.BGForLabelsButtons.BackGroundLabelLudo;
 import boardgames.g3.Input_OutPutUnits.LUDOGUIIOFactory;
 import boardgames.g3.Input_OutPutUnits.LUDOGUIInputUnit;
 import boardgames.g3.Input_OutPutUnits.LUDOGUIOutputUnit;
-import boardgames.g3.core.FiaMedKnuff.FiaMedKnuffGameState;
-import boardgames.g3.core.FiaMedKnuff.diceChooser;
-import boardgames.g3.core.Solitaire.SolitarGameState;
+import boardgames.g3.core.Ludo.LudoGameState;
+import boardgames.g3.core.Ludo.diceChooser;
 
 public class BoardGamesFiaMedKnuffGUI extends JPanel {
-
-	ImageLabel backgroundLabel;
 
 	private JButton diceButton;
 
@@ -50,7 +48,7 @@ public class BoardGamesFiaMedKnuffGUI extends JPanel {
 		
 		inputUnit = new LUDOGUIInputUnit();
 		outputUnit = new LUDOGUIOutputUnit(inputUnit);
-		new Runner(new FiaMedKnuffGameState(), new LUDOGUIIOFactory(inputUnit, outputUnit)).run();
+		new Runner(new LudoGameState(), new LUDOGUIIOFactory(inputUnit, outputUnit)).run();
 		setNewMidPanel(outputUnit);
 
 	}

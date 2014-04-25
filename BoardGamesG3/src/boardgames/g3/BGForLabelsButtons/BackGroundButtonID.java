@@ -1,13 +1,13 @@
-package boardgames.g3.core.FiaMedKnuff;
+package boardgames.g3.BGForLabelsButtons;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-public class GUIGridButtonID extends JButton {
+public class BackGroundButtonID extends JButton {
 
  private String cordinate;
  
- public GUIGridButtonID(String cordinate){
+ public BackGroundButtonID(String cordinate){
   this.cordinate = cordinate;
   
 	setBorderPainted(false);
@@ -20,15 +20,15 @@ public class GUIGridButtonID extends JButton {
  }
  
  public void setButtonEmptyBead(){
-	 setIcon(new ImageIcon("src\\boardgames\\img\\emptybeadsolitaire.png"));
+	 setIcon(new ImageIcon("src\\boardgames\\img\\EmptyBead.png"));
  }
  
  public void setButtonWithBead(){
-	 setIcon(new ImageIcon("src\\boardgames\\img\\beadsolitaire.png"));
+	 setIcon(new ImageIcon("src\\boardgames\\img\\Bead.png"));
  }
  
  public void setButtonMarked(){
-	 setIcon(new ImageIcon("src\\boardgames\\img\\beadsolitaireMarked.png"));
+	 setIcon(new ImageIcon("src\\boardgames\\img\\MarkedBead.png"));
 	 
  }
 }

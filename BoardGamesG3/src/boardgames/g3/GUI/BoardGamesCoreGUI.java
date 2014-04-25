@@ -10,6 +10,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
+import boardgames.g3.BGForLabelsButtons.BackGroundLabel;
 import boardgames.listeners.BoardGamesListenersAbout;
 import boardgames.listeners.BoardGamesListenersQuit;
 
@@ -25,7 +26,7 @@ public class BoardGamesCoreGUI extends JFrame {
 	private JMenuItem menuItemNewGameFMK, menuItemNewGameSolitar,
 			menuItemNewSettings, menuItemQuit;
 
-	ImageLabel backgroundPanel;
+	BackGroundLabel backgroundPanel;
 
 	public BoardGamesCoreGUI() {
 
@@ -37,7 +38,7 @@ public class BoardGamesCoreGUI extends JFrame {
 
 	private void createAllComponents() {
 
-		backgroundPanel = new ImageLabel(new ImageIcon(
+		backgroundPanel = new BackGroundLabel(new ImageIcon(
 				"src\\boardgames\\img\\menubackground.png").getImage());
 
 		menuBar = new JMenuBar();

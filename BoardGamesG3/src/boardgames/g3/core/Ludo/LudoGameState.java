@@ -1,4 +1,4 @@
-package boardgames.g3.core.FiaMedKnuff;
+package boardgames.g3.core.Ludo;
 
 import game.api.GameState;
 import game.impl.Board;
@@ -9,7 +9,7 @@ import game.impl.Player;
 import java.util.List;
 
 
-public class FiaMedKnuffGameState implements GameState {
+public class LudoGameState implements GameState {
 
     private List<Player> player;
     private Board board;
@@ -18,13 +18,13 @@ public class FiaMedKnuffGameState implements GameState {
 	private String message;
 	private int numberOfPlayers;
 	
-	public FiaMedKnuffGameState(){
+	public LudoGameState(){
 	
 
 	}
 	
 	
-    public FiaMedKnuffGameState(List<Player> player, Board board, int numberOfPlayers ) {
+    public LudoGameState(List<Player> player, Board board, int numberOfPlayers ) {
         this.player = player;
         this.board = board;
         this.ruleController = new RuleControllerFMK();
