@@ -25,6 +25,7 @@ public class GameStateFiaMedKnuff implements GameState {
 	private int numberOfPlayers = 4;
 	private Integer turnCounter = 0;
 	private String message;
+	DieRollFactory dieRollFactory;
 
 	public GameStateFiaMedKnuff() {
 		this.ROWS = 11;
@@ -32,6 +33,7 @@ public class GameStateFiaMedKnuff implements GameState {
 		this.players = createAndReturnPlayers(Arrays.asList("Player 1", "Player 2", "Player 3", "Player 4"));
 		this.board = new Board(createBoardLocations());
 		ruler = new RuleControllerFiaMedKnuff();
+		this.dieRollFactory	= new DieRollFactory();	
 
 	}
 
@@ -48,6 +50,7 @@ public class GameStateFiaMedKnuff implements GameState {
 		}
 		return players;
 	}
+	
 
 
 	private List<BoardLocation> createBoardLocations() {
@@ -122,6 +125,6 @@ public class GameStateFiaMedKnuff implements GameState {
 
 	@Override
 	public DieRollFactory getDieRollFactory() {
-		return null;
+		return dieRollFactory;
 	}
 }
