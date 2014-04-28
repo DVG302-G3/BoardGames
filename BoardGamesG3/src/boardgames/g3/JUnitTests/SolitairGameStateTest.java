@@ -51,20 +51,42 @@ public class SolitairGameStateTest {
 		assertFalse(gameState.hasEnded());
 
 		for (BoardLocation b : gameState.getBoard().getLocations()) {
-			b.setPiece(null);
+			if(b != null)
+				b.setPiece(null);
 		}
-
 		assertTrue(gameState.hasEnded());
 
+		
+		
 		int index = 0;
 		for (BoardLocation b : gameState.getBoard().getLocations()) {
+			if(b != null){
 			if (index % 2 == 0)
 				b.setPiece(null);
 			else
 				b.setPiece(new GamePiece("O"));
 		}
-
+		}
 		assertTrue(gameState.hasEnded());
+		
+	
+		
+		for(BoardLocation board : gameState.getBoard().getLocations()){
+			if(board != null)
+				board.setPiece(null);
+		}
+		gameState.getBoard().getLocations().get(4).setPiece(new GamePiece("O"));
+		gameState.getBoard().getLocations().get(15).setPiece(new GamePiece("O"));
+		gameState.getBoard().getLocations().get(20).setPiece(new GamePiece("O"));
+		gameState.getBoard().getLocations().get(23).setPiece(new GamePiece("O"));
+		gameState.getBoard().getLocations().get(27).setPiece(new GamePiece("O"));
+		gameState.getBoard().getLocations().get(32).setPiece(new GamePiece("O"));
+		gameState.getBoard().getLocations().get(34).setPiece(new GamePiece("O"));
+		gameState.getBoard().getLocations().get(46).setPiece(new GamePiece("O"));
+		
+		assertTrue(gameState.hasEnded());
+		
+		
 
 	}
 

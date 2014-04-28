@@ -79,31 +79,54 @@ public class RuleControllerSolitar {
 
 	private boolean iterateBoardForMoves(BoardLocation[][] tmpBoard) {
 		boolean movePossible = false;
-		for (int r = 0; r < ROWS && !movePossible; r++) {
-			for (int c = 0; c < COLS && !movePossible; c++) {
+		for (int r = 0; r < ROWS; r++) {
+			for (int c = 0; c < COLS; c++) {
+				if(tmpBoard[r][c] == null)
+					continue;
+
 				GamePiece currentPiece = tmpBoard[r][c].getPiece();
 				if (currentPiece != null) {
-					if (withinBoundsRows(r)) {
-						GamePiece pieceBelow = tmpBoard[r + 1][c].getPiece();
-						GamePiece twoBelow = tmpBoard[r + 2][c].getPiece();
-						movePossible = movePossible(pieceBelow, twoBelow);
-						if (movePossible) {
-							return true;
-						}
 
+					if (withinBoundsRows(r)) {
+						if (boardPieceExistRows(tmpBoard, r, c)) {
+							GamePiece pieceBelow = tmpBoard[(r + 1)][c]
+									.getPiece();
+							GamePiece twoBelow = tmpBoard[(r + 2)][c]
+									.getPiece();
+							movePossible = movePossible(pieceBelow, twoBelow);
+							if (movePossible) {
+								return true;
+							}
+						}
 					}
 
 					if (withinBoundsCols(c)) {
-						GamePiece rightPiece = tmpBoard[r][c + 1].getPiece();
-						GamePiece secondRightPiece = tmpBoard[r][c + 2].getPiece();
-						movePossible = movePossible(rightPiece,secondRightPiece);
-						if (movePossible)
-							return true;
+						if (boardPieceExistCols(tmpBoard, r, c)) {
+							GamePiece rightPiece = tmpBoard[r][(c + 1)]
+									.getPiece();
+							GamePiece secondRightPiece = tmpBoard[r][(c + 2)]
+									.getPiece();
+							movePossible = movePossible(rightPiece,
+									secondRightPiece);
+							if (movePossible) {
+								return true;
+
+							}
+						}
 					}
 				}
 			}
 		}
 		return movePossible;
+	}
+
+	private boolean boardPieceExistRows(BoardLocation[][] tmpBoard, int r, int c) {
+		 return !(tmpBoard[r][c] == null || tmpBoard[(r + 1)][c] == null ||
+		 tmpBoard[(r + 2)][c] == null);
+	}
+
+	private boolean boardPieceExistCols(BoardLocation[][] tmpBoard, int r, int c) {
+				return !(tmpBoard[r][c] == null || tmpBoard[r][(c + 1)] == null || tmpBoard[r][(c + 2)] == null);
 	}
 
 	private boolean withinBoundsRows(int r) {

@@ -17,29 +17,27 @@ public class SolitarConsoleOutput implements OutputUnit {
 		List<BoardLocation> locations = state.getBoard().getLocations();
 
 		
-		
-		
 		System.out.print("  1 2 3 4 5 6 7");
 		int rowCounter = 1;
 		for (int i = 0; i < locations.size(); i++) {
-			String col = locations.get(i).getId();
-			GamePiece piece = locations.get(i).getPiece();
-
+			GamePiece piece = null;
 			if (i % COLS == 0) {
 				System.out.println();
 				System.out.print(rowCounter++ + " ");
 			}
 
-			if (col == null) {
+			if (locations.get(i) != null){ 
+				piece = locations.get(i).getPiece();
+			if (piece == null)
+				System.out.print(". ");
+			else
+				System.out.print("O ");
+			
+			}else
 				System.out.print("  ");
-			} else {
-				if (piece == null)
-					System.out.print(" . ");
-				else
-					System.out.print(" O ");
-			}
-		}
+			
 
+		}
 	}
 
 }

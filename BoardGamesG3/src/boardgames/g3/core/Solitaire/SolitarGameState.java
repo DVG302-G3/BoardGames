@@ -32,7 +32,8 @@ public class SolitarGameState implements GameState {
 
 	private void putAllTheBeadsOnTheBoard() {
 		for (BoardLocation b : board.getLocations()) {
-			b.setPiece(new GamePiece("O"));
+			if(b != null)
+				b.setPiece(new GamePiece("O"));
 		}
 
 		board.getLocations().get(24).setPiece(null);
@@ -61,9 +62,9 @@ public class SolitarGameState implements GameState {
 		List<BoardLocation> boardLocations = new ArrayList<BoardLocation>();
 		for (String s : locations) {
 			if (s.equals("null"))
-				s = null;
-
-			boardLocations.add(new BoardLocation(s));
+				boardLocations.add(null);
+			else
+				boardLocations.add(new BoardLocation(s));
 		}
 		return boardLocations;
 	}

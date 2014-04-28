@@ -69,8 +69,6 @@ public class BoardGamesSolitarGUI extends JPanel {
 		this.midPanel.invalidate();
 		this.midPanel.add(newMidPanel);
 
-		
-		
 		this.revalidate();
 
 	}

@@ -16,61 +16,63 @@ import boardgames.g3.BGForLabelsButtons.BackGroundLabelSolitaire;
 
 public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 
- BackGroundLabelSolitaire backgroundLabel;
+	BackGroundLabelSolitaire backgroundLabel;
 
- private SolitarGUIInputUnit inputUnit;
+	private SolitarGUIInputUnit inputUnit;
 
- private BackGroundButtonID button[][];
+	private BackGroundButtonID button[][];
 
- int ROWS = 7;
- int COLS = 7;
+	int ROWS = 7;
+	int COLS = 7;
 
- public SolitarGUIOutputUnit(SolitarGUIInputUnit inputUnit) {
-  this.inputUnit = inputUnit;
-  backgroundLabel = new BackGroundLabelSolitaire(ROWS, COLS);
-  setLayout(new BorderLayout());
-  add(backgroundLabel);
- }
+	public SolitarGUIOutputUnit(SolitarGUIInputUnit inputUnit) {
+		this.inputUnit = inputUnit;
+		backgroundLabel = new BackGroundLabelSolitaire(ROWS, COLS);
+		setLayout(new BorderLayout());
+		add(backgroundLabel);
+	}
 
- @Override
- public void publish(GameState gameState) {
+	@Override
+	public void publish(GameState gameState) {
 
-  backgroundLabel.removeAll();
+		backgroundLabel.removeAll();
 
-  List<BoardLocation> locations = gameState.getBoard().getLocations();
+		List<BoardLocation> locations = gameState.getBoard().getLocations();
 
-  button = new BackGroundButtonID[ROWS][COLS];
+		button = new BackGroundButtonID[ROWS][COLS];
 
-   int index = 0;
-   for (int rows = 0; rows < ROWS; rows++) {
-    for (int cols = 0; cols < COLS; cols++) {
-     button[rows][cols] = new BackGroundButtonID(Integer.toString((rows + 1))
-       + Integer.toString((cols + 1)));
+		int index = 0;
+		for (int rows = 0; rows < ROWS; rows++) {
+			for (int cols = 0; cols < COLS; cols++) {
+				button[rows][cols] = new BackGroundButtonID(
+						Integer.toString((rows + 1))
+								+ Integer.toString((cols + 1)));
 
-     button[rows][cols].addActionListener(inputUnit);
+				button[rows][cols].addActionListener(inputUnit);
 
-     backgroundLabel.add(button[rows][cols]);
+				backgroundLabel.add(button[rows][cols]);
 
-     String col = locations.get(index).getId();
-     GamePiece piece = locations.get(index++).getPiece();
+				GamePiece piece = null;
 
-     if (col == null) {
-      button[rows][cols].setVisible(false);
-     } else {
-      if (piece == null)
-       button[rows][cols].setButtonEmptyBead();
-      else
-       button[rows][cols].setButtonWithBead();
-     }
-    }
-   }
+				if (locations.get(index) != null) {
+					piece = locations.get(index).getPiece();
 
-   System.out.println(gameState.hasEnded());
-   if(gameState.hasEnded())
-	   JOptionPane.showMessageDialog(null, "Game's over, no more moves can be made ");
-   backgroundLabel.revalidate();
-   
- }
+					if (piece == null)
+						button[rows][cols].setButtonEmptyBead();
+					else
+						button[rows][cols].setButtonWithBead();
 
- 
+				} else
+					button[rows][cols].setVisible(false);
+
+				index++;
+			}
+		}
+
+		if (gameState.hasEnded()) {
+			JOptionPane.showMessageDialog(null,
+					"Game's over, no more moves can be made ");
+		}
+		backgroundLabel.revalidate();
+	}
 }
