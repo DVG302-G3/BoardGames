@@ -8,6 +8,7 @@ import game.io.OutputUnit;
 import java.awt.BorderLayout;
 import java.util.List;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import boardgames.g3.BGForLabelsButtons.BackGroundButtonID;
@@ -40,7 +41,6 @@ public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 
   button = new BackGroundButtonID[ROWS][COLS];
 
-
    int index = 0;
    for (int rows = 0; rows < ROWS; rows++) {
     for (int cols = 0; cols < COLS; cols++) {
@@ -65,8 +65,12 @@ public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
     }
    }
 
+   System.out.println(gameState.hasEnded());
+   if(gameState.hasEnded())
+	   JOptionPane.showMessageDialog(null, "Game's over, no more moves can be made ");
    backgroundLabel.revalidate();
-  
+   
  }
 
+ 
 }

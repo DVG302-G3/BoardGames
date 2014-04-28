@@ -52,9 +52,10 @@ public class RuleControllerSolitar {
 			destRow = Integer.parseInt(destination.getId().substring(0, 1));
 			destCol = Integer.parseInt(destination.getId().substring(1, 2));
 
-			if(thereIsNotABeadInBetween(destRow, destCol, sourceRow, sourceCol, board))
+			if (thereIsNotABeadInBetween(destRow, destCol, sourceRow,
+					sourceCol, board))
 				return false;
-			
+
 			int deltaRow = Math.abs((sourceRow - destRow));
 			int deltaCol = Math.abs((sourceCol - destCol));
 			if (deltaRow == 2 && deltaCol == 0)
@@ -87,19 +88,17 @@ public class RuleControllerSolitar {
 						GamePiece twoBelow = tmpBoard[r + 2][c].getPiece();
 						movePossible = movePossible(pieceBelow, twoBelow);
 						if (movePossible) {
-							break;
+							return true;
 						}
 
 					}
 
 					if (withinBoundsCols(c)) {
 						GamePiece rightPiece = tmpBoard[r][c + 1].getPiece();
-						GamePiece secondRightPiece = tmpBoard[r][c + 2]
-								.getPiece();
-						movePossible = movePossible(rightPiece,
-								secondRightPiece);
+						GamePiece secondRightPiece = tmpBoard[r][c + 2].getPiece();
+						movePossible = movePossible(rightPiece,secondRightPiece);
 						if (movePossible)
-							break;
+							return true;
 					}
 				}
 			}

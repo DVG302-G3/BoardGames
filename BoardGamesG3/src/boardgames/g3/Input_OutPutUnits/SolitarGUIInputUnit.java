@@ -8,6 +8,8 @@ import game.io.InputUnit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
+
 import org.hamcrest.CoreMatchers;
 
 import boardgames.g3.BGForLabelsButtons.BackGroundButtonID;
@@ -28,7 +30,8 @@ public class SolitarGUIInputUnit extends InputUnit implements ActionListener {
 	}
 
 	public void onClick(String coordinate) {
-
+	
+		
 		if (sourceClick == null) {
 			sourceClick = SolitarHelpMethods.getBoardLocationFromCoordinate(
 					coordinate, state.getBoard());
@@ -48,10 +51,11 @@ public class SolitarGUIInputUnit extends InputUnit implements ActionListener {
 
 			notifyListenersOfMove(new Move(state.getPlayerInTurn(),
 					sourceClick, destinationClick));
-
+	
 			sourceClick = null;
 			destinationClick = null;
 		}
+		
 	}
 
 	@Override
