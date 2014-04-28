@@ -28,7 +28,7 @@ public class InputUnitFiaMedKnuff extends InputUnit{
     private Move getNextMove(GameState state) {
     	
     	Player player = null;
-    	GamePiece piece = null;
+    	//GamePiece piece = null;
     	int input;
     	int dieRollNumber;
         BoardLocation source = null;
@@ -47,8 +47,8 @@ public class InputUnitFiaMedKnuff extends InputUnit{
             System.out.println();
             System.out.println("Vilken pjäs vill du flytta:");
             input = Integer.parseInt(br.readLine());
-            System.out.println(player.getPieces().get(input));
-            
+            player.getPieces().get(input);
+            ///test
             //source = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(input, state.getBoard());
             //destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(input,state.getBoard());
             
