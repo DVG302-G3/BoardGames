@@ -41,7 +41,7 @@ public class ConsoleOutputFiaMedKnuff implements OutputUnit {
 				}
 			}
 			System.out.println();
-			cordCol= 'A';
+			cordCol = 'A';
 			cordRow++;
 		}
 

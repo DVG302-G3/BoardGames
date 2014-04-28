@@ -3,11 +3,7 @@ package boardgames.g3.core;
 import game.impl.Board;
 import game.impl.BoardLocation;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class HelpMethodsFinaMedKnuff {
 
@@ -21,6 +17,17 @@ public class HelpMethodsFinaMedKnuff {
 			}
 		}
 		return null;
+	}
+	
+	public static int getFlatListIndexFromCoordinate(String location, Board board){
+		List<BoardLocation> b = board.getLocations();
+		for(int i = 0;i<b.size();i++){
+			if(b.get(i).getId().equals("locations")){
+				return i;
+			};
+		}
+		
+		return -1;
 	}
 
 }
