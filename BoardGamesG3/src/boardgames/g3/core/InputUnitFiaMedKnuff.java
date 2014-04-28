@@ -47,7 +47,7 @@ public class InputUnitFiaMedKnuff extends InputUnit{
             System.out.println();
             System.out.println("Vilken pjäs vill du flytta:");
             input = Integer.parseInt(br.readLine());
-            player.getPieces().get(input);
+            System.out.println(player.getPieces().get(input));
             
             //source = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(input, state.getBoard());
             //destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(input,state.getBoard());
