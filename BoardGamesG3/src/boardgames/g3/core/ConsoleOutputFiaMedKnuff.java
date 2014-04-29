@@ -12,13 +12,13 @@ public class ConsoleOutputFiaMedKnuff implements OutputUnit {
 
 	@Override
 	public void publish(GameState state) {
-		System.out.println("  A B C D E F G H I J K");
+		System.out.println("   A  B  C  D  E  F  G  H  I  J  K");
 
 		char cordRow = 'A';
 		char cordCol = 'A';
 
 		for (int r = 0; r < ROWS; r++) {
-			System.out.print(cordRow + " ");
+			System.out.print(cordRow + "  ");
 
 			for (int c = 0; c < COLS; c++) {
 
@@ -35,9 +35,13 @@ public class ConsoleOutputFiaMedKnuff implements OutputUnit {
 					col = location.getId();
 
 				if (col == null) {
-					System.out.print("  ");
-				} else {
-					System.out.print("X ");
+					System.out.print("   ");
+				} 
+				else if(location.getPiece() != null){
+					System.out.print(location.getPiece().getId()+" ");
+				}
+					else {
+					System.out.print("X  ");
 				}
 			}
 			System.out.println();
