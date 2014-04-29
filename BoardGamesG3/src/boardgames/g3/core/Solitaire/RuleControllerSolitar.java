@@ -70,15 +70,12 @@ public class RuleControllerSolitar {
 	}
 
 	public Boolean isGameFinished(GameState gamestate) {
-		boolean movePossible = false;
 		BoardLocation[][] tmpBoard = SolitarHelpMethods.get2DBoard(ROWS, COLS,
 				gamestate.getBoard().getLocations());
-		movePossible = iterateBoardForMoves(tmpBoard);
-		return !movePossible;
+		return !iterateBoardForMoves(tmpBoard);
 	}
 
 	private boolean iterateBoardForMoves(BoardLocation[][] tmpBoard) {
-		boolean movePossible = false;
 		for (int r = 0; r < ROWS; r++) {
 			for (int c = 0; c < COLS; c++) {
 				if (tmpBoard[r][c] == null)
@@ -89,87 +86,78 @@ public class RuleControllerSolitar {
 
 					if (withinBoundsBeleow(r)) {
 						if (boardPieceExistBelow(tmpBoard, r, c)) {
-							GamePiece pieceBelow = tmpBoard[(r + 1)][c]
-									.getPiece();
-							GamePiece twoBelow = tmpBoard[(r + 2)][c]
-									.getPiece();
-							movePossible = movePossibleBelowAndRight(
-									pieceBelow, twoBelow);
-							if (movePossible) {
-								System.out.println(tmpBoard[r][c].getId() + " " + tmpBoard[(r + 1)][c].getId() + " " + tmpBoard[(r + 2)][c].getId());
+							if(movePossibleToDoDownwards(tmpBoard, r, c))
 								return true;
-							}
 						}
 					}
 
 					if (withinBoundsRight(c)) {
 						if (boardPieceExistRight(tmpBoard, r, c)) {
-							GamePiece rightPiece = tmpBoard[r][(c + 1)]
-									.getPiece();
-							GamePiece secondRightPiece = tmpBoard[r][(c + 2)]
-									.getPiece();
-							movePossible = movePossibleBelowAndRight(
-									rightPiece, secondRightPiece);
-							if (movePossible) {
-								System.out.println(tmpBoard[r][c].getId() + " " + tmpBoard[r][c + 1].getId() + " " + tmpBoard[r][c + 2].getId());
-								
+							if(movePossibleToDoRight(tmpBoard, r, c))
 								return true;
-
-							}
 						}
 					}
 					if (withinBoundsAbove(r)) {
 						if (boardPieceExistAbove(tmpBoard, r, c)) {
-							GamePiece pieceAbove = tmpBoard[(r - 1)][c]
-									.getPiece();
-							GamePiece twoAbove = tmpBoard[(r - 2)][c]
-									.getPiece();
-							movePossible = movePossibleAboveAndLeft(pieceAbove,
-									twoAbove);
-							if (movePossible) {
-								System.out.println(tmpBoard[r][c].getId() + " " + tmpBoard[(r - 1)][c].getId() + " " + tmpBoard[(r - 2)][c].getId());
-								
+							if(movePossibleToDoUpwards(tmpBoard, r,c))
 								return true;
-							}
 						}
 					}
 
 					if (withinBoundsLeft(c)) {
 						if (boardPieceExistLeft(tmpBoard, r, c)) {
-							GamePiece leftPiece = tmpBoard[r][(c - 1)]
-									.getPiece();
-							GamePiece secondLeftPiece = tmpBoard[r][(c - 2)]
-									.getPiece();
-							movePossible = movePossibleAboveAndLeft(leftPiece,
-									secondLeftPiece);
-							if (movePossible) {
-								System.out.println(tmpBoard[r][c].getId() + " " + tmpBoard[r][c - 1].getId() + " " + tmpBoard[r][c - 2].getId());
-								
-								
+							if(movePossibleToDoLeft(tmpBoard, r, c))
 								return true;
-
-							}
 						}
 					}
-
-					
 
 				}
 
 			}
 		}
-		return movePossible;
+		return false;
 	}
 
-	private boolean boardPieceExistBelow(BoardLocation[][] tmpBoard, int r, int c) {
+	private boolean movePossibleToDoLeft(BoardLocation[][] tmpBoard, int r,
+			int c) {
+		GamePiece leftPiece = tmpBoard[r][(c - 1)].getPiece();
+		GamePiece secondLeftPiece = tmpBoard[r][(c - 2)].getPiece();
+		return movePossibleAboveAndLeft(leftPiece,secondLeftPiece);
+	}
+
+	private boolean movePossibleToDoUpwards(BoardLocation[][] tmpBoard, int r,
+			int c) {
+		GamePiece pieceAbove = tmpBoard[(r - 1)][c].getPiece();
+		GamePiece twoAbove = tmpBoard[(r - 2)][c].getPiece();
+		return movePossibleAboveAndLeft(pieceAbove,twoAbove);
+	}
+
+	private boolean movePossibleToDoRight(BoardLocation[][] tmpBoard, int r,
+			int c) {
+		GamePiece rightPiece = tmpBoard[r][(c + 1)].getPiece();
+		GamePiece secondRightPiece = tmpBoard[r][(c + 2)].getPiece();
+		return movePossibleBelowAndRight(rightPiece, secondRightPiece);
+	}
+
+	private boolean movePossibleToDoDownwards(BoardLocation[][] tmpBoard,
+			int r, int c) {
+		GamePiece pieceBelow = tmpBoard[(r + 1)][c].getPiece();
+		GamePiece twoBelow = tmpBoard[(r + 2)][c].getPiece();
+		return movePossibleBelowAndRight(pieceBelow, twoBelow);
+	}
+
+	private boolean boardPieceExistBelow(BoardLocation[][] tmpBoard, int r,
+			int c) {
 		return (tmpBoard[r][c] != null && tmpBoard[(r + 1)][c] != null && tmpBoard[(r + 2)][c] != null);
 	}
 
-	private boolean boardPieceExistRight(BoardLocation[][] tmpBoard, int r, int c) {
+	private boolean boardPieceExistRight(BoardLocation[][] tmpBoard, int r,
+			int c) {
 		return (tmpBoard[r][c] != null && tmpBoard[r][(c + 1)] != null && tmpBoard[r][(c + 2)] != null);
 	}
-	
-	private boolean boardPieceExistAbove(BoardLocation[][] tmpBoard, int r, int c) {
+
+	private boolean boardPieceExistAbove(BoardLocation[][] tmpBoard, int r,
+			int c) {
 		return (tmpBoard[r][c] != null && tmpBoard[(r - 1)][c] != null && tmpBoard[(r - 2)][c] != null);
 	}
 
@@ -188,7 +176,7 @@ public class RuleControllerSolitar {
 	private boolean withinBoundsAbove(int r) {
 		return (r - 2) > 0;
 	}
-	
+
 	private boolean withinBoundsLeft(int c) {
 		return (c - 2) > 0;
 	}
