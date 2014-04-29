@@ -17,7 +17,7 @@ public class SolitarGameState implements GameState {
 
 	Board board;
 	Player player;
-	RuleControllerSolitar ruler;
+	SolitarRuleController ruler;
 	public final int ROWS;
 	public final int COLS;
 
@@ -27,7 +27,7 @@ public class SolitarGameState implements GameState {
 		this.board = new Board(createBoardLocations());
 		putAllTheBeadsOnTheBoard();
 		this.player = new Player("Playah!", null);
-		ruler = new RuleControllerSolitar(ROWS, COLS);
+		ruler = new SolitarRuleController(ROWS, COLS);
 	}
 
 	private void putAllTheBeadsOnTheBoard() {
@@ -43,7 +43,7 @@ public class SolitarGameState implements GameState {
 		List<BoardLocation> boardLocations = new ArrayList<BoardLocation>();
 		List<String> listOfRows = null;
 		try {
-			listOfRows = FileHandler.readCoordinate();
+			listOfRows = SolitarFileHandler.readCoordinate();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

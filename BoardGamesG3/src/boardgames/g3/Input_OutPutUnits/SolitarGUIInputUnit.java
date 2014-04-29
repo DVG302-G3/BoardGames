@@ -8,10 +8,6 @@ import game.io.InputUnit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JOptionPane;
-
-import org.hamcrest.CoreMatchers;
-
 import boardgames.g3.BGForLabelsButtons.BackGroundButtonID;
 import boardgames.g3.core.Solitaire.SolitarHelpMethods;
 

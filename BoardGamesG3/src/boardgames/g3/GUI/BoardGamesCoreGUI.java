@@ -73,9 +73,9 @@ public class BoardGamesCoreGUI extends JFrame {
 
 		mainFrame.setJMenuBar(menuBar);
 		mainFrame.setContentPane(mainPanel);
-		mainFrame.setBounds(200, 50, 900, 800);
+		mainFrame.setBounds(200, 50, 900, 700);
 		mainFrame.setVisible(true);
-		mainFrame.pack();
+//		mainFrame.pack();
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setResizable(false);
 
@@ -110,7 +110,7 @@ public class BoardGamesCoreGUI extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			setMainPanelContent(new BoardGamesFiaMedKnuffGUI());
+			setMainPanelContent(new BoardGamesLudoGUI());
 		}
 	}
 

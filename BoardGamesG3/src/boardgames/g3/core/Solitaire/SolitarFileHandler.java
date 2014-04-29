@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileHandler {
+public class SolitarFileHandler {
 
 	public static List<String> readCoordinate()
 			throws IOException {

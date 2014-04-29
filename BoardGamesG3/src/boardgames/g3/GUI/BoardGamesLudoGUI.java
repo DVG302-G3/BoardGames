@@ -22,7 +22,7 @@ import boardgames.g3.Input_OutPutUnits.LUDOGUIOutputUnit;
 import boardgames.g3.core.Ludo.LudoGameState;
 import boardgames.g3.core.Ludo.diceChooser;
 
-public class BoardGamesFiaMedKnuffGUI extends JPanel {
+public class BoardGamesLudoGUI extends JPanel {
 
 	private JButton diceButton;
 
@@ -38,7 +38,7 @@ public class BoardGamesFiaMedKnuffGUI extends JPanel {
 	LUDOGUIInputUnit inputUnit;
 	LUDOGUIOutputUnit outputUnit;
 
-	public BoardGamesFiaMedKnuffGUI() {
+	public BoardGamesLudoGUI() {
 
 		createComponents();
 		setUpPanels();

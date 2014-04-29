@@ -6,12 +6,12 @@ import game.impl.BoardLocation;
 import game.impl.GamePiece;
 import game.impl.Move;
 
-public class RuleControllerSolitar {
+public class SolitarRuleController {
 
 	public final int ROWS;
 	public final int COLS;
 
-	public RuleControllerSolitar(int rows, int cols) {
+	public SolitarRuleController(int rows, int cols) {
 		this.ROWS = rows;
 		this.COLS = cols;
 	}
@@ -159,7 +159,7 @@ public class RuleControllerSolitar {
 	private boolean boardPieceExistAbove(BoardLocation[][] tmpBoard, int r,
 			int c) {
 		return (tmpBoard[r][c] != null && tmpBoard[(r - 1)][c] != null && tmpBoard[(r - 2)][c] != null);
-	}
+	} 
 
 	private boolean boardPieceExistLeft(BoardLocation[][] tmpBoard, int r, int c) {
 		return (tmpBoard[r][c] != null && tmpBoard[r][(c - 1)] != null && tmpBoard[r][(c - 2)] != null);
