@@ -69,6 +69,8 @@ public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 			}
 		}
 
+		System.out.println(gameState.hasEnded());
+		
 		if (gameState.hasEnded()) {
 			JOptionPane.showMessageDialog(null,
 					"Game's over, no more moves can be made ");

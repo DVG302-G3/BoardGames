@@ -81,63 +81,125 @@ public class RuleControllerSolitar {
 		boolean movePossible = false;
 		for (int r = 0; r < ROWS; r++) {
 			for (int c = 0; c < COLS; c++) {
-				if(tmpBoard[r][c] == null)
+				if (tmpBoard[r][c] == null)
 					continue;
 
 				GamePiece currentPiece = tmpBoard[r][c].getPiece();
 				if (currentPiece != null) {
 
-					if (withinBoundsRows(r)) {
-						if (boardPieceExistRows(tmpBoard, r, c)) {
+					if (withinBoundsBeleow(r)) {
+						if (boardPieceExistBelow(tmpBoard, r, c)) {
 							GamePiece pieceBelow = tmpBoard[(r + 1)][c]
 									.getPiece();
 							GamePiece twoBelow = tmpBoard[(r + 2)][c]
 									.getPiece();
-							movePossible = movePossible(pieceBelow, twoBelow);
+							movePossible = movePossibleBelowAndRight(
+									pieceBelow, twoBelow);
 							if (movePossible) {
+								System.out.println(tmpBoard[r][c].getId() + " " + tmpBoard[(r + 1)][c].getId() + " " + tmpBoard[(r + 2)][c].getId());
 								return true;
 							}
 						}
 					}
 
-					if (withinBoundsCols(c)) {
-						if (boardPieceExistCols(tmpBoard, r, c)) {
+					if (withinBoundsRight(c)) {
+						if (boardPieceExistRight(tmpBoard, r, c)) {
 							GamePiece rightPiece = tmpBoard[r][(c + 1)]
 									.getPiece();
 							GamePiece secondRightPiece = tmpBoard[r][(c + 2)]
 									.getPiece();
-							movePossible = movePossible(rightPiece,
-									secondRightPiece);
+							movePossible = movePossibleBelowAndRight(
+									rightPiece, secondRightPiece);
 							if (movePossible) {
+								System.out.println(tmpBoard[r][c].getId() + " " + tmpBoard[r][c + 1].getId() + " " + tmpBoard[r][c + 2].getId());
+								
 								return true;
 
 							}
 						}
 					}
+					if (withinBoundsAbove(r)) {
+						if (boardPieceExistAbove(tmpBoard, r, c)) {
+							GamePiece pieceAbove = tmpBoard[(r - 1)][c]
+									.getPiece();
+							GamePiece twoAbove = tmpBoard[(r - 2)][c]
+									.getPiece();
+							movePossible = movePossibleAboveAndLeft(pieceAbove,
+									twoAbove);
+							if (movePossible) {
+								System.out.println(tmpBoard[r][c].getId() + " " + tmpBoard[(r - 1)][c].getId() + " " + tmpBoard[(r - 2)][c].getId());
+								
+								return true;
+							}
+						}
+					}
+
+					if (withinBoundsLeft(c)) {
+						if (boardPieceExistLeft(tmpBoard, r, c)) {
+							GamePiece leftPiece = tmpBoard[r][(c - 1)]
+									.getPiece();
+							GamePiece secondLeftPiece = tmpBoard[r][(c - 2)]
+									.getPiece();
+							movePossible = movePossibleAboveAndLeft(leftPiece,
+									secondLeftPiece);
+							if (movePossible) {
+								System.out.println(tmpBoard[r][c].getId() + " " + tmpBoard[r][c - 1].getId() + " " + tmpBoard[r][c - 2].getId());
+								
+								
+								return true;
+
+							}
+						}
+					}
+
+					
+
 				}
+
 			}
 		}
 		return movePossible;
 	}
 
-	private boolean boardPieceExistRows(BoardLocation[][] tmpBoard, int r, int c) {
-		 return (tmpBoard[r][c] != null && tmpBoard[(r + 1)][c] != null &&
-		 tmpBoard[(r + 2)][c] != null);
+	private boolean boardPieceExistBelow(BoardLocation[][] tmpBoard, int r, int c) {
+		return (tmpBoard[r][c] != null && tmpBoard[(r + 1)][c] != null && tmpBoard[(r + 2)][c] != null);
 	}
 
-	private boolean boardPieceExistCols(BoardLocation[][] tmpBoard, int r, int c) {
-				return (tmpBoard[r][c] != null && tmpBoard[r][(c + 1)] != null && tmpBoard[r][(c + 2)] != null);
+	private boolean boardPieceExistRight(BoardLocation[][] tmpBoard, int r, int c) {
+		return (tmpBoard[r][c] != null && tmpBoard[r][(c + 1)] != null && tmpBoard[r][(c + 2)] != null);
+	}
+	
+	private boolean boardPieceExistAbove(BoardLocation[][] tmpBoard, int r, int c) {
+		return (tmpBoard[r][c] != null && tmpBoard[(r - 1)][c] != null && tmpBoard[(r - 2)][c] != null);
 	}
 
-	private boolean withinBoundsRows(int r) {
+	private boolean boardPieceExistLeft(BoardLocation[][] tmpBoard, int r, int c) {
+		return (tmpBoard[r][c] != null && tmpBoard[r][(c - 1)] != null && tmpBoard[r][(c - 2)] != null);
+	}
+
+	private boolean withinBoundsBeleow(int r) {
 		return r < (ROWS - 2);
 	}
 
-	private boolean withinBoundsCols(int c) {
+	private boolean withinBoundsRight(int c) {
 		return c < (COLS - 2);
 	}
 
-	private boolean movePossible(GamePiece firstPiece, GamePiece secondPiece) {
+	private boolean withinBoundsAbove(int r) {
+		return (r - 2) > 0;
+	}
+	
+	private boolean withinBoundsLeft(int c) {
+		return (c - 2) > 0;
+	}
+
+	private boolean movePossibleBelowAndRight(GamePiece firstPiece,
+			GamePiece secondPiece) {
+		return firstPiece != null && secondPiece == null;
+	}
+
+	private boolean movePossibleAboveAndLeft(GamePiece firstPiece,
+			GamePiece secondPiece) {
 		return firstPiece != null && secondPiece == null;
 	}
 }
