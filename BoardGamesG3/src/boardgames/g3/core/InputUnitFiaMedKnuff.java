@@ -28,33 +28,37 @@ public class InputUnitFiaMedKnuff extends InputUnit{
     private Move getNextMove(GameState state) {
     	
     	Player player = null;
-    	//GamePiece piece = null;
-    	int input;
+    	String input;
     	int dieRollNumber;
         BoardLocation source = null;
         BoardLocation destination = null;
         boolean inputOK = false;
-        if (player == null){
-    		player = state.getPlayerInTurn();    	
-    	}
         while(!inputOK){
             try{
-                
-            System.out.println();
-            player = state.getPlayerInTurn();
-            dieRollNumber = state.getDieRollFactory().getNewRoll(player).getResult();
-            System.out.print(player.getName()+" "+"antal steg du får gå med pjäs är:"+" "+dieRollNumber);
-            System.out.println();
-            System.out.println("Vilken pjäs vill du flytta:");
-            input = Integer.parseInt(br.readLine());
-            player.getPieces().get(input);
-            ///test
-            //source = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(input, state.getBoard());
-            //destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(input,state.getBoard());
+            	System.out.println();
+            	
+            	player = state.getPlayerInTurn();
+            	dieRollNumber = state.getDieRollFactory().getNewRoll(player).getResult();
+            	
+            	System.out.print(player.getName()+" "+"antal steg du får gå med pjäs är:"+" "+dieRollNumber);
+            	System.out.println();
+            	
+            	System.out.println("Vilken pjäs vill du flytta:");
+            	
+            	input = br.readLine();
+            	source = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(input, state.getBoard());
+            	
+            	int numberInList = HelpMethodsFinaMedKnuff.getFlatListIndexFromCoordinate(input, state.getBoard());
+            	int destinationForPieceAfterDieRoll = numberInList+dieRollNumber;
+            	
+            	System.out.println(state.getBoard().getLocations().get(destinationForPieceAfterDieRoll).getId());
+            	
+            	String destinationForPiece = state.getBoard().getLocations().get(destinationForPieceAfterDieRoll).getId();
+            	destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(destinationForPiece, state.getBoard());
             
             }catch(ArrayIndexOutOfBoundsException e){
                 
-                System.out.println("Felaktigt antal parametrar. Mata in enligt FN");
+                System.out.println("Felaktiga parametrar. Mata in enligt FN");
                 e.printStackTrace();
                 
             }catch(IOException e){
@@ -62,73 +66,10 @@ public class InputUnitFiaMedKnuff extends InputUnit{
             }
             if(source != null && destination != null)
                 inputOK = true;
+            
             else
-                System.out.println("Incorrect inmatning. Testa igen");
+                System.out.println("Felaktig inmatning. Testa igen");
         }
-    	
-    	/*Player player = null;
-    	GamePiece piece = null;
-    	BoardLocation source = null;
-        BoardLocation destination = null;
-        //List<String> input;
-        String input;
-        int dieRollNumber;
-        boolean inputOK = false;        
-    	if (player == null){
-    		player = state.getPlayerInTurn();    	
-    	}
-    	while(inputOK){
-    		try{
-    			System.out.println();
-                System.out.print(player.getName()+"Antal steg du får gå:"+ state.getDieRollFactory());
-                dieRollNumber = state.getDieRollFactory().getNewRoll(player).getResult();
-                input = br.readLine();
-                
-                source = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EA", state.getBoard());
-                //destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(,state.getBoard());
-                
-    		}catch(ArrayIndexOutOfBoundsException e){
-                
-                System.out.println("Fel");
-                e.printStackTrace();
-    		
-    		}catch(IOException e){
-                e.printStackTrace();
-            }
-    		if(player != null && source != null && destination != null)
-                inputOK = true;
-            else
-                System.out.println("Detta gå ej");
-    		
-    	}*/
-    	/*
-        List<String> input;
-        BoardLocation source = null;
-        BoardLocation destination = null;
-        boolean inputOK = false;
-        while(!inputOK){
-            try{
-                
-            System.out.println();
-            System.out.print("Antal steg du får gå:");
-            input = Arrays.asList(br.readLine().split(" "));
-            
-            source = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(input.get(0), state.getBoard());
-            destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(input.get(1),state.getBoard());
-            
-            }catch(ArrayIndexOutOfBoundsException e){
-                
-                System.out.println("Felaktigt antal parametrar. Mata in enligt S DD");
-                e.printStackTrace();
-                
-            }catch(IOException e){
-                e.printStackTrace();
-            }
-            if(source != null && destination != null)
-                inputOK = true;
-            else
-                System.out.println("Incorrect inmatning. Testa igen");
-        }*/
         return new Move(state.getPlayerInTurn(),source, destination);
     }
    }

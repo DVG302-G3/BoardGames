@@ -24,7 +24,7 @@ public class HelpMethodsFinaMedKnuff {
 		for(int i = 0;i<b.size();i++){
 			if(b.get(i).getId().equals(location)){
 				return i;
-			};
+			}
 		}
 		
 		return -1;
