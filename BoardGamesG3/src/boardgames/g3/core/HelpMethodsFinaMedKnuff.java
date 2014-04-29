@@ -22,7 +22,7 @@ public class HelpMethodsFinaMedKnuff {
 	public static int getFlatListIndexFromCoordinate(String location, Board board){
 		List<BoardLocation> b = board.getLocations();
 		for(int i = 0;i<b.size();i++){
-			if(b.get(i).getId().equals("locations")){
+			if(b.get(i).getId().equals(location)){
 				return i;
 			};
 		}
