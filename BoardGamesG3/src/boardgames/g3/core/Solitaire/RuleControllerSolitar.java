@@ -121,12 +121,12 @@ public class RuleControllerSolitar {
 	}
 
 	private boolean boardPieceExistRows(BoardLocation[][] tmpBoard, int r, int c) {
-		 return !(tmpBoard[r][c] == null || tmpBoard[(r + 1)][c] == null ||
-		 tmpBoard[(r + 2)][c] == null);
+		 return (tmpBoard[r][c] != null && tmpBoard[(r + 1)][c] != null &&
+		 tmpBoard[(r + 2)][c] != null);
 	}
 
 	private boolean boardPieceExistCols(BoardLocation[][] tmpBoard, int r, int c) {
-				return !(tmpBoard[r][c] == null || tmpBoard[r][(c + 1)] == null || tmpBoard[r][(c + 2)] == null);
+				return (tmpBoard[r][c] != null && tmpBoard[r][(c + 1)] != null && tmpBoard[r][(c + 2)] != null);
 	}
 
 	private boolean withinBoundsRows(int r) {

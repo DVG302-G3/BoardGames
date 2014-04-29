@@ -87,6 +87,53 @@ public class SolitairGameStateTest {
 		assertTrue(gameState.hasEnded());
 		
 		
+    for(BoardLocation board : gameState.getBoard().getLocations()){
+     if(board != null)
+       board.setPiece(null);
+   }
+    
+    //Bör ej resultera rätt
+    gameState.getBoard().getLocations().get(2).setPiece(new GamePiece("O"));
+    gameState.getBoard().getLocations().get(14).setPiece(new GamePiece("O"));
+    gameState.getBoard().getLocations().get(17).setPiece(new GamePiece("O"));
+    gameState.getBoard().getLocations().get(20).setPiece(new GamePiece("O"));
+    gameState.getBoard().getLocations().get(25).setPiece(new GamePiece("O"));
+    gameState.getBoard().getLocations().get(27).setPiece(new GamePiece("O"));
+    gameState.getBoard().getLocations().get(30).setPiece(new GamePiece("O"));
+    gameState.getBoard().getLocations().get(33).setPiece(new GamePiece("O"));
+    gameState.getBoard().getLocations().get(34).setPiece(new GamePiece("O"));
+    gameState.getBoard().getLocations().get(44).setPiece(new GamePiece("O"));
+    gameState.getBoard().getLocations().get(45).setPiece(new GamePiece("O"));
+    gameState.getBoard().getLocations().get(46).setPiece(new GamePiece("O"));
+    
+    assertTrue(gameState.hasEnded());
+		
+    
+    for(BoardLocation board : gameState.getBoard().getLocations()){
+     if(board != null)
+       board.setPiece(null);
+   }
+    
+    //Bör ej resultera rätt
+    gameState.getBoard().getLocations().get(16).setPiece(new GamePiece("O"));
+    gameState.getBoard().getLocations().get(17).setPiece(new GamePiece("O"));
+    gameState.getBoard().getLocations().get(18).setPiece(new GamePiece("O"));
+    gameState.getBoard().getLocations().get(19).setPiece(new GamePiece("O"));
+    gameState.getBoard().getLocations().get(20).setPiece(new GamePiece("O"));
+    gameState.getBoard().getLocations().get(25).setPiece(new GamePiece("O"));
+    gameState.getBoard().getLocations().get(26).setPiece(new GamePiece("O"));
+    gameState.getBoard().getLocations().get(27).setPiece(new GamePiece("O"));
+    gameState.getBoard().getLocations().get(28).setPiece(new GamePiece("O"));
+    gameState.getBoard().getLocations().get(32).setPiece(new GamePiece("O"));
+    gameState.getBoard().getLocations().get(33).setPiece(new GamePiece("O"));
+    gameState.getBoard().getLocations().get(34).setPiece(new GamePiece("O"));
+    gameState.getBoard().getLocations().get(38).setPiece(new GamePiece("O"));
+    gameState.getBoard().getLocations().get(39).setPiece(new GamePiece("O"));
+    gameState.getBoard().getLocations().get(44).setPiece(new GamePiece("O"));
+    gameState.getBoard().getLocations().get(45).setPiece(new GamePiece("O"));
+    gameState.getBoard().getLocations().get(46).setPiece(new GamePiece("O"));
+    
+    assertTrue(gameState.hasEnded());
 
 	}
 
