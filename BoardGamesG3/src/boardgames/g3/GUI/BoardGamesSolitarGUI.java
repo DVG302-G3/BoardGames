@@ -13,20 +13,21 @@ import javax.swing.border.TitledBorder;
 import boardgames.g3.Input_OutPutUnits.SolitarGUIIOFactory;
 import boardgames.g3.Input_OutPutUnits.SolitarGUIInputUnit;
 import boardgames.g3.Input_OutPutUnits.SolitarGUIOutputUnit;
-import boardgames.g3.core.Solitaire.CounterBeads;
+import boardgames.g3.core.Solitaire.CounterBeadsLeft;
 import boardgames.g3.core.Solitaire.SolitarGameState;
+import boardgames.g3.core.Solitaire.SolitarTimer;
 
 public class BoardGamesSolitarGUI extends JPanel {
 
-	private JPanel topPanel, topPanelBeadsLeft, topPanelBeadsTaken, midPanel;
+	private JPanel topPanel, topPanelBeadsLeft, topPanelBeadsTaken, topPanelTimer ,midPanel;
 
-	private JTextArea beadsTakenTextArea, beadsLeftTextArea;
+	int beadsLeft = 32; 
+	int beadsTaken = 0;
 	
 	SolitarGUIInputUnit in;
 	SolitarGUIOutputUnit out;
+	SolitarTimer timer;
 
-	CounterBeads counterBeads;
-	
 	public BoardGamesSolitarGUI() {
 		createComponents();
 		setUpPanels();
@@ -35,20 +36,21 @@ public class BoardGamesSolitarGUI extends JPanel {
 		out = new SolitarGUIOutputUnit(in);
 		new Runner(new SolitarGameState(), new SolitarGUIIOFactory(in, out))
 				.run();
+		
 		setNewMidPanel(out);
-
+		setNewTopPanels(new CounterBeadsLeft(beadsLeft), new CounterBeadsTaken(beadsTaken)); 
+		
+		
 	}
 
 	private void createComponents() {
-
-		counterBeads = new CounterBeads();
 		
-		topPanel = new JPanel(new GridLayout(0, 2));
+		topPanel = new JPanel(new GridLayout(0, 3));
 		topPanelBeadsLeft = new JPanel();
 		topPanelBeadsTaken = new JPanel();
+		topPanelTimer = new JPanel();
 
-		beadsLeftTextArea = new JTextArea();
-		beadsTakenTextArea = new JTextArea();
+		timer = new SolitarTimer();
 		
 		midPanel = new JPanel();
 
@@ -63,32 +65,19 @@ public class BoardGamesSolitarGUI extends JPanel {
 		topPanelBeadsLeft.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(), "Beads Left",
 				TitledBorder.LEFT, TitledBorder.TOP));
-		
-		beadsLeftTextArea.setEditable(false);
-		beadsLeftTextArea.setOpaque(false);
-		beadsLeftTextArea.setFocusable(false);
-
-		
-		
-		topPanelBeadsLeft.add(beadsLeftTextArea);
-		
-
+	
 		topPanelBeadsTaken.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(), "Beads Taken",
 				TitledBorder.LEFT, TitledBorder.TOP));
 		
-		beadsTakenTextArea.setEditable(false);
-		beadsTakenTextArea.setOpaque(false);
-		beadsTakenTextArea.setFocusable(false);
+    topPanelTimer.setBorder(BorderFactory.createTitledBorder(
+      BorderFactory.createEtchedBorder(), "Timer",
+      TitledBorder.LEFT, TitledBorder.TOP));
 		
-		
-		topPanelBeadsTaken.add(beadsTakenTextArea);
 
-
-		
-		
 		topPanel.add(topPanelBeadsLeft);
 		topPanel.add(topPanelBeadsTaken);
+		topPanel.add(topPanelTimer);
 
 		this.setLayout(new BorderLayout());
 		this.add(topPanel, BorderLayout.NORTH);
@@ -96,17 +85,23 @@ public class BoardGamesSolitarGUI extends JPanel {
 
 	}
 
-
+	private void setNewTopPanels(JTextArea beadsLeft, JTextArea beadsTaken){
+	 topPanelBeadsLeft.removeAll();
+	 topPanelBeadsTaken.removeAll();
+	 
+	 topPanelTimer.add(timer);
+	 topPanelBeadsLeft.add(beadsLeft);
+	 topPanelBeadsTaken.add(beadsTaken);
+	 
+	 topPanelBeadsLeft.revalidate();
+	 topPanelBeadsTaken.revalidate();
+	}
 
 	private void setNewMidPanel(JPanel newMidPanel) {
 		this.midPanel.removeAll();
 		this.midPanel.invalidate();
 		this.midPanel.add(newMidPanel);
-
-		beadsLeftTextArea.setText("Beads Left: " + counterBeads.getBeadsLeft());
-		beadsTakenTextArea.setText("Beads Taken: " + counterBeads.getBeadsTaken());
-
-		
+	
 		this.revalidate();
 
 	}

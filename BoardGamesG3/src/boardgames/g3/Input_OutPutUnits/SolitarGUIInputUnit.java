@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import boardgames.g3.BGForLabelsButtons.BackGroundButtonID;
+import boardgames.g3.core.Solitaire.CounterBeadsLeft;
 import boardgames.g3.core.Solitaire.SolitarHelpMethods;
 
 public class SolitarGUIInputUnit extends InputUnit implements ActionListener {
@@ -16,8 +17,8 @@ public class SolitarGUIInputUnit extends InputUnit implements ActionListener {
 	private GameState state;
 
 	BackGroundButtonID buttonGUI;
-
-	BoardLocation sourceClick = null;
+	
+ 	BoardLocation sourceClick = null;
 	BoardLocation destinationClick = null;
 
 	@Override
@@ -50,10 +51,10 @@ public class SolitarGUIInputUnit extends InputUnit implements ActionListener {
 	
 			sourceClick = null;
 			destinationClick = null;
-		}
-		
+		}	
 	}
 
+	
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		buttonGUI = (BackGroundButtonID) event.getSource();

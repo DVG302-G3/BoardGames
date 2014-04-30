@@ -14,27 +14,24 @@ import javax.swing.JPanel;
 
 import boardgames.g3.BGForLabelsButtons.BackGroundButtonID;
 import boardgames.g3.BGForLabelsButtons.BackGroundLabelSolitaire;
-import boardgames.g3.core.Solitaire.CounterBeads;
+import boardgames.g3.core.Solitaire.SolitarTimer;
 
 public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 
 	BackGroundLabelSolitaire backgroundLabel;
 	private ActionListener inputUnit;
-
-	CounterBeads counterBeads = new CounterBeads();
+	SolitarTimer timer;
 	
 	private BackGroundButtonID button[][];
 
-	int beadsTaken = 0;
-	int beadsLeft = 32;
-	
 	int ROWS = 7;
 	int COLS = 7;
 
 	public SolitarGUIOutputUnit(SolitarGUIInputUnit inputUnit) {
 		this.inputUnit = inputUnit;
+
 		backgroundLabel = new BackGroundLabelSolitaire(ROWS, COLS);
-		
+
 		setLayout(new BorderLayout());
 		add(backgroundLabel);
 	}
@@ -63,13 +60,10 @@ public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 
 				if (locations.get(index) != null) {
 					piece = locations.get(index).getPiece();
-
-					counterBeads.setBeadsLeft(beadsLeft--);
-					counterBeads.setBeadsTaken(beadsTaken++);
 					
 					if (piece == null){
 						button[rows][cols].setButtonEmptyBead();
-						
+
 						
 					}else
 						button[rows][cols].setButtonWithBead();
@@ -81,10 +75,10 @@ public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 				}
 				index++;
 
+
 			}
 		}
 
-		System.out.println(gameState.hasEnded());
 		
 		if (gameState.hasEnded()) {
 			JOptionPane.showMessageDialog(null,
@@ -93,5 +87,4 @@ public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 		backgroundLabel.revalidate();
 	}
 	
-
 }
