@@ -36,7 +36,7 @@ public class HelpMethodsFinaMedKnuff {
 			Board board) {
 		List<BoardLocation> b = board.getLocations();
 		for (int i = 0; i < b.size(); i++) {
-			if (b.get(i).getPiece().equals(piece)) {
+			if (b.get(i).getPiece()!=null && b.get(i).getPiece().equals(piece)) {
 				return b.get(i);
 			}
 		}
