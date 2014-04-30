@@ -32,7 +32,7 @@ public class GameStateFiaMedKnuff implements GameState {
 		this.COLS = 11;
 		this.players = createAndReturnPlayers();
 		this.board = new Board(createBoardLocations());
-		ruler = new RuleControllerFiaMedKnuff();
+		ruler = new RuleControllerFiaMedKnuff(this);
 		this.dieRollFactory = new DieRollFactory();
 		addPlayersPiecesToTheBoard();
 
@@ -40,10 +40,14 @@ public class GameStateFiaMedKnuff implements GameState {
 
 	private List<Player> createAndReturnPlayers() {
 		List<Player> players = new ArrayList<>();
-		players.add(createAndReturnPlayer("Green", Arrays.asList("G1", "G2", "G3", "G4")));
-		players.add(createAndReturnPlayer("Yellow", Arrays.asList("Y1", "Y2", "Y3", "Y4")));
-		players.add(createAndReturnPlayer("Red", Arrays.asList("R1", "R2", "R3", "R4")));
-		players.add(createAndReturnPlayer("Blue", Arrays.asList("B1", "B2", "B3", "B4")));
+		players.add(createAndReturnPlayer("Green",
+				Arrays.asList("G1", "G2", "G3", "G4")));
+		players.add(createAndReturnPlayer("Yellow",
+				Arrays.asList("Y1", "Y2", "Y3", "Y4")));
+		players.add(createAndReturnPlayer("Red",
+				Arrays.asList("R1", "R2", "R3", "R4")));
+		players.add(createAndReturnPlayer("Blue",
+				Arrays.asList("B1", "B2", "B3", "B4")));
 		return players;
 	}
 
@@ -51,34 +55,37 @@ public class GameStateFiaMedKnuff implements GameState {
 		for (Player p : players) {
 			List<GamePiece> pieces = p.getPieces();
 			List<String> homePositions;
-			if(p.getName().equals("Green"))
+			if (p.getName().equals("Green"))
 				homePositions = LudoStaticValues.GREENHOME;
-			else if(p.getName().equals("Blue"))
+			else if (p.getName().equals("Blue"))
 				homePositions = LudoStaticValues.BLUEHOME;
-			else if(p.getName().equals("Red"))
+			else if (p.getName().equals("Red"))
 				homePositions = LudoStaticValues.REDHOME;
 			else
 				homePositions = LudoStaticValues.YELLOWHOME;
-			
+
 			int listIndex = 0;
-			for(GamePiece gp : pieces){
-				int index = HelpMethodsFinaMedKnuff.getFlatListIndexFromCoordinate(homePositions.get(listIndex++), board);
+			for (GamePiece gp : pieces) {
+				int index = HelpMethodsFinaMedKnuff
+						.getFlatListIndexFromCoordinate(
+								homePositions.get(listIndex++), board);
 				board.getLocations().get(index).setPiece(gp);
-			
+
 			}
-			
+
 		}
 	}
 
-	private Player createAndReturnPlayer(String color, List<String> gamePieceNames) {
-		
-			List<GamePiece> gamePieces = new ArrayList<GamePiece>();
-			gamePieces.add(new GamePiece(gamePieceNames.get(0)));
-			gamePieces.add(new GamePiece(gamePieceNames.get(1)));
-			gamePieces.add(new GamePiece(gamePieceNames.get(2)));
-			gamePieces.add(new GamePiece(gamePieceNames.get(3)));
+	private Player createAndReturnPlayer(String color,
+			List<String> gamePieceNames) {
 
-			return new Player(color, gamePieces);
+		List<GamePiece> gamePieces = new ArrayList<GamePiece>();
+		gamePieces.add(new GamePiece(gamePieceNames.get(0)));
+		gamePieces.add(new GamePiece(gamePieceNames.get(1)));
+		gamePieces.add(new GamePiece(gamePieceNames.get(2)));
+		gamePieces.add(new GamePiece(gamePieceNames.get(3)));
+
+		return new Player(color, gamePieces);
 	}
 
 	private List<BoardLocation> createBoardLocations() {
@@ -137,19 +144,42 @@ public class GameStateFiaMedKnuff implements GameState {
 
 	@Override
 	public Boolean proposeMove(Move move) {
-		if (ruler.isValidMove(this, move))
+		LudoMoveResult result = ruler.isValidMove(move);
+		switch (result) {
+		case MOVE_VALID:
 			move.execute();
-		else if(checkIfPlayerIsWithinBase())
-			ruler.isValidMove(this, move);
-		else {
-			return Boolean.FALSE;
+			return true;
+		case MOVE_LAPSED:
+			return false;
+		case MOVE_NOGAMEPIECE:
+			return false;
+		case MOVE_PIECEINBASE:
+			ruler.movePlayerToStartPosition(move);	
+			return true;
+		case MOVE_PUSHOTHERPIECE:
+			move.execute();
+			pushOtherPiece();
+			return true;
+		default:
+			return false;
 		}
+
+	}
+
+	private void movePieceToStart(Move move) {
+		GamePiece piece = move.getSource().getPiece();
+		if(move.getPlayer().getName().equals("Red")){
+			BoardLocation start = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(LudoStaticValues.REDSTART, board);
+			
+		}
+	}
+
+	private boolean doesOpponentHaveAPieceOnStart() {
 		return true;
 	}
 
-	private boolean checkIfPlayerIsWithinBase() {
-		return false;
-		
+	private void pushOtherPiece() {
+
 	}
 
 	@Override
