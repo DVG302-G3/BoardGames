@@ -114,7 +114,7 @@ public class GameStateFiaMedKnuff implements GameState {
 
 	@Override
 	public Player getPlayerInTurn() {
-		return players.get(turnCounter % numberOfPlayers);
+		return players.get(turnCounter++ % numberOfPlayers);
 	}
 
 	@Override
@@ -137,12 +137,19 @@ public class GameStateFiaMedKnuff implements GameState {
 
 	@Override
 	public Boolean proposeMove(Move move) {
-		if (ruler.isValidMove(this, move)) {
+		if (ruler.isValidMove(this, move))
 			move.execute();
-			return Boolean.TRUE;
-		} else {
+		else if(checkIfPlayerIsWithinBase())
+			ruler.isValidMove(this, move);
+		else {
 			return Boolean.FALSE;
 		}
+		return true;
+	}
+
+	private boolean checkIfPlayerIsWithinBase() {
+		return false;
+		
 	}
 
 	@Override

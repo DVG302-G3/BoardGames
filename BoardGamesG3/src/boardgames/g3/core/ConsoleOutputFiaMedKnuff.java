@@ -2,9 +2,7 @@ package boardgames.g3.core;
 
 import game.api.GameState;
 import game.impl.BoardLocation;
-import game.impl.GamePiece;
 import game.io.OutputUnit;
-import java.util.List;
 
 public class ConsoleOutputFiaMedKnuff implements OutputUnit {
 	final int ROWS = 11;

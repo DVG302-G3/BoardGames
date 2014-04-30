@@ -33,6 +33,7 @@ public class InputUnitFiaMedKnuff extends InputUnit{
         BoardLocation source = null;
         BoardLocation destination = null;
         boolean inputOK = false;
+        
         while(!inputOK){
             try{
             	System.out.println();
