@@ -18,18 +18,11 @@ public class SolitarGameState implements GameState {
 	Board board;
 	Player player;
 	SolitarRuleController ruler;
-	public final int ROWS;
-	public final int COLS;
-
+	
 	public SolitarGameState() {
-		this.ROWS = 7;
-		this.COLS = 7;
-		this.board = new Board(createBoardLocations());
-		putAllTheBeadsOnTheBoard();
-		this.player = new Player("Playah!", null);
-		ruler = new SolitarRuleController(ROWS, COLS);
+		newGame();
 	}
-
+	
 	private void putAllTheBeadsOnTheBoard() {
 		for (BoardLocation b : board.getLocations()) {
 			if(b != null)
@@ -115,10 +108,17 @@ public class SolitarGameState implements GameState {
 
 		}
 	}
+	
+	private void newGame(){
+		this.board = new Board(createBoardLocations());
+		putAllTheBeadsOnTheBoard();
+		this.player = new Player("Playah!", null);
+		ruler = new SolitarRuleController(SolitarStaticValue.ROW, SolitarStaticValue.COL);
+	}
 
 	@Override
 	public void reset() {
-
+		newGame();
 	}
 
 	private void removeBeadInBetween(Move move) {

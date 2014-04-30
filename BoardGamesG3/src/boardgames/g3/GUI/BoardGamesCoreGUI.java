@@ -73,11 +73,11 @@ public class BoardGamesCoreGUI extends JFrame {
 
 		mainFrame.setJMenuBar(menuBar);
 		mainFrame.setContentPane(mainPanel);
-		mainFrame.setBounds(200, 50, 900, 700);
+		mainFrame.setSize(900, 700);
 		mainFrame.setVisible(true);
-//		mainFrame.pack();
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setResizable(false);
+		mainFrame.setLocationRelativeTo(null);
 
 	}
 
@@ -104,6 +104,8 @@ public class BoardGamesCoreGUI extends JFrame {
 		this.mainPanel.add(mainContent);
 		mainFrame.pack();
 		this.mainFrame.revalidate();
+		
+		
 	}
 
 	class newGamesListenersFiaMedKnuff implements ActionListener {
@@ -118,7 +120,7 @@ public class BoardGamesCoreGUI extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			setMainPanelContent(new BoardGamesSolitarGUI());
+			setMainPanelContent(new BoardGamesSolitarGUIRunner());
 		}
 	}
 
