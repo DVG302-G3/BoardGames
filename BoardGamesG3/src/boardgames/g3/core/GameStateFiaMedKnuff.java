@@ -111,8 +111,7 @@ public class GameStateFiaMedKnuff implements GameState {
 
 	@Override
 	public Player getLastPlayer() {
-		return players.get(3 - turnCounter % numberOfPlayers);
-	}
+return null;	}
 
 	@Override
 	public String getMessage() {
@@ -147,35 +146,28 @@ public class GameStateFiaMedKnuff implements GameState {
 		LudoMoveResult result = ruler.isValidMove(move);
 		switch (result) {
 		case MOVE_VALID:
+			System.out.println("Valid");
 			move.execute();
 			return true;
 		case MOVE_LAPSED:
+			System.out.println("Lapsed");
 			return false;
 		case MOVE_NOGAMEPIECE:
+			System.out.println("No game piece");
 			return false;
 		case MOVE_PIECEINBASE:
+			System.out.println("Piece in base");
 			ruler.movePlayerToStartPosition(move);	
 			return true;
 		case MOVE_PUSHOTHERPIECE:
 			move.execute();
 			pushOtherPiece();
+			System.out.println("Push other piece");
 			return true;
 		default:
 			return false;
 		}
 
-	}
-
-	private void movePieceToStart(Move move) {
-		GamePiece piece = move.getSource().getPiece();
-		if(move.getPlayer().getName().equals("Red")){
-			BoardLocation start = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(LudoStaticValues.REDSTART, board);
-			
-		}
-	}
-
-	private boolean doesOpponentHaveAPieceOnStart() {
-		return true;
 	}
 
 	private void pushOtherPiece() {

@@ -49,9 +49,7 @@ public class InputUnitFiaMedKnuff extends InputUnit{
             	
             	for(GamePiece gp : player.getPieces()){
             		if(gp.getId().equals(input)){
-            			System.out.println(gp);
             			source = HelpMethodsFinaMedKnuff.getBoardLocationFromPiece(gp, state.getBoard());
-            			System.out.println(source.getId());
             			break;
           			
             		}          			
@@ -61,7 +59,6 @@ public class InputUnitFiaMedKnuff extends InputUnit{
             	int numberInList = HelpMethodsFinaMedKnuff.getFlatListIndexFromCoordinate(source.getId(),state.getBoard());
             	int destinationForPieceAfterDieRoll = (numberInList+dieRollNumber)%LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD;
             	
-            	System.out.println(state.getBoard().getLocations().get(destinationForPieceAfterDieRoll).getId());
             	String destinationForPiece = state.getBoard().getLocations().get(destinationForPieceAfterDieRoll).getId();
             	destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(destinationForPiece, state.getBoard());
             
@@ -83,6 +80,6 @@ public class InputUnitFiaMedKnuff extends InputUnit{
             else
                 System.out.println("Felaktig inmatning. Testa igen");
         }
-        return new Move(state.getPlayerInTurn(),source, destination);
+        return new Move(player,source, destination);
     }
    }

@@ -34,8 +34,10 @@ public class RuleControllerFiaMedKnuff {
 		if (source.getPiece() == null)
 			return LudoMoveResult.MOVE_NOGAMEPIECE;
 		else {
-			if (pieceInBase(move))
+			if (pieceInBase(move)){
 				return LudoMoveResult.MOVE_PIECEINBASE;
+			}
+				
 
 			int destinationValue = HelpMethodsFinaMedKnuff
 					.getFlatListIndexFromCoordinate(move.getDestination()
@@ -60,6 +62,7 @@ public class RuleControllerFiaMedKnuff {
 	}
 
 	private boolean pieceInBase(Move move) {
+		System.out.println(move.getSource().getId());
 		if (move.getPlayer().getName().equals("Red"))
 			return existInList(move.getSource().getId(),
 					LudoStaticValues.REDHOME);
@@ -77,7 +80,12 @@ public class RuleControllerFiaMedKnuff {
 	}
 
 	private boolean existInList(String id, List<String> list) {
-		return list.indexOf(id) != -1;
+		for(String coordinate : list){
+			if(coordinate.equals(id))
+				return true;
+		}
+		
+		return false;
 	}
 
 	public Boolean isGameFinished() {
@@ -91,8 +99,10 @@ public class RuleControllerFiaMedKnuff {
 	public boolean movePlayerToStartPosition(Move move) {
 		int dice = getNumberOfSteps(move);
 		GamePiece piece = move.getSource().getPiece();
+		System.out.println(move.getPlayer().getName());
 
 		if (move.getPlayer().getName().equals("Red")) {
+			
 			return movePlayerFromHomeToNextLocation(move, dice, piece, LudoStaticValues.REDSTART);
 		}
 
@@ -111,6 +121,7 @@ public class RuleControllerFiaMedKnuff {
 
 	private boolean movePlayerFromHomeToNextLocation(Move move, int dice,
 			GamePiece piece, String startCoordinate) {
+		System.out.println(dice);
 		if(dice == 1){
 			move.getSource().setPiece(null);
 			BoardLocation start = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(startCoordinate, state.getBoard());
@@ -134,7 +145,7 @@ public class RuleControllerFiaMedKnuff {
 		int sourceValue = HelpMethodsFinaMedKnuff
 				.getFlatListIndexFromCoordinate(move.getSource().getId(),
 						state.getBoard());
-		return (destinationValue - sourceValue)
-				% LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD;
+		return LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD+((destinationValue - sourceValue)
+				% LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD);
 	}
 }
