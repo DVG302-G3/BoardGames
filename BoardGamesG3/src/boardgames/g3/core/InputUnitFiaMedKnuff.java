@@ -33,28 +33,44 @@ public class InputUnitFiaMedKnuff extends InputUnit{
         BoardLocation source = null;
         BoardLocation destination = null;
         boolean inputOK = false;
+        dieRollNumber = state.getDieRollFactory().getNewRoll(player).getResult();
+        player = state.getPlayerInTurn(); 
+       
+        
         while(!inputOK){
             try{
             	System.out.println();
-            	
-            	player = state.getPlayerInTurn();
-            	dieRollNumber = state.getDieRollFactory().getNewRoll(player).getResult();
-            	
             	System.out.print(player.getName()+" "+"antal steg du får gå med pjäs är:"+" "+dieRollNumber);
             	System.out.println();
-            	
-            	System.out.println("Vilken pjäs vill du flytta:");
-            	
+            	System.out.print("Vilken pjäs vill du flytta:");
             	input = br.readLine();
-            	source = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(input, state.getBoard());
             	
-            	int numberInList = HelpMethodsFinaMedKnuff.getFlatListIndexFromCoordinate(input, state.getBoard());
+            	int numberInList =0;
+            	for(int i=0; i<player.getPieces().size();i++){
+            		if(player.getPieces().get(i).getId().equals(input)){
+            			//numberInList = HelpMethodsFinaMedKnuff.getFlatListIndexFromCoordinate(player.getPieces().get(i), state.getBoard());
+            			System.out.println(player.getPieces().get(i));
+            		}else source = null;
+            			
+            	}
+            	
             	int destinationForPieceAfterDieRoll = numberInList+dieRollNumber;
             	
             	System.out.println(state.getBoard().getLocations().get(destinationForPieceAfterDieRoll).getId());
-            	
             	String destinationForPiece = state.getBoard().getLocations().get(destinationForPieceAfterDieRoll).getId();
+            	source = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(input, state.getBoard());
             	destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(destinationForPiece, state.getBoard());
+            	
+            	
+            	
+//            	for(int i=0; i<player.getPieces().size();i++){
+//            		if(player.getPieces().get(i).getId().equals(input)){
+//            			source = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(input, state.getBoard());
+//            			destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(destinationForPiece, state.getBoard());
+//            		}
+//            	}
+            	
+            	
             
             }catch(ArrayIndexOutOfBoundsException e){
                 
