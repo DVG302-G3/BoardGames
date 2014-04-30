@@ -33,9 +33,12 @@ public class InputUnitFiaMedKnuff extends InputUnit{
         BoardLocation source = null;
         BoardLocation destination = null;
         boolean inputOK = false;
+<<<<<<< HEAD
         dieRollNumber = state.getDieRollFactory().getNewRoll(player).getResult();
         player = state.getPlayerInTurn(); 
        
+=======
+>>>>>>> 48cd8ab84b99f7196473fda614c3bb399c0bb549
         
         while(!inputOK){
             try{

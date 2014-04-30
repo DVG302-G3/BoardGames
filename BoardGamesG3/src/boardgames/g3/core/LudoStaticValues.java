@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class LudoStaticValues {
+	
+	public static final int TOTALSTEPSAROUNDTHEBOARD = 40;
 
 	public static final String REDSTART = "EA";
 	public static final String BLUESTART = "AG";
