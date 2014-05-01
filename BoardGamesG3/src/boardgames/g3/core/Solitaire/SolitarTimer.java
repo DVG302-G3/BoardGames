@@ -15,6 +15,8 @@ public class SolitarTimer extends JPanel {
 
 	private static Timer ourClock;
 	private static TimerTask ourTask;
+	
+	
 	private int count;
 
 	JTextField textFieldTimer;
@@ -36,8 +38,6 @@ public class SolitarTimer extends JPanel {
 		textFieldTimer.setFont(new Font("Arial", Font.CENTER_BASELINE, 20));
 
 		this.add(textFieldTimer);
-
-		
 		
 	}
 	
@@ -48,7 +48,6 @@ public class SolitarTimer extends JPanel {
 	public int getCountTime(){
 		return count;
 	}
-	
 	
 	
 	public void pause(){
