@@ -90,7 +90,7 @@ public class RuleControllerFiaMedKnuff {
 		return false;
 	}
 	
-	public Boolean isPiecesInGoal(Move move){
+	public Boolean isPiecesInFinishline(Move move){
 		System.out.println(move.getSource().getId());
 		if (move.getPlayer().getName().equals("Red"))
 			return existInList(move.getSource().getId(),
@@ -108,8 +108,10 @@ public class RuleControllerFiaMedKnuff {
 	}
 
 	public Boolean isGameFinished(GameState state) {
-		
-		return false;
+		if (state.hasEnded() == true){
+			return true;
+			}else 
+				return false;
 	}
 
 	public boolean checkIfSourceIsBase(Move move) {

@@ -18,11 +18,10 @@ public class GameStateFiaMedKnuff implements GameState {
 
 	Board board;
 	List<Player> players;
-
+	Player winnerPlayer = null;
 	RuleControllerFiaMedKnuff ruler;
 	public final int ROWS;
 	public final int COLS;
-	private int numberOfPlayers = 4;
 	private Integer turnCounter = 0;
 	private String message;
 	DieRollFactory dieRollFactory;
@@ -116,7 +115,8 @@ public class GameStateFiaMedKnuff implements GameState {
 
 	@Override
 	public Player getLastPlayer() {
-return null;	}
+		return players.get(turnCounter % players.size());
+		}
 
 	@Override
 	public String getMessage() {
@@ -125,7 +125,7 @@ return null;	}
 
 	@Override
 	public Player getPlayerInTurn() {
-		return players.get(turnCounter++ % numberOfPlayers);
+		return players.get(turnCounter++ % players.size());
 	}
 
 	@Override
@@ -134,16 +134,16 @@ return null;	}
 	}
 
 	@Override
-	public Player getWinner() {
-		if (hasEnded()) {
-			return getLastPlayer();
-		}
-		return null;
+	public Player getWinner() {		
+		return winnerPlayer;
 	}
 
 	@Override
 	public Boolean hasEnded() {
-		return false;
+		if(players.size() == 1){
+			return true;
+		}else
+			return false;
 	}
 
 	@Override
@@ -162,11 +162,11 @@ return null;	}
 			return false;
 		case MOVE_PIECEINBASE:
 			System.out.println("Piece in base");
-			ruler.movePlayerToStartPosition(move);
+			ruler.movePlayerToStartPosition(move);	
 			return true;
 		case MOVE_PUSHOTHERPIECE:
-			pushOtherPiece(move.getDestination());
 			move.execute();
+			pushOtherPiece();
 			System.out.println("Push other piece");
 			return true;
 		default:
@@ -175,13 +175,13 @@ return null;	}
 
 	}
 
-	private void pushOtherPiece(BoardLocation boardlocation) {
-		
+	private void pushOtherPiece() {
+
 	}
 
 	@Override
 	public void reset() {
-		startToPlayNewGame(); //Fult att som metod anropa en annan metod?
+		startToPlayNewGame(); 
 		
 	}
 
