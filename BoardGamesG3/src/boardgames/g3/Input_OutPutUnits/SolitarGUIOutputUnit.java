@@ -3,10 +3,10 @@ package boardgames.g3.Input_OutPutUnits;
 import game.api.GameState;
 import game.impl.BoardLocation;
 import game.impl.GamePiece;
+import game.impl.Move;
 import game.io.OutputUnit;
 
 import java.awt.BorderLayout;
-
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -18,164 +18,168 @@ import javax.swing.border.TitledBorder;
 
 import boardgames.g3.BGForLabelsButtons.BackGroundButtonID;
 import boardgames.g3.BGForLabelsButtons.BackGroundLabelSolitaire;
+import boardgames.g3.GUI.BoardGamesCoreGUI;
 import boardgames.g3.core.Solitaire.SolitarCounterBeads;
+import boardgames.g3.core.Solitaire.SolitarHelpMethods;
 import boardgames.g3.core.Solitaire.SolitarJOptionFinish;
 import boardgames.g3.core.Solitaire.SolitarStaticValue;
 import boardgames.g3.core.Solitaire.SolitarTimer;
+import boardgames.g3.core.Solitaire.TimerController;
 
 public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 
- BackGroundLabelSolitaire backgroundLabel;
+	BackGroundLabelSolitaire backgroundLabel;
 
- SolitarTimer timer;
+	SolitarTimer timer;
 
- SolitarCounterBeads counterBeads;
+	TimerController timeContoller;
 
- private JTextArea textAreaBeadsLeft, textAreaBeadsTaken;
+	SolitarCounterBeads counterBeads;
 
- private SolitarJOptionFinish optionLabel;
+	private JTextArea textAreaBeadsLeft, textAreaBeadsTaken;
 
- private ActionListener inputUnit;
+	private SolitarJOptionFinish optionLabel;
 
- private JPanel topPanel, topPanelBeadsLeft, topPanelBeadsTaken, topPanelTimer,
-   mainPanel;
+	private ActionListener inputUnit;
 
- private BackGroundButtonID button[][];
+	private JPanel topPanel, topPanelBeadsLeft, topPanelBeadsTaken,
+			topPanelTimer, mainPanel;
 
- public SolitarGUIOutputUnit(SolitarGUIInputUnit inputUnit) {
-  this.inputUnit = inputUnit;
-  createComponent();
-  settingUpComponents();
- }
+	private BackGroundButtonID button[][];
 
- private void createComponent() {
-  backgroundLabel = new BackGroundLabelSolitaire(SolitarStaticValue.ROW,
-    SolitarStaticValue.COL);
-  timer = new SolitarTimer();
+	public SolitarGUIOutputUnit(SolitarGUIInputUnit inputUnit) {
+		this.inputUnit = inputUnit;
+		createComponent();
+		settingUpComponents();
+	}
 
-  textAreaBeadsLeft = new JTextArea();
-  textAreaBeadsTaken = new JTextArea();
+	private void createComponent() {
+		backgroundLabel = new BackGroundLabelSolitaire(SolitarStaticValue.ROW,
+				SolitarStaticValue.COL);
 
-  counterBeads = new SolitarCounterBeads(SolitarStaticValue.BEADS_TOTAL);
+		timer = new SolitarTimer();
+		timeContoller = new TimerController();
 
-  optionLabel = new SolitarJOptionFinish();
+		textAreaBeadsLeft = new JTextArea();
+		textAreaBeadsTaken = new JTextArea();
 
-  topPanel = new JPanel(new GridLayout(0, 3));
-  topPanelBeadsLeft = new JPanel();
-  topPanelBeadsTaken = new JPanel();
-  topPanelTimer = new JPanel();
+		counterBeads = new SolitarCounterBeads(SolitarStaticValue.BEADS_TOTAL);
 
-  mainPanel = new JPanel();
+		optionLabel = new SolitarJOptionFinish();
 
- }
+		topPanel = new JPanel(new GridLayout(0, 3));
+		topPanelBeadsLeft = new JPanel();
+		topPanelBeadsTaken = new JPanel();
+		topPanelTimer = new JPanel();
 
- private void settingUpComponents() {
+		mainPanel = new JPanel();
 
-  topPanel.setBorder(BorderFactory.createTitledBorder(
-    BorderFactory.createEtchedBorder(), "Solitär", TitledBorder.LEFT,
-    TitledBorder.TOP));
+	}
 
-  topPanelBeadsLeft.setBorder(BorderFactory.createTitledBorder(
-    BorderFactory.createEtchedBorder(), "Beads Left", TitledBorder.LEFT,
-    TitledBorder.TOP));
+	private void settingUpComponents() {
 
-  textAreaBeadsLeft.setOpaque(false);
-  textAreaBeadsLeft.setFocusable(false);
-  textAreaBeadsLeft.setText(counterBeads.getBeadsLeft());
+		topPanel.setBorder(BorderFactory.createTitledBorder(
+				BorderFactory.createEtchedBorder(), "Solitär",
+				TitledBorder.LEFT, TitledBorder.TOP));
 
-  topPanelBeadsLeft.add(textAreaBeadsLeft);
+		topPanelBeadsLeft.setBorder(BorderFactory.createTitledBorder(
+				BorderFactory.createEtchedBorder(), "Beads Left",
+				TitledBorder.LEFT, TitledBorder.TOP));
 
-  topPanelBeadsTaken.setBorder(BorderFactory.createTitledBorder(
-    BorderFactory.createEtchedBorder(), "Beads Taken", TitledBorder.LEFT,
-    TitledBorder.TOP));
-  textAreaBeadsTaken.setOpaque(false);
-  textAreaBeadsTaken.setFocusable(false);
-  textAreaBeadsTaken.setText(counterBeads.getBeadsTaken());
+		textAreaBeadsLeft.setOpaque(false);
+		textAreaBeadsLeft.setFocusable(false);
+		textAreaBeadsLeft.setText(counterBeads.getBeadsLeft());
 
-  topPanelBeadsTaken.add(textAreaBeadsTaken);
+		topPanelBeadsLeft.add(textAreaBeadsLeft);
 
-  topPanelTimer.setBorder(BorderFactory.createTitledBorder(
-    BorderFactory.createEtchedBorder(), "Timer", TitledBorder.LEFT,
-    TitledBorder.TOP));
-  topPanelTimer.add(timer);
+		topPanelBeadsTaken.setBorder(BorderFactory.createTitledBorder(
+				BorderFactory.createEtchedBorder(), "Beads Taken",
+				TitledBorder.LEFT, TitledBorder.TOP));
+		textAreaBeadsTaken.setOpaque(false);
+		textAreaBeadsTaken.setFocusable(false);
+		textAreaBeadsTaken.setText(counterBeads.getBeadsTaken());
 
-  topPanel.add(topPanelBeadsLeft);
-  topPanel.add(topPanelBeadsTaken);
-  topPanel.add(topPanelTimer);
+		topPanelBeadsTaken.add(textAreaBeadsTaken);
 
-  mainPanel.add(backgroundLabel);
+		topPanelTimer.setBorder(BorderFactory.createTitledBorder(
+				BorderFactory.createEtchedBorder(), "Timer", TitledBorder.LEFT,
+				TitledBorder.TOP));
+		topPanelTimer.add(timer);
 
-  this.setLayout(new BorderLayout());
-  this.add(topPanel, BorderLayout.NORTH);
-  this.add(mainPanel, BorderLayout.CENTER);
+		topPanel.add(topPanelBeadsLeft);
+		topPanel.add(topPanelBeadsTaken);
+		topPanel.add(topPanelTimer);
 
- }
+		mainPanel.add(backgroundLabel);
 
- @Override
- public void publish(GameState gameState) {
+		this.setLayout(new BorderLayout());
+		this.add(topPanel, BorderLayout.NORTH);
+		this.add(mainPanel, BorderLayout.CENTER);
 
-  backgroundLabel.removeAll();
+	}
 
-  List<BoardLocation> locations = gameState.getBoard().getLocations();
+	@Override
+	public void publish(GameState gameState) {
 
-  button = new BackGroundButtonID[SolitarStaticValue.ROW][SolitarStaticValue.COL];
-  counterBeads = new SolitarCounterBeads(SolitarStaticValue.BEADS_TOTAL);
+		backgroundLabel.removeAll();
 
-  int index = 0;
-  for (int rows = 0; rows < SolitarStaticValue.ROW; rows++) {
-   for (int cols = 0; cols < SolitarStaticValue.COL; cols++) {
-    button[rows][cols] = new BackGroundButtonID(Integer.toString((rows + 1))
-      + Integer.toString((cols + 1)));
+		List<BoardLocation> locations = gameState.getBoard().getLocations();
 
-    button[rows][cols].addActionListener(inputUnit);
+		button = new BackGroundButtonID[SolitarStaticValue.ROW][SolitarStaticValue.COL];
+		counterBeads = new SolitarCounterBeads(SolitarStaticValue.BEADS_TOTAL);
 
-    backgroundLabel.add(button[rows][cols]);
+		int index = 0;
+		for (int rows = 0; rows < SolitarStaticValue.ROW; rows++) {
+			for (int cols = 0; cols < SolitarStaticValue.COL; cols++) {
+				button[rows][cols] = new BackGroundButtonID(
+						Integer.toString((rows + 1))
+								+ Integer.toString((cols + 1)));
 
-    GamePiece piece = null;
+				button[rows][cols].addActionListener(inputUnit);
 
-    if (locations.get(index) != null) {
-     piece = locations.get(index).getPiece();
+				backgroundLabel.add(button[rows][cols]);
 
-     if (piece == null) {
-      button[rows][cols].setButtonEmptyBead();
-      counterBeads.update();
-     } else
-      button[rows][cols].setButtonWithBead();
+				GamePiece piece = null;
 
-    } else {
-     button[rows][cols].setVisible(false);
+				if (locations.get(index) != null) {
+					piece = locations.get(index).getPiece();
 
-    }
-    index++;
+					if (piece == null) {
+						button[rows][cols].setButtonEmptyBead();
+						counterBeads.update();
+					} else
+						button[rows][cols].setButtonWithBead();
 
-    textAreaBeadsLeft.setText(counterBeads.getBeadsLeft());
-    textAreaBeadsTaken.setText(counterBeads.getBeadsTaken());
+				} else {
+					button[rows][cols].setVisible(false);
 
-   }
-  }
+				}
+				index++;
 
-  while (gameState.hasEnded()) {
-   timer.pause();
+				textAreaBeadsLeft.setText(counterBeads.getBeadsLeft());
+				textAreaBeadsTaken.setText(counterBeads.getBeadsTaken());
 
-   optionLabel.dataTaker(timer.getCountTime(), counterBeads.getBeadsTaken(),
-                         counterBeads.getBeadsLeft());
-   
-   optionLabel.displayGUI();
+			}
+		}
 
-   
-   if (optionLabel.getReturnValue() == 0) {
+		if (gameState.hasEnded()) {
+			timer.StopTimeAndTask();
 
-   }
-   if (optionLabel.getReturnValue() == 1) {
-    gameState.reset();
-   }
-  }
+			optionLabel.dataTaker(timer.getCountTimeMin(),
+					timer.getCountTimeSec(), counterBeads.getBeadsTaken(),
+					counterBeads.getBeadsLeft());
 
-  topPanelBeadsLeft.revalidate();
-  topPanelBeadsTaken.revalidate();
-  topPanelTimer.revalidate();
-  backgroundLabel.revalidate();
+			optionLabel.displayGUI();
 
- }
+			if (optionLabel.getReturnValue() == 0) {
 
+			}
+			if (optionLabel.getReturnValue() == 1) {
+				gameState.reset();
+				publish(gameState);
+			}
+		}
+		
+		backgroundLabel.revalidate();
+	}
 }

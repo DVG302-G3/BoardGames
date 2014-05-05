@@ -13,20 +13,22 @@ import javax.swing.JTextField;
 
 public class SolitarTimer extends JPanel {
 
-	private static Timer ourClock;
-	private static TimerTask ourTask;
+	private static Timer timer;
+	private static TimerTask task;
 	
 	
-	private int count;
+	private int counterInSec;
+	private int counterInMin;
 
 	JTextField textFieldTimer;
 
 	public SolitarTimer() {
 
-		ourClock = new Timer();
-		ourTask = new Task();
+		timer = new Timer();
+		task = new Task();
 
-		ourClock.scheduleAtFixedRate(ourTask, 1000, 1000);
+		timer.scheduleAtFixedRate(task, 1000, 1000);
+		
 
 		setLayout(new FlowLayout());
 
@@ -37,22 +39,28 @@ public class SolitarTimer extends JPanel {
 		textFieldTimer.setHorizontalAlignment(JLabel.CENTER);
 		textFieldTimer.setFont(new Font("Arial", Font.CENTER_BASELINE, 20));
 
-		this.add(textFieldTimer);
-		
+		this.add(textFieldTimer);	
 	}
 	
-	public void setCountTime(int count){
-		this.count = count;
+	private void setCountTimeMin(int timeInMinutes){
+		this.counterInMin = timeInMinutes;		
 	}
 	
-	public int getCountTime(){
-		return count;
+	private void setCountTimeSec( int timeInSecounds){
+		this.counterInSec = timeInSecounds;
 	}
 	
+	public int getCountTimeMin(){
+		return counterInMin;
+	}
 	
-	public void pause(){
-		ourClock.cancel();
-		ourTask.cancel();
+	public int getCountTimeSec(){
+		return counterInSec;
+	}
+	
+	public void StopTimeAndTask(){
+		timer.cancel();
+		task.cancel();
 	}
 
 	class Task extends TimerTask {
@@ -72,9 +80,10 @@ public class SolitarTimer extends JPanel {
 
 			}
 
-			textFieldTimer.setText(timeInMinutes + ":" + timeInSecounds);
-
-			setCountTime(timeInSecounds);
+			textFieldTimer.setText(String.format("%02d:%02d",timeInMinutes ,timeInSecounds ));
+			
+			setCountTimeMin(timeInMinutes);
+			setCountTimeSec(timeInSecounds);
 		}
 
 
