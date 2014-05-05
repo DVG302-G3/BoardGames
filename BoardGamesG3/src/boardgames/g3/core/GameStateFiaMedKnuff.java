@@ -162,11 +162,11 @@ return null;	}
 			return false;
 		case MOVE_PIECEINBASE:
 			System.out.println("Piece in base");
-			ruler.movePlayerToStartPosition(move);	
+			ruler.movePlayerToStartPosition(move);
 			return true;
 		case MOVE_PUSHOTHERPIECE:
+			pushOtherPiece(move.getDestination());
 			move.execute();
-			pushOtherPiece();
 			System.out.println("Push other piece");
 			return true;
 		default:
@@ -175,8 +175,8 @@ return null;	}
 
 	}
 
-	private void pushOtherPiece() {
-
+	private void pushOtherPiece(BoardLocation boardlocation) {
+		
 	}
 
 	@Override

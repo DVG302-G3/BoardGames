@@ -55,14 +55,16 @@ public class RuleControllerFiaMedKnuff {
 			else {
 				stepCounter.put(move.getSource().getPiece().getId(),
 						totalStepsForPiece);
-				return LudoMoveResult.MOVE_VALID;
+				if(move.getDestination().getPiece() == null)
+					return LudoMoveResult.MOVE_VALID;
+				else
+					return LudoMoveResult.MOVE_PUSHOTHERPIECE;
 			}
 
 		}
 	}
 
 	private boolean pieceInBase(Move move) {
-		System.out.println(move.getSource().getId());
 		if (move.getPlayer().getName().equals("Red"))
 			return existInList(move.getSource().getId(),
 					LudoStaticValues.REDHOME);
@@ -149,6 +151,7 @@ public class RuleControllerFiaMedKnuff {
 		if(dice == 6){
 			move.getSource().setPiece(null);
 			int deltaLocation = HelpMethodsFinaMedKnuff.getFlatListIndexFromCoordinate(startCoordinate, state.getBoard());
+			deltaLocation = deltaLocation + (dice-1) % LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD;
 			state.getBoard().getLocations().get(deltaLocation).setPiece(piece);
 			return true;
 		}
