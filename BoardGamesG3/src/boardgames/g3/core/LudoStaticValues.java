@@ -22,4 +22,6 @@ public class LudoStaticValues {
 	public static final List<String> GREENHOME = Arrays.asList("IB", "IC", "JB", "JC");
 	public static final List<String> YELLOWHOME = Arrays.asList("II", "IJ", "JI", "JJ");
 	
+	public static final String GOAL = "FF";
+	
 }

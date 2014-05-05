@@ -50,14 +50,14 @@ public class GameStateFiaMedKnuff implements GameState {
 
 	private List<Player> createAndReturnPlayers() {
 		List<Player> players = new ArrayList<>();
-		players.add(createAndReturnPlayer("Green",
-				Arrays.asList("G1", "G2", "G3", "G4")));
-		players.add(createAndReturnPlayer("Yellow",
-				Arrays.asList("Y1", "Y2", "Y3", "Y4")));
 		players.add(createAndReturnPlayer("Red",
 				Arrays.asList("R1", "R2", "R3", "R4")));
 		players.add(createAndReturnPlayer("Blue",
 				Arrays.asList("B1", "B2", "B3", "B4")));
+		players.add(createAndReturnPlayer("Yellow",
+				Arrays.asList("Y1", "Y2", "Y3", "Y4")));
+		players.add(createAndReturnPlayer("Green",
+				Arrays.asList("G1", "G2", "G3", "G4")));
 		return players;
 	}
 
@@ -121,7 +121,10 @@ public class GameStateFiaMedKnuff implements GameState {
 
 	@Override
 	public Player getLastPlayer() {
-		return null;
+		if (turnCounter == 0){
+			return players.get(0);
+		}else
+			return players.get(turnCounter-- % numberOfPlayers);
 	}
 
 	@Override
@@ -141,7 +144,10 @@ public class GameStateFiaMedKnuff implements GameState {
 
 	@Override
 	public Boolean hasEnded() {
-		return false;
+		if(players.size() == 1){
+			return true;
+		}else
+			return false;
 	}
 
 	@Override
@@ -219,7 +225,6 @@ public class GameStateFiaMedKnuff implements GameState {
 	@Override
 	public void reset() {
 		startToPlayNewGame();
-
 	}
 
 	@Override

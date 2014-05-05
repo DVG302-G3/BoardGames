@@ -110,11 +110,7 @@ public class RuleControllerFiaMedKnuff {
 			}else 
 				return false;
 	}
-
-	public boolean checkIfSourceIsBase(Move move) {
-		return true;
-	}
-
+	
 	public boolean movePlayerToStartPosition(Move move) {
 		int dice = getNumberOfSteps(move);
 		GamePiece piece = move.getSource().getPiece();
