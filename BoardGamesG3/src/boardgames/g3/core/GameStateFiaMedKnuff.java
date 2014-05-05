@@ -157,7 +157,7 @@ public class GameStateFiaMedKnuff implements GameState {
 		case MOVE_VALID:
 			System.out.println("Valid");
 			if(needToPush(move))
-				pushOtherPiece(move);
+				ruler.pushOtherPiece(move.getDestination().getPiece());
 			move.execute();
 			return true;
 		case MOVE_LAPSED:
@@ -167,8 +167,6 @@ public class GameStateFiaMedKnuff implements GameState {
 			System.out.println("No game piece");
 			return false;
 		case MOVE_PIECEINBASE:
-			if(needToPush(move))
-				pushOtherPiece(move);
 			ruler.movePlayerToStartPosition(move);
 			return true;
 			default:
@@ -181,46 +179,6 @@ public class GameStateFiaMedKnuff implements GameState {
 		return move.getDestination().getPiece() != null;
 	}
 
-	private void pushOtherPiece(Move move) {
-		GamePiece pieceToPush = move.getDestination().getPiece();
-		String name = getPlayerName(pieceToPush);
-
-		if (name.equals("Red")) {
-			putInBase(LudoStaticValues.REDHOME, pieceToPush);
-		}
-
-		else if (name.equals("Blue")) {
-			putInBase(LudoStaticValues.BLUEHOME, pieceToPush);
-		} else if (name.equals("Yellow")) {
-			putInBase(LudoStaticValues.YELLOWHOME, pieceToPush);
-		}
-
-		else {
-			putInBase(LudoStaticValues.GREENHOME, pieceToPush);
-		}
-
-	}
-
-	private void putInBase(List<String> home, GamePiece pieceToPush) {
-		for (String homeCoordinate : home) {
-			BoardLocation homeLocation = HelpMethodsFinaMedKnuff
-					.getBoardLocationFromCoordinate(homeCoordinate, board);
-			if (homeLocation.getPiece() == null) {
-				homeLocation.setPiece(pieceToPush);
-				break;
-			}
-		}
-	}
-
-	private String getPlayerName(GamePiece pieceToPush) {
-		for (Player p : players) {
-			if (p.getPieces().contains(pieceToPush)) {
-				return p.getName();
-			}
-		}
-		return "";
-
-	}
 
 	@Override
 	public void reset() {
