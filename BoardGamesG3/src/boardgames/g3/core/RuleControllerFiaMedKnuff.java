@@ -111,6 +111,49 @@ public class RuleControllerFiaMedKnuff {
 				return false;
 	}
 	
+	public void pushOtherPiece(GamePiece piece) {
+		String name = getPlayerName(piece);
+
+		if (name.equals("Red")) {
+			putInBase(LudoStaticValues.REDHOME, piece);
+		}
+
+		else if (name.equals("Blue")) {
+			putInBase(LudoStaticValues.BLUEHOME, piece);
+		} else if (name.equals("Yellow")) {
+			putInBase(LudoStaticValues.YELLOWHOME, piece);
+		}
+
+		else {
+			putInBase(LudoStaticValues.GREENHOME, piece);
+		}
+
+	}
+	
+	private void putInBase(List<String> home, GamePiece pieceToPush) {
+		for (String homeCoordinate : home) {
+			BoardLocation homeLocation = HelpMethodsFinaMedKnuff
+					.getBoardLocationFromCoordinate(homeCoordinate, state.getBoard());
+			if (homeLocation.getPiece() == null) {
+				homeLocation.setPiece(pieceToPush);
+				break;
+			}
+		}
+	}
+
+	private String getPlayerName(GamePiece pieceToPush) {
+		for (Player p : state.getPlayers()) {
+			if (p.getPieces().contains(pieceToPush)) {
+				return p.getName();
+			}
+		}
+		return "";
+
+	}
+
+	
+	
+	
 	public boolean movePlayerToStartPosition(Move move) {
 		int dice = getNumberOfSteps(move);
 		GamePiece piece = move.getSource().getPiece();
