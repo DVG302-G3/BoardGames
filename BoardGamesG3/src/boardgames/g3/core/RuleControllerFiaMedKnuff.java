@@ -87,8 +87,26 @@ public class RuleControllerFiaMedKnuff {
 		
 		return false;
 	}
+	
+	public Boolean isPiecesInGoal(Move move){
+		System.out.println(move.getSource().getId());
+		if (move.getPlayer().getName().equals("Red"))
+			return existInList(move.getSource().getId(),
+					LudoStaticValues.REDFINISHLINE);
+		else if (move.getPlayer().getName().equals("Blue"))
+			return existInList(move.getSource().getId(),
+					LudoStaticValues.BLUEFINISHLINE);
 
-	public Boolean isGameFinished() {
+		else if (move.getPlayer().getName().equals("Yellow"))
+			return existInList(move.getSource().getId(),
+					LudoStaticValues.YELLOWFINISHLINE);
+		else
+			return existInList(move.getSource().getId(),
+					LudoStaticValues.GREENFINISHLINE);
+	}
+
+	public Boolean isGameFinished(GameState state) {
+		
 		return false;
 	}
 

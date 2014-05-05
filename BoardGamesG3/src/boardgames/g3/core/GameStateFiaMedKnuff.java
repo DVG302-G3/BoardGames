@@ -29,13 +29,18 @@ public class GameStateFiaMedKnuff implements GameState {
 
 	public GameStateFiaMedKnuff() {
 		this.ROWS = 11;
-		this.COLS = 11;
+		this.COLS = 11;		
+		this.dieRollFactory = new DieRollFactory();		
+		startToPlayNewGame();
+
+	}
+
+	public void startToPlayNewGame() {
 		this.players = createAndReturnPlayers();
 		this.board = new Board(createBoardLocations());
 		ruler = new RuleControllerFiaMedKnuff(this);
-		this.dieRollFactory = new DieRollFactory();
 		addPlayersPiecesToTheBoard();
-
+		
 	}
 
 	private List<Player> createAndReturnPlayers() {
@@ -176,7 +181,8 @@ return null;	}
 
 	@Override
 	public void reset() {
-
+		startToPlayNewGame(); //Fult att som metod anropa en annan metod?
+		
 	}
 
 	@Override
