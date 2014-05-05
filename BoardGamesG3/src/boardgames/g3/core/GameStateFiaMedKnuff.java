@@ -28,8 +28,8 @@ public class GameStateFiaMedKnuff implements GameState {
 
 	public GameStateFiaMedKnuff() {
 		this.ROWS = 11;
-		this.COLS = 11;		
-		this.dieRollFactory = new DieRollFactory();		
+		this.COLS = 11;
+		this.dieRollFactory = new DieRollFactory();
 		startToPlayNewGame();
 
 	}
@@ -39,7 +39,7 @@ public class GameStateFiaMedKnuff implements GameState {
 		this.board = new Board(createBoardLocations());
 		ruler = new RuleControllerFiaMedKnuff(this);
 		addPlayersPiecesToTheBoard();
-		
+
 	}
 
 	private List<Player> createAndReturnPlayers() {
@@ -115,8 +115,13 @@ public class GameStateFiaMedKnuff implements GameState {
 
 	@Override
 	public Player getLastPlayer() {
+<<<<<<< HEAD
 		return players.get(turnCounter % players.size());
 		}
+=======
+		return null;
+	}
+>>>>>>> c05f03cb62632609e64c160f13d16c74fe38cc06
 
 	@Override
 	public String getMessage() {
@@ -134,8 +139,13 @@ public class GameStateFiaMedKnuff implements GameState {
 	}
 
 	@Override
+<<<<<<< HEAD
 	public Player getWinner() {		
 		return winnerPlayer;
+=======
+	public Player getWinner() {
+		return null;
+>>>>>>> c05f03cb62632609e64c160f13d16c74fe38cc06
 	}
 
 	@Override
@@ -152,6 +162,8 @@ public class GameStateFiaMedKnuff implements GameState {
 		switch (result) {
 		case MOVE_VALID:
 			System.out.println("Valid");
+			if(needToPush(move))
+				pushOtherPiece(move);
 			move.execute();
 			return true;
 		case MOVE_LAPSED:
@@ -161,6 +173,7 @@ public class GameStateFiaMedKnuff implements GameState {
 			System.out.println("No game piece");
 			return false;
 		case MOVE_PIECEINBASE:
+<<<<<<< HEAD
 			System.out.println("Piece in base");
 			ruler.movePlayerToStartPosition(move);	
 			return true;
@@ -169,20 +182,76 @@ public class GameStateFiaMedKnuff implements GameState {
 			pushOtherPiece();
 			System.out.println("Push other piece");
 			return true;
+=======
+			if(needToPush(move))
+				pushOtherPiece(move);
+			ruler.movePlayerToStartPosition(move);
+			return true;
+>>>>>>> c05f03cb62632609e64c160f13d16c74fe38cc06
 		default:
 			return false;
+		}
+	}
+	
+	private boolean needToPush(Move move){
+		System.out.println("need to push!");
+		return move.getDestination().getPiece() != null;
+	}
+
+	private void pushOtherPiece(Move move) {
+		GamePiece pieceToPush = move.getDestination().getPiece();
+		String name = getPlayerName(pieceToPush);
+
+		if (name.equals("Red")) {
+			putInBase(LudoStaticValues.REDHOME, pieceToPush);
+		}
+
+		else if (name.equals("Blue")) {
+			putInBase(LudoStaticValues.BLUEHOME, pieceToPush);
+		} else if (name.equals("Yellow")) {
+			putInBase(LudoStaticValues.YELLOWHOME, pieceToPush);
+		}
+
+		else {
+			putInBase(LudoStaticValues.GREENHOME, pieceToPush);
 		}
 
 	}
 
+<<<<<<< HEAD
 	private void pushOtherPiece() {
+=======
+	private void putInBase(List<String> home, GamePiece pieceToPush) {
+		for (String homeCoordinate : home) {
+			BoardLocation homeLocation = HelpMethodsFinaMedKnuff
+					.getBoardLocationFromCoordinate(homeCoordinate, board);
+			if (homeLocation.getPiece() == null) {
+				homeLocation.setPiece(pieceToPush);
+				break;
+			}
+		}
+	}
+
+	private String getPlayerName(GamePiece pieceToPush) {
+		for (Player p : players) {
+			if (p.getPieces().contains(pieceToPush)) {
+				return p.getName();
+			}
+		}
+		return "";
+>>>>>>> c05f03cb62632609e64c160f13d16c74fe38cc06
 
 	}
 
 	@Override
 	public void reset() {
+<<<<<<< HEAD
 		startToPlayNewGame(); 
 		
+=======
+		startToPlayNewGame(); // Fult att som metod anropa en annan metod?
+
+>>>>>>> c05f03cb62632609e64c160f13d16c74fe38cc06
 	}
 
 	@Override

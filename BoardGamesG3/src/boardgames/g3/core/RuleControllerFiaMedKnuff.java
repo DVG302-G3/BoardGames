@@ -55,10 +55,7 @@ public class RuleControllerFiaMedKnuff {
 			else {
 				stepCounter.put(move.getSource().getPiece().getId(),
 						totalStepsForPiece);
-				if(move.getDestination().getPiece() == null)
-					return LudoMoveResult.MOVE_VALID;
-				else
-					return LudoMoveResult.MOVE_PUSHOTHERPIECE;
+				return LudoMoveResult.MOVE_VALID;
 			}
 
 		}
