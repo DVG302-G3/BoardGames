@@ -18,14 +18,20 @@ public class GameStateFiaMedKnuff implements GameState {
 
 	Board board;
 	List<Player> players;
-	Player winnerPlayer = null;
+	private Player winnerPlayer;
+	
 	RuleControllerFiaMedKnuff ruler;
 	public final int ROWS;
 	public final int COLS;
+	private int numberOfPlayers = 4;
+	
+
 	private Integer turnCounter = 0;
 	private String message;
 	DieRollFactory dieRollFactory;
-
+	
+	
+	
 	public GameStateFiaMedKnuff() {
 		this.ROWS = 11;
 		this.COLS = 11;
@@ -115,13 +121,8 @@ public class GameStateFiaMedKnuff implements GameState {
 
 	@Override
 	public Player getLastPlayer() {
-<<<<<<< HEAD
-		return players.get(turnCounter % players.size());
-		}
-=======
 		return null;
 	}
->>>>>>> c05f03cb62632609e64c160f13d16c74fe38cc06
 
 	@Override
 	public String getMessage() {
@@ -130,7 +131,7 @@ public class GameStateFiaMedKnuff implements GameState {
 
 	@Override
 	public Player getPlayerInTurn() {
-		return players.get(turnCounter++ % players.size());
+		return players.get(turnCounter++ % numberOfPlayers);
 	}
 
 	@Override
@@ -139,21 +140,8 @@ public class GameStateFiaMedKnuff implements GameState {
 	}
 
 	@Override
-<<<<<<< HEAD
-	public Player getWinner() {		
-		return winnerPlayer;
-=======
-	public Player getWinner() {
-		return null;
->>>>>>> c05f03cb62632609e64c160f13d16c74fe38cc06
-	}
-
-	@Override
 	public Boolean hasEnded() {
-		if(players.size() == 1){
-			return true;
-		}else
-			return false;
+		return false;
 	}
 
 	@Override
@@ -173,23 +161,12 @@ public class GameStateFiaMedKnuff implements GameState {
 			System.out.println("No game piece");
 			return false;
 		case MOVE_PIECEINBASE:
-<<<<<<< HEAD
-			System.out.println("Piece in base");
-			ruler.movePlayerToStartPosition(move);	
-			return true;
-		case MOVE_PUSHOTHERPIECE:
-			move.execute();
-			pushOtherPiece();
-			System.out.println("Push other piece");
-			return true;
-=======
 			if(needToPush(move))
 				pushOtherPiece(move);
 			ruler.movePlayerToStartPosition(move);
 			return true;
->>>>>>> c05f03cb62632609e64c160f13d16c74fe38cc06
-		default:
-			return false;
+			default:
+				return false;
 		}
 	}
 	
@@ -218,9 +195,6 @@ public class GameStateFiaMedKnuff implements GameState {
 
 	}
 
-<<<<<<< HEAD
-	private void pushOtherPiece() {
-=======
 	private void putInBase(List<String> home, GamePiece pieceToPush) {
 		for (String homeCoordinate : home) {
 			BoardLocation homeLocation = HelpMethodsFinaMedKnuff
@@ -239,23 +213,22 @@ public class GameStateFiaMedKnuff implements GameState {
 			}
 		}
 		return "";
->>>>>>> c05f03cb62632609e64c160f13d16c74fe38cc06
 
 	}
 
 	@Override
 	public void reset() {
-<<<<<<< HEAD
-		startToPlayNewGame(); 
-		
-=======
-		startToPlayNewGame(); // Fult att som metod anropa en annan metod?
+		startToPlayNewGame();
 
->>>>>>> c05f03cb62632609e64c160f13d16c74fe38cc06
 	}
 
 	@Override
 	public DieRollFactory getDieRollFactory() {
 		return dieRollFactory;
+	}
+
+	@Override
+	public Player getWinner() {
+		return winnerPlayer;
 	}
 }
