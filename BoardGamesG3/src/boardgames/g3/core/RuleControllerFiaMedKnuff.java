@@ -114,6 +114,47 @@ public class RuleControllerFiaMedKnuff {
 	public boolean checkIfSourceIsBase(Move move) {
 		return true;
 	}
+	
+	public void pushOtherPiece(GamePiece piece) {
+		String name = getPlayerName(piece);
+
+		if (name.equals("Red")) {
+			putInBase(LudoStaticValues.REDHOME, piece);
+		}
+
+		else if (name.equals("Blue")) {
+			putInBase(LudoStaticValues.BLUEHOME, piece);
+		} else if (name.equals("Yellow")) {
+			putInBase(LudoStaticValues.YELLOWHOME, piece);
+		}
+
+		else {
+			putInBase(LudoStaticValues.GREENHOME, piece);
+		}
+
+	}
+	
+	private void putInBase(List<String> home, GamePiece pieceToPush) {
+		for (String homeCoordinate : home) {
+			BoardLocation homeLocation = HelpMethodsFinaMedKnuff
+					.getBoardLocationFromCoordinate(homeCoordinate, state.getBoard());
+			if (homeLocation.getPiece() == null) {
+				homeLocation.setPiece(pieceToPush);
+				break;
+			}
+		}
+	}
+
+	private String getPlayerName(GamePiece pieceToPush) {
+		for (Player p : state.getPlayers()) {
+			if (p.getPieces().contains(pieceToPush)) {
+				return p.getName();
+			}
+		}
+		return "";
+
+	}
+
 
 	public boolean movePlayerToStartPosition(Move move) {
 		int dice = getNumberOfSteps(move);
@@ -144,6 +185,8 @@ public class RuleControllerFiaMedKnuff {
 		if(dice == 1){
 			move.getSource().setPiece(null);
 			BoardLocation start = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(startCoordinate, state.getBoard());
+			if(start.getPiece() != null)
+				pushOtherPiece(start.getPiece());
 			start.setPiece(piece);
 			return true;
 		}
@@ -151,7 +194,10 @@ public class RuleControllerFiaMedKnuff {
 			move.getSource().setPiece(null);
 			int deltaLocation = HelpMethodsFinaMedKnuff.getFlatListIndexFromCoordinate(startCoordinate, state.getBoard());
 			deltaLocation = deltaLocation + (dice-1) % LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD;
-			state.getBoard().getLocations().get(deltaLocation).setPiece(piece);
+			BoardLocation start = state.getBoard().getLocations().get(deltaLocation);
+			if(start.getPiece() != null)
+				pushOtherPiece(start.getPiece());
+			start.setPiece(piece);
 			return true;
 		}
 		
