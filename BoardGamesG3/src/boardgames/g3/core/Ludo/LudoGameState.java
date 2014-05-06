@@ -166,13 +166,18 @@ public class LudoGameState implements GameState {
 			return false;
 		case MOVE_INCORRECTNUMBEROFSTEPS:
 			System.out.println("Incorrect number of steps!");
+			return false;			
+		case MOVE_IN_BASE_DID_NOT_GET_THE_CORRECT_EYES_ON_THE_DICE_TO_MOVE_OUT:
+			System.out.println("Eyes on the dice!");
+			nextPlayer();
 			return false;
 		case MOVE_VALID_INBASE_TWO_PIECES:
-			System.out.println("Two pieces!!!!! To do!");
+			System.out.println("Two pieces!!!!!");
 			if (needToPush(move))
 				ruler.pushOtherPiece(move.getDestination().getPiece());
 			move.execute();
 			moveSecondPieceToStartPosition(move);
+			nextPlayer();
 			return true;
 		default:
 			return false;
@@ -185,32 +190,32 @@ public class LudoGameState implements GameState {
 	}
 
 	private void moveSecondPieceToStartPosition(Move move) {
-		if(move.getPlayer().getName().equals("Red")){
-			for (String basePositions : LudoStaticValues.REDHOME) {
-				BoardLocation home = HelpMethodsFinaMedKnuff
-						.getBoardLocationFromCoordinate(basePositions,
-								getBoard());
-				if (home.getPiece() != null
-						&& home.getPiece() != move.getPiece()) {
-					BoardLocation start = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(LudoStaticValues.REDSTART, board);
-					start.addPiece(home.getPiece());
-				}
-			}
+		if(move.getPlayer().getName().equals("Red"))
+			moveSecondPieceForPlayer(move, LudoStaticValues.REDHOME, LudoStaticValues.REDSTART);
+		else 	if(move.getPlayer().getName().equals("Yellow"))
+			moveSecondPieceForPlayer(move, LudoStaticValues.YELLOWHOME, LudoStaticValues.YELLOWSTART);
+		else 	if(move.getPlayer().getName().equals("Green"))
+			moveSecondPieceForPlayer(move, LudoStaticValues.GREENHOME, LudoStaticValues.GREENSTART);
+		else			
+			moveSecondPieceForPlayer(move, LudoStaticValues.BLUEHOME, LudoStaticValues.BLUESTART);
+	}
 
-		}
-		else 	if(move.getPlayer().getName().equals("Yellow")){
-			
-		}
-		else 	if(move.getPlayer().getName().equals("Green")){
-			
-		}
-		else{
-			
+	private void moveSecondPieceForPlayer(Move move, List<String> homeLocations, String startLocation) {
+		for (String basePositions : homeLocations) {
+			BoardLocation home = HelpMethodsFinaMedKnuff
+					.getBoardLocationFromCoordinate(basePositions,
+							getBoard());
+			if (home.getPiece() != null
+					&& home.getPiece() != move.getPiece()) {
+				BoardLocation start = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(startLocation, board);
+				start.addPiece(home.getPiece());
+				home.clear();
+				break;
+			}
 		}
 	}
 
 	private boolean needToPush(Move move) {
-		System.out.println("need to push!");
 		return move.getDestination().getPiece() != null;
 	}
 
