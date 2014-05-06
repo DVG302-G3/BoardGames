@@ -7,10 +7,18 @@ public class LudoStaticValues {
 	
 	public static final int TOTALSTEPSAROUNDTHEBOARD = 40;
 
+	public static final int ROWS = 11;
+	public static final int COLS = 11;
+	
 	public static final String REDSTART = "EA";
 	public static final String BLUESTART = "AG";
 	public static final String GREENSTART = "KE";
 	public static final String YELLOWSTART = "GK";
+	
+	public static final String REDSTARTSIXES = "DE";
+	public static final String BLUESTARTSIXES = "EH";
+	public static final String GREENSTARTSIXES = "GD";
+	public static final String YELLOWSTARTSIXES = "HG";
 
 	public static final List<String> REDFINISHLINE = Arrays.asList("FB", "FC", "FD", "FE");
 	public static final List<String> BLUEFINISHLINE = Arrays.asList("BF", "CF", "DF", "EF");

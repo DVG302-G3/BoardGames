@@ -19,19 +19,16 @@ public class GameStateFiaMedKnuff implements GameState {
 	Board board;
 	List<Player> players;
 	private Player winnerPlayer;
-	
+
 	RuleControllerFiaMedKnuff ruler;
 	public final int ROWS;
 	public final int COLS;
 	private int numberOfPlayers = 4;
-	
 
 	private Integer turnCounter = 0;
 	private String message;
 	DieRollFactory dieRollFactory;
-	
-	
-	
+
 	public GameStateFiaMedKnuff() {
 		this.ROWS = 11;
 		this.COLS = 11;
@@ -45,6 +42,7 @@ public class GameStateFiaMedKnuff implements GameState {
 		this.board = new Board(createBoardLocations());
 		ruler = new RuleControllerFiaMedKnuff(this);
 		addPlayersPiecesToTheBoard();
+		dieRollFactory.getNewRoll(getPlayerInTurn());
 
 	}
 
@@ -121,9 +119,9 @@ public class GameStateFiaMedKnuff implements GameState {
 
 	@Override
 	public Player getLastPlayer() {
-		if (turnCounter == 0){
+		if (turnCounter == 0) {
 			return players.get(0);
-		}else
+		} else
 			return players.get(turnCounter-- % numberOfPlayers);
 	}
 
@@ -134,7 +132,7 @@ public class GameStateFiaMedKnuff implements GameState {
 
 	@Override
 	public Player getPlayerInTurn() {
-		return players.get(turnCounter++ % numberOfPlayers);
+		return players.get(turnCounter % numberOfPlayers);
 	}
 
 	@Override
@@ -144,9 +142,9 @@ public class GameStateFiaMedKnuff implements GameState {
 
 	@Override
 	public Boolean hasEnded() {
-		if(players.size() == 1){
+		if (players.size() == 1) {
 			return true;
-		}else
+		} else
 			return false;
 	}
 
@@ -155,10 +153,10 @@ public class GameStateFiaMedKnuff implements GameState {
 		LudoMoveResult result = ruler.isValidMove(move);
 		switch (result) {
 		case MOVE_VALID:
-			System.out.println("Valid");
-			if(needToPush(move))
+			if (needToPush(move))
 				ruler.pushOtherPiece(move.getDestination().getPiece());
 			move.execute();
+			nextPlayer();
 			return true;
 		case MOVE_LAPSED:
 			System.out.println("Lapsed");
@@ -166,19 +164,55 @@ public class GameStateFiaMedKnuff implements GameState {
 		case MOVE_NOGAMEPIECE:
 			System.out.println("No game piece");
 			return false;
-		case MOVE_PIECEINBASE:
-			ruler.movePlayerToStartPosition(move);
+		case MOVE_INCORRECTNUMBEROFSTEPS:
+			System.out.println("Incorrect number of steps!");
+			return false;
+		case MOVE_VALID_INBASE_TWO_PIECES:
+			System.out.println("Two pieces!!!!! To do!");
+			if (needToPush(move))
+				ruler.pushOtherPiece(move.getDestination().getPiece());
+			move.execute();
+			moveSecondPieceToStartPosition(move);
 			return true;
-			default:
-				return false;
+		default:
+			return false;
 		}
 	}
-	
-	private boolean needToPush(Move move){
+
+	private void nextPlayer() {
+		turnCounter++;
+		getDieRollFactory().getNewRoll(getPlayerInTurn());
+	}
+
+	private void moveSecondPieceToStartPosition(Move move) {
+		if(move.getPlayer().getName().equals("Red")){
+			for (String basePositions : LudoStaticValues.REDHOME) {
+				BoardLocation home = HelpMethodsFinaMedKnuff
+						.getBoardLocationFromCoordinate(basePositions,
+								getBoard());
+				if (home.getPiece() != null
+						&& home.getPiece() != move.getPiece()) {
+					BoardLocation start = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(LudoStaticValues.REDSTART, board);
+					start.addPiece(home.getPiece());
+				}
+			}
+
+		}
+		else 	if(move.getPlayer().getName().equals("Yellow")){
+			
+		}
+		else 	if(move.getPlayer().getName().equals("Green")){
+			
+		}
+		else{
+			
+		}
+	}
+
+	private boolean needToPush(Move move) {
 		System.out.println("need to push!");
 		return move.getDestination().getPiece() != null;
 	}
-
 
 	@Override
 	public void reset() {
