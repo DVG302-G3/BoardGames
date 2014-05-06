@@ -12,6 +12,11 @@ public class LudoStaticValues {
 	public static final String GREENSTART = "KE";
 	public static final String YELLOWSTART = "GK";
 
+	public static final String REDSTARTSIXES = "DE";
+	public static final String BLUESTARTSIXES = "EH";
+	public static final String GREENSTARTSIXES = "GD";
+	public static final String YELLOWSTARTSIXES = "HG";
+	
 	public static final List<String> REDFINISHLINE = Arrays.asList("FB", "FC", "FD", "FE");
 	public static final List<String> BLUEFINISHLINE = Arrays.asList("BF", "CF", "DF", "EF");
 	public static final List<String> GREENFINISHLINE = Arrays.asList("JF", "IF", "GF", "HF");

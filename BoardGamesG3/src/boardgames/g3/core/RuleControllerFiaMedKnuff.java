@@ -31,25 +31,29 @@ public class RuleControllerFiaMedKnuff {
 
 	public LudoMoveResult isValidMove(Move move) {
 		BoardLocation source = move.getSource();
-		BoardLocation destination = move.getDestination();
 
 		if (source.getPiece() == null)
 			return LudoMoveResult.MOVE_NOGAMEPIECE;
 
 		if (pieceInBase(move))
-			return LudoMoveResult.MOVE_PIECEINBASE;
+			return isValidMoveFromBase(move);
 
 		if (checkIfPlayerStepsIsNotCorrect(move))
 			return LudoMoveResult.MOVE_INCORRECTNUMBEROFSTEPS;
 
 		if (pieceShouldMoveIntoGoalLine(move))
 			return LudoMoveResult.MOVE_LAPSED;
-		
+
 		else {
 			addStepsToCounter(move);
 			return LudoMoveResult.MOVE_VALID;
 		}
 
+	}
+
+	private LudoMoveResult isValidMoveFromBase(Move move) {
+
+		return isDestinationPlayersStartPosition(move);
 	}
 
 	private void addStepsToCounter(Move move) {
@@ -171,6 +175,67 @@ public class RuleControllerFiaMedKnuff {
 		}
 		return "";
 
+	}
+
+	private LudoMoveResult isDestinationPlayersStartPosition(Move move) {
+		if (move.getPlayer().getName().equals("Red")) {
+			return checkValidMoveFromStartForPlayer(move,
+					LudoStaticValues.REDSTART, LudoStaticValues.REDSTARTSIXES,
+					LudoStaticValues.REDHOME);
+		}
+
+		else if (move.getPlayer().getName().equals("Blue")) {
+			return checkValidMoveFromStartForPlayer(move,
+					LudoStaticValues.BLUESTART,
+					LudoStaticValues.BLUESTARTSIXES, LudoStaticValues.BLUEHOME);
+		}
+
+		else if (move.getPlayer().getName().equals("Yellow")) {
+			return checkValidMoveFromStartForPlayer(move,
+					LudoStaticValues.YELLOWSTART,
+					LudoStaticValues.YELLOWSTARTSIXES,
+					LudoStaticValues.YELLOWHOME);
+		}
+
+		else {
+			return checkValidMoveFromStartForPlayer(move,
+					LudoStaticValues.GREENSTART,
+					LudoStaticValues.GREENSTARTSIXES,
+					LudoStaticValues.GREENHOME);
+		}
+
+	}
+
+	private LudoMoveResult checkValidMoveFromStartForPlayer(Move move,
+			String start, String startSix, List<String> homeValues) {
+		if (getNumberOfStepsFromDice() == 1) {
+			if (move.getDestination().getId().equals(start)) {
+				return LudoMoveResult.MOVE_VALID;
+			} else
+				return LudoMoveResult.MOVE_INCORRECTNUMBEROFSTEPS;
+		}
+
+		else if (getNumberOfStepsFromDice() == 6) {
+			if (move.getDestination().getId().equals(startSix)) {
+				return LudoMoveResult.MOVE_VALID;
+			} else if (move.getDestination().getId().equals(start)) {
+
+				for (String basePositions : homeValues) {
+					BoardLocation home = HelpMethodsFinaMedKnuff
+							.getBoardLocationFromCoordinate(basePositions,
+									state.getBoard());
+					if (home.getPiece() != null
+							&& home.getPiece() != move.getPiece()) {
+						return LudoMoveResult.MOVE_VALID_INBASE_TWO_PIECES;
+					}
+				}
+
+				return LudoMoveResult.MOVE_INVALID_INBASE_TWO_PIECES_NOT_AVAILABLE;
+			}
+
+		}
+
+		return LudoMoveResult.MOVE_INCORRECTNUMBEROFSTEPS;
 	}
 
 	public boolean movePlayerToStartPosition(Move move) {

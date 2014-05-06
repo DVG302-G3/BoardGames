@@ -22,6 +22,7 @@ public class InputUnitFiaMedKnuff extends InputUnit{
         br = new BufferedReader(new InputStreamReader(System.in));
         while(!state.hasEnded()){
             notifyListenersOfMove(getNextMove(state));
+            
         }
     }
     
@@ -34,7 +35,7 @@ public class InputUnitFiaMedKnuff extends InputUnit{
         BoardLocation destination = null;
         boolean inputOK = false;
 
-        dieRollNumber = state.getDieRollFactory().getNewRoll(player).getResult();
+        dieRollNumber = state.getDieRollFactory().getLastRoll().getResult();
         player = state.getPlayerInTurn(); 
        
 
