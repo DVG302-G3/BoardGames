@@ -56,8 +56,8 @@ public class InputUnitFiaMedKnuff extends InputUnit{
             	}
             	
             	
-            	int numberInList = HelpMethodsFinaMedKnuff.getFlatListIndexFromCoordinate(source.getId(),state.getBoard());
-            	int destinationForPieceAfterDieRoll = (numberInList+dieRollNumber)%LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD;
+            	int indexInList = HelpMethodsFinaMedKnuff.getFlatListIndexFromCoordinate(source.getId(),state.getBoard());
+            	int destinationForPieceAfterDieRoll = (indexInList+dieRollNumber)%LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD;
             	
             	String destinationForPiece = state.getBoard().getLocations().get(destinationForPieceAfterDieRoll).getId();
             	destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(destinationForPiece, state.getBoard());
@@ -65,11 +65,9 @@ public class InputUnitFiaMedKnuff extends InputUnit{
             }catch(ArrayIndexOutOfBoundsException e){
                 
                 System.out.println("Felaktiga parametrar. Mata in enligt FN");
-                e.printStackTrace();
             }catch(NullPointerException e){
             	
             	System.out.println("Denna spelare har inte denna färg");
-                e.printStackTrace();
                 
             }catch(IOException e){
                 e.printStackTrace();

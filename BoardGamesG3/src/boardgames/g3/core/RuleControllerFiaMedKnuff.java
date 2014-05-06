@@ -31,6 +31,8 @@ public class RuleControllerFiaMedKnuff {
 
 	public LudoMoveResult isValidMove(Move move) {
 		BoardLocation source = move.getSource();
+		BoardLocation destination = move.getDestination();
+
 		if (source.getPiece() == null)
 			return LudoMoveResult.MOVE_NOGAMEPIECE;
 		else {
@@ -47,6 +49,11 @@ public class RuleControllerFiaMedKnuff {
 							state.getBoard());
 			int steps = (destinationValue - sourceValue)
 					% LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD;
+
+			if(steps != getNumberOfSteps())
+				return LudoMoveResult.MOVE_INCORRECTNUMBEROFSTEPS;
+				
+			
 			int totalStepsForPiece = stepCounter.get(move.getSource()
 					.getPiece().getId())
 					+ steps;
@@ -155,25 +162,25 @@ public class RuleControllerFiaMedKnuff {
 	
 	
 	public boolean movePlayerToStartPosition(Move move) {
-		int dice = getNumberOfSteps(move);
+		int stepsLeft = getNumberOfSteps();
 		GamePiece piece = move.getSource().getPiece();
 		System.out.println(move.getPlayer().getName());
 
 		if (move.getPlayer().getName().equals("Red")) {
 			
-			return movePlayerFromHomeToNextLocation(move, dice, piece, LudoStaticValues.REDSTART);
+			return movePlayerFromHomeToNextLocation(move, stepsLeft, piece, LudoStaticValues.REDSTART);
 		}
 
 		else if (move.getPlayer().getName().equals("Blue")) {
-			return movePlayerFromHomeToNextLocation(move, dice, piece, LudoStaticValues.BLUESTART);
+			return movePlayerFromHomeToNextLocation(move, stepsLeft, piece, LudoStaticValues.BLUESTART);
 		}
 
 		else if (move.getPlayer().getName().equals("Yellow")) {
-			return movePlayerFromHomeToNextLocation(move, dice, piece, LudoStaticValues.YELLOWSTART);
+			return movePlayerFromHomeToNextLocation(move, stepsLeft, piece, LudoStaticValues.YELLOWSTART);
 		}
 
 		else {
-			return movePlayerFromHomeToNextLocation(move, dice, piece, LudoStaticValues.GREENSTART);
+			return movePlayerFromHomeToNextLocation(move, stepsLeft, piece, LudoStaticValues.GREENSTART);
 		}
 }
 
@@ -197,14 +204,7 @@ public class RuleControllerFiaMedKnuff {
 		return false;
 	}
 
-	private int getNumberOfSteps(Move move) {
-		int destinationValue = HelpMethodsFinaMedKnuff
-				.getFlatListIndexFromCoordinate(move.getDestination().getId(),
-						state.getBoard());
-		int sourceValue = HelpMethodsFinaMedKnuff
-				.getFlatListIndexFromCoordinate(move.getSource().getId(),
-						state.getBoard());
-		return LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD+((destinationValue - sourceValue)
-				% LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD);
+	private int getNumberOfSteps() {
+		return state.getDieRollFactory().getLastRoll().getResult();
 	}
 }
