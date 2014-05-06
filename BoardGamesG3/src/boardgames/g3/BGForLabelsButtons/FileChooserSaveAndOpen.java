@@ -1,42 +1,42 @@
 package boardgames.g3.BGForLabelsButtons;
+import game.api.GameState;
+
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.PrintWriter;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class FileChooserSaveAndOpen extends JPanel
                              implements ActionListener {
-    static private final String newline = "\n";
+
     JButton openButton, saveButton;
     JTextArea log;
     JFileChooser fc;
   
-    
+    GameState gameState;
 
-    public FileChooserSaveAndOpen() {
+    public FileChooserSaveAndOpen(GameState state) {
         super(new BorderLayout());
-
-        log = new JTextArea();
-        log.setEditable(false);
-        log.setFocusable(false);
-        JScrollPane logScrollPane = new JScrollPane(log);
-
+        this.gameState = state;
+        
+        
         fc = new JFileChooser();
 
-        openButton = new JButton("Open a File..");
+        openButton = new JButton("Load Gamestate..");
         openButton.addActionListener(this);
 
 
-        saveButton = new JButton("Save a File..");
+        saveButton = new JButton("Save Gametate..");
         saveButton.addActionListener(this);
 
         JPanel buttonPanel = new JPanel(); 
@@ -44,7 +44,7 @@ public class FileChooserSaveAndOpen extends JPanel
         buttonPanel.add(saveButton);
     
         add(buttonPanel, BorderLayout.PAGE_START);
-        add(logScrollPane, BorderLayout.CENTER);
+   
     }
 
     
@@ -56,7 +56,14 @@ public class FileChooserSaveAndOpen extends JPanel
             int returnVal = fc.showOpenDialog(FileChooserSaveAndOpen.this);
             fc.setFileFilter(filter);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
-                File selectedFile = fc.getSelectedFile();
+                try {
+                	File selectedFile = fc.getSelectedFile();
+					BufferedReader br = new BufferedReader(new FileReader(selectedFile));
+					
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
+                
                 
                 
             } 
@@ -68,11 +75,14 @@ public class FileChooserSaveAndOpen extends JPanel
             fc.setFileFilter(filter);
             if (returnVal == JFileChooser.APPROVE_OPTION) {          
                try {
-                 File file = fc.getSelectedFile(); 
-                 PrintWriter os = new PrintWriter(file);
+                 File fileCreated = fc.getSelectedFile(); 
+                 PrintWriter printWriter = new PrintWriter(fileCreated);
                  
-                 os.print("Hej");
-                 os.close();
+
+                 printWriter.print("");
+                 
+                 
+                 printWriter.close();
                 
                 } catch (FileNotFoundException e1) {
                  e1.printStackTrace();

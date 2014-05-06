@@ -18,7 +18,7 @@ public class SolitarJOptionFinish {
 	private JPanel mainPanel, westPanel, eastPanel;
 	private JLabel westLabel;
 	private JTextArea eastTextArea;
-	private String[] choice = { "Ok! Back to main menu", "Ok! Play again!" };
+	private String[] choice = { "Ok! Back to main menu", "Ok! Reset Game!" };
 	private ImageIcon image;
 
 	public void displayGUI() {

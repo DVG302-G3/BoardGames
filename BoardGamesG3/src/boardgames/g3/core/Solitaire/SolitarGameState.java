@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SolitarGameState implements GameState {
+public class SolitarGameState implements GameState   {
 
 	Board board;
 	Player player;
@@ -45,9 +45,7 @@ public class SolitarGameState implements GameState {
 			boardLocations.addAll(getBoardLocationFromRow(listOfRows.get(0)));
 			listOfRows.remove(0);
 		}
-
 		return boardLocations;
-
 	}
 
 	private List<BoardLocation> getBoardLocationFromRow(String row) {
