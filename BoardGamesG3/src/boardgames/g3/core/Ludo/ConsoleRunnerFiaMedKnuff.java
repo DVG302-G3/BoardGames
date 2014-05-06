@@ -6,6 +6,6 @@ import game.init.Runner;
 
 public class ConsoleRunnerFiaMedKnuff {
     public static void main(String[] args) {
-        new Runner(new GameStateFiaMedKnuff(), new LudoConsoleIOFactory()).run();	
+        new Runner(new LudoGameState(), new LudoConsoleIOFactory()).run();	
     }
 }

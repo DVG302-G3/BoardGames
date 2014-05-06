@@ -5,17 +5,17 @@ import game.impl.Move;
 
 import org.junit.*;
 
-import boardgames.g3.core.Ludo.GameStateFiaMedKnuff;
+import boardgames.g3.core.Ludo.LudoGameState;
 import boardgames.g3.core.Ludo.HelpMethodsFinaMedKnuff;
 
 
 public class LudoRuleControllerTest {
 	
-	GameStateFiaMedKnuff state;
+	LudoGameState state;
 	
 	@Before
 	public void setup(){
-		state = new GameStateFiaMedKnuff();
+		state = new LudoGameState();
 	}
 	@Test
 	public void test() {

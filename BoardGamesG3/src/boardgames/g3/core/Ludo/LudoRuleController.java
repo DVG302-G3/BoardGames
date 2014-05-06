@@ -10,12 +10,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RuleControllerFiaMedKnuff {
+public class LudoRuleController {
 
 	Map<String, Integer> stepCounter;
 	GameState state;
 
-	public RuleControllerFiaMedKnuff(GameState state) {
+	public LudoRuleController(GameState state) {
 		this.state = state;
 		initiateStepCounterMap();
 	}
