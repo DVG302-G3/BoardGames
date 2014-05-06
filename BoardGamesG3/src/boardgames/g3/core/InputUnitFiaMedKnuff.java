@@ -48,19 +48,10 @@ public class InputUnitFiaMedKnuff extends InputUnit{
             	input = Arrays.asList(br.readLine().split(" "));
             	
             	
-<<<<<<< HEAD
             	source = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(input.get(0), state.getBoard());
             	destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(input.get(1), state.getBoard());
 
-=======
             	
-            	int indexInList = HelpMethodsFinaMedKnuff.getFlatListIndexFromCoordinate(source.getId(),state.getBoard());
-            	int destinationForPieceAfterDieRoll = (indexInList+dieRollNumber)%LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD;
-            	
-            	String destinationForPiece = state.getBoard().getLocations().get(destinationForPieceAfterDieRoll).getId();
-            	destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(destinationForPiece, state.getBoard());
-            
->>>>>>> 2a3dec847c865c2fd3ef22fbe091e5b0654c198f
             }catch(ArrayIndexOutOfBoundsException e){
                 
                 System.out.println("Felaktiga parametrar. Mata in enligt FN");

@@ -35,37 +35,51 @@ public class RuleControllerFiaMedKnuff {
 
 		if (source.getPiece() == null)
 			return LudoMoveResult.MOVE_NOGAMEPIECE;
+
+		if (pieceInBase(move))
+			return LudoMoveResult.MOVE_PIECEINBASE;
+
+		if (checkIfPlayerStepsIsNotCorrect(move))
+			return LudoMoveResult.MOVE_INCORRECTNUMBEROFSTEPS;
+
+		if (pieceShouldMoveIntoGoalLine(move))
+			return LudoMoveResult.MOVE_LAPSED;
+		
 		else {
-			if (pieceInBase(move)){
-				return LudoMoveResult.MOVE_PIECEINBASE;
-			}
-				
-
-			int destinationValue = HelpMethodsFinaMedKnuff
-					.getFlatListIndexFromCoordinate(move.getDestination()
-							.getId(), state.getBoard());
-			int sourceValue = HelpMethodsFinaMedKnuff
-					.getFlatListIndexFromCoordinate(move.getSource().getId(),
-							state.getBoard());
-			int steps = (destinationValue - sourceValue)
-					% LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD;
-
-			if(steps != getNumberOfSteps())
-				return LudoMoveResult.MOVE_INCORRECTNUMBEROFSTEPS;
-				
-			
-			int totalStepsForPiece = stepCounter.get(move.getSource()
-					.getPiece().getId())
-					+ steps;
-			if (totalStepsForPiece > LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD)
-				return LudoMoveResult.MOVE_LAPSED;
-			else {
-				stepCounter.put(move.getSource().getPiece().getId(),
-						totalStepsForPiece);
-				return LudoMoveResult.MOVE_VALID;
-			}
-
+			addStepsToCounter(move);
+			return LudoMoveResult.MOVE_VALID;
 		}
+
+	}
+
+	private void addStepsToCounter(Move move) {
+		stepCounter.put(move.getSource().getPiece().getId(),
+				getTotalStepsForPiece(move));
+	}
+
+	private boolean pieceShouldMoveIntoGoalLine(Move move) {
+		return getTotalStepsForPiece(move) > LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD;
+	}
+
+	private int getTotalStepsForPiece(Move move) {
+		return stepCounter.get(move.getSource().getPiece().getId())
+				+ stepsPlayerMoves(move);
+	}
+
+	private boolean checkIfPlayerStepsIsNotCorrect(Move move) {
+		return stepsPlayerMoves(move) != getNumberOfStepsFromDice();
+	}
+
+	private int stepsPlayerMoves(Move move) {
+		int destinationValue = HelpMethodsFinaMedKnuff
+				.getFlatListIndexFromCoordinate(move.getDestination().getId(),
+						state.getBoard());
+		int sourceValue = HelpMethodsFinaMedKnuff
+				.getFlatListIndexFromCoordinate(move.getSource().getId(),
+						state.getBoard());
+		int stepsPlayerMoves = (destinationValue - sourceValue)
+				% LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD;
+		return stepsPlayerMoves;
 	}
 
 	private boolean pieceInBase(Move move) {
@@ -86,15 +100,15 @@ public class RuleControllerFiaMedKnuff {
 	}
 
 	private boolean existInList(String id, List<String> list) {
-		for(String coordinate : list){
-			if(coordinate.equals(id))
+		for (String coordinate : list) {
+			if (coordinate.equals(id))
 				return true;
 		}
-		
+
 		return false;
 	}
-	
-	public Boolean isPiecesInFinishline(Move move){
+
+	public Boolean isPiecesInFinishline(Move move) {
 		System.out.println(move.getSource().getId());
 		if (move.getPlayer().getName().equals("Red"))
 			return existInList(move.getSource().getId(),
@@ -112,12 +126,12 @@ public class RuleControllerFiaMedKnuff {
 	}
 
 	public Boolean isGameFinished(GameState state) {
-		if (state.hasEnded() == true){
+		if (state.hasEnded() == true) {
 			return true;
-			}else 
-				return false;
+		} else
+			return false;
 	}
-	
+
 	public void pushOtherPiece(GamePiece piece) {
 		String name = getPlayerName(piece);
 
@@ -136,11 +150,12 @@ public class RuleControllerFiaMedKnuff {
 		}
 
 	}
-	
+
 	private void putInBase(List<String> home, GamePiece pieceToPush) {
 		for (String homeCoordinate : home) {
 			BoardLocation homeLocation = HelpMethodsFinaMedKnuff
-					.getBoardLocationFromCoordinate(homeCoordinate, state.getBoard());
+					.getBoardLocationFromCoordinate(homeCoordinate,
+							state.getBoard());
 			if (homeLocation.getPiece() == null) {
 				homeLocation.setPiece(pieceToPush);
 				break;
@@ -158,53 +173,59 @@ public class RuleControllerFiaMedKnuff {
 
 	}
 
-	
-	
-	
 	public boolean movePlayerToStartPosition(Move move) {
-		int stepsLeft = getNumberOfSteps();
+		int stepsLeft = getNumberOfStepsFromDice();
 		GamePiece piece = move.getSource().getPiece();
 		System.out.println(move.getPlayer().getName());
 
 		if (move.getPlayer().getName().equals("Red")) {
-			
-			return movePlayerFromHomeToNextLocation(move, stepsLeft, piece, LudoStaticValues.REDSTART);
+
+			return movePlayerFromHomeToNextLocation(move, stepsLeft, piece,
+					LudoStaticValues.REDSTART);
 		}
 
 		else if (move.getPlayer().getName().equals("Blue")) {
-			return movePlayerFromHomeToNextLocation(move, stepsLeft, piece, LudoStaticValues.BLUESTART);
+			return movePlayerFromHomeToNextLocation(move, stepsLeft, piece,
+					LudoStaticValues.BLUESTART);
 		}
 
 		else if (move.getPlayer().getName().equals("Yellow")) {
-			return movePlayerFromHomeToNextLocation(move, stepsLeft, piece, LudoStaticValues.YELLOWSTART);
+			return movePlayerFromHomeToNextLocation(move, stepsLeft, piece,
+					LudoStaticValues.YELLOWSTART);
 		}
 
 		else {
-			return movePlayerFromHomeToNextLocation(move, stepsLeft, piece, LudoStaticValues.GREENSTART);
+			return movePlayerFromHomeToNextLocation(move, stepsLeft, piece,
+					LudoStaticValues.GREENSTART);
 		}
-}
+	}
 
 	private boolean movePlayerFromHomeToNextLocation(Move move, int dice,
 			GamePiece piece, String startCoordinate) {
 		System.out.println(dice);
-		if(dice == 1){
+		if (dice == 1) {
 			move.getSource().setPiece(null);
-			BoardLocation start = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(startCoordinate, state.getBoard());
+			BoardLocation start = HelpMethodsFinaMedKnuff
+					.getBoardLocationFromCoordinate(startCoordinate,
+							state.getBoard());
 			start.setPiece(piece);
 			return true;
 		}
-		if(dice == 6){
+		if (dice == 6) {
 			move.getSource().setPiece(null);
-			int deltaLocation = HelpMethodsFinaMedKnuff.getFlatListIndexFromCoordinate(startCoordinate, state.getBoard());
-			deltaLocation = deltaLocation + (dice-1) % LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD;
+			int deltaLocation = HelpMethodsFinaMedKnuff
+					.getFlatListIndexFromCoordinate(startCoordinate,
+							state.getBoard());
+			deltaLocation = deltaLocation + (dice - 1)
+					% LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD;
 			state.getBoard().getLocations().get(deltaLocation).setPiece(piece);
 			return true;
 		}
-		
+
 		return false;
 	}
 
-	private int getNumberOfSteps() {
+	private int getNumberOfStepsFromDice() {
 		return state.getDieRollFactory().getLastRoll().getResult();
 	}
 }
