@@ -28,7 +28,7 @@ public class InputUnitFiaMedKnuff extends InputUnit{
     private Move getNextMove(GameState state) {
     	
     	Player player = null;
-    	String input;
+    	List<String> input;
     	int dieRollNumber;
         BoardLocation source = null;
         BoardLocation destination = null;
@@ -45,34 +45,20 @@ public class InputUnitFiaMedKnuff extends InputUnit{
             	System.out.print(player.getName()+" "+"antal steg du får gå med pjäs är:"+" "+dieRollNumber);
             	System.out.println();
             	System.out.print("Vilken pjäs vill du flytta:");
-            	input = br.readLine();
-            	
-            	for(GamePiece gp : player.getPieces()){
-            		if(gp.getId().equals(input)){
-            			source = HelpMethodsFinaMedKnuff.getBoardLocationFromPiece(gp, state.getBoard());
-            			break;
-          			
-            		}          			
-            	}
+            	input = Arrays.asList(br.readLine().split(" "));
             	
             	
-            	int numberInList = HelpMethodsFinaMedKnuff.getFlatListIndexFromCoordinate(source.getId(),state.getBoard());
-            	int destinationForPieceAfterDieRoll = (numberInList+dieRollNumber)%LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD;
-            	
-            	String destinationForPiece = state.getBoard().getLocations().get(destinationForPieceAfterDieRoll).getId();
-            	destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(destinationForPiece, state.getBoard());
-            
+            	source = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(input.get(0), state.getBoard());
+            	destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(input.get(1), state.getBoard());
+
             }catch(ArrayIndexOutOfBoundsException e){
                 
                 System.out.println("Felaktiga parametrar. Mata in enligt FN");
-                e.printStackTrace();
             }catch(NullPointerException e){
             	
             	System.out.println("Denna spelare har inte denna färg");
-                e.printStackTrace();
                 
             }catch(IOException e){
-                e.printStackTrace();
             }
             if(source != null && destination != null)
                 inputOK = true;
