@@ -3,7 +3,6 @@ package boardgames.g3.Input_OutPutUnits;
 import game.api.GameState;
 import game.impl.BoardLocation;
 import game.impl.GamePiece;
-import game.impl.Move;
 import game.io.OutputUnit;
 
 import java.awt.BorderLayout;
@@ -18,35 +17,29 @@ import javax.swing.border.TitledBorder;
 
 import boardgames.g3.BGForLabelsButtons.BackGroundButtonID;
 import boardgames.g3.BGForLabelsButtons.BackGroundLabelSolitaire;
+import boardgames.g3.BGForLabelsButtons.FileChooserSaveAndOpen;
 import boardgames.g3.GUI.BoardGamesCoreGUI;
 import boardgames.g3.core.Solitaire.SolitarCounterBeads;
-import boardgames.g3.core.Solitaire.SolitarHelpMethods;
 import boardgames.g3.core.Solitaire.SolitarJOptionFinish;
 import boardgames.g3.core.Solitaire.SolitarStaticValue;
 import boardgames.g3.core.Solitaire.SolitarTimer;
-import boardgames.g3.core.Solitaire.TimerController;
 
 public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 
 	BackGroundLabelSolitaire backgroundLabel;
 
 	SolitarTimer timer;
-
-	TimerController timeContoller;
-
 	SolitarCounterBeads counterBeads;
-
-	private JTextArea textAreaBeadsLeft, textAreaBeadsTaken;
-
+	
+	private JTextArea textAreaBeadsLeftAndTaken;
 	private SolitarJOptionFinish optionLabel;
-
 	private ActionListener inputUnit;
-
-	private JPanel topPanel, topPanelBeadsLeft, topPanelBeadsTaken,
+	private JPanel topPanel, topPanelFileChooser, topPanelBeadsLeftAndTaken,
 			topPanelTimer, mainPanel;
-
 	private BackGroundButtonID button[][];
 
+	
+	
 	public SolitarGUIOutputUnit(SolitarGUIInputUnit inputUnit) {
 		this.inputUnit = inputUnit;
 		createComponent();
@@ -56,20 +49,16 @@ public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 	private void createComponent() {
 		backgroundLabel = new BackGroundLabelSolitaire(SolitarStaticValue.ROW,
 				SolitarStaticValue.COL);
-
+		
 		timer = new SolitarTimer();
-		timeContoller = new TimerController();
-
-		textAreaBeadsLeft = new JTextArea();
-		textAreaBeadsTaken = new JTextArea();
-
 		counterBeads = new SolitarCounterBeads(SolitarStaticValue.BEADS_TOTAL);
-
 		optionLabel = new SolitarJOptionFinish();
 
+		textAreaBeadsLeftAndTaken = new JTextArea();
+		
 		topPanel = new JPanel(new GridLayout(0, 3));
-		topPanelBeadsLeft = new JPanel();
-		topPanelBeadsTaken = new JPanel();
+		topPanelFileChooser = new JPanel();
+		topPanelBeadsLeftAndTaken = new JPanel();
 		topPanelTimer = new JPanel();
 
 		mainPanel = new JPanel();
@@ -82,32 +71,29 @@ public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 				BorderFactory.createEtchedBorder(), "Solitär",
 				TitledBorder.LEFT, TitledBorder.TOP));
 
-		topPanelBeadsLeft.setBorder(BorderFactory.createTitledBorder(
+		topPanelFileChooser.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(), "Beads Left",
 				TitledBorder.LEFT, TitledBorder.TOP));
+		topPanelFileChooser.add(new FileChooserSaveAndOpen());
 
-		textAreaBeadsLeft.setOpaque(false);
-		textAreaBeadsLeft.setFocusable(false);
-		textAreaBeadsLeft.setText(counterBeads.getBeadsLeft());
-
-		topPanelBeadsLeft.add(textAreaBeadsLeft);
-
-		topPanelBeadsTaken.setBorder(BorderFactory.createTitledBorder(
+		
+		
+		topPanelBeadsLeftAndTaken.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(), "Beads Taken",
 				TitledBorder.LEFT, TitledBorder.TOP));
-		textAreaBeadsTaken.setOpaque(false);
-		textAreaBeadsTaken.setFocusable(false);
-		textAreaBeadsTaken.setText(counterBeads.getBeadsTaken());
+		textAreaBeadsLeftAndTaken.setOpaque(false);
+		textAreaBeadsLeftAndTaken.setFocusable(false);
+		textAreaBeadsLeftAndTaken.setText("Beads left:\t" + counterBeads.getBeadsLeft() + "\nBeads Taken:\t" + counterBeads.getBeadsTaken());
 
-		topPanelBeadsTaken.add(textAreaBeadsTaken);
+		topPanelBeadsLeftAndTaken.add(textAreaBeadsLeftAndTaken);
 
 		topPanelTimer.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(), "Timer", TitledBorder.LEFT,
 				TitledBorder.TOP));
 		topPanelTimer.add(timer);
 
-		topPanel.add(topPanelBeadsLeft);
-		topPanel.add(topPanelBeadsTaken);
+		topPanel.add(topPanelFileChooser);
+		topPanel.add(topPanelBeadsLeftAndTaken);
 		topPanel.add(topPanelTimer);
 
 		mainPanel.add(backgroundLabel);
@@ -155,9 +141,8 @@ public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 
 				}
 				index++;
-
-				textAreaBeadsLeft.setText(counterBeads.getBeadsLeft());
-				textAreaBeadsTaken.setText(counterBeads.getBeadsTaken());
+	
+				textAreaBeadsLeftAndTaken.setText("Beads left:\t" + counterBeads.getBeadsLeft() + "\nBeads Taken:\t" + counterBeads.getBeadsTaken());
 
 			}
 		}
@@ -171,13 +156,17 @@ public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 
 			optionLabel.displayGUI();
 
-			if (optionLabel.getReturnValue() == 0) {
-
-			}
+//			if (optionLabel.getReturnValue() == 0) {
+//			 new BoardGamesCoreGUI();   
+//			}
 			if (optionLabel.getReturnValue() == 1) {
 				gameState.reset();
 				publish(gameState);
-			}
+				timer = new SolitarTimer();
+				topPanelTimer.removeAll();
+				topPanelTimer.add(timer);
+				topPanelTimer.revalidate();
+				  }
 		}
 		
 		backgroundLabel.revalidate();

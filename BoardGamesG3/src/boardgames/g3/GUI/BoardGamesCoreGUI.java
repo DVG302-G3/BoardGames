@@ -28,11 +28,11 @@ public class BoardGamesCoreGUI extends JFrame {
 
 	BackGroundLabel backgroundPanel;
 
+	
 	public BoardGamesCoreGUI() {
 
 		createAllComponents();
 		settingsUpTheJFrameAndPanel();
-
 		makesButtons();
 	}
 
@@ -63,7 +63,6 @@ public class BoardGamesCoreGUI extends JFrame {
 
 		mainPanel.add(backgroundPanel);
 
-		// Setting up the frame and menubar.
 		menuBar.add(menuMenu);
 		menuBar.add(menuAbout);
 
@@ -98,10 +97,10 @@ public class BoardGamesCoreGUI extends JFrame {
 
 	}
 
-	public void setMainPanelContent(JPanel mainContent) {
+	private void setNewMainPanelContent(JPanel newMainContent) {
 		this.mainPanel.removeAll();
 		this.mainPanel.invalidate();
-		this.mainPanel.add(mainContent);
+		this.mainPanel.add(newMainContent);
 		mainFrame.pack();
 		this.mainFrame.revalidate();
 		
@@ -112,7 +111,7 @@ public class BoardGamesCoreGUI extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			setMainPanelContent(new BoardGamesLudoGUI());
+			setNewMainPanelContent(new BoardGamesLudoGUI());
 		}
 	}
 
@@ -120,7 +119,7 @@ public class BoardGamesCoreGUI extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			setMainPanelContent(new BoardGamesSolitarGUIRunner());
+			setNewMainPanelContent(new BoardGamesSolitarGUIRunner());
 		}
 	}
 
@@ -128,7 +127,7 @@ public class BoardGamesCoreGUI extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			setMainPanelContent(new BoardGamesSettingsGUI());
+			setNewMainPanelContent(new BoardGamesSettingsGUI());
 		}
 	}
 
