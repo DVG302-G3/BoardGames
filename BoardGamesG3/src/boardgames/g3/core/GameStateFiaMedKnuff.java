@@ -169,11 +169,11 @@ public class GameStateFiaMedKnuff implements GameState {
 			return false;
 		case MOVE_VALID_INBASE_TWO_PIECES:
 			System.out.println("Two pieces!!!!! To do!");
-//			if (needToPush(move))
-//				ruler.pushOtherPiece(move.getDestination().getPiece());
-//			move.execute();
-//			moveSecondPieceToStartPosition();
-			return false;
+			if (needToPush(move))
+				ruler.pushOtherPiece(move.getDestination().getPiece());
+			move.execute();
+			moveSecondPieceToStartPosition(move);
+			return true;
 		default:
 			return false;
 		}
@@ -184,8 +184,29 @@ public class GameStateFiaMedKnuff implements GameState {
 		getDieRollFactory().getNewRoll(getPlayerInTurn());
 	}
 
-	private void moveSecondPieceToStartPosition() {
-		// TODO Auto-generated method stub
+	private void moveSecondPieceToStartPosition(Move move) {
+		if(move.getPlayer().getName().equals("Red")){
+			for (String basePositions : LudoStaticValues.REDHOME) {
+				BoardLocation home = HelpMethodsFinaMedKnuff
+						.getBoardLocationFromCoordinate(basePositions,
+								getBoard());
+				if (home.getPiece() != null
+						&& home.getPiece() != move.getPiece()) {
+					BoardLocation start = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(LudoStaticValues.REDSTART, board);
+					start.addPiece(home.getPiece());
+				}
+			}
+
+		}
+		else 	if(move.getPlayer().getName().equals("Yellow")){
+			
+		}
+		else 	if(move.getPlayer().getName().equals("Green")){
+			
+		}
+		else{
+			
+		}
 	}
 
 	private boolean needToPush(Move move) {

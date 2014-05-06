@@ -6,7 +6,10 @@ import java.util.List;
 public class LudoStaticValues {
 	
 	public static final int TOTALSTEPSAROUNDTHEBOARD = 40;
-
+	
+	public static final int ROWS = 11;
+	public static final int COLS = 11;
+	
 	public static final String REDSTART = "EA";
 	public static final String BLUESTART = "AG";
 	public static final String GREENSTART = "KE";
