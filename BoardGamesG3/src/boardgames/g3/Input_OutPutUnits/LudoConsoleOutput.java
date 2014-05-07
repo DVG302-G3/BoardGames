@@ -1,13 +1,12 @@
 package boardgames.g3.Input_OutPutUnits;
 
 import boardgames.g3.core.Ludo.HelpMethodsFinaMedKnuff;
+import boardgames.g3.core.Ludo.LudoStaticValues;
 import game.api.GameState;
 import game.impl.BoardLocation;
 import game.io.OutputUnit;
 
 public class LudoConsoleOutput implements OutputUnit {
-	final int ROWS = 11;
-	final int COLS = 11;
 
 	@Override
 	public void publish(GameState state) {
@@ -16,10 +15,10 @@ public class LudoConsoleOutput implements OutputUnit {
 		char cordRow = 'A';
 		char cordCol = 'A';
 
-		for (int r = 0; r < ROWS; r++) {
+		for (int r = 0; r < LudoStaticValues.ROWS; r++) {
 			System.out.print(cordRow + "  ");
 
-			for (int c = 0; c < COLS; c++) {
+			for (int c = 0; c < LudoStaticValues.COLS; c++) {
 
 				String coordinate = Character.toString(cordRow)
 						+ Character.toString(cordCol++);

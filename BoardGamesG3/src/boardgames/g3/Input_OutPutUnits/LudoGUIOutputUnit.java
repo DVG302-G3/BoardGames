@@ -1,6 +1,7 @@
 package boardgames.g3.Input_OutPutUnits;
 
 import game.api.GameState;
+import game.impl.BoardLocation;
 import game.io.OutputUnit;
 
 import java.awt.BorderLayout;
@@ -17,6 +18,7 @@ import javax.swing.border.TitledBorder;
 
 import boardgames.g3.BGForLabelsButtons.BackGroundButtonID;
 import boardgames.g3.BGForLabelsButtons.BackGroundLabelLudo;
+import boardgames.g3.core.Ludo.HelpMethodsFinaMedKnuff;
 import boardgames.g3.core.Ludo.LudoDiceChooser;
 import boardgames.g3.core.Ludo.LudoStaticValues;
 
@@ -34,36 +36,35 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 	private JCheckBox diceCheckBox;
 
 	private JPanel midPanel, topPanel, topPanelPlayers, topPanelFinished,
-	topPanelWhoPlay, topPanelDice;
+			topPanelWhoPlay, topPanelDice;
 
 	private ButtonGroup buttonGroup;
-	
-	
+
 	public LudoGUIOutputUnit(LudoGUIInputUnit inputUnit) {
 		this.inputUnit = inputUnit;
 		createComponent();
 		settingUpComponents();
 	}
 
-
 	private void createComponent() {
-		backgroundLabel = new BackGroundLabelLudo(LudoStaticValues.ROWS, LudoStaticValues.COLS);
-		
+		backgroundLabel = new BackGroundLabelLudo(LudoStaticValues.ROWS,
+				LudoStaticValues.COLS);
+
 		topPanel = new JPanel(new GridLayout(0, 4));
 		topPanelPlayers = new JPanel(new GridLayout(0, 2));
 		topPanelFinished = new JPanel(new GridLayout(0, 2));
 		topPanelWhoPlay = new JPanel(new GridLayout(4, 0));
 		topPanelDice = new JPanel(new GridLayout(0, 2));
 		midPanel = new JPanel();
-		
+
 		buttonGroup = new ButtonGroup();
 		diceButton = new JButton("Roll Dice");
-		
+
 		redC = new JCheckBox();
 		blueC = new JCheckBox();
 		yellowC = new JCheckBox();
 		greenC = new JCheckBox();
-		diceCheckBox = new JCheckBox();		
+		diceCheckBox = new JCheckBox();
 	}
 
 	private void settingUpComponents() {
@@ -84,7 +85,7 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 
 		diceCheckBox
 				.setIcon(new ImageIcon("src\\boardgames\\img\\no_dice.png"));
-		
+
 		topPanel.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(), "Fia Med Knuff",
 				TitledBorder.LEFT, TitledBorder.TOP));
@@ -119,31 +120,94 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 		topPanel.add(topPanelFinished);
 		topPanel.add(topPanelWhoPlay);
 		topPanel.add(topPanelDice);
-		
-		
+
 		midPanel.add(backgroundLabel);
 
 		this.setLayout(new BorderLayout());
 		this.add(topPanel, BorderLayout.NORTH);
 		this.add(midPanel, BorderLayout.CENTER);
 
-		
 	}
-	
+
+	private void setDiceCheckBox(JCheckBox diceCheckBoxNew) {
+		topPanelDice.removeAll();
+		topPanelDice.add(diceButton);
+		topPanelDice.add(diceCheckBoxNew);
+		this.revalidate();
+	}
+
 	@Override
 	public void publish(GameState gameState) {
+		char cordRow = 'A';
+		char cordCol = 'A';
+		
+		backgroundLabel.removeAll();
+
+		setDiceCheckBox(new LudoDiceChooser(gameState));
+		
+
+		button = new BackGroundButtonID[LudoStaticValues.ROWS][LudoStaticValues.COLS];
 
 		
-		 backgroundLabel.removeAll();
-		
-//		 dice = new LudoDiceChooser(gameState);
-//		 diceCheckBox.setIcon(dice.returnDice());
-//		 diceButton.addActionListener(inputUnit);
-//		 List<BoardLocation> locations = gameState.getBoard().getLocations();
-		//
-		// button = new GUIGridButtonID[ROWS][COLS];
-		//
+		for (int rows = 0; rows < LudoStaticValues.ROWS; rows++) {
+			for (int cols = 0; cols < LudoStaticValues.COLS; cols++) {
+				
+				String coordinate = Character.toString(cordRow)
+						+ Character.toString(cordCol++);
+				String col;
+				BoardLocation location = HelpMethodsFinaMedKnuff
+						.getBoardLocationFromCoordinate(coordinate,
+								gameState.getBoard());
+				
+				System.out.println(coordinate);
+				button[rows][cols] = new BackGroundButtonID(coordinate);
 
+				button[rows][cols].addActionListener(inputUnit);
+
+				backgroundLabel.add(button[rows][cols]);
+
+				
+				
+				if (location == null)
+					col = null;
+				else
+					col = location.getId();
+
+				if (col == null) {
+					button[rows][cols].setVisible(false);
+				
+				} else if (location.getPiece() != null) {
+					button[rows][cols].setButtonWithBead();
+					System.out.print(location.getPiece().getId() + " ");
+				
+				} else {
+					button[rows][cols].setButtonEmptyBead();
+				}
+
+				
+				
+//				if (location == null) {
+//					piece = locations.get(index).getPiece();
+//
+//					if (piece == null) {
+//						button[rows][cols].setButtonEmptyBead();
+//
+//					} else
+//						button[rows][cols].setButtonWithBead();
+//
+//				} else {
+//					button[rows][cols].setVisible(false);
+//
+//				}
+				
+
+			}
+		
+			cordCol = 'A';
+			cordRow++;
+		}
+
+		backgroundLabel.revalidate();
 	}
 
 }

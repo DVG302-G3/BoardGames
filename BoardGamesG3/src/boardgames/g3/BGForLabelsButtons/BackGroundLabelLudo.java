@@ -16,7 +16,7 @@ public class BackGroundLabelLudo extends JLabel {
 	private int COLS;
 
 	public BackGroundLabelLudo(int rows, int cols) {
-		this("src\\boardgames\\img\\menubackgroundFMK.png");
+		this("src\\boardgames\\img\\Namnlös.png");
 		this.ROWS = rows;
 		this.COLS = cols;
 		setLayout(new GridLayout(ROWS, COLS));
