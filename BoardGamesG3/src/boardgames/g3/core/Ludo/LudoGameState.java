@@ -21,8 +21,7 @@ public class LudoGameState implements GameState {
 	private Player winnerPlayer;
 
 	LudoRuleController ruler;
-	public final int ROWS;
-	public final int COLS;
+
 	private int numberOfPlayers = 4;
 
 	private Integer turnCounter = 0;
@@ -30,9 +29,13 @@ public class LudoGameState implements GameState {
 	DieRollFactory dieRollFactory;
 
 	public LudoGameState() {
-		this.ROWS = 11;
-		this.COLS = 11;
 		this.dieRollFactory = new DieRollFactory();
+		startToPlayNewGame();
+
+	}
+	
+	public LudoGameState(DieRollFactory die) {
+		this.dieRollFactory = die;
 		startToPlayNewGame();
 
 	}
