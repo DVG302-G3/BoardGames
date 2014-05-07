@@ -3,7 +3,6 @@ package boardgames.g3.Input_OutPutUnits;
 
 import game.api.GameState;
 import game.impl.BoardLocation;
-import game.impl.GamePiece;
 import game.impl.Move;
 import game.impl.Player;
 import game.io.InputUnit;
@@ -50,14 +49,14 @@ public class LudoConsoleInputUnit extends InputUnit{
             try{
             	System.out.println();
             	if(previousPlayer != player){
-            		System.out.print(player.getName()+" tryck på valfri knapp för att slå tärningen!");
+            		System.out.print(player.getName()+" tryck pï¿½ valfri knapp fï¿½r att slï¿½ tï¿½rningen!");
             		br.read();
             		br.readLine();
             	}
             	
-            	System.out.print("Tärningen visar: "+ dieRollNumber);
+            	System.out.print("Tï¿½rningen visar: "+ dieRollNumber);
             	System.out.println();
-            	System.out.print("Vilken pjäs vill du flytta:");
+            	System.out.print("Vilken pjï¿½s vill du flytta:");
             	input = Arrays.asList(br.readLine().split(" "));
             	
             	

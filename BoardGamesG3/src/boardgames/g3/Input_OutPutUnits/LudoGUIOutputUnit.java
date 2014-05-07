@@ -5,6 +5,8 @@ import game.impl.BoardLocation;
 import game.io.OutputUnit;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
@@ -13,7 +15,10 @@ import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import boardgames.g3.BGForLabelsButtons.BackGroundButtonID;
@@ -39,6 +44,10 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 			topPanelWhoPlay, topPanelDice;
 
 	private ButtonGroup buttonGroup;
+	
+	private JTextField textFieldWhosTurn;
+	
+	
 
 	public LudoGUIOutputUnit(LudoGUIInputUnit inputUnit) {
 		this.inputUnit = inputUnit;
@@ -50,10 +59,12 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 		backgroundLabel = new BackGroundLabelLudo(LudoStaticValues.ROWS,
 				LudoStaticValues.COLS);
 
+		textFieldWhosTurn = new JTextField();
+		
 		topPanel = new JPanel(new GridLayout(0, 4));
 		topPanelPlayers = new JPanel(new GridLayout(0, 2));
 		topPanelFinished = new JPanel(new GridLayout(0, 2));
-		topPanelWhoPlay = new JPanel(new GridLayout(4, 0));
+		topPanelWhoPlay = new JPanel(new GridLayout(1, 0));
 		topPanelDice = new JPanel(new GridLayout(0, 2));
 		midPanel = new JPanel();
 
@@ -85,6 +96,11 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 
 		diceCheckBox
 				.setIcon(new ImageIcon("src\\boardgames\\img\\no_dice.png"));
+		
+		textFieldWhosTurn.setEditable(false);
+		textFieldWhosTurn.setHorizontalAlignment(JLabel.CENTER);
+		textFieldWhosTurn.setFont(new Font("Arial", Font.CENTER_BASELINE, 20));
+		
 
 		topPanel.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(), "Fia Med Knuff",
@@ -109,6 +125,8 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 		topPanelWhoPlay.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(), "Whos Turn",
 				TitledBorder.LEFT, TitledBorder.TOP));
+		topPanelWhoPlay.add(textFieldWhosTurn);
+		
 
 		topPanelDice.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(), "Roll The Dice",
@@ -145,7 +163,8 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 
 		setDiceCheckBox(new LudoDiceChooser(gameState));
 		
-
+		textFieldWhosTurn.setText(gameState.getPlayerInTurn().getName());
+		
 		button = new BackGroundButtonID[LudoStaticValues.ROWS][LudoStaticValues.COLS];
 
 		
@@ -184,6 +203,7 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 					button[rows][cols].setButtonEmptyBead();
 				}
 
+				
 				
 				
 //				if (location == null) {
