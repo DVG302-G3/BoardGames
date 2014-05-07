@@ -17,30 +17,28 @@ import javax.swing.border.TitledBorder;
 
 import boardgames.g3.BGForLabelsButtons.BackGroundButtonID;
 import boardgames.g3.BGForLabelsButtons.BackGroundLabelLudo;
+import boardgames.g3.core.Ludo.LudoDiceChooser;
+import boardgames.g3.core.Ludo.LudoStaticValues;
 
 public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 
 	BackGroundLabelLudo backgroundLabel;
+	LudoDiceChooser dice;
 
 	private ActionListener inputUnit;
 
 	private BackGroundButtonID button[][];
 	private JButton diceButton;
 
-	
+	private JCheckBox redC, blueC, yellowC, greenC;
+	private JCheckBox diceCheckBox;
+
 	private JPanel midPanel, topPanel, topPanelPlayers, topPanelFinished,
 	topPanelWhoPlay, topPanelDice;
-	
-	private JCheckBox redC, blueC, yellowC, greenC;
-
-	private JCheckBox diceCheckBox;
 
 	private ButtonGroup buttonGroup;
 	
-
-	int ROWS = 11;
-	int COLS = 11;
-
+	
 	public LudoGUIOutputUnit(LudoGUIInputUnit inputUnit) {
 		this.inputUnit = inputUnit;
 		createComponent();
@@ -49,7 +47,7 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 
 
 	private void createComponent() {
-		backgroundLabel = new BackGroundLabelLudo(ROWS, COLS);
+		backgroundLabel = new BackGroundLabelLudo(LudoStaticValues.ROWS, LudoStaticValues.COLS);
 		
 		topPanel = new JPanel(new GridLayout(0, 4));
 		topPanelPlayers = new JPanel(new GridLayout(0, 2));
@@ -114,8 +112,8 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 		topPanelDice.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(), "Roll The Dice",
 				TitledBorder.LEFT, TitledBorder.TOP));
-//		topPanelDice.add(diceButton);
-//		topPanelDice.add(diceCheckBox);
+		topPanelDice.add(diceButton);
+		topPanelDice.add(diceCheckBox);
 
 		topPanel.add(topPanelPlayers);
 		topPanel.add(topPanelFinished);
@@ -135,10 +133,13 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 	@Override
 	public void publish(GameState gameState) {
 
-		//
-		// backgroundLabel.removeAll();
-		//
-		// List<BoardLocation> locations = gameState.getBoard().getLocations();
+		
+		 backgroundLabel.removeAll();
+		
+//		 dice = new LudoDiceChooser(gameState);
+//		 diceCheckBox.setIcon(dice.returnDice());
+//		 diceButton.addActionListener(inputUnit);
+//		 List<BoardLocation> locations = gameState.getBoard().getLocations();
 		//
 		// button = new GUIGridButtonID[ROWS][COLS];
 		//
