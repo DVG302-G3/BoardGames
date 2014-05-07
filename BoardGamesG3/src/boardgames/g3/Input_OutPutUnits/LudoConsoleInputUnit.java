@@ -18,6 +18,7 @@ import boardgames.g3.core.Ludo.HelpMethodsFinaMedKnuff;
 
 public class LudoConsoleInputUnit extends InputUnit{
     BufferedReader br;
+    Player previousPlayer;
 
     @Override
     public void setup(GameState state) {
@@ -30,24 +31,33 @@ public class LudoConsoleInputUnit extends InputUnit{
     
     private Move getNextMove(GameState state) {
     	
+    	
     	Player player = null;
     	List<String> input;
     	int dieRollNumber;
         BoardLocation source = null;
         BoardLocation destination = null;
         boolean inputOK = false;
+        
+        player = state.getPlayerInTurn();
 
         dieRollNumber = state.getDieRollFactory().getLastRoll().getResult();
-        player = state.getPlayerInTurn(); 
+        	
        
 
         
         while(!inputOK){
             try{
             	System.out.println();
-            	System.out.print(player.getName()+" "+"antal steg du fï¿½r gï¿½ med pjï¿½s ï¿½r:"+" "+dieRollNumber);
+            	if(previousPlayer != player){
+            		System.out.print(player.getName()+" tryck på valfri knapp för att slå tärningen!");
+            		br.read();
+            		br.readLine();
+            	}
+            	
+            	System.out.print("Tärningen visar: "+ dieRollNumber);
             	System.out.println();
-            	System.out.print("Vilken pjï¿½s vill du flytta:");
+            	System.out.print("Vilken pjäs vill du flytta:");
             	input = Arrays.asList(br.readLine().split(" "));
             	
             	
