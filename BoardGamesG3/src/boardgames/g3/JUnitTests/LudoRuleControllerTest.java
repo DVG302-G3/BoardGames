@@ -26,6 +26,8 @@ public class LudoRuleControllerTest {
 		
 		state = new LudoGameState();
 	}
+	
+	
 	@Test
 	public void testMoveOutOfHome() {
 		
@@ -41,25 +43,19 @@ public class LudoRuleControllerTest {
 		assertNotNull(destination.getPiece());
 	}
 	
+	
+	@Test
 	public void testDoNotPuschYourOwnPiece(){
 		
 		while(state.getDieRollFactory().getNewRoll(state.getPlayerInTurn()).getResult() != 1)
-			continue;
+			continue;		
+		BoardLocation source = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BB", state.getBoard());
 		
-		BoardLocation sourceForPieceOne = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BB", state.getBoard());
-		BoardLocation sourceForPieceTwo = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("CB", state.getBoard());
 		BoardLocation destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EA", state.getBoard());
-		state.proposeMove(new Move(state.getLastPlayer(), sourceForPieceOne, destination));
-		GamePiece gp1 = destination.getPiece();
-		destination.removePiece(gp1);
-		assertNotNull(destination.getPiece());
+		state.proposeMove(new Move(state.getLastPlayer(), source, destination));
+		source = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BC", state.getBoard());
 		
-		while(state.getDieRollFactory().getNewRoll(state.getPlayerInTurn()).getResult() != 1)
-			continue;
-		
-		state.proposeMove(new Move(state.getLastPlayer(), sourceForPieceTwo, destination));
-		GamePiece gp2 = destination.getPiece();
-		destination.removePiece(gp2);
+		state.proposeMove(new Move(state.getLastPlayer(), source, destination));
 		Assert.assertTrue(destination.getPieces().size()==2);
 		
 	}
