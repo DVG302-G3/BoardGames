@@ -151,21 +151,6 @@ public class LudoRuleController {
 			return existInList(move.getSource().getId(),
 					LudoStaticValues.GREENFINISHLINE);
 	}
-<<<<<<< HEAD
-
-	public Boolean isPieceInGoal(Move move, GamePiece gamePiece) {
-		for (GamePiece gp : move.getPieces()) {
-			if (gp.getId() == gamePiece.getId()) {
-				return true;
-			}
-		}
-		return false;
-
-	}
-=======
-	
-	
->>>>>>> 14f17923ffef4f50563a5adec42a78196f750db0
 
 	public Boolean isGameFinished(GameState state) {
 		if (state.hasEnded() == true) {
@@ -243,22 +228,6 @@ public class LudoRuleController {
 		}
 
 	}
-<<<<<<< HEAD
-
-	private LudoMoveResult movePieceInGoal(Move move) {
-		if (isPiecesInFinishline(move) == true
-				&& getNumberOfStepsFromDice() <= 4) {
-			return LudoMoveResult.MOVE_PIECE_IN_TO_GOAL;
-		} else
-			return LudoMoveResult.MOVE_PIECE_NOT_IN_TO_GOAL;
-	}
-=======
-	
-	
-
-	
-	
->>>>>>> 14f17923ffef4f50563a5adec42a78196f750db0
 
 	private LudoMoveResult checkValidMoveFromStartForPlayer(Move move,
 			String start, String startSix, List<String> homeValues) {

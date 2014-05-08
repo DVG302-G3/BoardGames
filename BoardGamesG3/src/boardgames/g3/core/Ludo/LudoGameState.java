@@ -177,16 +177,11 @@ public class LudoGameState implements GameState {
 			message = "";
 			move.execute();
 			moveSecondPieceToStartPosition(move);
-<<<<<<< HEAD
-=======
-			nextPlayer();
 			return true;
 		case MOVE_PIECE_IN_TO_GOAL:
 			System.out.println("Move piece in to goal");
 			move.execute();
-			nextPlayer();
 			return false;
->>>>>>> 14f17923ffef4f50563a5adec42a78196f750db0
 		default:
 			return false;
 		}
