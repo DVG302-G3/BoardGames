@@ -72,7 +72,7 @@ public class BoardGamesCoreGUI extends JFrame {
 
 		mainFrame.setJMenuBar(menuBar);
 		mainFrame.setContentPane(mainPanel);
-		mainFrame.setSize(900, 700);
+		mainFrame.setSize(800, 700);
 		mainFrame.setVisible(true);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setResizable(false);
@@ -101,7 +101,6 @@ public class BoardGamesCoreGUI extends JFrame {
 		this.mainPanel.removeAll();
 		this.mainPanel.invalidate();
 		this.mainPanel.add(newMainContent);
-		mainFrame.pack();
 		this.mainFrame.revalidate();
 		
 		

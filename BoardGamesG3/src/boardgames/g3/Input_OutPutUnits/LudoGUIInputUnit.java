@@ -3,7 +3,7 @@ package boardgames.g3.Input_OutPutUnits;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import boardgames.g3.BGForLabelsButtons.BackGroundButtonID;
+import boardgames.g3.BGForLabelsButtons.BackGroundButtonIDLudo;
 import boardgames.g3.core.Solitaire.SolitarHelpMethods;
 import game.api.GameState;
 import game.impl.BoardLocation;
@@ -14,7 +14,7 @@ public class LudoGUIInputUnit extends InputUnit implements ActionListener {
 
 	GameState gameState;
 	
-	BackGroundButtonID buttonGUI;
+	BackGroundButtonIDLudo buttonGUI;
 	
  	BoardLocation sourceClick = null;
 	BoardLocation destinationClick = null;
@@ -55,7 +55,7 @@ public class LudoGUIInputUnit extends InputUnit implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		buttonGUI = (BackGroundButtonID) e.getSource();
+		buttonGUI = (BackGroundButtonIDLudo) e.getSource();
 
 		onClick(buttonGUI.getStringId());	
 	}

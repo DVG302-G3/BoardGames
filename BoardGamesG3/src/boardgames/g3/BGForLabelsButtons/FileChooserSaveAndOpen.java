@@ -2,6 +2,7 @@ package boardgames.g3.BGForLabelsButtons;
 import game.api.GameState;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -20,14 +21,15 @@ public class FileChooserSaveAndOpen extends JPanel
                              implements ActionListener {
 
     JButton openButton, saveButton;
-    JTextArea log;
     JFileChooser fc;
   
     GameState gameState;
 
     public FileChooserSaveAndOpen(GameState state) {
-        super(new BorderLayout());
+        super(new GridLayout(2,0));
+        
         this.gameState = state;
+        
         
         
         fc = new JFileChooser();
@@ -39,11 +41,11 @@ public class FileChooserSaveAndOpen extends JPanel
         saveButton = new JButton("Save Gametate..");
         saveButton.addActionListener(this);
 
-        JPanel buttonPanel = new JPanel(); 
-        buttonPanel.add(openButton);
-        buttonPanel.add(saveButton);
+         
+        add(openButton);
+        add(saveButton);
     
-        add(buttonPanel, BorderLayout.PAGE_START);
+        
    
     }
 

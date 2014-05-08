@@ -15,7 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
 
-import boardgames.g3.BGForLabelsButtons.BackGroundButtonID;
+import boardgames.g3.BGForLabelsButtons.BackGroundButtonIDLudo;
+import boardgames.g3.BGForLabelsButtons.BackGroundButtonIDSolitaire;
 import boardgames.g3.BGForLabelsButtons.BackGroundLabelSolitaire;
 import boardgames.g3.BGForLabelsButtons.FileChooserSaveAndOpen;
 import boardgames.g3.core.Solitaire.SolitarCounterBeads;
@@ -37,7 +38,7 @@ public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 	private JPanel topPanel, topPanelFileChooser, topPanelBeadsLeftAndTaken,
 			topPanelTimer, mainPanel;
 	
-	private BackGroundButtonID button[][];
+	private BackGroundButtonIDSolitaire button[][];
 
 	public SolitarGUIOutputUnit(SolitarGUIInputUnit inputUnit) {
 		this.inputUnit = inputUnit;
@@ -71,7 +72,7 @@ public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 				TitledBorder.LEFT, TitledBorder.TOP));
 
 		topPanelFileChooser.setBorder(BorderFactory.createTitledBorder(
-				BorderFactory.createEtchedBorder(), "Open & Save",
+				BorderFactory.createEtchedBorder(), "Load & Save",
 				TitledBorder.LEFT, TitledBorder.TOP));
 
 		
@@ -111,13 +112,13 @@ public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 		List<BoardLocation> locations = gameState.getBoard().getLocations();
 
 		fileChooser = new FileChooserSaveAndOpen(gameState);
-		button = new BackGroundButtonID[SolitarStaticValue.ROW][SolitarStaticValue.COL];
+		button = new BackGroundButtonIDSolitaire[SolitarStaticValue.ROW][SolitarStaticValue.COL];
 		counterBeads = new SolitarCounterBeads(SolitarStaticValue.BEADS_TOTAL);
 
 		int index = 0;
 		for (int rows = 0; rows < SolitarStaticValue.ROW; rows++) {
 			for (int cols = 0; cols < SolitarStaticValue.COL; cols++) {
-				button[rows][cols] = new BackGroundButtonID(
+				button[rows][cols] = new BackGroundButtonIDSolitaire(
 						Integer.toString((rows + 1))
 								+ Integer.toString((cols + 1)));
 
