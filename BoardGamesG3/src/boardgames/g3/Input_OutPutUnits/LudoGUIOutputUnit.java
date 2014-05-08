@@ -55,7 +55,7 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 	public LudoGUIOutputUnit(LudoGUIInputUnit inputUnit) {
 		this.inputUnit = inputUnit;
 		createComponent();
-		howManyPlayerAndSetName();
+//		howManyPlayerAndSetName();
 		settingUpComponents();
 	}
 
