@@ -23,7 +23,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
-import boardgames.g3.BGForLabelsButtons.BackGroundButtonID;
+import boardgames.g3.BGForLabelsButtons.BackGroundButtonIDLudo;
 import boardgames.g3.BGForLabelsButtons.BackGroundLabelLudo;
 import boardgames.g3.core.Ludo.HelpMethodsFinaMedKnuff;
 import boardgames.g3.core.Ludo.LudoDiceChooser;
@@ -36,7 +36,7 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 
 	private ActionListener inputUnit;
 
-	private BackGroundButtonID button[][];
+	private BackGroundButtonIDLudo button[][];
 	private JButton diceButton;
 
 	private JCheckBox redC, blueC, yellowC, greenC;
@@ -46,16 +46,15 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 			topPanelWhoPlay, topPanelDice;
 
 	private ButtonGroup buttonGroup;
-	
+
 	private JTextField textFieldWhosTurn;
 	private String player1, player2, player3, player4;
 	private int players;
-	
 
 	public LudoGUIOutputUnit(LudoGUIInputUnit inputUnit) {
 		this.inputUnit = inputUnit;
 		createComponent();
-//		howManyPlayerAndSetName();
+		// howManyPlayerAndSetName();
 		settingUpComponents();
 	}
 
@@ -64,7 +63,7 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 				LudoStaticValues.COLS);
 
 		textFieldWhosTurn = new JTextField();
-		
+
 		topPanel = new JPanel(new GridLayout(0, 4));
 		topPanelPlayers = new JPanel(new GridLayout(0, 2));
 		topPanelFinished = new JPanel(new GridLayout(0, 2));
@@ -81,27 +80,29 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 		greenC = new JCheckBox();
 		diceCheckBox = new JCheckBox();
 	}
-	
-	private void howManyPlayerAndSetName(){
-		
-		players = Integer.parseInt(JOptionPane.showInputDialog(null, "How many players? (2-4)"));
-	if(players >=2 && players <= 4){	
-		if(players == 2){
-			player1 = JOptionPane.showInputDialog("Player 1 (Red) Name:");
-			player2 = JOptionPane.showInputDialog("Player 2 (Blue) Name:");
-		}else if (players == 3){
-			player1 = JOptionPane.showInputDialog("Player 1 (Red) Name:");
-			player2 = JOptionPane.showInputDialog("Player 2 (Blue) Name:");
-			player3 = JOptionPane.showInputDialog("Player 3 (Green) Name:");
-		}else if(players == 4){
-			player1 = JOptionPane.showInputDialog("Player 1 (Red) Name:");
-			player2 = JOptionPane.showInputDialog("Player 2 (Blue) Name:");
-			player3 = JOptionPane.showInputDialog("Player 3 (Green) Name:");
-			player4 = JOptionPane.showInputDialog("Player 4 (Yellow) Name:");		
-		}		
-	}else
-		JOptionPane.showMessageDialog(null, "Wrong amount of players!!!");
-}
+
+	private void howManyPlayerAndSetName() {
+
+		players = Integer.parseInt(JOptionPane.showInputDialog(null,
+				"How many players? (2-4)"));
+		if (players >= 2 && players <= 4) {
+			if (players == 2) {
+				player1 = JOptionPane.showInputDialog("Player 1 (Red) Name:");
+				player2 = JOptionPane.showInputDialog("Player 2 (Blue) Name:");
+			} else if (players == 3) {
+				player1 = JOptionPane.showInputDialog("Player 1 (Red) Name:");
+				player2 = JOptionPane.showInputDialog("Player 2 (Blue) Name:");
+				player3 = JOptionPane.showInputDialog("Player 3 (Green) Name:");
+			} else if (players == 4) {
+				player1 = JOptionPane.showInputDialog("Player 1 (Red) Name:");
+				player2 = JOptionPane.showInputDialog("Player 2 (Blue) Name:");
+				player3 = JOptionPane.showInputDialog("Player 3 (Green) Name:");
+				player4 = JOptionPane
+						.showInputDialog("Player 4 (Yellow) Name:");
+			}
+		} else
+			JOptionPane.showMessageDialog(null, "Wrong amount of players!!!");
+	}
 
 	private void settingUpComponents() {
 		redC.setIcon(new ImageIcon("src\\boardgames\\img\\red.jpg"));
@@ -121,11 +122,10 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 
 		diceCheckBox
 				.setIcon(new ImageIcon("src\\boardgames\\img\\no_dice.png"));
-		
+
 		textFieldWhosTurn.setEditable(false);
 		textFieldWhosTurn.setHorizontalAlignment(JLabel.CENTER);
 		textFieldWhosTurn.setFont(new Font("Arial", Font.CENTER_BASELINE, 20));
-		
 
 		topPanel.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(), "Fia Med Knuff",
@@ -151,7 +151,6 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 				BorderFactory.createEtchedBorder(), "Whos Turn",
 				TitledBorder.LEFT, TitledBorder.TOP));
 		topPanelWhoPlay.add(textFieldWhosTurn);
-		
 
 		topPanelDice.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(), "Roll The Dice",
@@ -183,68 +182,37 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 	public void publish(GameState gameState) {
 		char cordRow = 'A';
 		char cordCol = 'A';
-		
+
 		backgroundLabel.removeAll();
 		topPanelDice.removeAll();
-		
+
 		textFieldWhosTurn.setText(gameState.getPlayerInTurn().getName());
-		
-		button = new BackGroundButtonID[LudoStaticValues.ROWS][LudoStaticValues.COLS];
-	
-		
+
+		button = new BackGroundButtonIDLudo[LudoStaticValues.ROWS][LudoStaticValues.COLS];
+
 		for (int rows = 0; rows < LudoStaticValues.ROWS; rows++) {
 			for (int cols = 0; cols < LudoStaticValues.COLS; cols++) {
-			 
-		    String col;
-		    
-		    String coordinate = Character.toString(cordRow)
-		      + Character.toString(cordCol++);
-		    
-		    BoardLocation location = HelpMethodsFinaMedKnuff
-		        .getBoardLocationFromCoordinate(coordinate,
-		            gameState.getBoard());
-				
-				button[rows][cols] = new BackGroundButtonID(coordinate);
+
+				String coordinate = Character.toString(cordRow)
+						+ Character.toString(cordCol++);
+
+				BoardLocation location = HelpMethodsFinaMedKnuff
+						.getBoardLocationFromCoordinate(coordinate,
+								gameState.getBoard());
+
+				button[rows][cols] = new BackGroundButtonIDLudo(location, coordinate);
 				button[rows][cols].addActionListener(inputUnit);
 
-				
-				
 				diceButton.addActionListener(new getRollResult(gameState));
-				
+
 				backgroundLabel.add(button[rows][cols]);
 
 				topPanelDice.add(diceButton);
-		    topPanelDice.add(diceCheckBox);
+				topPanelDice.add(diceCheckBox);
 
-		    
-		    
-				if (location == null)
-					col = null;
-				else
-					col = location.getId();
 
-				if (col == null) {
-					button[rows][cols].setVisible(false);
-				
-				} else if (location.getPiece() != null) {
-					
-					   if(button[rows][cols].checkIfitsRed(location))
-					     button[rows][cols].setButtonWithRed();
-					   
-					   else if(button[rows][cols].checkIfitsBlue(location))
-					     button[rows][cols].setButtonWithBlue();
-					   
-					   else if(button[rows][cols].checkIfitsYellow(location))
-              button[rows][cols].setButtonWithYellow();
-					   
-					   else if(button[rows][cols].checkIfitsGreen(location))
-              button[rows][cols].setButtonWithGreen();
-				
-				} else {
-					button[rows][cols].setButtonEmptyPiece();
-				}
 			}
-		
+
 			cordCol = 'A';
 			cordRow++;
 		}
@@ -253,20 +221,20 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 		backgroundLabel.revalidate();
 
 	}
-	
-	class getRollResult implements ActionListener{
 
-	 GameState gameState;
-	 
-  public getRollResult(GameState gameState) {
-   this.gameState = gameState;
-  }
+	class getRollResult implements ActionListener {
 
-  @Override
-  public void actionPerformed(ActionEvent e) {
-   setDiceCheckBox(new LudoDiceChooser(gameState));
-  }
-	 
+		GameState gameState;
+
+		public getRollResult(GameState gameState) {
+			this.gameState = gameState;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			setDiceCheckBox(new LudoDiceChooser(gameState));
+		}
+
 	}
 
 }

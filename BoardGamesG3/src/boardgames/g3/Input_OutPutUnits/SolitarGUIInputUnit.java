@@ -8,14 +8,15 @@ import game.io.InputUnit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import boardgames.g3.BGForLabelsButtons.BackGroundButtonID;
+import boardgames.g3.BGForLabelsButtons.BackGroundButtonIDLudo;
+import boardgames.g3.BGForLabelsButtons.BackGroundButtonIDSolitaire;
 import boardgames.g3.core.Solitaire.SolitarHelpMethods;
 
 public class SolitarGUIInputUnit extends InputUnit implements ActionListener {
 
 	private GameState state;
 
-	BackGroundButtonID buttonGUI;
+	BackGroundButtonIDSolitaire buttonGUI;
 	
  	BoardLocation sourceClick = null;
 	BoardLocation destinationClick = null;
@@ -56,7 +57,7 @@ public class SolitarGUIInputUnit extends InputUnit implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		buttonGUI = (BackGroundButtonID) event.getSource();
+		buttonGUI = (BackGroundButtonIDSolitaire) event.getSource();
 
 		onClick(buttonGUI.getStringId());
 
