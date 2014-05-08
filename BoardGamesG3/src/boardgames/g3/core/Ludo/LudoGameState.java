@@ -155,11 +155,14 @@ public class LudoGameState implements GameState {
 		LudoMoveResult result = ruler.isValidMove(move);
 		switch (result) {
 		case MOVE_VALID:
+			GamePiece piece = move.getSource().getPieces().get(1);
+			System.out.println(piece);
 			if (needToPush(move))
 				ruler.pushOtherPiece(move.getDestination().getPiece());
 			message = "";
 			move.execute();
-			move.getSource().setPiece(new GamePiece("TEST"));
+			if(piece != null)
+				move.getSource().setPiece(piece);
 			return true;
 		case MOVE_LAPSED:
 			return false;
@@ -171,7 +174,7 @@ public class LudoGameState implements GameState {
 			return false;			
 		case MOVE_IN_BASE_DID_NOT_GET_THE_CORRECT_EYES_ON_THE_DICE_TO_MOVE_OUT:
 			message = "You need to get 1 or 6 in order to move out of base.";
-			return true;
+			return false;
 		case MOVE_VALID_INBASE_TWO_PIECES:
 			if (needToPush(move))
 				ruler.pushOtherPiece(move.getDestination().getPiece());
