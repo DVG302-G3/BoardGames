@@ -34,12 +34,10 @@ public class LudoGameState implements GameState {
 
 	}
 	
-	public LudoGameState(DieRollFactory die) {
-		this.dieRollFactory = die;
-		startToPlayNewGame();
-
+	public LudoGameState(int noPlayers){
+		this.numberOfPlayers = noPlayers;
 	}
-
+	
 	public void startToPlayNewGame() {
 		this.players = createAndReturnPlayers();
 		this.board = new Board(createBoardLocations());
@@ -158,26 +156,27 @@ public class LudoGameState implements GameState {
 		case MOVE_VALID:
 			if (needToPush(move))
 				ruler.pushOtherPiece(move.getDestination().getPiece());
+			message = "";
 			move.execute();
 			nextPlayer();
 			return true;
 		case MOVE_LAPSED:
-			System.out.println("Lapsed");
 			return false;
 		case MOVE_NOGAMEPIECE:
-			System.out.println("No game piece");
+			message = "No game piece located in source.";
 			return false;
 		case MOVE_INCORRECTNUMBEROFSTEPS:
-			System.out.println("Incorrect number of steps!");
+			message = "You can't move to this position. Please try again.";
 			return false;			
 		case MOVE_IN_BASE_DID_NOT_GET_THE_CORRECT_EYES_ON_THE_DICE_TO_MOVE_OUT:
-			System.out.println("Eyes on the dice!");
+			message = "You need to get 1 or 6 in order to move out of base.";
 			nextPlayer();
 			return false;
 		case MOVE_VALID_INBASE_TWO_PIECES:
 			System.out.println("Two pieces!!!!!");
 			if (needToPush(move))
 				ruler.pushOtherPiece(move.getDestination().getPiece());
+			message = "";
 			move.execute();
 			moveSecondPieceToStartPosition(move);
 			nextPlayer();
