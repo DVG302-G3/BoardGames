@@ -5,21 +5,17 @@ import game.impl.BoardLocation;
 import game.io.OutputUnit;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
@@ -168,12 +164,6 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 
 	}
 
-	private void setDiceButton(JButton diceButtonNew) {
-		topPanelDice.removeAll();
-		topPanelDice.add(diceButtonNew);
-		this.revalidate();
-	}
-
 	@Override
 	public void publish(GameState gameState) {
 		char cordRow = 'A';
@@ -182,7 +172,7 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 		backgroundLabel.removeAll();
 		topPanelDice.removeAll();
 
-		textFieldWhosTurn.setText(gameState.getPlayerInTurn().getName());
+		textFieldWhosTurn.setText(gameState.getLastPlayer().getName());
 
 		button = new BackGroundButtonIDLudo[LudoStaticValues.ROWS][LudoStaticValues.COLS];
 		diceB = new LudoDiceChooser(gameState);
@@ -201,10 +191,9 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 				button[rows][cols].addActionListener(inputUnit);
 
 				diceB.addActionListener(diceB);
+				topPanelDice.add(diceB);
 
 				backgroundLabel.add(button[rows][cols]);
-
-				topPanelDice.add(diceB);
 				
 			}
 

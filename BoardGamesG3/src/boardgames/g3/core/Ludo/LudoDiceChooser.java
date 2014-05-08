@@ -24,7 +24,7 @@ public class LudoDiceChooser extends JButton implements ActionListener {
 	}
 
 	public void returnDice() {
-		diceNumber = gameState.getDieRollFactory().getLastRoll().getResult();
+		diceNumber = gameState.getDieRollFactory().getNewRoll(gameState.getLastPlayer()).getResult();
 
 		switch (diceNumber) {
 		case 1:
