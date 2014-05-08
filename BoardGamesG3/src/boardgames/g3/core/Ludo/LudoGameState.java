@@ -36,6 +36,7 @@ public class LudoGameState implements GameState {
 	
 	public LudoGameState(int noPlayers){
 		this.numberOfPlayers = noPlayers;
+		startToPlayNewGame();
 	}
 	
 	public void startToPlayNewGame() {
