@@ -16,7 +16,7 @@ public class BackGroundLabelSolitaire extends JLabel {
  private int COLS;
  
  public BackGroundLabelSolitaire(int rows, int cols) {
-  this("src\\boardgames\\img\\ludoBackground.png");
+  this("src\\boardgames\\img\\solitaireBackground.png");
   this.ROWS = rows;
   this.COLS = cols;
   setLayout(new GridLayout(ROWS, COLS));
