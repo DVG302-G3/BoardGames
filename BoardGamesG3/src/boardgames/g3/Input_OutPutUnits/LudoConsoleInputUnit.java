@@ -54,7 +54,12 @@ public class LudoConsoleInputUnit extends InputUnit {
 					e.printStackTrace();
 				}
 				System.out.println("Tärningen visar: " + dieRollNumber);
-
+				
+				System.out.println(!isDieSixOrOne(dieRollNumber)
+						&& !HelpMethodsFinaMedKnuff
+								.doesPlayerHaveAnyPiecesOnTheBoard(player,
+										state.getBoard()));
+				
 				if (!isDieSixOrOne(dieRollNumber)
 						&& !HelpMethodsFinaMedKnuff
 								.doesPlayerHaveAnyPiecesOnTheBoard(player,

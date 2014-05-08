@@ -159,6 +159,7 @@ public class LudoGameState implements GameState {
 				ruler.pushOtherPiece(move.getDestination().getPiece());
 			message = "";
 			move.execute();
+			move.getSource().setPiece(new GamePiece("TEST"));
 			return true;
 		case MOVE_LAPSED:
 			return false;
