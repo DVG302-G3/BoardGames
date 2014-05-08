@@ -41,7 +41,7 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 	
 
 	private JPanel midPanel, topPanel, topPanelPlayers, topPanelFinished,
-			topPanelWhoPlay, topPanelDice;
+			topPanelWhoPlay, topPanelMessage, eastPanelDice;
 
 	
 
@@ -62,11 +62,12 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 
 		textFieldWhosTurn = new JTextField();
 
-		topPanel = new JPanel(new GridLayout(0, 4));
-		topPanelPlayers = new JPanel(new GridLayout(0, 2));
-		topPanelFinished = new JPanel(new GridLayout(0, 2));
-		topPanelWhoPlay = new JPanel(new GridLayout(1, 0));
-		topPanelDice = new JPanel(new GridLayout(0, 2));
+		topPanel = new JPanel(new GridLayout(1, 4));
+		topPanelPlayers = new JPanel(new GridLayout(2, 2));
+		topPanelFinished = new JPanel(new GridLayout(4, 4));
+		topPanelWhoPlay = new JPanel(new GridLayout(1, 1));
+		topPanelMessage = new JPanel(new GridLayout(1, 1));
+		eastPanelDice = new JPanel(new GridLayout(1, 1));
 		midPanel = new JPanel();
 
 		buttonGroup = new ButtonGroup();
@@ -146,7 +147,13 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 				TitledBorder.LEFT, TitledBorder.TOP));
 		topPanelWhoPlay.add(textFieldWhosTurn);
 
-		topPanelDice.setBorder(BorderFactory.createTitledBorder(
+		
+		topPanelMessage.setBorder(BorderFactory.createTitledBorder(
+				BorderFactory.createEtchedBorder(), "Message",
+				TitledBorder.LEFT, TitledBorder.TOP));
+		topPanelMessage.add(new JLabel("Fan vad vi ska spela"));
+		
+		eastPanelDice.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(), "Roll The Dice",
 				TitledBorder.LEFT, TitledBorder.TOP));
 	
@@ -154,7 +161,9 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 		topPanel.add(topPanelPlayers);
 		topPanel.add(topPanelFinished);
 		topPanel.add(topPanelWhoPlay);
-		topPanel.add(topPanelDice);
+//		topPanel.add(topPanelMessage);
+		topPanel.add(eastPanelDice);
+		
 
 		midPanel.add(backgroundLabel);
 
@@ -170,7 +179,7 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 		char cordCol = 'A';
 
 		backgroundLabel.removeAll();
-		topPanelDice.removeAll();
+		eastPanelDice.removeAll();
 
 		textFieldWhosTurn.setText(gameState.getLastPlayer().getName());
 
@@ -191,7 +200,7 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 				button[rows][cols].addActionListener(inputUnit);
 
 				diceB.addActionListener(diceB);
-				topPanelDice.add(diceB);
+				eastPanelDice.add(diceB);
 
 				backgroundLabel.add(button[rows][cols]);
 				
@@ -202,7 +211,7 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 		}
 
 		backgroundLabel.revalidate();
-		topPanelDice.revalidate();
+		eastPanelDice.revalidate();
 	}
 
 }
