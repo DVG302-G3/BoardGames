@@ -31,11 +31,11 @@ public class LudoGUIInputUnit extends InputUnit implements ActionListener {
 			sourceClick = SolitarHelpMethods.getBoardLocationFromCoordinate(
 					coordinate, gameState.getBoard());
 			if (sourceClick.getPiece() != null)
-				buttonGUI.setButtonMarked();
+				;
 
 		} else if (sourceClick.getId().equals(coordinate)) {
 			if (sourceClick.getPiece() != null)
-				buttonGUI.setButtonWithBead();
+				
 
 			sourceClick = null;
 

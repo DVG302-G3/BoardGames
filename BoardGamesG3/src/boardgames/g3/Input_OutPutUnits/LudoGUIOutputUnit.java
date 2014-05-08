@@ -17,6 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -47,12 +48,14 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 	private ButtonGroup buttonGroup;
 	
 	private JTextField textFieldWhosTurn;
-	
+	private String player1, player2, player3, player4;
+	private int players;
 	
 
 	public LudoGUIOutputUnit(LudoGUIInputUnit inputUnit) {
 		this.inputUnit = inputUnit;
 		createComponent();
+		howManyPlayerAndSetName();
 		settingUpComponents();
 	}
 
@@ -78,22 +81,43 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 		greenC = new JCheckBox();
 		diceCheckBox = new JCheckBox();
 	}
+	
+	private void howManyPlayerAndSetName(){
+		
+		players = Integer.parseInt(JOptionPane.showInputDialog(null, "How many players? (2-4)"));
+	if(players >=2 && players <= 4){	
+		if(players == 2){
+			player1 = JOptionPane.showInputDialog("Player 1 (Red) Name:");
+			player2 = JOptionPane.showInputDialog("Player 2 (Blue) Name:");
+		}else if (players == 3){
+			player1 = JOptionPane.showInputDialog("Player 1 (Red) Name:");
+			player2 = JOptionPane.showInputDialog("Player 2 (Blue) Name:");
+			player3 = JOptionPane.showInputDialog("Player 3 (Green) Name:");
+		}else if(players == 4){
+			player1 = JOptionPane.showInputDialog("Player 1 (Red) Name:");
+			player2 = JOptionPane.showInputDialog("Player 2 (Blue) Name:");
+			player3 = JOptionPane.showInputDialog("Player 3 (Green) Name:");
+			player4 = JOptionPane.showInputDialog("Player 4 (Yellow) Name:");		
+		}		
+	}else
+		JOptionPane.showMessageDialog(null, "Wrong amount of players!!!");
+}
 
 	private void settingUpComponents() {
-		greenC.setIcon(new ImageIcon("src\\boardgames\\img\\green.jpg"));
 		redC.setIcon(new ImageIcon("src\\boardgames\\img\\red.jpg"));
-		yellowC.setIcon(new ImageIcon("src\\boardgames\\img\\yellow.jpg"));
 		blueC.setIcon(new ImageIcon("src\\boardgames\\img\\blue.jpg"));
+		greenC.setIcon(new ImageIcon("src\\boardgames\\img\\green.jpg"));
+		yellowC.setIcon(new ImageIcon("src\\boardgames\\img\\yellow.jpg"));
 
-		greenC.setText("Mattias");
-		redC.setText("Anders");
-		yellowC.setText("Maya");
-		blueC.setText("Cissan");
+		redC.setText(player1);
+		blueC.setText(player2);
+		greenC.setText(player3);
+		yellowC.setText(player4);
 
-		buttonGroup.add(greenC);
 		buttonGroup.add(redC);
-		buttonGroup.add(yellowC);
 		buttonGroup.add(blueC);
+		buttonGroup.add(greenC);
+		buttonGroup.add(yellowC);
 
 		diceCheckBox
 				.setIcon(new ImageIcon("src\\boardgames\\img\\no_dice.png"));
@@ -110,10 +134,10 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 		topPanelPlayers.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(), "Players",
 				TitledBorder.LEFT, TitledBorder.TOP));
-		topPanelPlayers.add(greenC);
 		topPanelPlayers.add(redC);
-		topPanelPlayers.add(yellowC);
 		topPanelPlayers.add(blueC);
+		topPanelPlayers.add(greenC);
+		topPanelPlayers.add(yellowC);
 
 		topPanelFinished.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(), "Finished Pieces",
