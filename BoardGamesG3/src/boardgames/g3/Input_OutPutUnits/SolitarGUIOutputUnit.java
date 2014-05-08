@@ -131,7 +131,7 @@ public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 					piece = locations.get(index).getPiece();
 
 					if (piece == null) {
-						button[rows][cols].setButtonEmptyBead();
+						button[rows][cols].setButtonEmpty();
 						counterBeads.update();
 					} else
 						button[rows][cols].setButtonWithBead();

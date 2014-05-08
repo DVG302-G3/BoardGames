@@ -8,6 +8,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
@@ -160,33 +161,39 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 		char cordCol = 'A';
 		
 		backgroundLabel.removeAll();
-
-		setDiceCheckBox(new LudoDiceChooser(gameState));
+		topPanelDice.removeAll();
 		
 		textFieldWhosTurn.setText(gameState.getPlayerInTurn().getName());
 		
 		button = new BackGroundButtonID[LudoStaticValues.ROWS][LudoStaticValues.COLS];
-
+	
 		
 		for (int rows = 0; rows < LudoStaticValues.ROWS; rows++) {
 			for (int cols = 0; cols < LudoStaticValues.COLS; cols++) {
+			 
+		    String col;
+		    
+		    String coordinate = Character.toString(cordRow)
+		      + Character.toString(cordCol++);
+		    
+		    BoardLocation location = HelpMethodsFinaMedKnuff
+		        .getBoardLocationFromCoordinate(coordinate,
+		            gameState.getBoard());
 				
-				String coordinate = Character.toString(cordRow)
-						+ Character.toString(cordCol++);
-				String col;
-				BoardLocation location = HelpMethodsFinaMedKnuff
-						.getBoardLocationFromCoordinate(coordinate,
-								gameState.getBoard());
-				
-				System.out.println(coordinate);
 				button[rows][cols] = new BackGroundButtonID(coordinate);
-
 				button[rows][cols].addActionListener(inputUnit);
 
+				
+				
+				diceButton.addActionListener(new getRollResult(gameState));
+				
 				backgroundLabel.add(button[rows][cols]);
 
-				
-				
+				topPanelDice.add(diceButton);
+		    topPanelDice.add(diceCheckBox);
+
+		    
+		    
 				if (location == null)
 					col = null;
 				else
@@ -196,38 +203,46 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 					button[rows][cols].setVisible(false);
 				
 				} else if (location.getPiece() != null) {
-					button[rows][cols].setButtonWithBead();
-					System.out.print(location.getPiece().getId() + " ");
+					
+					   if(button[rows][cols].checkIfitsRed(location))
+					     button[rows][cols].setButtonWithRed();
+					   
+					   else if(button[rows][cols].checkIfitsBlue(location))
+					     button[rows][cols].setButtonWithBlue();
+					   
+					   else if(button[rows][cols].checkIfitsYellow(location))
+              button[rows][cols].setButtonWithYellow();
+					   
+					   else if(button[rows][cols].checkIfitsGreen(location))
+              button[rows][cols].setButtonWithGreen();
 				
 				} else {
-					button[rows][cols].setButtonEmptyBead();
+					button[rows][cols].setButtonEmptyPiece();
 				}
-
-				
-				
-				
-//				if (location == null) {
-//					piece = locations.get(index).getPiece();
-//
-//					if (piece == null) {
-//						button[rows][cols].setButtonEmptyBead();
-//
-//					} else
-//						button[rows][cols].setButtonWithBead();
-//
-//				} else {
-//					button[rows][cols].setVisible(false);
-//
-//				}
-				
-
 			}
 		
 			cordCol = 'A';
 			cordRow++;
 		}
 
+		topPanelDice.revalidate();
 		backgroundLabel.revalidate();
+
+	}
+	
+	class getRollResult implements ActionListener{
+
+	 GameState gameState;
+	 
+  public getRollResult(GameState gameState) {
+   this.gameState = gameState;
+  }
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
+   setDiceCheckBox(new LudoDiceChooser(gameState));
+  }
+	 
 	}
 
 }

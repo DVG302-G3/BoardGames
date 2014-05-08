@@ -311,4 +311,5 @@ public class LudoRuleController {
 	private int getNumberOfStepsFromDice() {
 		return state.getDieRollFactory().getLastRoll().getResult();
 	}
+	
 }

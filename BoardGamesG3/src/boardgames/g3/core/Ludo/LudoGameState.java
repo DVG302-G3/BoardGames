@@ -221,7 +221,7 @@ public class LudoGameState implements GameState {
 	private boolean needToPush(Move move) {
 		return move.getDestination().getPiece() != null;
 	}
-
+  
 	@Override
 	public void reset() {
 		startToPlayNewGame();
