@@ -120,28 +120,11 @@ public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 			for (int cols = 0; cols < SolitarStaticValue.COL; cols++) {
 				button[rows][cols] = new BackGroundButtonIDSolitaire(
 						Integer.toString((rows + 1))
-								+ Integer.toString((cols + 1)));
+								+ Integer.toString((cols + 1)), locations, counterBeads, index);
 
 				button[rows][cols].addActionListener(inputUnit);
 
 				backgroundLabel.add(button[rows][cols]);
-
-				GamePiece piece = null;
-
-				if (locations.get(index) != null) {
-					piece = locations.get(index).getPiece();
-
-					if (piece == null) {
-						button[rows][cols].setButtonEmpty();
-						counterBeads.update();
-					} else
-						button[rows][cols].setButtonWithBead();
-
-				} else {
-					button[rows][cols].setVisible(false);
-
-				}
-				index++;
 
 				textAreaBeadsLeftAndTaken.setText("Beads left:\t"
 						+ counterBeads.getBeadsLeft() + "\nBeads Taken:\t"
@@ -149,6 +132,8 @@ public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 				topPanelFileChooser.removeAll();
 				topPanelFileChooser.add(fileChooser);
 				topPanelFileChooser.revalidate();
+				
+        index++;
 			}
 		}
 

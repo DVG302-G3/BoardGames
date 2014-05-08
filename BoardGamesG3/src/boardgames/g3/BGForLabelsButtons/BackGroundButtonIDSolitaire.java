@@ -1,15 +1,31 @@
 package boardgames.g3.BGForLabelsButtons;
 
+import game.impl.BoardLocation;
+import game.impl.GamePiece;
+
+import java.util.List;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-public class BackGroundButtonIDSolitaire extends JButton {
+import boardgames.g3.core.Solitaire.SolitarCounterBeads;
 
+public class BackGroundButtonIDSolitaire extends JButton {
+  List<BoardLocation> locations;
+  SolitarCounterBeads counterBeads;
+  
 	private String cordinate;
 
-	public BackGroundButtonIDSolitaire(String coordinate) {
-		this.cordinate = coordinate;
+	int index;
 
+	public BackGroundButtonIDSolitaire(String coordinate, List<BoardLocation> locations, SolitarCounterBeads counterBeads, int index) {
+		this.cordinate = coordinate;
+		this.locations = locations;
+		this.counterBeads = counterBeads;
+		this.index = index;
+		
+		checkLocationContent();
+		
 		setBorderPainted(false);
 		setContentAreaFilled(false);
 		setFocusPainted(false);
@@ -19,7 +35,7 @@ public class BackGroundButtonIDSolitaire extends JButton {
 		return cordinate;
 	}
 
-	public void setButtonEmpty() {
+	private void setButtonEmpty() {
 		setIcon(new ImageIcon("src\\boardgames\\img\\EmptyBead.png"));
 	}
 
@@ -29,6 +45,25 @@ public class BackGroundButtonIDSolitaire extends JButton {
 
 	public void setButtonMarked() {
 		setIcon(new ImageIcon("src\\boardgames\\img\\MarkedBead.png"));
+	}
+	
+	private void checkLocationContent(){
+	
+	 GamePiece piece = null;
+   
+   if (locations.get(index) != null) {
+     piece = locations.get(index).getPiece();
+
+     if (piece == null) {
+       this.setButtonEmpty();
+       counterBeads.update();
+     } else
+       this.setButtonWithBead();
+
+   } else {
+     this.setVisible(false);
+   }
+   
 	}
 
 }
