@@ -155,14 +155,10 @@ public class LudoGameState implements GameState {
 		LudoMoveResult result = ruler.isValidMove(move);
 		switch (result) {
 		case MOVE_VALID:
-			GamePiece piece = move.getSource().getPieces().get(1);
-			System.out.println(piece);
 			if (needToPush(move))
 				ruler.pushOtherPiece(move.getDestination().getPiece());
 			message = "";
-			move.execute();
-			if(piece != null)
-				move.getSource().setPiece(piece);
+			executeAndMakeSureThatNoPieceWillBeDeleted(move);
 			return true;
 		case MOVE_LAPSED:
 			return false;
@@ -192,21 +188,12 @@ public class LudoGameState implements GameState {
 	}
 
 	private void executeAndMakeSureThatNoPieceWillBeDeleted(Move move) {
-		BoardLocation source = move.getSource();
-		List<GamePiece> pieces = source.getPieces();
-		List<GamePiece> remainingPieces = new ArrayList<GamePiece>();
-		if(pieces.size() > 1){
-			pieces.remove(0);
-			remainingPieces = pieces;
-			System.out.println(remainingPieces.get(0).getId());
-		}
-		
+		GamePiece piece = null;
+		if(move.getSource().getPieces().size() > 1)
+			piece = move.getSource().getPieces().get(1);
 		move.execute();
-		if(remainingPieces.size() > 0){
-			source.setPieces(remainingPieces);
-			System.out.println(source.getPieces().get(0).getId());
-		}
-		
+		if(piece != null)
+			move.getSource().setPiece(piece);
 	}
 
 	private void moveSecondPieceToStartPosition(Move move) {
