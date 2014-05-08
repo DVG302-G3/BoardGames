@@ -128,15 +128,15 @@ public class LudoRuleController {
 			return existInList(move.getSource().getId(),
 					LudoStaticValues.GREENFINISHLINE);
 	}
-	
-	public Boolean isPieceInGoal(Move move, GamePiece gamePiece){			
-		for(GamePiece gp : move.getPieces()){
-			if(gp.getId() == gamePiece.getId()){
+
+	public Boolean isPieceInGoal(Move move, GamePiece gamePiece) {
+		for (GamePiece gp : move.getPieces()) {
+			if (gp.getId() == gamePiece.getId()) {
 				return true;
 			}
 		}
 		return false;
-		
+
 	}
 
 	public Boolean isGameFinished(GameState state) {
@@ -215,12 +215,12 @@ public class LudoRuleController {
 		}
 
 	}
-	
-	
-	private LudoMoveResult movePieceInGoal(Move move){		
-		if(isPiecesInFinishline(move) == true && getNumberOfStepsFromDice() <=4){
+
+	private LudoMoveResult movePieceInGoal(Move move) {
+		if (isPiecesInFinishline(move) == true
+				&& getNumberOfStepsFromDice() <= 4) {
 			return LudoMoveResult.MOVE_PIECE_IN_TO_GOAL;
-		}else
+		} else
 			return LudoMoveResult.MOVE_PIECE_NOT_IN_TO_GOAL;
 	}
 
@@ -311,5 +311,5 @@ public class LudoRuleController {
 	private int getNumberOfStepsFromDice() {
 		return state.getDieRollFactory().getLastRoll().getResult();
 	}
-	
+
 }

@@ -43,7 +43,7 @@ public class LudoGameState implements GameState {
 		this.board = new Board(createBoardLocations());
 		ruler = new LudoRuleController(this);
 		addPlayersPiecesToTheBoard();
-		dieRollFactory.getNewRoll(getPlayerInTurn());
+		dieRollFactory.getNewRoll(getLastPlayer());
 
 	}
 
@@ -123,7 +123,7 @@ public class LudoGameState implements GameState {
 		if (turnCounter == 0) {
 			return players.get(0);
 		} else
-			return players.get(turnCounter-- % numberOfPlayers);
+			return players.get(turnCounter % numberOfPlayers);
 	}
 
 	@Override
@@ -133,7 +133,7 @@ public class LudoGameState implements GameState {
 
 	@Override
 	public Player getPlayerInTurn() {
-		return players.get(turnCounter % numberOfPlayers);
+		return players.get(turnCounter++ % numberOfPlayers);
 	}
 
 	@Override
@@ -157,8 +157,7 @@ public class LudoGameState implements GameState {
 			if (needToPush(move))
 				ruler.pushOtherPiece(move.getDestination().getPiece());
 			message = "";
-			move.execute();
-			nextPlayer();
+			executeAndMakeSureThatNoPieceWillBeDeleted(move);
 			return true;
 		case MOVE_LAPSED:
 			return false;
@@ -170,25 +169,34 @@ public class LudoGameState implements GameState {
 			return false;			
 		case MOVE_IN_BASE_DID_NOT_GET_THE_CORRECT_EYES_ON_THE_DICE_TO_MOVE_OUT:
 			message = "You need to get 1 or 6 in order to move out of base.";
-			nextPlayer();
-			return false;
+			return true;
 		case MOVE_VALID_INBASE_TWO_PIECES:
-			System.out.println("Two pieces!!!!!");
 			if (needToPush(move))
 				ruler.pushOtherPiece(move.getDestination().getPiece());
 			message = "";
 			move.execute();
 			moveSecondPieceToStartPosition(move);
-			nextPlayer();
-			return true;
 		default:
 			return false;
 		}
 	}
 
-	private void nextPlayer() {
-		turnCounter++;
-		getDieRollFactory().getNewRoll(getPlayerInTurn());
+	private void executeAndMakeSureThatNoPieceWillBeDeleted(Move move) {
+		BoardLocation source = move.getSource();
+		List<GamePiece> pieces = source.getPieces();
+		List<GamePiece> remainingPieces = new ArrayList<GamePiece>();
+		if(pieces.size() > 1){
+			pieces.remove(0);
+			remainingPieces = pieces;
+			System.out.println(remainingPieces.get(0).getId());
+		}
+		
+		move.execute();
+		if(remainingPieces.size() > 0){
+			source.setPieces(remainingPieces);
+			System.out.println(source.getPieces().get(0).getId());
+		}
+		
 	}
 
 	private void moveSecondPieceToStartPosition(Move move) {

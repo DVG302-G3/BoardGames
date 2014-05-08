@@ -5,6 +5,7 @@ import game.impl.BoardLocation;
 import game.impl.GamePiece;
 import game.impl.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HelpMethodsFinaMedKnuff {
@@ -46,11 +47,17 @@ public class HelpMethodsFinaMedKnuff {
 	}
 	
 	public static boolean doesPlayerHaveAnyPiecesOnTheBoard(Player player, Board board){
+		List<String> homeLocations = new ArrayList<String>();
+		homeLocations.addAll(LudoStaticValues.BLUEHOME);
+		homeLocations.addAll(LudoStaticValues.GREENHOME);
+		homeLocations.addAll(LudoStaticValues.REDHOME);
+		homeLocations.addAll(LudoStaticValues.YELLOWHOME);
+		
 		for(BoardLocation bl : board.getLocations()){
 			GamePiece piece = bl.getPiece(); 
 			if(piece != null)
 			{
-				if(player.getPieces().contains(piece))
+				if(player.getPieces().contains(piece) && !homeLocations.contains(bl.getId()))
 					return true;
 			}
 		}
