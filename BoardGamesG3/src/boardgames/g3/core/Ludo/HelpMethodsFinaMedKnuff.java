@@ -3,6 +3,7 @@ package boardgames.g3.core.Ludo;
 import game.impl.Board;
 import game.impl.BoardLocation;
 import game.impl.GamePiece;
+import game.impl.Player;
 
 import java.util.List;
 
@@ -42,6 +43,18 @@ public class HelpMethodsFinaMedKnuff {
 		}
 
 		return null;
+	}
+	
+	public static boolean doesPlayerHaveAnyPiecesOnTheBoard(Player player, Board board){
+		for(BoardLocation bl : board.getLocations()){
+			GamePiece piece = bl.getPiece(); 
+			if(piece != null)
+			{
+				if(player.getPieces().contains(piece))
+					return true;
+			}
+		}
+		return false;
 	}
 
 }
