@@ -2,17 +2,25 @@ package boardgames.g3.core.Ludo;
 
 import game.api.GameState;
 
-import javax.swing.ImageIcon;
-import javax.swing.JCheckBox;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class LudoDiceChooser extends JCheckBox {
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+
+public class LudoDiceChooser extends JButton implements ActionListener {
 
 	private int diceNumber;
 	GameState gameState;
 
 	public LudoDiceChooser(GameState state) {
 		this.gameState = state;
-		returnDice();
+		setIcon(new ImageIcon("src\\boardgames\\img\\no_dice.png"));
+		
+		setBorderPainted(false);
+		setContentAreaFilled(false);
+	    setFocusPainted(false);
+		
 	}
 
 	public void returnDice() {
@@ -48,9 +56,14 @@ public class LudoDiceChooser extends JCheckBox {
 			this.setIcon(new ImageIcon("src\\boardgames\\img\\dice6.png"));
 			System.out.println("6");
 			break;
-
+		
 		}
+		
+	}
 
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		returnDice();		
 	}
 
 }

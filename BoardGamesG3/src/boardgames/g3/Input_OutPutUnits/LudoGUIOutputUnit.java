@@ -32,20 +32,22 @@ import boardgames.g3.core.Ludo.LudoStaticValues;
 public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 
 	BackGroundLabelLudo backgroundLabel;
-	LudoDiceChooser dice;
+	
+	LudoDiceChooser diceB;
+	
 
 	private ActionListener inputUnit;
 
 	private BackGroundButtonIDLudo button[][];
-	private JButton diceButton;
 
+	private ButtonGroup buttonGroup;
 	private JCheckBox redC, blueC, yellowC, greenC;
-	private JCheckBox diceCheckBox;
+	
 
 	private JPanel midPanel, topPanel, topPanelPlayers, topPanelFinished,
 			topPanelWhoPlay, topPanelDice;
 
-	private ButtonGroup buttonGroup;
+	
 
 	private JTextField textFieldWhosTurn;
 	private String player1, player2, player3, player4;
@@ -72,13 +74,12 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 		midPanel = new JPanel();
 
 		buttonGroup = new ButtonGroup();
-		diceButton = new JButton("Roll Dice");
 
 		redC = new JCheckBox();
 		blueC = new JCheckBox();
 		yellowC = new JCheckBox();
 		greenC = new JCheckBox();
-		diceCheckBox = new JCheckBox();
+		
 	}
 
 	private void howManyPlayerAndSetName() {
@@ -120,9 +121,6 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 		buttonGroup.add(greenC);
 		buttonGroup.add(yellowC);
 
-		diceCheckBox
-				.setIcon(new ImageIcon("src\\boardgames\\img\\no_dice.png"));
-
 		textFieldWhosTurn.setEditable(false);
 		textFieldWhosTurn.setHorizontalAlignment(JLabel.CENTER);
 		textFieldWhosTurn.setFont(new Font("Arial", Font.CENTER_BASELINE, 20));
@@ -155,8 +153,7 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 		topPanelDice.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(), "Roll The Dice",
 				TitledBorder.LEFT, TitledBorder.TOP));
-		topPanelDice.add(diceButton);
-		topPanelDice.add(diceCheckBox);
+	
 
 		topPanel.add(topPanelPlayers);
 		topPanel.add(topPanelFinished);
@@ -171,10 +168,9 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 
 	}
 
-	private void setDiceCheckBox(JCheckBox diceCheckBoxNew) {
+	private void setDiceButton(JButton diceButtonNew) {
 		topPanelDice.removeAll();
-		topPanelDice.add(diceButton);
-		topPanelDice.add(diceCheckBoxNew);
+		topPanelDice.add(diceButtonNew);
 		this.revalidate();
 	}
 
@@ -189,7 +185,8 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 		textFieldWhosTurn.setText(gameState.getPlayerInTurn().getName());
 
 		button = new BackGroundButtonIDLudo[LudoStaticValues.ROWS][LudoStaticValues.COLS];
-
+		diceB = new LudoDiceChooser(gameState);
+		
 		for (int rows = 0; rows < LudoStaticValues.ROWS; rows++) {
 			for (int cols = 0; cols < LudoStaticValues.COLS; cols++) {
 
@@ -199,42 +196,24 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 				BoardLocation location = HelpMethodsFinaMedKnuff
 						.getBoardLocationFromCoordinate(coordinate,
 								gameState.getBoard());
-
+				
 				button[rows][cols] = new BackGroundButtonIDLudo(location, coordinate);
 				button[rows][cols].addActionListener(inputUnit);
 
-				diceButton.addActionListener(new getRollResult(gameState));
+				diceB.addActionListener(diceB);
 
 				backgroundLabel.add(button[rows][cols]);
 
-				topPanelDice.add(diceButton);
-				topPanelDice.add(diceCheckBox);
-
-
+				topPanelDice.add(diceB);
+				
 			}
 
 			cordCol = 'A';
 			cordRow++;
 		}
 
-		topPanelDice.revalidate();
 		backgroundLabel.revalidate();
-
-	}
-
-	class getRollResult implements ActionListener {
-
-		GameState gameState;
-
-		public getRollResult(GameState gameState) {
-			this.gameState = gameState;
-		}
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			setDiceCheckBox(new LudoDiceChooser(gameState));
-		}
-
+		topPanelDice.revalidate();
 	}
 
 }
