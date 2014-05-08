@@ -41,7 +41,7 @@ public class LudoRuleController {
 		if (checkIfPlayerStepsIsNotCorrect(move))
 			return LudoMoveResult.MOVE_INCORRECTNUMBEROFSTEPS;
 
-		if (pieceShouldMoveIntoGoalLine(move))
+		if (shoulPiecedMoveIntoGoalLine(move))
 			return LudoMoveResult.MOVE_LAPSED;
 
 		else {
@@ -61,9 +61,32 @@ public class LudoRuleController {
 				getTotalStepsForPiece(move));
 	}
 
-	private boolean pieceShouldMoveIntoGoalLine(Move move) {
-		return getTotalStepsForPiece(move) > LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD;
+	private boolean shoulPiecedMoveIntoGoalLine(Move move) {		
+		if(getTotalStepsForPiece(move) > LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD-1){
+			return true;
+		}else
+			return false;
+		
 	}
+	
+//	private LudoStaticValues 
+	
+	public Boolean isPieceInGoal(Move move, GamePiece gamePiece){			
+		for(GamePiece gp : move.getPieces()){
+			if(gp.getId() == gamePiece.getId()){
+				return true;
+			}
+		}
+		return false;
+		
+	}
+	
+//	private LudoMoveResult movePieceInGoal(Move move){		
+//		if(isPiecesInFinishline(move) == true && getNumberOfStepsFromDice() <=4){
+//			return LudoMoveResult.MOVE_PIECE_IN_TO_GOAL;
+//		}else
+//			return LudoMoveResult.MOVE_PIECE_NOT_IN_TO_GOAL;
+//	}
 
 	private int getTotalStepsForPiece(Move move) {
 		return stepCounter.get(move.getSource().getPiece().getId())
@@ -129,15 +152,7 @@ public class LudoRuleController {
 					LudoStaticValues.GREENFINISHLINE);
 	}
 	
-	public Boolean isPieceInGoal(Move move, GamePiece gamePiece){			
-		for(GamePiece gp : move.getPieces()){
-			if(gp.getId() == gamePiece.getId()){
-				return true;
-			}
-		}
-		return false;
-		
-	}
+	
 
 	public Boolean isGameFinished(GameState state) {
 		if (state.hasEnded() == true) {
@@ -217,12 +232,9 @@ public class LudoRuleController {
 	}
 	
 	
-	private LudoMoveResult movePieceInGoal(Move move){		
-		if(isPiecesInFinishline(move) == true && getNumberOfStepsFromDice() <=4){
-			return LudoMoveResult.MOVE_PIECE_IN_TO_GOAL;
-		}else
-			return LudoMoveResult.MOVE_PIECE_NOT_IN_TO_GOAL;
-	}
+
+	
+	
 
 	private LudoMoveResult checkValidMoveFromStartForPlayer(Move move,
 			String start, String startSix, List<String> homeValues) {
