@@ -44,7 +44,7 @@ public class LudoConsoleInputUnit extends InputUnit {
 			if (previousPlayer != player) {
 				previousPlayer = player;
 				System.out.print(player.getName()
-						+ " tryck på valfri knapp för att slå tärningen!");
+						+ " tryck pÃ¥ valfri knapp fÃ¶r att slÃ¥ tÃ¤rningen!");
 				dieRollNumber = state.getDieRollFactory().getNewRoll(player)
 						.getResult();
 				try {
@@ -53,7 +53,7 @@ public class LudoConsoleInputUnit extends InputUnit {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				System.out.println("Tärningen visar: " + dieRollNumber);
+				System.out.println("TÃ¤rningen visar: " + dieRollNumber);
 
 				if (!isDieSixOrOne(dieRollNumber)
 						&& !HelpMethodsFinaMedKnuff
@@ -67,7 +67,7 @@ public class LudoConsoleInputUnit extends InputUnit {
 
 					while (!inputOK) {
 
-						System.out.print("Vilken pjäs vill du flytta:");
+						System.out.print("Vilken pjÃ¤s vill du flytta:");
 						try {
 							input = Arrays.asList(br.readLine().split(" "));
 							source = HelpMethodsFinaMedKnuff
@@ -91,7 +91,7 @@ public class LudoConsoleInputUnit extends InputUnit {
 						} catch (NullPointerException e) {
 
 							System.out
-									.println("Denna spelare har inte denna färg");
+									.println("Denna spelare har inte denna fï¿½rg");
 							inputOK = false;
 						} catch (IOException e) {
 						}

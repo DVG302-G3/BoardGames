@@ -43,7 +43,7 @@ public class LudoConsoleOutput implements OutputUnit {
 					for(GamePiece p : pieces){
 						System.out.print(p.getId());
 					}
-					
+
 					if(pieces.size() == 1){
 						System.out.print("    ");
 					}
