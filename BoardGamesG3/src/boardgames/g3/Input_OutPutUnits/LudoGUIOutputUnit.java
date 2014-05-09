@@ -125,7 +125,9 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 		buttonGroup.add(greenC);
 		buttonGroup.add(yellowC);
 
+		textFieldWhosTurn.setFocusable(false);
 		textFieldWhosTurn.setEditable(false);
+		textFieldWhosTurn.setOpaque(false);
 		textFieldWhosTurn.setHorizontalAlignment(JLabel.CENTER);
 		textFieldWhosTurn.setFont(new Font("Arial", Font.CENTER_BASELINE, 20));
 		
@@ -142,27 +144,30 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 				TitledBorder.LEFT, TitledBorder.TOP));
 		topPanel.setBackground(Color.WHITE);
 
+		
 		topPanelPlayers.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(), "Players",
 				TitledBorder.LEFT, TitledBorder.TOP));
 		topPanelPlayers.setBackground(Color.WHITE);
-		
 		
 		topPanelPlayers.add(redC);
 		topPanelPlayers.add(blueC);
 		topPanelPlayers.add(greenC);
 		topPanelPlayers.add(yellowC);
 
+		
 		topPanelWhoPlay.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(), "Whos Turn",
 				TitledBorder.LEFT, TitledBorder.TOP));
 		topPanelWhoPlay.add(textFieldWhosTurn);
-
+		topPanelWhoPlay.setBackground(Color.WHITE);
+		
 		
 		topPanelMessage.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(), "Message",
 				TitledBorder.LEFT, TitledBorder.TOP));
 		topPanelMessage.add(textAreaMessage);
+		topPanelMessage.setBackground(Color.WHITE);
 		
 		eastPanelDice.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(), "Roll The Dice",
