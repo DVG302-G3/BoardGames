@@ -162,10 +162,10 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
     eastPanelFinished.setBorder(BorderFactory.createTitledBorder(
       BorderFactory.createEtchedBorder(), "Finished Pieces",
       TitledBorder.LEFT, TitledBorder.TOP));
-//    eastPanelFinished.add();
-//    eastPanelFinished.add();
-//    eastPanelFinished.add();
-//    eastPanelFinished.add();
+//    eastPanelFinished.add(labelRedFinished);
+//    eastPanelFinished.add(labelBlueFinished);
+//    eastPanelFinished.add(labelYellowFinished);
+//    eastPanelFinished.add(labelGreenFinished);
 
 	
 
