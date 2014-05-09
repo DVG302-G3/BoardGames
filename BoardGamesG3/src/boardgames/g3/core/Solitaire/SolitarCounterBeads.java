@@ -16,7 +16,7 @@ public class SolitarCounterBeads  {
 	}
 	
 	public String getBeadsTaken(){
-		return Integer.toString(beadsTaken);
+		return Integer.toString(beadsTaken -1);
 	}
 	
 	public int getBeadsTotal(){
@@ -24,7 +24,7 @@ public class SolitarCounterBeads  {
 	}
 	
 	public String getBeadsLeft(){
-		return Integer.toString(beadsLeft);
+		return Integer.toString(beadsLeft + 1);
 	}
 
 }

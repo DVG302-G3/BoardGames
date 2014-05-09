@@ -81,7 +81,8 @@ public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 		topPanelBeadsLeftAndTaken.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(), "Beads Taken",
 				TitledBorder.LEFT, TitledBorder.TOP));
-		topPanelBeadsLeftAndTaken.setOpaque(false);
+		topPanelBeadsLeftAndTaken.setOpaque(false
+				);
 		textAreaBeadsLeftAndTaken.setOpaque(false);
 		textAreaBeadsLeftAndTaken.setFocusable(false);
 		textAreaBeadsLeftAndTaken.setText("Beads left:\t"
@@ -130,16 +131,18 @@ public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 
 				backgroundLabel.add(button[rows][cols]);
 
-				textAreaBeadsLeftAndTaken.setText("Beads left:\t"
-						+ counterBeads.getBeadsLeft() + "\nBeads Taken:\t"
-						+ counterBeads.getBeadsTaken());
-				topPanelFileChooser.removeAll();
-				topPanelFileChooser.add(fileChooser);
-				topPanelFileChooser.revalidate();
-				
+							
         index++;
 			}
 		}
+		
+		topPanelFileChooser.removeAll();
+		topPanelFileChooser.add(fileChooser);
+		topPanelFileChooser.revalidate();
+		
+		textAreaBeadsLeftAndTaken.setText("Beads left:\t"
+				+ counterBeads.getBeadsLeft() + "\nBeads Taken:\t"
+				+ counterBeads.getBeadsTaken());
 
 		if (gameState.hasEnded()) {
 			timer.StopTimeAndTask();
