@@ -25,7 +25,7 @@ public class LudoGameState implements GameState {
 	private int numberOfPlayers = 4;
 
 	private Integer turnCounter = 0;
-	private String message;
+	private String message = "";
 	DieRollFactory dieRollFactory;
 
 	public LudoGameState() {
@@ -161,17 +161,23 @@ public class LudoGameState implements GameState {
 			message = "";
 			executeAndMakeSureThatNoPieceWillBeDeleted(move);
 			nextPlayer();
+			System.out.println("Valid");
 			return true;
 		case MOVE_LAPSED:
+			message = "Lapsed!";
+			System.out.println("Lapsed");
 			return false;
 		case MOVE_NOGAMEPIECE:
 			message = "No game piece located in source.";
+			System.out.println("No game piece!");
 			return false;
 		case MOVE_INCORRECTNUMBEROFSTEPS:
 			message = "You can't move to this position. Please try again.";
+			System.out.println("Incorrect number of steps");
 			return false;			
 		case MOVE_IN_BASE_DID_NOT_GET_THE_CORRECT_EYES_ON_THE_DICE_TO_MOVE_OUT:
 			message = "You need to get 1 or 6 in order to move out of base.";
+			System.out.println("Incorrect eyes on dice.");
 			nextPlayer();
 			return false;
 		case MOVE_VALID_INBASE_TWO_PIECES:
@@ -181,13 +187,17 @@ public class LudoGameState implements GameState {
 			move.execute();
 			moveSecondPieceToStartPosition(move);
 			nextPlayer();
+			System.out.println("Valid inbase two pieces");
 			return true;
 		case MOVE_PIECE_IN_TO_GOAL:
 			System.out.println("Move piece in to goal");
 			move.execute();
+			System.out.println("Move to goal");
 			return false;
-		default:
+		default:{
+			message = "Default!!!!!!!!!!!!";
 			return false;
+		}
 		}
 	}
 

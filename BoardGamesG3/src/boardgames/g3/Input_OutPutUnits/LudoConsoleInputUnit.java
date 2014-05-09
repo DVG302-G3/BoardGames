@@ -23,7 +23,7 @@ public class LudoConsoleInputUnit extends InputUnit {
 		br = new BufferedReader(new InputStreamReader(System.in));
 		while (!state.hasEnded()) {
 			notifyListenersOfMove(getNextMove(state));
-
+			System.out.println(state.getMessage());
 		}
 	}
 
@@ -35,82 +35,68 @@ public class LudoConsoleInputUnit extends InputUnit {
 		BoardLocation source = null;
 		BoardLocation destination = null;
 		boolean inputOK = false;
-		boolean canPresentAMove = false;
 
 		player = state.getPlayerInTurn();
 		dieRollNumber = state.getDieRollFactory().getLastRoll().getResult();
-			System.out.println();
-			if (previousPlayer != player) {
-				previousPlayer = player;
-				System.out.print(player.getName()
-						+ " tryck på valfri knapp för att slå tärningen!");
-				dieRollNumber = state.getDieRollFactory().getNewRoll(player)
-						.getResult();
+		
+		if(!state.getMessage().equals("You can't move to this position. Please try again.")){
+			System.out.print(player.getName()
+					+ " tryck på valfri knapp för att slå tärningen!");
+			try {
+				br.read();
+				br.readLine();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			System.out.println("Tärningen visar: " + dieRollNumber);
+		}
+
+
+		if (playerCanMakeAMove(state, player, dieRollNumber)) {
+
+			while (!inputOK) {
+
+				System.out.print("Vilken pjäs vill du flytta:");
 				try {
-					br.read();
-					br.readLine();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				System.out.println("Tärningen visar: " + dieRollNumber);
-				
-				System.out.println(!isDieSixOrOne(dieRollNumber)
-						&& !HelpMethodsFinaMedKnuff
-								.doesPlayerHaveAnyPiecesOnTheBoard(player,
-										state.getBoard()));
-				
-				if (!isDieSixOrOne(dieRollNumber)
-						&& !HelpMethodsFinaMedKnuff
-								.doesPlayerHaveAnyPiecesOnTheBoard(player,
-										state.getBoard())) {
+					input = Arrays.asList(br.readLine().split(" "));
+					source = HelpMethodsFinaMedKnuff
+							.getBoardLocationFromCoordinate(input.get(0),
+									state.getBoard());
+					destination = HelpMethodsFinaMedKnuff
+							.getBoardLocationFromCoordinate(input.get(1),
+									state.getBoard());
+
+					if (source != null && destination != null)
+						inputOK = true;
+
+					else
+						System.out.println("Felaktig inmatning. Testa igen");
+				} catch (ArrayIndexOutOfBoundsException e) {
+
 					System.out
-							.println("Ledsen, men du kan inte flytta ur boet.");
-					player = state.getPlayerInTurn();
-				} else {
-					canPresentAMove = true;
+							.println("Felaktiga parametrar. Mata in enligt FN");
+					inputOK = false;
+				} catch (NullPointerException e) {
 
-					while (!inputOK) {
-
-						System.out.print("Vilken pjäs vill du flytta:");
-						try {
-							input = Arrays.asList(br.readLine().split(" "));
-							source = HelpMethodsFinaMedKnuff
-									.getBoardLocationFromCoordinate(
-											input.get(0), state.getBoard());
-							destination = HelpMethodsFinaMedKnuff
-									.getBoardLocationFromCoordinate(
-											input.get(1), state.getBoard());
-
-							if (source != null && destination != null)
-								inputOK = true;
-
-							else
-								System.out
-										.println("Felaktig inmatning. Testa igen");
-						} catch (ArrayIndexOutOfBoundsException e) {
-
-							System.out
-									.println("Felaktiga parametrar. Mata in enligt FN");
-							inputOK = false;
-						} catch (NullPointerException e) {
-
-							System.out
-									.println("Denna spelare har inte denna f�rg");
-							inputOK = false;
-						} catch (IOException e) {
-						}
-
-					}
+					System.out.println("Denna spelare har inte denna f�rg");
+					inputOK = false;
+				} catch (IOException e) {
 				}
 
 			}
+		}
 
-		
-		if(source == null || destination == null){
+		if (source == null || destination == null) {
 			source = state.getBoard().getLocations().get(0);
 			destination = state.getBoard().getLocations().get(1);
 		}
 		return new Move(player, source, destination);
+	}
+
+	private boolean playerCanMakeAMove(GameState state, Player player,
+			int dieRollNumber) {
+		return !(!isDieSixOrOne(dieRollNumber) && !HelpMethodsFinaMedKnuff
+				.doesPlayerHaveAnyPiecesOnTheBoard(player, state.getBoard()));
 	}
 
 	private boolean isDieSixOrOne(int dieRoll) {
