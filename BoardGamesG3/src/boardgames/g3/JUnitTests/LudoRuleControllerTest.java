@@ -20,11 +20,13 @@ public class LudoRuleControllerTest {
 	LudoGameState state;
 	DieRollFactory die;
 	Player player;
+	LudoGameState ludoGameState;
 	
 	@Before
 	public void setup(){
 		
 		state = new LudoGameState();
+		ludoGameState = new LudoGameState(1);
 	}
 	
 	
@@ -47,16 +49,41 @@ public class LudoRuleControllerTest {
 	@Test
 	public void testDoNotPuschYourOwnPiece(){
 		
-		while(state.getDieRollFactory().getNewRoll(state.getPlayerInTurn()).getResult() != 1)
-			continue;		
-		BoardLocation source = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BB", state.getBoard());
+		BoardLocation sourceforPiece;
+		BoardLocation destination;
+//		BoardLocation sourceForPuschPiece;
 		
-		BoardLocation destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EA", state.getBoard());
-		state.proposeMove(new Move(state.getLastPlayer(), source, destination));
-		source = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BC", state.getBoard());
+		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EA", ludoGameState.getBoard());
+		while(ludoGameState.getDieRollFactory().getNewRoll(ludoGameState.getPlayerInTurn()).getResult() != 1)
+			continue;
+//		System.out.println("0 pieces on the location EA: "+destination.getPieces().size());
+		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BB", ludoGameState.getBoard());
+		ludoGameState.proposeMove(new Move(ludoGameState.getLastPlayer(), sourceforPiece, destination));
+//		System.out.println("1 pieces on the location EA: "+destination.getPieces().size());
 		
-		state.proposeMove(new Move(state.getLastPlayer(), source, destination));
+		while(ludoGameState.getDieRollFactory().getNewRoll(ludoGameState.getPlayerInTurn()).getResult() != 1)
+			continue;
+
+		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BC", ludoGameState.getBoard());
+		ludoGameState.proposeMove(new Move(ludoGameState.getPlayerInTurn(),sourceforPiece,destination));
+//		System.out.println("2 pieces on the location EA:: "+destination.getPieces().size());
+//		System.out.println(destination.getPiece().getId());		
 		Assert.assertTrue(destination.getPieces().size()==2);
+//		sourceForPuschPiece = HelpMethodsFinaMedKnuff.
+//				getBoardLocationFromPiece(ludoGameState.getPlayerInTurn().getPieces().get(0), ludoGameState.getBoard());
+//		System.out.println(ludoGameState.getPlayerInTurn().getPieces().get(0).getId());
+//		System.out.println(sourceForPuschPiece.getId());
 		
 	}
+	
+	@Test
+	public void testCanPlayerPushAnotherPlayersPiece(){
+		BoardLocation sourceforPiece;
+		BoardLocation destination;
+		
+		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("DG", state.getBoard());
+		//sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(location, board)
+		
+	}
+	
 }
