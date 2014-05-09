@@ -36,6 +36,7 @@ public class LudoGameState implements GameState {
 	
 	public LudoGameState(int noPlayers){
 		this.numberOfPlayers = noPlayers;
+		this.dieRollFactory = new DieRollFactory();
 		startToPlayNewGame();
 	}
 	
@@ -134,7 +135,7 @@ public class LudoGameState implements GameState {
 
 	@Override
 	public Player getPlayerInTurn() {
-		return players.get(turnCounter++ % numberOfPlayers);
+		return players.get(turnCounter % numberOfPlayers);
 	}
 
 	@Override
@@ -159,6 +160,7 @@ public class LudoGameState implements GameState {
 				ruler.pushOtherPiece(move.getDestination().getPiece());
 			message = "";
 			executeAndMakeSureThatNoPieceWillBeDeleted(move);
+			nextPlayer();
 			return true;
 		case MOVE_LAPSED:
 			return false;
@@ -170,6 +172,7 @@ public class LudoGameState implements GameState {
 			return false;			
 		case MOVE_IN_BASE_DID_NOT_GET_THE_CORRECT_EYES_ON_THE_DICE_TO_MOVE_OUT:
 			message = "You need to get 1 or 6 in order to move out of base.";
+			nextPlayer();
 			return false;
 		case MOVE_VALID_INBASE_TWO_PIECES:
 			if (needToPush(move))
@@ -177,6 +180,7 @@ public class LudoGameState implements GameState {
 			message = "";
 			move.execute();
 			moveSecondPieceToStartPosition(move);
+			nextPlayer();
 			return true;
 		case MOVE_PIECE_IN_TO_GOAL:
 			System.out.println("Move piece in to goal");
@@ -185,6 +189,11 @@ public class LudoGameState implements GameState {
 		default:
 			return false;
 		}
+	}
+
+	private void nextPlayer() {
+		turnCounter++;
+		getDieRollFactory().getNewRoll(getPlayerInTurn());
 	}
 
 	private void executeAndMakeSureThatNoPieceWillBeDeleted(Move move) {

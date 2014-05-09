@@ -39,7 +39,6 @@ public class LudoConsoleInputUnit extends InputUnit {
 
 		player = state.getPlayerInTurn();
 		dieRollNumber = state.getDieRollFactory().getLastRoll().getResult();
-		while (!canPresentAMove) {
 			System.out.println();
 			if (previousPlayer != player) {
 				previousPlayer = player;
@@ -106,8 +105,11 @@ public class LudoConsoleInputUnit extends InputUnit {
 
 			}
 
+		
+		if(source == null || destination == null){
+			source = state.getBoard().getLocations().get(0);
+			destination = state.getBoard().getLocations().get(1);
 		}
-
 		return new Move(player, source, destination);
 	}
 
