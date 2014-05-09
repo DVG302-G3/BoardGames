@@ -5,6 +5,7 @@ import game.impl.BoardLocation;
 import game.io.OutputUnit;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
@@ -16,6 +17,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
@@ -43,7 +45,9 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 			topPanelWhoPlay, topPanelMessage, eastPanel, eastPanelDice;
 
 	
-	private JTextField textFieldWhosTurn, textFieldMessage;
+	private JTextField textFieldWhosTurn;
+	private JTextArea textAreaMessage;
+	
 	
 	private String player1, player2, player3, player4;
 	private int players;
@@ -60,7 +64,7 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 				LudoStaticValues.COLS);
 
 		textFieldWhosTurn = new JTextField();
-		textFieldMessage = new JTextField();
+		textAreaMessage = new JTextArea();
 
 		topPanel = new JPanel(new GridLayout(1, 4));
 		topPanelPlayers = new JPanel(new GridLayout(2, 2));
@@ -125,19 +129,25 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 		textFieldWhosTurn.setHorizontalAlignment(JLabel.CENTER);
 		textFieldWhosTurn.setFont(new Font("Arial", Font.CENTER_BASELINE, 20));
 		
-		textFieldMessage.setFocusable(false);
-    textFieldMessage.setEditable(false);
-    textFieldMessage.setHorizontalAlignment(JLabel.CENTER);
-    textFieldMessage.setFont(new Font("Arial", Font.CENTER_BASELINE, 10));
-		
+		textAreaMessage.setFocusable(false);
+	    textAreaMessage.setEditable(false);
+	    textAreaMessage.setOpaque(false);
+	    textAreaMessage.setLineWrap(true);
+	    textAreaMessage.setWrapStyleWord(true);
+	    textAreaMessage.setFont(new Font("Arial", Font.CENTER_BASELINE, 10));
+	    
 
 		topPanel.setBorder(BorderFactory.createTitledBorder(
-				BorderFactory.createEtchedBorder(), "Fia Med Knuff",
+				BorderFactory.createEtchedBorder(), "Ludo",
 				TitledBorder.LEFT, TitledBorder.TOP));
+		topPanel.setBackground(Color.WHITE);
 
 		topPanelPlayers.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(), "Players",
 				TitledBorder.LEFT, TitledBorder.TOP));
+		topPanelPlayers.setBackground(Color.WHITE);
+		
+		
 		topPanelPlayers.add(redC);
 		topPanelPlayers.add(blueC);
 		topPanelPlayers.add(greenC);
@@ -152,7 +162,7 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 		topPanelMessage.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(), "Message",
 				TitledBorder.LEFT, TitledBorder.TOP));
-		topPanelMessage.add(textFieldMessage);
+		topPanelMessage.add(textAreaMessage);
 		
 		eastPanelDice.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(), "Roll The Dice",
@@ -193,7 +203,8 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 		topPanelMessage.removeAll();
 		
 		textFieldWhosTurn.setText(gameState.getLastPlayer().getName());
-		textFieldMessage.setText(gameState.getMessage());
+		
+		textAreaMessage.setText(gameState.getMessage());
 		
 		button = new BackGroundButtonIDLudo[LudoStaticValues.ROWS][LudoStaticValues.COLS];
 		diceB = new LudoDiceChooser(gameState);
@@ -214,8 +225,7 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 				diceB.addActionListener(diceB);
 				eastPanelDice.add(diceB);
 				
-				topPanelMessage.add(textFieldMessage);
-				
+				topPanelMessage.add(textAreaMessage);
 				backgroundLabel.add(button[rows][cols]);
 				
 			}

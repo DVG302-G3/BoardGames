@@ -102,6 +102,7 @@ public class BoardGamesCoreGUI extends JFrame {
 		this.mainPanel.invalidate();
 		this.mainPanel.add(newMainContent);
 		this.mainFrame.revalidate();
+//		mainFrame.pack();
 		
 		
 	}
