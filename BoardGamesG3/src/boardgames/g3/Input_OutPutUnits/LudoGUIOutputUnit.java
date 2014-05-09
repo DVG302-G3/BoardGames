@@ -5,7 +5,6 @@ import game.impl.BoardLocation;
 import game.io.OutputUnit;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
@@ -191,10 +190,10 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 
 		backgroundLabel.removeAll();
 		eastPanelDice.removeAll();
-
+		topPanelMessage.removeAll();
 		
 		textFieldWhosTurn.setText(gameState.getLastPlayer().getName());
-		textFieldMessage.setText("Hejsan Grupp3, Kick ass");
+		textFieldMessage.setText(gameState.getMessage());
 		
 		button = new BackGroundButtonIDLudo[LudoStaticValues.ROWS][LudoStaticValues.COLS];
 		diceB = new LudoDiceChooser(gameState);
@@ -214,7 +213,9 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 
 				diceB.addActionListener(diceB);
 				eastPanelDice.add(diceB);
-
+				
+				topPanelMessage.add(textFieldMessage);
+				
 				backgroundLabel.add(button[rows][cols]);
 				
 			}
@@ -222,9 +223,9 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 			cordCol = 'A';
 			cordRow++;
 		}
-
 		backgroundLabel.revalidate();
 		eastPanelDice.revalidate();
+		topPanelMessage.revalidate();
 	}
 
 }

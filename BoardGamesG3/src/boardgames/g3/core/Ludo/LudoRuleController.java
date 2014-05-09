@@ -31,6 +31,14 @@ public class LudoRuleController {
 
 	public LudoMoveResult isValidMove(Move move) {
 		BoardLocation source = move.getSource();
+		System.out.println(state.getDieRollFactory().getLastRoll().getResult());
+		
+		if(!HelpMethodsFinaMedKnuff.doesPlayerHaveAnyPiecesOnTheBoard(move.getPlayer(), state.getBoard())){
+			if(!checkIfDiceIsSIXorONE()){
+				System.out.println("I'm here bro!");
+				return LudoMoveResult.MOVE_IN_BASE_DID_NOT_GET_THE_CORRECT_EYES_ON_THE_DICE_TO_MOVE_OUT;
+		}
+		}
 
 		if (source.getPiece() == null)
 			return LudoMoveResult.MOVE_NOGAMEPIECE;
@@ -49,6 +57,14 @@ public class LudoRuleController {
 			return LudoMoveResult.MOVE_VALID;
 		}
 
+	}
+
+	private boolean checkIfDiceIsSIXorONE() {
+		int dice = state.getDieRollFactory().getLastRoll().getResult();
+		if( dice == 6 || dice == 1)
+			return true;
+		else
+			return false;
 	}
 
 	private LudoMoveResult isValidMoveFromBase(Move move) {
@@ -257,8 +273,12 @@ public class LudoRuleController {
 			}
 
 		}
-
-		return LudoMoveResult.MOVE_IN_BASE_DID_NOT_GET_THE_CORRECT_EYES_ON_THE_DICE_TO_MOVE_OUT;
+		
+		if(HelpMethodsFinaMedKnuff.doesPlayerHaveAnyPiecesOnTheBoard(move.getPlayer(), state.getBoard()))
+			return LudoMoveResult.MOVE_INCORRECTNUMBEROFSTEPS;
+		else
+			return LudoMoveResult.MOVE_IN_BASE_DID_NOT_GET_THE_CORRECT_EYES_ON_THE_DICE_TO_MOVE_OUT;
+	
 	}
 
 	public boolean movePlayerToStartPosition(Move move) {
