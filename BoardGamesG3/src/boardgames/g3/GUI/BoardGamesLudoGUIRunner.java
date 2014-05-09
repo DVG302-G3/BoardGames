@@ -1,5 +1,7 @@
 package boardgames.g3.GUI;
 
+import java.awt.Color;
+
 import game.init.Runner;
 
 import javax.swing.JPanel;
@@ -19,6 +21,7 @@ public class BoardGamesLudoGUIRunner extends JPanel {
 
 	public BoardGamesLudoGUIRunner() {
 		mainPanel = new JPanel();
+		mainPanel.setBackground(Color.BLACK);
 		
 		inputUnit = new LudoGUIInputUnit();
 		outputUnit = new LudoGUIOutputUnit(inputUnit);

@@ -30,25 +30,22 @@ import boardgames.g3.core.Ludo.LudoStaticValues;
 public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 
 	BackGroundLabelLudo backgroundLabel;
-	
+
 	LudoDiceChooser diceB;
-	
+
 	private ActionListener inputUnit;
 
 	private BackGroundButtonIDLudo button[][];
 
 	private ButtonGroup buttonGroup;
 	private JCheckBox redC, blueC, yellowC, greenC;
-	
 
 	private JPanel midPanel, topPanel, topPanelPlayers, eastPanelFinished,
 			topPanelWhoPlay, topPanelMessage, eastPanel, eastPanelDice;
 
-	
 	private JTextField textFieldWhosTurn;
 	private JTextArea textAreaMessage;
-	
-	
+
 	private String player1, player2, player3, player4;
 	private int players;
 
@@ -70,11 +67,11 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 		topPanelPlayers = new JPanel(new GridLayout(2, 2));
 		eastPanelFinished = new JPanel(new GridLayout(4, 4));
 		topPanelWhoPlay = new JPanel(new GridLayout(1, 1));
-		
+
 		eastPanel = new JPanel(new GridLayout(2, 1));
 		topPanelMessage = new JPanel(new GridLayout(1, 1));
 		eastPanelDice = new JPanel(new GridLayout(1, 1));
-		
+
 		midPanel = new JPanel();
 
 		buttonGroup = new ButtonGroup();
@@ -83,7 +80,7 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 		blueC = new JCheckBox();
 		yellowC = new JCheckBox();
 		greenC = new JCheckBox();
-		
+
 	}
 
 	private void howManyPlayerAndSetName() {
@@ -114,6 +111,11 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 		blueC.setIcon(new ImageIcon("src\\boardgames\\img\\blue.jpg"));
 		greenC.setIcon(new ImageIcon("src\\boardgames\\img\\green.jpg"));
 		yellowC.setIcon(new ImageIcon("src\\boardgames\\img\\yellow.jpg"));
+		
+		redC.setOpaque(false);
+		blueC.setOpaque(false);
+		greenC.setOpaque(false);
+		yellowC.setOpaque(false);
 
 		redC.setText(player1);
 		blueC.setText(player2);
@@ -130,63 +132,59 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 		textFieldWhosTurn.setOpaque(false);
 		textFieldWhosTurn.setHorizontalAlignment(JLabel.CENTER);
 		textFieldWhosTurn.setFont(new Font("Arial", Font.CENTER_BASELINE, 20));
-		
+
 		textAreaMessage.setFocusable(false);
-	    textAreaMessage.setEditable(false);
-	    textAreaMessage.setOpaque(false);
-	    textAreaMessage.setLineWrap(true);
-	    textAreaMessage.setWrapStyleWord(true);
-	    textAreaMessage.setFont(new Font("Arial", Font.CENTER_BASELINE, 10));
-	    
+		textAreaMessage.setEditable(false);
+		textAreaMessage.setOpaque(false);
+		textAreaMessage.setLineWrap(true);
+		textAreaMessage.setWrapStyleWord(true);
+		textAreaMessage.setFont(new Font("Arial", Font.CENTER_BASELINE, 10));
 
 		topPanel.setBorder(BorderFactory.createTitledBorder(
-				BorderFactory.createEtchedBorder(), "Ludo",
-				TitledBorder.LEFT, TitledBorder.TOP));
+				BorderFactory.createEtchedBorder(), "Ludo", TitledBorder.LEFT,
+				TitledBorder.TOP));
 		topPanel.setBackground(Color.WHITE);
 
-		
 		topPanelPlayers.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(), "Players",
 				TitledBorder.LEFT, TitledBorder.TOP));
 		topPanelPlayers.setBackground(Color.WHITE);
-		
+
 		topPanelPlayers.add(redC);
 		topPanelPlayers.add(blueC);
 		topPanelPlayers.add(greenC);
 		topPanelPlayers.add(yellowC);
 
-		
 		topPanelWhoPlay.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(), "Whos Turn",
 				TitledBorder.LEFT, TitledBorder.TOP));
 		topPanelWhoPlay.add(textFieldWhosTurn);
 		topPanelWhoPlay.setBackground(Color.WHITE);
-		
-		
+
 		topPanelMessage.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(), "Message",
 				TitledBorder.LEFT, TitledBorder.TOP));
 		topPanelMessage.add(textAreaMessage);
 		topPanelMessage.setBackground(Color.WHITE);
-		
+
 		eastPanelDice.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(), "Roll The Dice",
 				TitledBorder.LEFT, TitledBorder.TOP));
-		
-    eastPanelFinished.setBorder(BorderFactory.createTitledBorder(
-      BorderFactory.createEtchedBorder(), "Finished Pieces",
-      TitledBorder.LEFT, TitledBorder.TOP));
-//    eastPanelFinished.add(labelRedFinished);
-//    eastPanelFinished.add(labelBlueFinished);
-//    eastPanelFinished.add(labelYellowFinished);
-//    eastPanelFinished.add(labelGreenFinished);
+		eastPanelDice.setBackground(Color.WHITE);
 
-	
+		eastPanelFinished.setBorder(BorderFactory.createTitledBorder(
+				BorderFactory.createEtchedBorder(), "Finished Pieces",
+				TitledBorder.LEFT, TitledBorder.TOP));
+		eastPanelFinished.setBackground(Color.WHITE);
+		// eastPanelFinished.add(labelRedFinished);
+		// eastPanelFinished.add(labelBlueFinished);
+		// eastPanelFinished.add(labelYellowFinished);
+		// eastPanelFinished.add(labelGreenFinished);
 
 		topPanel.add(topPanelPlayers);
 		topPanel.add(topPanelWhoPlay);
 		topPanel.add(topPanelMessage);
-		
+
 		eastPanel.add(eastPanelDice);
 		eastPanel.add(eastPanelFinished);
 
@@ -206,14 +204,14 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 		backgroundLabel.removeAll();
 		eastPanelDice.removeAll();
 		topPanelMessage.removeAll();
-		
+
 		textFieldWhosTurn.setText(gameState.getLastPlayer().getName());
-		
+
 		textAreaMessage.setText(gameState.getMessage());
-		
+
 		button = new BackGroundButtonIDLudo[LudoStaticValues.ROWS][LudoStaticValues.COLS];
 		diceB = new LudoDiceChooser(gameState);
-		
+
 		for (int rows = 0; rows < LudoStaticValues.ROWS; rows++) {
 			for (int cols = 0; cols < LudoStaticValues.COLS; cols++) {
 
@@ -223,16 +221,17 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 				BoardLocation location = HelpMethodsFinaMedKnuff
 						.getBoardLocationFromCoordinate(coordinate,
 								gameState.getBoard());
-				
-				button[rows][cols] = new BackGroundButtonIDLudo(location, coordinate);
+
+				button[rows][cols] = new BackGroundButtonIDLudo(location,
+						coordinate);
 				button[rows][cols].addActionListener(inputUnit);
 
 				diceB.addActionListener(diceB);
 				eastPanelDice.add(diceB);
-				
+
 				topPanelMessage.add(textAreaMessage);
 				backgroundLabel.add(button[rows][cols]);
-				
+
 			}
 
 			cordCol = 'A';

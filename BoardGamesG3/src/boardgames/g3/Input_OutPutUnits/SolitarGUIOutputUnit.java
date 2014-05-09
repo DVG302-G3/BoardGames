@@ -6,6 +6,7 @@ import game.impl.GamePiece;
 import game.io.OutputUnit;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -70,15 +71,17 @@ public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 		topPanel.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(), "Solitär",
 				TitledBorder.LEFT, TitledBorder.TOP));
+		topPanel.setBackground(Color.WHITE);
 
 		topPanelFileChooser.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(), "Load & Save",
 				TitledBorder.LEFT, TitledBorder.TOP));
-
+		topPanelFileChooser.setOpaque(false);
 		
 		topPanelBeadsLeftAndTaken.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(), "Beads Taken",
 				TitledBorder.LEFT, TitledBorder.TOP));
+		topPanelBeadsLeftAndTaken.setOpaque(false);
 		textAreaBeadsLeftAndTaken.setOpaque(false);
 		textAreaBeadsLeftAndTaken.setFocusable(false);
 		textAreaBeadsLeftAndTaken.setText("Beads left:\t"
@@ -90,6 +93,7 @@ public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 		topPanelTimer.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(), "Timer", TitledBorder.LEFT,
 				TitledBorder.TOP));
+		topPanelTimer.setOpaque(false);
 		topPanelTimer.add(timer);
 
 		topPanel.add(topPanelFileChooser);

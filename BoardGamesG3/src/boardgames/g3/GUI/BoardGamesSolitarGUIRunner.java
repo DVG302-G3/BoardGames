@@ -1,5 +1,7 @@
 package boardgames.g3.GUI;
 
+import java.awt.Color;
+
 import game.init.Runner;
 
 import javax.swing.JPanel;
@@ -18,6 +20,7 @@ public class BoardGamesSolitarGUIRunner extends JPanel {
 
 	public BoardGamesSolitarGUIRunner() {
 		mainPanel = new JPanel();
+		mainPanel.setBackground(Color.BLACK);
 		
 		in = new SolitarGUIInputUnit();
 		out = new SolitarGUIOutputUnit(in);

@@ -24,12 +24,13 @@ public class SolitarTimer extends JPanel {
 
 	public SolitarTimer() {
 
+		
 		timer = new Timer();
 		task = new Task();
 
 		timer.scheduleAtFixedRate(task, 1000, 1000);
 		
-
+		setOpaque(false);
 		setLayout(new FlowLayout());
 
 		textFieldTimer = new JTextField(5);
