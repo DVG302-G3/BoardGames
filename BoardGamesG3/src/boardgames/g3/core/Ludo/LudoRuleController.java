@@ -110,6 +110,8 @@ public class LudoRuleController {
 	}
 
 	private boolean checkIfPlayerStepsIsNotCorrect(Move move) {
+		System.out.println("Moves: "+stepsPlayerMoves(move));
+		System.out.println("Dice : "+getNumberOfStepsFromDice());
 		return stepsPlayerMoves(move) != getNumberOfStepsFromDice();
 	}
 
@@ -120,8 +122,14 @@ public class LudoRuleController {
 		int sourceValue = HelpMethodsFinaMedKnuff
 				.getFlatListIndexFromCoordinate(move.getSource().getId(),
 						state.getBoard());
+		
+		System.out.println("Testat med modulerad: " +destinationValue % LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD);
 		int stepsPlayerMoves = (destinationValue - sourceValue)
 				% LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD;
+		System.out.println(destinationValue);
+		System.out.println(sourceValue);
+		if(stepsPlayerMoves < 0)
+			stepsPlayerMoves = stepsPlayerMoves + LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD;
 		return stepsPlayerMoves;
 	}
 
