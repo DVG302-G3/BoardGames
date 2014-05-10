@@ -10,6 +10,12 @@ public class LudoStaticValues {
 	public static final int ROWS = 11;
 	public static final int COLS = 11;
 	
+	public static final String REDPLAYER = "Red";
+	public static final String BLUEPLAYER = "Blue";
+	public static final String YELLOWPLAYER = "Yellow";
+	public static final String GREENPLAYER = "Green";
+  
+	
 	public static final String REDSTART = "EA";
 	public static final String BLUESTART = "AG";
 	public static final String GREENSTART = "KE";

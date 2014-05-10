@@ -35,7 +35,6 @@ public class LudoRuleController {
 		
 		if(!HelpMethodsFinaMedKnuff.doesPlayerHaveAnyPiecesOnTheBoard(move.getPlayer(), state.getBoard())){
 			if(!checkIfDiceIsSIXorONE()){
-				System.out.println("I'm here bro!");
 				return LudoMoveResult.MOVE_IN_BASE_DID_NOT_GET_THE_CORRECT_EYES_ON_THE_DICE_TO_MOVE_OUT;
 		}
 		}

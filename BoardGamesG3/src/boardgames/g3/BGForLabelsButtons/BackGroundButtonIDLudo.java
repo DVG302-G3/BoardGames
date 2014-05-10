@@ -29,21 +29,39 @@ public class BackGroundButtonIDLudo extends JButton {
   setIcon(new ImageIcon("src\\boardgames\\img\\emptyPiece.png"));
  }
  
- private void setButtonWithRed(){
+ public void setButtonWithRed(){
   setIcon(new ImageIcon("src\\boardgames\\img\\redPiece.png"));
  }
  
- private void setButtonWithBlue(){
+ public void setButtonWithBlue(){
   setIcon(new ImageIcon("src\\boardgames\\img\\bluePiece.png"));
  }
  
- private void setButtonWithYellow(){
+ public void setButtonWithYellow(){
   setIcon(new ImageIcon("src\\boardgames\\img\\yellowPiece.png"));
  }
  
- private void setButtonWithGreen(){
+ public void setButtonWithGreen(){
   setIcon(new ImageIcon("src\\boardgames\\img\\greenPiece.png"));
  }
+ 
+ public void setButtonWithRedMarked(){
+  setIcon(new ImageIcon("src\\boardgames\\img\\redPieceMarked.png"));
+ }
+ 
+ public void setButtonWithBlueMarked(){
+  setIcon(new ImageIcon("src\\boardgames\\img\\bluePieceMarked.png"));
+ }
+ 
+ public void setButtonWithYellowMarked(){
+  setIcon(new ImageIcon("src\\boardgames\\img\\yellowPieceMarked.png"));
+ }
+ 
+ public void setButtonWithGreenMarked(){
+  setIcon(new ImageIcon("src\\boardgames\\img\\greenPieceMarked.png"));
+ }
+ 
+ 
  
  private void checkLocationContent(){
 	 String col;
