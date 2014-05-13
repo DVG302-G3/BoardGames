@@ -34,25 +34,37 @@ public class LudoGUIInputUnit extends InputUnit implements ActionListener {
 
 				if (gameState.getLastPlayer().getName().equals(LudoStaticValues.REDPLAYER)) {
 					if(gameState.getLastPlayer().hasPiece(sourceClick.getPiece()))
-						buttonGUI.setButtonWithRedMarked();
+						if(sourceClick.getPieces().size() == 1)
+					    	buttonGUI.setButtonWithRedMarked();
+						else 
+							buttonGUI.setButtonWithTwoRedMarked();
 					else 
 						sourceClick = null;
 					
 				} else if (gameState.getLastPlayer().getName().equals(LudoStaticValues.BLUEPLAYER)) {
 					if(gameState.getLastPlayer().hasPiece(sourceClick.getPiece()))
-						buttonGUI.setButtonWithBlueMarked();
+						if(sourceClick.getPieces().size() == 1)
+					    	buttonGUI.setButtonWithBlueMarked();
+						else 
+							buttonGUI.setButtonWithTwoBlueMarked();
 					else 
 						sourceClick = null;
 
 				} else if (gameState.getLastPlayer().getName().equals(LudoStaticValues.YELLOWPLAYER)) {
 					if(gameState.getLastPlayer().hasPiece(sourceClick.getPiece()))
-						buttonGUI.setButtonWithYellowMarked();
+						if(sourceClick.getPieces().size() == 1)
+							buttonGUI.setButtonWithYellowMarked();
+						else 
+							buttonGUI.setButtonWithTwoYellowMarked();
 					else 
 						sourceClick = null;
 
 				} else if (gameState.getLastPlayer().getName().equals(LudoStaticValues.GREENPLAYER)) {
 					if(gameState.getLastPlayer().hasPiece(sourceClick.getPiece()))
-						buttonGUI.setButtonWithGreenMarked();
+						if(sourceClick.getPieces().size() == 1)
+							buttonGUI.setButtonWithGreenMarked();
+						else 
+							buttonGUI.setButtonWithTwoGreenMarked();
 					else 
 						sourceClick = null;
 
@@ -61,17 +73,30 @@ public class LudoGUIInputUnit extends InputUnit implements ActionListener {
 
 		} else if (sourceClick.getId().equals(coordinate)) {
 			if (sourceClick.getPiece() != null) {
+				
 				if (gameState.getLastPlayer().getName().equals(LudoStaticValues.REDPLAYER)) {
-					buttonGUI.setButtonWithRed();
+					if(sourceClick.getPieces().size() == 1)
+						buttonGUI.setButtonWithRed();
+					else 
+						buttonGUI.setButtonWithTwoRed();
 
 				} else if (gameState.getLastPlayer().getName().equals(LudoStaticValues.BLUEPLAYER)) {
-					buttonGUI.setButtonWithBlue();
+					if(sourceClick.getPieces().size() == 1)
+						buttonGUI.setButtonWithBlue();
+					else 
+						buttonGUI.setButtonWithTwoBlue();
 
 				} else if (gameState.getLastPlayer().getName().equals(LudoStaticValues.YELLOWPLAYER)) {
-					buttonGUI.setButtonWithYellow();
-
+					if(sourceClick.getPieces().size() == 1)
+						buttonGUI.setButtonWithYellow();
+					else 
+						buttonGUI.setButtonWithTwoYellow();
+					
 				} else if (gameState.getLastPlayer().getName().equals(LudoStaticValues.GREENPLAYER)) {
-					buttonGUI.setButtonWithGreen();
+					if(sourceClick.getPieces().size() == 1)
+						buttonGUI.setButtonWithGreen();
+					else 
+						buttonGUI.setButtonWithTwoGreen();
 				}
 			}
 

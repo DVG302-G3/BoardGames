@@ -123,7 +123,8 @@ public class BackGroundButtonIDLudo extends JButton {
 
 		} else if (location.getPiece() != null) {
 			this.checkColorOnThePiece();
-		} else if(location.getId() != null){
+
+		} else if (location.getId() != null) {
 			this.setButtonEmptyPiece();
 			this.checkFinishLineColor();
 		}
@@ -133,57 +134,69 @@ public class BackGroundButtonIDLudo extends JButton {
 
 		if (checkRedFinishLineColor(location)) {
 			this.setButtonWithRedFinishLine();
-			
+
 		} else if (checkBlueFinishLineColor(location)) {
 			this.setButtonWithBlueFinishLine();
 
 		} else if (checkYellowFinishLineColor(location)) {
 			this.setButtonWithYellowFinishLine();
-			
+
 		} else if (checkGreenFinishLineColor(location)) {
 			this.setButtonWithGreenFinishLine();
 		}
 	}
 
 	private void checkColorOnThePiece() {
-		if (checkIfitsRed(location))
-			this.setButtonWithRed();
-
-		else if (checkIfitsBlue(location))
-			this.setButtonWithBlue();
-
-		else if (checkIfitsYellow(location))
-			this.setButtonWithYellow();
-
-		else if (checkIfitsGreen(location))
-			this.setButtonWithGreen();
+		if (checkIfitsRed(location)) {
+			if(location.getPieces().size() == 1)
+				this.setButtonWithRed();
+			else
+				this.setButtonWithTwoRed();
+			
+		}else if (checkIfitsBlue(location)) {
+			if(location.getPieces().size() == 1)
+				this.setButtonWithBlue();
+			else
+				this.setButtonWithTwoBlue();
+			
+		} else if (checkIfitsYellow(location)) {
+			if(location.getPieces().size() == 1)
+				this.setButtonWithYellow();
+			else
+				this.setButtonWithTwoYellow();
+			
+		} else if (checkIfitsGreen(location))
+			if(location.getPieces().size() == 1)
+				this.setButtonWithGreen();
+			else
+				this.setButtonWithTwoGreen();
 	}
 
 	private boolean checkRedFinishLineColor(BoardLocation location) {
-	
-		for(String s : LudoStaticValues.REDFINISHLINE)
-			if(s.equals(location.getId()))
+
+		for (String s : LudoStaticValues.REDFINISHLINE)
+			if (s.equals(location.getId()))
 				return true;
 		return false;
 	}
 
 	private boolean checkBlueFinishLineColor(BoardLocation location) {
-		for(String s : LudoStaticValues.BLUEFINISHLINE)
-			if(s.equals(location.getId()))
+		for (String s : LudoStaticValues.BLUEFINISHLINE)
+			if (s.equals(location.getId()))
 				return true;
 		return false;
 	}
 
 	private boolean checkYellowFinishLineColor(BoardLocation location) {
-		for(String s : LudoStaticValues.YELLOWFINISHLINE)
-			if(s.equals(location.getId()))
+		for (String s : LudoStaticValues.YELLOWFINISHLINE)
+			if (s.equals(location.getId()))
 				return true;
 		return false;
 	}
 
 	private boolean checkGreenFinishLineColor(BoardLocation location) {
-		for(String s : LudoStaticValues.GREENFINISHLINE)
-			if(s.equals(location.getId()))
+		for (String s : LudoStaticValues.GREENFINISHLINE)
+			if (s.equals(location.getId()))
 				return true;
 		return false;
 	}
