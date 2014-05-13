@@ -5,6 +5,8 @@ import game.impl.BoardLocation;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
+import boardgames.g3.core.Ludo.LudoStaticValues;
+
 public class BackGroundButtonIDLudo extends JButton {
 
  private String coordinate;
@@ -49,6 +51,22 @@ public class BackGroundButtonIDLudo extends JButton {
   setIcon(new ImageIcon("src\\boardgames\\img\\redPieceMarked.png"));
  }
  
+ public void setButtonWithTwoRed(){
+  setIcon(new ImageIcon("src\\boardgames\\img\\redPieceTwo.png"));
+ }
+ 
+ public void setButtonWithTwoBlue(){
+  setIcon(new ImageIcon("src\\boardgames\\img\\bluePieceTwo.png"));
+ }
+ 
+ public void setButtonWithTwoYellow(){
+  setIcon(new ImageIcon("src\\boardgames\\img\\yellowPieceTwo.png"));
+ }
+ 
+ public void setButtonWithTwoGreen(){
+  setIcon(new ImageIcon("src\\boardgames\\img\\greenPieceTwo.png"));
+ }
+ 
  public void setButtonWithBlueMarked(){
   setIcon(new ImageIcon("src\\boardgames\\img\\bluePieceMarked.png"));
  }
@@ -61,7 +79,37 @@ public class BackGroundButtonIDLudo extends JButton {
   setIcon(new ImageIcon("src\\boardgames\\img\\greenPieceMarked.png"));
  }
  
+ public void setButtonWithTwoRedMarked(){
+  setIcon(new ImageIcon("src\\boardgames\\img\\redPieceTwoMarked.png"));
+ }
  
+ public void setButtonWithTwoBlueMarked(){
+  setIcon(new ImageIcon("src\\boardgames\\img\\bluePieceTwoMarked.png"));
+ }
+ 
+ public void setButtonWithTwoYellowMarked(){
+  setIcon(new ImageIcon("src\\boardgames\\img\\yellowPieceTwoMarked.png"));
+ }
+ 
+ public void setButtonWithTwoGreenMarked(){
+  setIcon(new ImageIcon("src\\boardgames\\img\\greenPieceTwoMarked.png"));
+ }
+ 
+ private void setButtonWithRedFinishLine(){
+  setIcon(new ImageIcon("src\\boardgames\\img\\finishlineRed.png"));
+ }
+ 
+ private void setButtonWithBlueFinishLine(){
+  setIcon(new ImageIcon("src\\boardgames\\img\\bluePieceTwoMarked.png"));
+ }
+ 
+ private void setButtonWithYellowFinishLine(){
+  setIcon(new ImageIcon("src\\boardgames\\img\\yellowPieceTwoMarked.png"));
+ }
+ 
+ private void setButtonWithGreenFinishLine(){
+  setIcon(new ImageIcon("src\\boardgames\\img\\greenPieceTwoMarked.png"));
+ }
  
  private void checkLocationContent(){
 	 String col;
@@ -93,6 +141,10 @@ public class BackGroundButtonIDLudo extends JButton {
 
 		else if (checkIfitsGreen(location))
 			this.setButtonWithGreen();
+ }
+ 
+ private boolean checkFinishLineColorRED(BoardLocation location){
+  return (location.getPiece().getId() == "FB" || location.getPiece().getId() == "FC" || location.getPiece().getId() == "FD" || location.getPiece().getId() == "FE");
  }
  
  private boolean checkIfitsRed(BoardLocation location) {
