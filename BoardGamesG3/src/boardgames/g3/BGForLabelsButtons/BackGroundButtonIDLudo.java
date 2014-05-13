@@ -9,110 +9,110 @@ import boardgames.g3.core.Ludo.LudoStaticValues;
 
 public class BackGroundButtonIDLudo extends JButton {
 
- private String coordinate;
- BoardLocation location;
- 
- public BackGroundButtonIDLudo(BoardLocation location, String coordinate){
-  this.coordinate = coordinate;
-  this.location = location;
-  
-  checkLocationContent(); 
-  
-	setBorderPainted(false);
-	setContentAreaFilled(false);
-    setFocusPainted(false);
- }
- 
- public String getStringId(){
-  return coordinate;
- }
- 
- private void setButtonEmptyPiece(){
-  setIcon(new ImageIcon("src\\boardgames\\img\\emptyPiece.png"));
- }
- 
- public void setButtonWithRed(){
-  setIcon(new ImageIcon("src\\boardgames\\img\\redPiece.png"));
- }
- 
- public void setButtonWithBlue(){
-  setIcon(new ImageIcon("src\\boardgames\\img\\bluePiece.png"));
- }
- 
- public void setButtonWithYellow(){
-  setIcon(new ImageIcon("src\\boardgames\\img\\yellowPiece.png"));
- }
- 
- public void setButtonWithGreen(){
-  setIcon(new ImageIcon("src\\boardgames\\img\\greenPiece.png"));
- }
- 
- public void setButtonWithRedMarked(){
-  setIcon(new ImageIcon("src\\boardgames\\img\\redPieceMarked.png"));
- }
- 
- public void setButtonWithTwoRed(){
-  setIcon(new ImageIcon("src\\boardgames\\img\\redPieceTwo.png"));
- }
- 
- public void setButtonWithTwoBlue(){
-  setIcon(new ImageIcon("src\\boardgames\\img\\bluePieceTwo.png"));
- }
- 
- public void setButtonWithTwoYellow(){
-  setIcon(new ImageIcon("src\\boardgames\\img\\yellowPieceTwo.png"));
- }
- 
- public void setButtonWithTwoGreen(){
-  setIcon(new ImageIcon("src\\boardgames\\img\\greenPieceTwo.png"));
- }
- 
- public void setButtonWithBlueMarked(){
-  setIcon(new ImageIcon("src\\boardgames\\img\\bluePieceMarked.png"));
- }
- 
- public void setButtonWithYellowMarked(){
-  setIcon(new ImageIcon("src\\boardgames\\img\\yellowPieceMarked.png"));
- }
- 
- public void setButtonWithGreenMarked(){
-  setIcon(new ImageIcon("src\\boardgames\\img\\greenPieceMarked.png"));
- }
- 
- public void setButtonWithTwoRedMarked(){
-  setIcon(new ImageIcon("src\\boardgames\\img\\redPieceTwoMarked.png"));
- }
- 
- public void setButtonWithTwoBlueMarked(){
-  setIcon(new ImageIcon("src\\boardgames\\img\\bluePieceTwoMarked.png"));
- }
- 
- public void setButtonWithTwoYellowMarked(){
-  setIcon(new ImageIcon("src\\boardgames\\img\\yellowPieceTwoMarked.png"));
- }
- 
- public void setButtonWithTwoGreenMarked(){
-  setIcon(new ImageIcon("src\\boardgames\\img\\greenPieceTwoMarked.png"));
- }
- 
- private void setButtonWithRedFinishLine(){
-  setIcon(new ImageIcon("src\\boardgames\\img\\finishlineRed.png"));
- }
- 
- private void setButtonWithBlueFinishLine(){
-  setIcon(new ImageIcon("src\\boardgames\\img\\bluePieceTwoMarked.png"));
- }
- 
- private void setButtonWithYellowFinishLine(){
-  setIcon(new ImageIcon("src\\boardgames\\img\\yellowPieceTwoMarked.png"));
- }
- 
- private void setButtonWithGreenFinishLine(){
-  setIcon(new ImageIcon("src\\boardgames\\img\\greenPieceTwoMarked.png"));
- }
- 
- private void checkLocationContent(){
-	 String col;
+	private String coordinate;
+	BoardLocation location;
+
+	public BackGroundButtonIDLudo(BoardLocation location, String coordinate) {
+		this.coordinate = coordinate;
+		this.location = location;
+
+		checkLocationContent();
+
+		setBorderPainted(false);
+		setContentAreaFilled(false);
+		setFocusPainted(false);
+	}
+
+	public String getStringId() {
+		return coordinate;
+	}
+
+	private void setButtonEmptyPiece() {
+		setIcon(new ImageIcon("src\\boardgames\\img\\emptyPiece.png"));
+	}
+
+	public void setButtonWithRed() {
+		setIcon(new ImageIcon("src\\boardgames\\img\\redPiece.png"));
+	}
+
+	public void setButtonWithBlue() {
+		setIcon(new ImageIcon("src\\boardgames\\img\\bluePiece.png"));
+	}
+
+	public void setButtonWithYellow() {
+		setIcon(new ImageIcon("src\\boardgames\\img\\yellowPiece.png"));
+	}
+
+	public void setButtonWithGreen() {
+		setIcon(new ImageIcon("src\\boardgames\\img\\greenPiece.png"));
+	}
+
+	public void setButtonWithRedMarked() {
+		setIcon(new ImageIcon("src\\boardgames\\img\\redPieceMarked.png"));
+	}
+
+	public void setButtonWithTwoRed() {
+		setIcon(new ImageIcon("src\\boardgames\\img\\redPieceTwo.png"));
+	}
+
+	public void setButtonWithTwoBlue() {
+		setIcon(new ImageIcon("src\\boardgames\\img\\bluePieceTwo.png"));
+	}
+
+	public void setButtonWithTwoYellow() {
+		setIcon(new ImageIcon("src\\boardgames\\img\\yellowPieceTwo.png"));
+	}
+
+	public void setButtonWithTwoGreen() {
+		setIcon(new ImageIcon("src\\boardgames\\img\\greenPieceTwo.png"));
+	}
+
+	public void setButtonWithBlueMarked() {
+		setIcon(new ImageIcon("src\\boardgames\\img\\bluePieceMarked.png"));
+	}
+
+	public void setButtonWithYellowMarked() {
+		setIcon(new ImageIcon("src\\boardgames\\img\\yellowPieceMarked.png"));
+	}
+
+	public void setButtonWithGreenMarked() {
+		setIcon(new ImageIcon("src\\boardgames\\img\\greenPieceMarked.png"));
+	}
+
+	public void setButtonWithTwoRedMarked() {
+		setIcon(new ImageIcon("src\\boardgames\\img\\redPieceTwoMarked.png"));
+	}
+
+	public void setButtonWithTwoBlueMarked() {
+		setIcon(new ImageIcon("src\\boardgames\\img\\bluePieceTwoMarked.png"));
+	}
+
+	public void setButtonWithTwoYellowMarked() {
+		setIcon(new ImageIcon("src\\boardgames\\img\\yellowPieceTwoMarked.png"));
+	}
+
+	public void setButtonWithTwoGreenMarked() {
+		setIcon(new ImageIcon("src\\boardgames\\img\\greenPieceTwoMarked.png"));
+	}
+
+	private void setButtonWithRedFinishLine() {
+		setIcon(new ImageIcon("src\\boardgames\\img\\finishlineRed.png"));
+	}
+
+	private void setButtonWithBlueFinishLine() {
+		setIcon(new ImageIcon("src\\boardgames\\img\\finishlineBlue.png"));
+	}
+
+	private void setButtonWithYellowFinishLine() {
+		setIcon(new ImageIcon("src\\boardgames\\img\\finishlineYellow.png"));
+	}
+
+	private void setButtonWithGreenFinishLine() {
+		setIcon(new ImageIcon("src\\boardgames\\img\\finishlineGreen.png"));
+	}
+
+	private void checkLocationContent() {
+		String col;
 		if (location == null)
 			col = null;
 		else
@@ -123,14 +123,30 @@ public class BackGroundButtonIDLudo extends JButton {
 
 		} else if (location.getPiece() != null) {
 			this.checkColorOnThePiece();
-		} else {
+		} else if(location.getId() != null){
 			this.setButtonEmptyPiece();
+			this.checkFinishLineColor();
 		}
- }
- 
- 
- private void checkColorOnThePiece(){
-	 if (checkIfitsRed(location))
+	}
+
+	private void checkFinishLineColor() {
+
+		if (checkRedFinishLineColor(location)) {
+			this.setButtonWithRedFinishLine();
+			
+		} else if (checkBlueFinishLineColor(location)) {
+			this.setButtonWithBlueFinishLine();
+
+		} else if (checkYellowFinishLineColor(location)) {
+			this.setButtonWithYellowFinishLine();
+			
+		} else if (checkGreenFinishLineColor(location)) {
+			this.setButtonWithGreenFinishLine();
+		}
+	}
+
+	private void checkColorOnThePiece() {
+		if (checkIfitsRed(location))
 			this.setButtonWithRed();
 
 		else if (checkIfitsBlue(location))
@@ -141,26 +157,63 @@ public class BackGroundButtonIDLudo extends JButton {
 
 		else if (checkIfitsGreen(location))
 			this.setButtonWithGreen();
- }
- 
- private boolean checkFinishLineColorRED(BoardLocation location){
-  return (location.getPiece().getId() == "FB" || location.getPiece().getId() == "FC" || location.getPiece().getId() == "FD" || location.getPiece().getId() == "FE");
- }
- 
- private boolean checkIfitsRed(BoardLocation location) {
-  return (location.getPiece().getId() == "R1" || location.getPiece().getId() == "R2" || location.getPiece().getId() == "R3" || location.getPiece().getId() == "R4") ;
- }
- 
- private boolean checkIfitsBlue(BoardLocation location) {
-  return (location.getPiece().getId() == "B1" || location.getPiece().getId() == "B2" || location.getPiece().getId() == "B3" || location.getPiece().getId() == "B4") ;
- }
- 
- private boolean checkIfitsYellow(BoardLocation location) {
-  return (location.getPiece().getId() == "Y1" || location.getPiece().getId() == "Y2" || location.getPiece().getId() == "Y3" || location.getPiece().getId() == "Y4") ;
- }
- 
- private boolean checkIfitsGreen(BoardLocation location) {
-  return (location.getPiece().getId() == "G1" || location.getPiece().getId() == "G2" || location.getPiece().getId() == "G3" || location.getPiece().getId() == "G4") ;
- }
- 
+	}
+
+	private boolean checkRedFinishLineColor(BoardLocation location) {
+	
+		for(String s : LudoStaticValues.REDFINISHLINE)
+			if(s.equals(location.getId()))
+				return true;
+		return false;
+	}
+
+	private boolean checkBlueFinishLineColor(BoardLocation location) {
+		for(String s : LudoStaticValues.BLUEFINISHLINE)
+			if(s.equals(location.getId()))
+				return true;
+		return false;
+	}
+
+	private boolean checkYellowFinishLineColor(BoardLocation location) {
+		for(String s : LudoStaticValues.YELLOWFINISHLINE)
+			if(s.equals(location.getId()))
+				return true;
+		return false;
+	}
+
+	private boolean checkGreenFinishLineColor(BoardLocation location) {
+		for(String s : LudoStaticValues.GREENFINISHLINE)
+			if(s.equals(location.getId()))
+				return true;
+		return false;
+	}
+
+	private boolean checkIfitsRed(BoardLocation location) {
+		return (location.getPiece().getId() == "R1"
+				|| location.getPiece().getId() == "R2"
+				|| location.getPiece().getId() == "R3" || location.getPiece()
+				.getId() == "R4");
+	}
+
+	private boolean checkIfitsBlue(BoardLocation location) {
+		return (location.getPiece().getId() == "B1"
+				|| location.getPiece().getId() == "B2"
+				|| location.getPiece().getId() == "B3" || location.getPiece()
+				.getId() == "B4");
+	}
+
+	private boolean checkIfitsYellow(BoardLocation location) {
+		return (location.getPiece().getId() == "Y1"
+				|| location.getPiece().getId() == "Y2"
+				|| location.getPiece().getId() == "Y3" || location.getPiece()
+				.getId() == "Y4");
+	}
+
+	private boolean checkIfitsGreen(BoardLocation location) {
+		return (location.getPiece().getId() == "G1"
+				|| location.getPiece().getId() == "G2"
+				|| location.getPiece().getId() == "G3" || location.getPiece()
+				.getId() == "G4");
+	}
+
 }

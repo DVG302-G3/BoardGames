@@ -76,6 +76,12 @@ public class LudoRuleController {
 		stepCounter.put(move.getSource().getPiece().getId(),
 				getTotalStepsForPiece(move));
 	}
+	
+//	private LudoMoveResult movePieceInToGoalLine(Move move){
+//		if(shoulPiecedMoveIntoGoalLine(move))
+//			return LudoMoveResult.MOVE_LAPSED;	
+//		
+//	}
 
 	private boolean shoulPiecedMoveIntoGoalLine(Move move) {
 		if (getTotalStepsForPiece(move) > LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD - 1) {
