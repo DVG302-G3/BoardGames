@@ -266,13 +266,15 @@ public class LudoRuleController {
 		if (getNumberOfStepsFromDice() == 1) {
 			if (move.getDestination().getId().equals(start)
 					&& destinationDoesNotAlreadyContainTwoPieces(move)) {
+				System.out.println("moop moop");
 				return LudoMoveResult.MOVE_VALID;
 			} else
 				return LudoMoveResult.MOVE_INCORRECTNUMBEROFSTEPS;
 		}
 
-		else if (getNumberOfStepsFromDice() == 6) {
-			if (move.getDestination().getId().equals(startSix) && destinationDoesNotAlreadyContainTwoPieces(move)) {
+		else if (getNumberOfStepsFromDice() == 6  && destinationDoesNotAlreadyContainTwoPieces(move)) {
+			System.out.println("Meep meep");
+			if (move.getDestination().getId().equals(startSix)) {
 				return LudoMoveResult.MOVE_VALID;
 			} else if (move.getDestination().getId().equals(start)) {
 
@@ -342,7 +344,7 @@ public class LudoRuleController {
 			BoardLocation start = HelpMethodsFinaMedKnuff
 					.getBoardLocationFromCoordinate(startCoordinate,
 							state.getBoard());
-			start.setPiece(piece);
+			start.addPiece(piece);
 			return true;
 		}
 		if (dice == 6) {
