@@ -167,6 +167,7 @@ public class LudoGameState implements GameState {
 		case MOVE_LAPSED:
 			message = "Lapsed!";
 			move.execute();
+			nextPlayer();
 			return true;
 		case MOVE_NOGAMEPIECE:
 			message = "No game piece located in source.";
