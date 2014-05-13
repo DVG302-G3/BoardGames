@@ -183,6 +183,7 @@ public class LudoRuleControllerTest {
 		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("FC", ludoGameState.getBoard());
 		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("GD", ludoGameState.getBoard());
 		ludoGameState.proposeMove(new Move(ludoGameState.getPlayerInTurn(),sourceforPiece,destination));
+		Assert.assertTrue(destination.getId()=="FC");
 				
 	}
 }

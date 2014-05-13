@@ -153,6 +153,7 @@ public class LudoGameState implements GameState {
 	@Override
 	public Boolean proposeMove(Move move) {
 		LudoMoveResult result = ruler.isValidMove(move);
+		System.out.println(result);
 		switch (result) {
 		case MOVE_VALID:
 			if (needToPush(move))
@@ -165,7 +166,8 @@ public class LudoGameState implements GameState {
 			return true;
 		case MOVE_LAPSED:
 			message = "Lapsed!";
-			return false;
+			move.execute();
+			return true;
 		case MOVE_NOGAMEPIECE:
 			message = "No game piece located in source.";
 			return false;

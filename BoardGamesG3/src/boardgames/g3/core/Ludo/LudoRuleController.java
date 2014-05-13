@@ -44,12 +44,13 @@ public class LudoRuleController {
 
 		if (pieceInBase(move))
 			return isValidMoveFromBase(move);
+		
+		if (shoulPiecedMoveIntoGoalLine(move))
+			return LudoMoveResult.MOVE_LAPSED;
 
 		if (checkIfPlayerStepsIsNotCorrect(move))
 			return LudoMoveResult.MOVE_INCORRECTNUMBEROFSTEPS;
 
-		if (shoulPiecedMoveIntoGoalLine(move))
-			return LudoMoveResult.MOVE_LAPSED;
 
 		else {
 			addStepsToCounter(move);
