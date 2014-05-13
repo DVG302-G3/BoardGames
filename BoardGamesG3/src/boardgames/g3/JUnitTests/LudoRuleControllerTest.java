@@ -136,7 +136,7 @@ public class LudoRuleControllerTest {
 	}
 	
 	@Test
-	public void testCanPieceMoveIntoGoalLine(){
+	public void testCanPieceMoveInToGoalLine(){
 		BoardLocation sourceforPiece;
 		BoardLocation destination;
 		
@@ -183,13 +183,6 @@ public class LudoRuleControllerTest {
 		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("FC", ludoGameState.getBoard());
 		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("GD", ludoGameState.getBoard());
 		ludoGameState.proposeMove(new Move(ludoGameState.getPlayerInTurn(),sourceforPiece,destination));
-		System.out.println(destination.getId());
-		
-//		while(ludoGameState.getDieRollFactory().getNewRoll(ludoGameState.getPlayerInTurn()).getResult() != 2)
-//			continue;
-//		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("FE", ludoGameState.getBoard());
-//		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("FC", ludoGameState.getBoard());
-//		ludoGameState.proposeMove(new Move(ludoGameState.getPlayerInTurn(),sourceforPiece,destination));
-//		System.out.println(destination.getId());
+				
 	}
 }
