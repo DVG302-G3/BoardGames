@@ -94,6 +94,22 @@ public class BackGroundButtonIDLudo extends JButton {
 	public void setButtonWithTwoGreenMarked() {
 		setIcon(new ImageIcon("src\\boardgames\\img\\greenPieceTwoMarked.png"));
 	}
+	
+	private void setButtonWithRedFinishLinePiece() {
+    setIcon(new ImageIcon("src\\boardgames\\img\\redPieceFinishLine.png"));
+  }
+
+  private void setButtonWithBlueFinishLinePiece() {
+    setIcon(new ImageIcon("src\\boardgames\\img\\bluePieceFinishLine.png"));
+  }
+
+  private void setButtonWithYellowFinishLinePiece() {
+    setIcon(new ImageIcon("src\\boardgames\\img\\yellowPieceFinishLine.png"));
+  }
+
+  private void setButtonWithGreenFinishLinePiece() {
+    setIcon(new ImageIcon("src\\boardgames\\img\\greenPieceFinishLine.png"));
+  }
 
 	private void setButtonWithRedFinishLine() {
 		setIcon(new ImageIcon("src\\boardgames\\img\\finishlineRed.png"));
@@ -171,6 +187,7 @@ public class BackGroundButtonIDLudo extends JButton {
 			else
 				this.setButtonWithTwoGreen();
 	}
+	
 
 	private boolean checkRedFinishLineColor(BoardLocation location) {
 
