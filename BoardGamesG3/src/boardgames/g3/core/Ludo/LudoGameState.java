@@ -157,7 +157,7 @@ public class LudoGameState implements GameState {
 		switch (result) {
 		case MOVE_VALID:
 			if (needToPush(move))
-				ruler.pushOtherPiece(move.getDestination().getPiece());
+				ruler.pushOtherPiece(move.getDestination());
 			message = "";
 			executeAndMakeSureThatNoPieceWillBeDeleted(move);
 			System.out.println("Pjäser på platsen: "
@@ -182,7 +182,7 @@ public class LudoGameState implements GameState {
 		case MOVE_VALID_INBASE_TWO_PIECES:
 			System.out.println("Valid 2 pieces!!!!");
 			if (needToPush(move))
-				ruler.pushOtherPiece(move.getDestination().getPiece());
+				ruler.pushOtherPiece(move.getDestination());
 			message = "";
 			move.execute();
 			moveSecondPieceToStartPosition(move);

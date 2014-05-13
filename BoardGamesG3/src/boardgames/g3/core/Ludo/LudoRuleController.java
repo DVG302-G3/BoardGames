@@ -187,7 +187,8 @@ public class LudoRuleController {
 			return false;
 	}
 
-	public void pushOtherPiece(GamePiece piece) {
+	public void pushOtherPiece(BoardLocation destination) {
+		GamePiece piece = destination.getPiece();
 		String name = getPlayerName(piece);
 
 		if (name.equals("Red")) {
@@ -203,6 +204,8 @@ public class LudoRuleController {
 		else {
 			putInBase(LudoStaticValues.GREENHOME, piece);
 		}
+		
+		destination.clear();
 
 	}
 
