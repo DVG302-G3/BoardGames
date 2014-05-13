@@ -34,7 +34,7 @@ public class LudoGUIInputUnit extends InputUnit implements ActionListener {
 			if (sourceClick.getPiece() != null){
   			 
 			   if(gameState.getLastPlayer().getName() == LudoStaticValues.REDPLAYER){
-          buttonGUI.setButtonWithRedMarked();
+          buttonGUI.setButtonWithRedMarked(); 
          
          }else if (gameState.getLastPlayer().getName() == LudoStaticValues.BLUEPLAYER){
           buttonGUI.setButtonWithBlueMarked();
@@ -44,6 +44,7 @@ public class LudoGUIInputUnit extends InputUnit implements ActionListener {
           
          }else if (gameState.getLastPlayer().getName() == LudoStaticValues.GREENPLAYER){
           buttonGUI.setButtonWithGreenMarked();
+          
          }
 			}
 			
