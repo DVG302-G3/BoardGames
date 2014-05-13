@@ -61,6 +61,7 @@ public class LudoGameState implements GameState {
 				Arrays.asList("G1", "G2", "G3", "G4")));
 		return players;
 	}
+	
 
 	private void addPlayersPiecesToTheBoard() {
 		for (Player p : players) {
@@ -207,9 +208,12 @@ public class LudoGameState implements GameState {
 	}
 
 	private void executeAndMakeSureThatNoPieceWillBeDeleted(Move move) {
+		System.out.println("I am indeed in here!!!!");
 		GamePiece piece = null;
-		if(move.getSource().getPieces().size() > 1)
+		if(move.getSource().getPieces().size() > 1){
 			piece = move.getSource().getPieces().get(1);
+			System.out.println("And I'm also here!!");
+		}
 		move.execute();
 		if(piece != null)
 			move.getSource().setPiece(piece);
@@ -242,7 +246,11 @@ public class LudoGameState implements GameState {
 	}
 
 	private boolean needToPush(Move move) {
-		return move.getDestination().getPiece() != null;
+		GamePiece destinationPiece = move.getDestination().getPiece();
+		if(move.getPlayer().hasPiece(destinationPiece))
+			return false;
+		else
+			return move.getDestination().getPiece() != null;
 	}
   
 	@Override
