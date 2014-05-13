@@ -176,6 +176,7 @@ public class LudoGameState implements GameState {
 			nextPlayer();
 			return false;
 		case MOVE_VALID_INBASE_TWO_PIECES:
+			System.out.println("Valid 2 pieces!!!!");
 			if (needToPush(move))
 				ruler.pushOtherPiece(move.getDestination().getPiece());
 			message = "";
