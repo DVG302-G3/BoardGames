@@ -32,13 +32,13 @@ public class LudoGameState implements GameState {
 		startToPlayNewGame();
 
 	}
-	
-	public LudoGameState(int noPlayers){
+
+	public LudoGameState(int noPlayers) {
 		this.numberOfPlayers = noPlayers;
 		this.dieRollFactory = new DieRollFactory();
 		startToPlayNewGame();
 	}
-	
+
 	public void startToPlayNewGame() {
 		this.players = createAndReturnPlayers();
 		this.board = new Board(createBoardLocations());
@@ -60,7 +60,6 @@ public class LudoGameState implements GameState {
 				Arrays.asList("G1", "G2", "G3", "G4")));
 		return players;
 	}
-	
 
 	private void addPlayersPiecesToTheBoard() {
 		for (Player p : players) {
@@ -160,6 +159,8 @@ public class LudoGameState implements GameState {
 				ruler.pushOtherPiece(move.getDestination().getPiece());
 			message = "";
 			executeAndMakeSureThatNoPieceWillBeDeleted(move);
+			System.out.println("Pjäser på platsen: "
+					+ move.getDestination().getPieces().size());
 			nextPlayer();
 			return true;
 		case MOVE_LAPSED:
@@ -170,12 +171,13 @@ public class LudoGameState implements GameState {
 			return false;
 		case MOVE_INCORRECTNUMBEROFSTEPS:
 			message = "You can't move to this position. Please try again.";
-			return false;			
+			return false;
 		case MOVE_IN_BASE_DID_NOT_GET_THE_CORRECT_EYES_ON_THE_DICE_TO_MOVE_OUT:
 			message = "You need to get 1 or 6 in order to move out of base.";
 			nextPlayer();
 			return false;
 		case MOVE_VALID_INBASE_TWO_PIECES:
+			System.out.println("Valid 2 pieces!!!!");
 			if (needToPush(move))
 				ruler.pushOtherPiece(move.getDestination().getPiece());
 			message = "";
@@ -186,7 +188,7 @@ public class LudoGameState implements GameState {
 		case MOVE_PIECE_IN_TO_GOAL:
 			move.execute();
 			return false;
-		default:{
+		default: {
 			message = "Default!!!!!!!!!!!!";
 			return false;
 		}
@@ -199,37 +201,52 @@ public class LudoGameState implements GameState {
 	}
 
 	private void executeAndMakeSureThatNoPieceWillBeDeleted(Move move) {
-		System.out.println("I am indeed in here!!!!");
-		GamePiece piece = null;
-		move.getSource().getPieces().size();
-		if(move.getSource().getPieces().size() > 1){
-			piece = move.getSource().getPieces().get(1);
-			System.out.println("And I'm also here!!");
-		}
+		GamePiece sourcePiece = checkSourceForDoublePieces(move);
+		GamePiece destinationPiece = checkDestinationForExistingPieces(move);
+
 		move.execute();
-		if(piece != null)
-			move.getSource().setPiece(piece);
+		if (destinationPiece != null)
+			move.getDestination().addPiece(destinationPiece);
+
+		if (sourcePiece != null)
+			move.getSource().addPiece(sourcePiece);
+	}
+
+	private GamePiece checkSourceForDoublePieces(Move move) {
+		move.getSource().getPieces().size();
+		if (move.getSource().getPieces().size() > 1) {
+			return move.getSource().getPieces().get(1);
+		}
+		return null;
+	}
+
+	private GamePiece checkDestinationForExistingPieces(Move move) {
+		return move.getDestination().getPiece();
 	}
 
 	private void moveSecondPieceToStartPosition(Move move) {
-		if(move.getPlayer().getName().equals("Red"))
-			moveSecondPieceForPlayer(move, LudoStaticValues.REDHOME, LudoStaticValues.REDSTART);
-		else 	if(move.getPlayer().getName().equals("Yellow"))
-			moveSecondPieceForPlayer(move, LudoStaticValues.YELLOWHOME, LudoStaticValues.YELLOWSTART);
-		else 	if(move.getPlayer().getName().equals("Green"))
-			moveSecondPieceForPlayer(move, LudoStaticValues.GREENHOME, LudoStaticValues.GREENSTART);
-		else			
-			moveSecondPieceForPlayer(move, LudoStaticValues.BLUEHOME, LudoStaticValues.BLUESTART);
+		if (move.getPlayer().getName().equals("Red"))
+			moveSecondPieceForPlayer(move, LudoStaticValues.REDHOME,
+					LudoStaticValues.REDSTART);
+		else if (move.getPlayer().getName().equals("Yellow"))
+			moveSecondPieceForPlayer(move, LudoStaticValues.YELLOWHOME,
+					LudoStaticValues.YELLOWSTART);
+		else if (move.getPlayer().getName().equals("Green"))
+			moveSecondPieceForPlayer(move, LudoStaticValues.GREENHOME,
+					LudoStaticValues.GREENSTART);
+		else
+			moveSecondPieceForPlayer(move, LudoStaticValues.BLUEHOME,
+					LudoStaticValues.BLUESTART);
 	}
 
-	private void moveSecondPieceForPlayer(Move move, List<String> homeLocations, String startLocation) {
+	private void moveSecondPieceForPlayer(Move move,
+			List<String> homeLocations, String startLocation) {
 		for (String basePositions : homeLocations) {
 			BoardLocation home = HelpMethodsFinaMedKnuff
-					.getBoardLocationFromCoordinate(basePositions,
-							getBoard());
-			if (home.getPiece() != null
-					&& home.getPiece() != move.getPiece()) {
-				BoardLocation start = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(startLocation, board);
+					.getBoardLocationFromCoordinate(basePositions, getBoard());
+			if (home.getPiece() != null && home.getPiece() != move.getPiece()) {
+				BoardLocation start = HelpMethodsFinaMedKnuff
+						.getBoardLocationFromCoordinate(startLocation, board);
 				start.addPiece(home.getPiece());
 				home.clear();
 				break;
@@ -239,12 +256,14 @@ public class LudoGameState implements GameState {
 
 	private boolean needToPush(Move move) {
 		GamePiece destinationPiece = move.getDestination().getPiece();
-		if(move.getPlayer().hasPiece(destinationPiece))
+		System.out.println("Has Piece: "
+				+ move.getPlayer().hasPiece(destinationPiece));
+		if (move.getPlayer().hasPiece(destinationPiece))
 			return false;
 		else
 			return move.getDestination().getPiece() != null;
 	}
-  
+
 	@Override
 	public void reset() {
 		startToPlayNewGame();
