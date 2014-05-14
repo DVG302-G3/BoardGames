@@ -62,14 +62,13 @@ public class LudoRuleController {
 	}
 
 	private boolean checkIfPlayerIsTryingToLapseHisOwnPiece(Move move) {
-		int indexOfSourcePlusOne = state.getBoard().getLocations().indexOf(move.getSource()) + 1;
-		int indexOfDestination = state.getBoard().getLocations().indexOf(move.getDestination());
-
-		List<BoardLocation> stepsBetween = state.getBoard().getLocations().subList(indexOfSourcePlusOne, indexOfDestination);
 		
-		for(BoardLocation b : stepsBetween){
-			if(move.getPlayer().hasPiece(b.getPiece()))
-				return true;
+		for(int i = 1 ; i<getNumberOfStepsFromDice();i++){
+			int index = (state.getBoard().getLocations().indexOf(move.getSource()) + i) % LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD;
+			System.out.println("Modulerad: "+index);
+
+			if(move.getPlayer().hasPiece(state.getBoard().getLocations().get(index).getPiece()))
+					return true;
 		}
 		return false;
 	}
