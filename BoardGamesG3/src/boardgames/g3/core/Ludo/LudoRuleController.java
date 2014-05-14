@@ -6,6 +6,7 @@ import game.impl.GamePiece;
 import game.impl.Move;
 import game.impl.Player;
 
+import java.awt.Component.BaselineResizeBehavior;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,10 +15,13 @@ public class LudoRuleController {
 
 	Map<String, Integer> stepCounter;
 	GameState state;
+	BaseController baseController;
 
 	public LudoRuleController(GameState state) {
 		this.state = state;
+		baseController = new BaseController(state);
 		initiateStepCounterMap();
+		
 	}
 
 	private void initiateStepCounterMap() {
@@ -42,8 +46,8 @@ public class LudoRuleController {
 		if (source.getPiece() == null)
 			return LudoMoveResult.MOVE_NOGAMEPIECE;
 
-		if (pieceInBase(move))
-			return isValidMoveFromBase(move);
+		if (baseController.checkIfPieceInbase(move))
+			return baseController.isValidMoveFromBase(move);
 
 		if (shoulPiecedMoveIntoGoalLine(move))
 			return LudoMoveResult.MOVE_LAPSED;
@@ -58,17 +62,19 @@ public class LudoRuleController {
 			addStepsToCounter(move);
 			return LudoMoveResult.MOVE_VALID;
 		}
-
 	}
 
 	private boolean checkIfPlayerIsTryingToLapseHisOwnPiece(Move move) {
-		
-		for(int i = 1 ; i<getNumberOfStepsFromDice();i++){
-			int index = (state.getBoard().getLocations().indexOf(move.getSource()) + i) % LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD;
-			System.out.println("Modulerad: "+index);
 
-			if(move.getPlayer().hasPiece(state.getBoard().getLocations().get(index).getPiece()))
-					return true;
+		for (int i = 1; i < getNumberOfStepsFromDice(); i++) {
+			int index = (state.getBoard().getLocations()
+					.indexOf(move.getSource()) + i)
+					% LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD;
+			System.out.println("Modulerad: " + index);
+
+			if (move.getPlayer().hasPiece(
+					state.getBoard().getLocations().get(index).getPiece()))
+				return true;
 		}
 		return false;
 	}
@@ -79,11 +85,6 @@ public class LudoRuleController {
 			return true;
 		else
 			return false;
-	}
-
-	private LudoMoveResult isValidMoveFromBase(Move move) {
-
-		return isDestinationPlayersStartPosition(move);
 	}
 
 	private void addStepsToCounter(Move move) {
@@ -152,29 +153,12 @@ public class LudoRuleController {
 		return stepsPlayerMoves;
 	}
 
-	private boolean pieceInBase(Move move) {
-		if (move.getPlayer().getName().equals("Red"))
-			return existInList(move.getSource().getId(),
-					LudoStaticValues.REDHOME);
-		else if (move.getPlayer().getName().equals("Blue"))
-			return existInList(move.getSource().getId(),
-					LudoStaticValues.BLUEHOME);
-
-		else if (move.getPlayer().getName().equals("Yellow"))
-			return existInList(move.getSource().getId(),
-					LudoStaticValues.YELLOWHOME);
-		else
-			return existInList(move.getSource().getId(),
-					LudoStaticValues.GREENHOME);
-
-	}
-
 	private boolean existInList(String id, List<String> list) {
 		for (String coordinate : list) {
 			if (coordinate.equals(id))
 				return true;
 		}
-
+		
 		return false;
 	}
 
@@ -243,83 +227,6 @@ public class LudoRuleController {
 		}
 		return "";
 
-	}
-
-	private LudoMoveResult isDestinationPlayersStartPosition(Move move) {
-		if (move.getPlayer().getName().equals("Red")) {
-			return checkValidMoveFromStartForPlayer(move,
-					LudoStaticValues.REDSTART, LudoStaticValues.REDSTARTSIXES,
-					LudoStaticValues.REDHOME);
-		}
-
-		else if (move.getPlayer().getName().equals("Blue")) {
-			return checkValidMoveFromStartForPlayer(move,
-					LudoStaticValues.BLUESTART,
-					LudoStaticValues.BLUESTARTSIXES, LudoStaticValues.BLUEHOME);
-		}
-
-		else if (move.getPlayer().getName().equals("Yellow")) {
-			return checkValidMoveFromStartForPlayer(move,
-					LudoStaticValues.YELLOWSTART,
-					LudoStaticValues.YELLOWSTARTSIXES,
-					LudoStaticValues.YELLOWHOME);
-		}
-
-		else {
-			return checkValidMoveFromStartForPlayer(move,
-					LudoStaticValues.GREENSTART,
-					LudoStaticValues.GREENSTARTSIXES,
-					LudoStaticValues.GREENHOME);
-		}
-
-	}
-
-	private LudoMoveResult checkValidMoveFromStartForPlayer(Move move,
-			String start, String startSix, List<String> homeValues) {
-		if (getNumberOfStepsFromDice() == 1) {
-			if (move.getDestination().getId().equals(start)
-					&& destinationDoesNotAlreadyContainTwoPieces(move)) {
-				return LudoMoveResult.MOVE_VALID;
-			} else
-				return LudoMoveResult.MOVE_INCORRECTNUMBEROFSTEPS;
-		}
-
-		else if (getNumberOfStepsFromDice() == 6
-				&& destinationDoesNotAlreadyContainTwoPieces(move)) {
-			if (move.getDestination().getId().equals(startSix)) {
-				return LudoMoveResult.MOVE_VALID;
-			} else if (move.getDestination().getId().equals(start)) {
-
-				for (String basePositions : homeValues) {
-					BoardLocation home = HelpMethodsFinaMedKnuff
-							.getBoardLocationFromCoordinate(basePositions,
-									state.getBoard());
-					if (home.getPiece() != null
-							&& home.getPiece() != move.getPiece()) {
-						if (move.getDestination().getPieces().isEmpty())
-							return LudoMoveResult.MOVE_VALID_INBASE_TWO_PIECES;
-					}
-				}
-
-				return LudoMoveResult.MOVE_INVALID_INBASE_TWO_PIECES_NOT_AVAILABLE;
-			}
-
-		}
-
-		if (HelpMethodsFinaMedKnuff.doesPlayerHaveAnyPiecesOnTheBoard(
-				move.getPlayer(), state.getBoard()))
-			return LudoMoveResult.MOVE_INCORRECTNUMBEROFSTEPS;
-		else
-			return LudoMoveResult.MOVE_IN_BASE_DID_NOT_GET_THE_CORRECT_EYES_ON_THE_DICE_TO_MOVE_OUT;
-
-	}
-
-	private boolean destinationDoesNotAlreadyContainTwoPieces(Move move) {
-		List<GamePiece> destinationPieces = move.getDestination().getPieces();
-		if (destinationPieces.size() > 1)
-			return false;
-		else
-			return true;
 	}
 
 	private int getNumberOfStepsFromDice() {
