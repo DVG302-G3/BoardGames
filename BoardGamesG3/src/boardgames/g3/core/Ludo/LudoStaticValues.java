@@ -15,7 +15,6 @@ public class LudoStaticValues {
 	public static final String YELLOWPLAYER = "Yellow";
 	public static final String GREENPLAYER = "Green";
   
-	
 	public static final String REDSTART = "EA";
 	public static final String BLUESTART = "AG";
 	public static final String GREENSTART = "KE";
@@ -37,6 +36,9 @@ public class LudoStaticValues {
 	public static final List<String> YELLOWHOME = Arrays.asList("II", "IJ", "JI", "JJ");
 	
 	public static List<String> REDPIECES;
+	public static List<String> BLUEPECES;
+	public static List<String> YELLOWPIECES;
+	public static List<String> GREENPIECES;
 	
 	public static final String GOAL = "FF";
 	
