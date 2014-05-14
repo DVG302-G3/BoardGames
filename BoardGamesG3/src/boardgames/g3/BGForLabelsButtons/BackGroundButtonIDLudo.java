@@ -98,20 +98,20 @@ public class BackGroundButtonIDLudo extends JButton {
 	}
 	
 	private void setButtonWithRedFinishLinePiece() {
-    setIcon(new ImageIcon("src\\boardgames\\img\\redPieceFinishLine.png"));
-  }
+		setIcon(new ImageIcon("src\\boardgames\\img\\redPieceFinishLine.png"));
+	}
 
-  private void setButtonWithBlueFinishLinePiece() {
-    setIcon(new ImageIcon("src\\boardgames\\img\\bluePieceFinishLine.png"));
-  }
+	private void setButtonWithBlueFinishLinePiece() {
+		setIcon(new ImageIcon("src\\boardgames\\img\\bluePieceFinishLine.png"));
+	}
 
-  private void setButtonWithYellowFinishLinePiece() {
-    setIcon(new ImageIcon("src\\boardgames\\img\\yellowPieceFinishLine.png"));
-  }
+	private void setButtonWithYellowFinishLinePiece() {
+		setIcon(new ImageIcon("src\\boardgames\\img\\yellowPieceFinishLine.png"));
+	}
 
-  private void setButtonWithGreenFinishLinePiece() {
-    setIcon(new ImageIcon("src\\boardgames\\img\\greenPieceFinishLine.png"));
-  }
+	private void setButtonWithGreenFinishLinePiece() {
+		setIcon(new ImageIcon("src\\boardgames\\img\\greenPieceFinishLine.png"));
+	}
 
 	private void setButtonWithRedFinishLine() {
 		setIcon(new ImageIcon("src\\boardgames\\img\\finishlineRed.png"));
@@ -153,45 +153,51 @@ public class BackGroundButtonIDLudo extends JButton {
 		if (checkFinishLineColor(location, LudoStaticValues.REDFINISHLINE)) {
 			this.setButtonWithRedFinishLine();
 
-		} else if (checkFinishLineColor(location, LudoStaticValues.BLUEFINISHLINE)) {
+		} else if (checkFinishLineColor(location,
+				LudoStaticValues.BLUEFINISHLINE)) {
 			this.setButtonWithBlueFinishLine();
 
-		} else if (checkFinishLineColor(location, LudoStaticValues.YELLOWFINISHLINE)) {
+		} else if (checkFinishLineColor(location,
+				LudoStaticValues.YELLOWFINISHLINE)) {
 			this.setButtonWithYellowFinishLine();
 
-		} else if (checkFinishLineColor(location, LudoStaticValues.GREENFINISHLINE)) {
+		} else if (checkFinishLineColor(location,
+				LudoStaticValues.GREENFINISHLINE)) {
 			this.setButtonWithGreenFinishLine();
 		}
 	}
 
 	private void checkColorOnThePiece() {
 		if (checkColorOfBoardlocation(location, LudoStaticValues.REDPIECES)) {
-			if(location.getPieces().size() == 1)
+			if (location.getPieces().size() == 1)
 				this.setButtonWithRed();
 			else
 				this.setButtonWithTwoRed();
-			
-		}else if (checkColorOfBoardlocation(location, LudoStaticValues.BLUEPIECES)) {
-			if(location.getPieces().size() == 1)
+
+		} else if (checkColorOfBoardlocation(location,
+				LudoStaticValues.BLUEPIECES)) {
+			if (location.getPieces().size() == 1)
 				this.setButtonWithBlue();
 			else
 				this.setButtonWithTwoBlue();
-			
-		} else if (checkColorOfBoardlocation(location, LudoStaticValues.YELLOWPIECES)) {
-			if(location.getPieces().size() == 1)
+
+		} else if (checkColorOfBoardlocation(location,
+				LudoStaticValues.YELLOWPIECES)) {
+			if (location.getPieces().size() == 1)
 				this.setButtonWithYellow();
 			else
 				this.setButtonWithTwoYellow();
-			
-		} else if (checkColorOfBoardlocation(location, LudoStaticValues.GREENPIECES))
-			if(location.getPieces().size() == 1)
+
+		} else if (checkColorOfBoardlocation(location,
+				LudoStaticValues.GREENPIECES))
+			if (location.getPieces().size() == 1)
 				this.setButtonWithGreen();
 			else
 				this.setButtonWithTwoGreen();
 	}
-	
 
-	private boolean checkFinishLineColor(BoardLocation location, List<String> finishLine) {
+	private boolean checkFinishLineColor(BoardLocation location,
+			List<String> finishLine) {
 		for (String s : finishLine)
 			if (s.equals(location.getId()))
 				return true;
