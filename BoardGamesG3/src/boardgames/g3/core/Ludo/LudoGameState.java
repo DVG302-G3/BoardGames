@@ -50,14 +50,14 @@ public class LudoGameState implements GameState {
 
 	private List<Player> createAndReturnPlayers() {
 		List<Player> players = new ArrayList<>();
-		players.add(createAndReturnPlayer("Red",
-				Arrays.asList("R1", "R2", "R3", "R4")));
-		players.add(createAndReturnPlayer("Blue",
-				Arrays.asList("B1", "B2", "B3", "B4")));
-		players.add(createAndReturnPlayer("Yellow",
-				Arrays.asList("Y1", "Y2", "Y3", "Y4")));
-		players.add(createAndReturnPlayer("Green",
-				Arrays.asList("G1", "G2", "G3", "G4")));
+		players.add(createAndReturnPlayer(LudoStaticValues.REDPLAYER,
+				LudoStaticValues.REDPIECES));
+		players.add(createAndReturnPlayer(LudoStaticValues.BLUEPLAYER,
+				LudoStaticValues.BLUEPECES));
+		players.add(createAndReturnPlayer(LudoStaticValues.YELLOWPLAYER,
+				LudoStaticValues.YELLOWPIECES));
+		players.add(createAndReturnPlayer(LudoStaticValues.GREENPLAYER,
+				LudoStaticValues.GREENPIECES));
 		return players;
 	}
 
@@ -65,11 +65,11 @@ public class LudoGameState implements GameState {
 		for (Player p : players) {
 			List<GamePiece> pieces = p.getPieces();
 			List<String> homePositions;
-			if (p.getName().equals("Green"))
+			if (p.getName().equals(LudoStaticValues.GREENPLAYER))
 				homePositions = LudoStaticValues.GREENHOME;
-			else if (p.getName().equals("Blue"))
+			else if (p.getName().equals(LudoStaticValues.BLUEPLAYER))
 				homePositions = LudoStaticValues.BLUEHOME;
-			else if (p.getName().equals("Red"))
+			else if (p.getName().equals(LudoStaticValues.REDPLAYER))
 				homePositions = LudoStaticValues.REDHOME;
 			else
 				homePositions = LudoStaticValues.YELLOWHOME;
@@ -160,7 +160,7 @@ public class LudoGameState implements GameState {
 				ruler.pushOtherPiece(move.getDestination());
 			message = "";
 			executeAndMakeSureThatNoPieceWillBeDeleted(move);
-			System.out.println("Pjäser på platsen: "
+			System.out.println("Pjï¿½ser pï¿½ platsen: "
 					+ move.getDestination().getPieces().size());
 			nextPlayer();
 			return true;
@@ -231,13 +231,13 @@ public class LudoGameState implements GameState {
 	}
 
 	private void moveSecondPieceToStartPosition(Move move) {
-		if (move.getPlayer().getName().equals("Red"))
+		if (move.getPlayer().getName().equals(LudoStaticValues.REDPLAYER))
 			moveSecondPieceForPlayer(move, LudoStaticValues.REDHOME,
 					LudoStaticValues.REDSTART);
-		else if (move.getPlayer().getName().equals("Yellow"))
+		else if (move.getPlayer().getName().equals(LudoStaticValues.YELLOWPLAYER))
 			moveSecondPieceForPlayer(move, LudoStaticValues.YELLOWHOME,
 					LudoStaticValues.YELLOWSTART);
-		else if (move.getPlayer().getName().equals("Green"))
+		else if (move.getPlayer().getName().equals(LudoStaticValues.GREENPLAYER))
 			moveSecondPieceForPlayer(move, LudoStaticValues.GREENHOME,
 					LudoStaticValues.GREENSTART);
 		else
