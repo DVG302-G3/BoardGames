@@ -6,7 +6,6 @@ import game.impl.GamePiece;
 import game.impl.Move;
 import game.impl.Player;
 
-import java.awt.Component.BaselineResizeBehavior;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -228,6 +227,17 @@ public class LudoRuleController {
 		return "";
 
 	}
+	
+	public boolean needToPush(Move move) {
+		GamePiece destinationPiece = move.getDestination().getPiece();
+		System.out.println("Has Piece: "
+				+ move.getPlayer().hasPiece(destinationPiece));
+		if (move.getPlayer().hasPiece(destinationPiece))
+			return false;
+		else
+			return move.getDestination().getPiece() != null;
+	}
+	
 
 	private int getNumberOfStepsFromDice() {
 		return state.getDieRollFactory().getLastRoll().getResult();
