@@ -192,7 +192,6 @@ public class BackGroundButtonIDLudo extends JButton {
 	
 
 	private boolean checkFinishLineColor(BoardLocation location, List<String> finishLine) {
-
 		for (String s : finishLine)
 			if (s.equals(location.getId()))
 				return true;
