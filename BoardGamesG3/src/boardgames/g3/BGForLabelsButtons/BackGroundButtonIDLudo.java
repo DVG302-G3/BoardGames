@@ -2,6 +2,8 @@ package boardgames.g3.BGForLabelsButtons;
 
 import game.impl.BoardLocation;
 
+import java.util.List;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
@@ -148,40 +150,40 @@ public class BackGroundButtonIDLudo extends JButton {
 
 	private void checkFinishLineColor() {
 
-		if (checkRedFinishLineColor(location)) {
+		if (checkFinishLineColor(location, LudoStaticValues.REDFINISHLINE)) {
 			this.setButtonWithRedFinishLine();
 
-		} else if (checkBlueFinishLineColor(location)) {
+		} else if (checkFinishLineColor(location, LudoStaticValues.BLUEFINISHLINE)) {
 			this.setButtonWithBlueFinishLine();
 
-		} else if (checkYellowFinishLineColor(location)) {
+		} else if (checkFinishLineColor(location, LudoStaticValues.YELLOWFINISHLINE)) {
 			this.setButtonWithYellowFinishLine();
 
-		} else if (checkGreenFinishLineColor(location)) {
+		} else if (checkFinishLineColor(location, LudoStaticValues.GREENFINISHLINE)) {
 			this.setButtonWithGreenFinishLine();
 		}
 	}
 
 	private void checkColorOnThePiece() {
-		if (checkIfitsRed(location)) {
+		if (checkColorOfBoardlocation(location, LudoStaticValues.REDPIECES)) {
 			if(location.getPieces().size() == 1)
 				this.setButtonWithRed();
 			else
 				this.setButtonWithTwoRed();
 			
-		}else if (checkIfitsBlue(location)) {
+		}else if (checkColorOfBoardlocation(location, LudoStaticValues.BLUEPIECES)) {
 			if(location.getPieces().size() == 1)
 				this.setButtonWithBlue();
 			else
 				this.setButtonWithTwoBlue();
 			
-		} else if (checkIfitsYellow(location)) {
+		} else if (checkColorOfBoardlocation(location, LudoStaticValues.YELLOWPIECES)) {
 			if(location.getPieces().size() == 1)
 				this.setButtonWithYellow();
 			else
 				this.setButtonWithTwoYellow();
 			
-		} else if (checkIfitsGreen(location))
+		} else if (checkColorOfBoardlocation(location, LudoStaticValues.GREENPIECES))
 			if(location.getPieces().size() == 1)
 				this.setButtonWithGreen();
 			else
@@ -189,61 +191,20 @@ public class BackGroundButtonIDLudo extends JButton {
 	}
 	
 
-	private boolean checkRedFinishLineColor(BoardLocation location) {
+	private boolean checkFinishLineColor(BoardLocation location, List<String> finishLine) {
 
-		for (String s : LudoStaticValues.REDFINISHLINE)
+		for (String s : finishLine)
 			if (s.equals(location.getId()))
 				return true;
 		return false;
 	}
 
-	private boolean checkBlueFinishLineColor(BoardLocation location) {
-		for (String s : LudoStaticValues.BLUEFINISHLINE)
-			if (s.equals(location.getId()))
+	private boolean checkColorOfBoardlocation(BoardLocation location, List<String> pieces ) {
+		for(String s : pieces)
+			if(s.equals(location.getPiece().getId()))
 				return true;
 		return false;
-	}
-
-	private boolean checkYellowFinishLineColor(BoardLocation location) {
-		for (String s : LudoStaticValues.YELLOWFINISHLINE)
-			if (s.equals(location.getId()))
-				return true;
-		return false;
-	}
-
-	private boolean checkGreenFinishLineColor(BoardLocation location) {
-		for (String s : LudoStaticValues.GREENFINISHLINE)
-			if (s.equals(location.getId()))
-				return true;
-		return false;
-	}
-
-	private boolean checkIfitsRed(BoardLocation location) {
-		return (location.getPiece().getId() == "R1"
-				|| location.getPiece().getId() == "R2"
-				|| location.getPiece().getId() == "R3" || location.getPiece()
-				.getId() == "R4");
-	}
-
-	private boolean checkIfitsBlue(BoardLocation location) {
-		return (location.getPiece().getId() == "B1"
-				|| location.getPiece().getId() == "B2"
-				|| location.getPiece().getId() == "B3" || location.getPiece()
-				.getId() == "B4");
-	}
-
-	private boolean checkIfitsYellow(BoardLocation location) {
-		return (location.getPiece().getId() == "Y1"
-				|| location.getPiece().getId() == "Y2"
-				|| location.getPiece().getId() == "Y3" || location.getPiece()
-				.getId() == "Y4");
-	}
-
-	private boolean checkIfitsGreen(BoardLocation location) {
-		return (location.getPiece().getId() == "G1"
-				|| location.getPiece().getId() == "G2"
-				|| location.getPiece().getId() == "G3" || location.getPiece()
-				.getId() == "G4");
+		
 	}
 
 }

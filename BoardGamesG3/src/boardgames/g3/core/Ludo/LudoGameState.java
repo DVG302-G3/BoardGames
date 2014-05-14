@@ -53,7 +53,7 @@ public class LudoGameState implements GameState {
 		players.add(createAndReturnPlayer(LudoStaticValues.REDPLAYER,
 				LudoStaticValues.REDPIECES));
 		players.add(createAndReturnPlayer(LudoStaticValues.BLUEPLAYER,
-				LudoStaticValues.BLUEPECES));
+				LudoStaticValues.BLUEPIECES));
 		players.add(createAndReturnPlayer(LudoStaticValues.YELLOWPLAYER,
 				LudoStaticValues.YELLOWPIECES));
 		players.add(createAndReturnPlayer(LudoStaticValues.GREENPLAYER,
