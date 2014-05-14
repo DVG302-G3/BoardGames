@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.border.TitledBorder;
 
 import boardgames.g3.BGForLabelsButtons.BackGroundButtonIDLudo;
@@ -31,7 +32,8 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 
 	BackGroundLabelLudo backgroundLabel;
 
-	LudoDiceChooser diceB;
+	LudoDiceChooser diceB, diceB1;
+
 
 	private ActionListener inputUnit;
 
@@ -225,8 +227,13 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 				button[rows][cols] = new BackGroundButtonIDLudo(location,
 						coordinate);
 				button[rows][cols].addActionListener(inputUnit);
-
+				
+				
+				
 				diceB.addActionListener(diceB);
+				diceB.addKeyListener(diceB);
+				
+				
 				eastPanelDice.add(diceB);
 
 				

@@ -4,11 +4,14 @@ import game.api.GameState;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
+import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-public class LudoDiceChooser extends JButton implements ActionListener {
+public class LudoDiceChooser extends JButton implements ActionListener, KeyListener {
 
 	private int diceNumber;
 	GameState gameState;
@@ -59,5 +62,24 @@ public class LudoDiceChooser extends JButton implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		returnDice();		
 	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		System.out.println(e.getID());
+		if(e.getKeyCode()==KeyEvent.VK_SPACE)
+			returnDice();
+				
+	}
+
+	
+	
+	@Override
+	public void keyReleased(KeyEvent e) {
+	}
+	@Override
+	public void keyTyped(KeyEvent e) {
+	}
+	
+	
 
 }
