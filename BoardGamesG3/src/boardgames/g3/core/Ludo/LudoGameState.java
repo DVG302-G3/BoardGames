@@ -191,6 +191,9 @@ public class LudoGameState implements GameState {
 		case MOVE_PIECE_IN_TO_GOAL:
 			move.execute();
 			return false;
+		case MOVE_INVALID_CANT_LAPSE_YOUR_OWN_PIECE:
+			message = "You are not allowed to pass your own piece, mate.";
+			return false;
 		default: {
 			message = "Default!!!!!!!!!!!!";
 			return false;

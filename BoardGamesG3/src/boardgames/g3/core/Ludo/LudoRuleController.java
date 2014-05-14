@@ -44,19 +44,34 @@ public class LudoRuleController {
 
 		if (pieceInBase(move))
 			return isValidMoveFromBase(move);
-		
+
 		if (shoulPiecedMoveIntoGoalLine(move))
 			return LudoMoveResult.MOVE_LAPSED;
 
 		if (checkIfPlayerStepsIsNotCorrect(move))
 			return LudoMoveResult.MOVE_INCORRECTNUMBEROFSTEPS;
 
+		if (checkIfPlayerIsTryingToLapseHisOwnPiece(move))
+			return LudoMoveResult.MOVE_INVALID_CANT_LAPSE_YOUR_OWN_PIECE;
 
 		else {
 			addStepsToCounter(move);
 			return LudoMoveResult.MOVE_VALID;
 		}
 
+	}
+
+	private boolean checkIfPlayerIsTryingToLapseHisOwnPiece(Move move) {
+		int indexOfSourcePlusOne = state.getBoard().getLocations().indexOf(move.getSource()) + 1;
+		int indexOfDestination = state.getBoard().getLocations().indexOf(move.getDestination());
+
+		List<BoardLocation> stepsBetween = state.getBoard().getLocations().subList(indexOfSourcePlusOne, indexOfDestination);
+		
+		for(BoardLocation b : stepsBetween){
+			if(move.getPlayer().hasPiece(b.getPiece()))
+				return true;
+		}
+		return false;
 	}
 
 	private boolean checkIfDiceIsSIXorONE() {
@@ -204,7 +219,7 @@ public class LudoRuleController {
 		else {
 			putInBase(LudoStaticValues.GREENHOME, piece);
 		}
-		
+
 		destination.clear();
 
 	}
@@ -282,7 +297,7 @@ public class LudoRuleController {
 									state.getBoard());
 					if (home.getPiece() != null
 							&& home.getPiece() != move.getPiece()) {
-						if(move.getDestination().getPieces().isEmpty())
+						if (move.getDestination().getPieces().isEmpty())
 							return LudoMoveResult.MOVE_VALID_INBASE_TWO_PIECES;
 					}
 				}
