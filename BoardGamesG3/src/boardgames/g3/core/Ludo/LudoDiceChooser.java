@@ -15,15 +15,20 @@ public class LudoDiceChooser extends JButton implements Action  {
 
 	public LudoDiceChooser(GameState state) {
 		this.gameState = state;
-		setIcon(new ImageIcon("src\\boardgames\\img\\no_dice.png"));
-		
 		this.repaint();
 		setBorderPainted(false);
 		setContentAreaFilled(false);
 	    setFocusPainted(false);
+	
+		setUpDefaultImage();
 		
 	}
-
+	
+		
+	private void setUpDefaultImage(){
+		setIcon(new ImageIcon("src\\boardgames\\img\\no_dice.png"));
+	}
+	
 	public void returnDice() {
 		diceNumber = gameState.getDieRollFactory().getLastRoll().getResult();
 
