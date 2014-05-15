@@ -49,9 +49,18 @@ public class LudoGameState implements GameState {
 
 		ruler = new LudoRuleController(this);
 		dieRollFactory.getNewRoll(getLastPlayer());
+		
+		testSetup();
 
 	}
 
+	private void testSetup(){
+		HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EA", board).setPiece(players.get(1).getPieces().get(0));
+		HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BI", board).clear();
+
+
+	}
+	
 	@Override
 	public Board getBoard() {
 		return board;

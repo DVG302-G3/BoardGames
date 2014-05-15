@@ -225,7 +225,6 @@ public class LudoRuleController {
 			}
 		}
 		return "";
-
 	}
 	
 	public boolean needToPush(Move move) {
@@ -240,7 +239,7 @@ public class LudoRuleController {
 	
 
 	private int getNumberOfStepsFromDice() {
-		return state.getDieRollFactory().getLastRoll().getResult();
+				return state.getDieRollFactory().getLastRoll().getResult();
 	}
 
 }

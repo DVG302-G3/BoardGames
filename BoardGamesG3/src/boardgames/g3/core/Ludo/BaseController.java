@@ -84,7 +84,7 @@ public class BaseController {
 									state.getBoard());
 					if (home.getPiece() != null
 							&& home.getPiece() != move.getPiece()) {
-						if (move.getDestination().getPieces().isEmpty())
+						if (move.getDestination().getPieces().isEmpty() || !(move.getDestination().getPieces().contains(move.getPlayer().getPieces())))
 							return LudoMoveResult.MOVE_VALID_INBASE_TWO_PIECES;
 					}
 				}
