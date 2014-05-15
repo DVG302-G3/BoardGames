@@ -3,15 +3,12 @@ package boardgames.g3.core.Ludo;
 import game.api.GameState;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-public class LudoDiceChooser extends JButton implements ActionListener  {
+public class LudoDiceChooser extends JButton implements Action  {
 
 	private int diceNumber;
 	GameState gameState;
@@ -20,6 +17,7 @@ public class LudoDiceChooser extends JButton implements ActionListener  {
 		this.gameState = state;
 		setIcon(new ImageIcon("src\\boardgames\\img\\no_dice.png"));
 		
+		this.repaint();
 		setBorderPainted(false);
 		setContentAreaFilled(false);
 	    setFocusPainted(false);
@@ -57,10 +55,23 @@ public class LudoDiceChooser extends JButton implements ActionListener  {
 		}
 		
 	}
-
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		returnDice();		
 	}
+
+	
+	
+	
+	
+	@Override
+	public Object getValue(String key) {
+		return null;
+	}
+	@Override
+	public void putValue(String key, Object value) {
+	}
+
 
 }

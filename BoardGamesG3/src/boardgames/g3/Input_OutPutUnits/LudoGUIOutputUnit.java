@@ -9,11 +9,15 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
+import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import javax.swing.InputMap;
 import javax.swing.JCheckBox;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -32,8 +36,10 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 
 	BackGroundLabelLudo backgroundLabel;
 
-	LudoDiceChooser diceB, diceB1;
+	LudoDiceChooser diceB;
 
+	private ActionMap actionMap;
+	private InputMap inputMap;
 
 	private ActionListener inputUnit;
 
@@ -62,6 +68,8 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 		backgroundLabel = new BackGroundLabelLudo(LudoStaticValues.ROWS,
 				LudoStaticValues.COLS);
 
+
+		
 		textFieldWhosTurn = new JTextField();
 		textAreaMessage = new JTextArea();
 
@@ -75,7 +83,7 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 		eastPanelDice = new JPanel(new GridLayout(1, 1));
 
 		midPanel = new JPanel();
-
+		
 		buttonGroup = new ButtonGroup();
 
 		redC = new JCheckBox();
@@ -200,6 +208,11 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 
 	@Override
 	public void publish(GameState gameState) {
+		
+		actionMap = this.getActionMap();  
+	    inputMap = this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+
+	    
 		char cordRow = 'A';
 		char cordCol = 'A';
 
@@ -213,6 +226,8 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 
 		button = new BackGroundButtonIDLudo[LudoStaticValues.ROWS][LudoStaticValues.COLS];
 		diceB = new LudoDiceChooser(gameState);
+		
+
 
 		for (int rows = 0; rows < LudoStaticValues.ROWS; rows++) {
 			for (int cols = 0; cols < LudoStaticValues.COLS; cols++) {
@@ -227,20 +242,18 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 				button[rows][cols] = new BackGroundButtonIDLudo(location,
 						coordinate);
 				button[rows][cols].addActionListener(inputUnit);
-				
-				
-				
-				diceB.addActionListener(diceB);
-				diceB.addKeyListener(diceB);
-				
-				
-				eastPanelDice.add(diceB);
 
 				
+			    diceB.addActionListener(diceB);
+			    
+				inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), "Space");
+			    actionMap.put("Space", diceB);
+				
+			    eastPanelDice.add(diceB);
+			    
 				topPanelMessage.add(textAreaMessage);
 				textAreaMessage.repaint();
 				backgroundLabel.add(button[rows][cols]);
-
 			}
 
 			cordCol = 'A';
