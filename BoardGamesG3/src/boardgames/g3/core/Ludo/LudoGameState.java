@@ -49,9 +49,6 @@ public class LudoGameState implements GameState {
 
 		ruler = new LudoRuleController(this);
 		dieRollFactory.getNewRoll(getLastPlayer());
-		
-		testSetup();
-
 	}
 
 	private void testSetup(){

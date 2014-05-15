@@ -34,14 +34,19 @@ public class LudoRuleController {
 
 	public LudoMoveResult isValidMove(Move move) {
 		BoardLocation source = move.getSource();
-
+				
 		if (!HelpMethodsFinaMedKnuff.doesPlayerHaveAnyPiecesOnTheBoard(
 				move.getPlayer(), state.getBoard())) {
 			if (!checkIfDiceIsSIXorONE()) {
 				return LudoMoveResult.MOVE_IN_BASE_DID_NOT_GET_THE_CORRECT_EYES_ON_THE_DICE_TO_MOVE_OUT;
 			}		
 		}
-
+		
+		System.out.println("Hejsan!");
+		if(playerCantMakeAMove(move)){
+			return LudoMoveResult.MOVE_NO_MOVES_AVAILABLE;
+		}
+		
 		if (source.getPiece() == null)
 			return LudoMoveResult.MOVE_NOGAMEPIECE;
 
@@ -70,6 +75,13 @@ public class LudoRuleController {
 			addStepsToCounter(move);
 			return LudoMoveResult.MOVE_VALID;
 		}
+	}
+
+	private boolean playerCantMakeAMove(Move move) {
+		List<GamePiece> playersPieces = move.getPlayer().getPieces();
+		if(baseController.canPlayerMakeAMoveFromBase(move.getPlayer()))
+			return false;
+		return false;
 	}
 
 	private boolean destinationIsAlreadyOccupado(Move move) {
