@@ -126,13 +126,13 @@ public class LudoGameState implements GameState {
 			message = "You cant lapsed again";
 			return true;
 		case MOVE_NOGAMEPIECE:
-			message = "No game piece located in source.";
+			message = LudoStaticValues.MOVE_NOGAMEPIECE;
 			return false;
 		case MOVE_INCORRECTNUMBEROFSTEPS:
-			message = "You can't move to this position. Please try again.";
+			message = LudoStaticValues.MOVE_INCORRECTNUMBEROFSTEPS;
 			return false;
 		case MOVE_IN_BASE_DID_NOT_GET_THE_CORRECT_EYES_ON_THE_DICE_TO_MOVE_OUT:
-			message = "You need to get 1 or 6 in order to move out of base.";
+			message = LudoStaticValues.MOVE_IN_BASE_DID_NOT_GET_THE_CORRECT_EYES_ON_THE_DICE_TO_MOVE_OUT;
 			nextTurn();
 			return false;
 		case MOVE_VALID_INBASE_TWO_PIECES:
@@ -147,20 +147,20 @@ public class LudoGameState implements GameState {
 			move.execute();
 			return false;
 		case MOVE_INVALID_CANT_LAPSE_YOUR_OWN_PIECE:
-			message = "You are not allowed to pass your own piece, mate.";
+			message = LudoStaticValues.MOVE_INVALID_CANT_LAPSE_YOUR_OWN_PIECE;
 			return false;
 		case MOVE_INVALID_CANT_PASS_A_BLOCK:
 			message = "You are not allowed to pass a block, mate.";
 			return false;
 		case MOVE_NO_MOVES_AVAILABLE:
-			message = "No moves available.";
+			message = LudoStaticValues.MOVE_NO_MOVES_AVAILABLE;
 			nextTurn();
 			return false;
 		case MOVE_INVALIDA_BOARDLOCATION_ALREADY_OCCUPIED:
-			message = "Boardlocation can't hold that many pieces!";
+			message = LudoStaticValues.MOVE_INVALIDA_BOARDLOCATION_ALREADY_OCCUPIED;
 			return false;
 		default: {
-			message = "Default!!!!!!!!!!!!";
+			message = "Default!";
 			return false;
 		}
 		}
