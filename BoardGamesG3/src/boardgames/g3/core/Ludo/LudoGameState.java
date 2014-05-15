@@ -99,11 +99,15 @@ public class LudoGameState implements GameState {
 			message = "";
 			moveValidExec.executeAndMakeSureThatNoPieceWillBeDeleted(move);
 			nextTurn();
-			return true;
+			return true;		
+		
 		case MOVE_LAPSED:
 			message = "Lapsed!";
 			move.execute();
 			nextTurn();
+			return true;
+		case MOVE_INVALID_CANT_LAPSE_AGAIN:
+			message = "You cant lapsed again";
 			return true;
 		case MOVE_NOGAMEPIECE:
 			message = "No game piece located in source.";
