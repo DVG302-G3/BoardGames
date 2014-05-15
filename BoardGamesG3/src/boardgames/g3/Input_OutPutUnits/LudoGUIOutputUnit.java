@@ -231,7 +231,7 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 				
 				
 				diceB.addActionListener(diceB);
-				diceB.addKeyListener(diceB);
+
 				
 				
 				eastPanelDice.add(diceB);

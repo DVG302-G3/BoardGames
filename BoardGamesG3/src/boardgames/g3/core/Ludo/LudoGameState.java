@@ -50,16 +50,25 @@ public class LudoGameState implements GameState {
 		ruler = new LudoRuleController(this);
 		dieRollFactory.getNewRoll(getLastPlayer());
 		
-		testSetup();
+//		testSetup();
 
 	}
 
-	private void testSetup(){
-		HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EA", board).setPiece(players.get(1).getPieces().get(0));
-		HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BI", board).clear();
-
-
-	}
+//	private void testSetup(){
+//		HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EA", board).setPiece(players.get(0).getPieces().get(0));
+//		HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BB", board).clear();
+//
+//		HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EA", board).addPiece(players.get(0).getPieces().get(1));
+//		HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BC", board).clear();
+//
+//		HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("AG", board).setPiece(players.get(1).getPieces().get(0));
+//		HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BI", board).clear();
+//
+//		HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("AG", board).addPiece(players.get(1).getPieces().get(1));
+//		HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BJ", board).clear();
+//
+//		
+//	}
 	
 	@Override
 	public Board getBoard() {
@@ -137,6 +146,13 @@ public class LudoGameState implements GameState {
 			return false;
 		case MOVE_INVALID_CANT_LAPSE_YOUR_OWN_PIECE:
 			message = "You are not allowed to pass your own piece, mate.";
+			return false;
+		case MOVE_NO_MOVES_AVAILABLE:
+			message = "No moves available.";
+			nextTurn();
+			return false;
+		case MOVE_INVALIDA_BOARDLOCATION_ALREADY_OCCUPIED:
+			message = "Boardlocation can't hold that many pieces!";
 			return false;
 		default: {
 			message = "Default!!!!!!!!!!!!";
