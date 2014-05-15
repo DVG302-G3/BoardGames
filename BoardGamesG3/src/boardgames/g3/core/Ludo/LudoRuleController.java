@@ -39,7 +39,7 @@ public class LudoRuleController {
 				move.getPlayer(), state.getBoard())) {
 			if (!checkIfDiceIsSIXorONE()) {
 				return LudoMoveResult.MOVE_IN_BASE_DID_NOT_GET_THE_CORRECT_EYES_ON_THE_DICE_TO_MOVE_OUT;
-			}
+			}		
 		}
 
 		if (source.getPiece() == null)

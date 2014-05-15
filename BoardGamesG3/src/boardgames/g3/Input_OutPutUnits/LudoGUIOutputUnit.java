@@ -242,6 +242,17 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 				button[rows][cols] = new BackGroundButtonIDLudo(location,
 						coordinate);
 				button[rows][cols].addActionListener(inputUnit);
+<<<<<<< HEAD
+=======
+				
+				
+				
+				diceB.addActionListener(diceB);
+
+				
+				
+				eastPanelDice.add(diceB);
+>>>>>>> 8cf484ea78d79259522afd02f8e23d4bacba5676
 
 				
 			    diceB.addActionListener(diceB);
