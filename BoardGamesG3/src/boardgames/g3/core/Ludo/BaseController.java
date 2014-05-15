@@ -65,27 +65,35 @@ public class BaseController {
 	private LudoMoveResult checkValidMoveFromStartForPlayer(Move move,
 			String start, String startSix, List<String> homeValues) {
 		if (getDiceResult() == 1) {
-			if (move.getDestination().getId().equals(start)
-					&& destinationDoesNotAlreadyContainTwoPieces(move)) {
-				return LudoMoveResult.MOVE_VALID;
-			} else
+			if (move.getDestination().getId().equals(start)) {
+				if (destinationDoesNotAlreadyContainTwoPieces(move))
+					return LudoMoveResult.MOVE_VALID;
+				else
+					return LudoMoveResult.MOVE_NO_MOVES_AVAILABLE;
+			}
+
+			else
 				return LudoMoveResult.MOVE_INCORRECTNUMBEROFSTEPS;
 		}
 
-		else if (getDiceResult() == 6
-				&& destinationDoesNotAlreadyContainTwoPieces(move)) {
+		else if (getDiceResult() == 6) {
 			if (move.getDestination().getId().equals(startSix)) {
-				return LudoMoveResult.MOVE_VALID;
+				if (destinationDoesNotAlreadyContainTwoPieces(move))
+					return LudoMoveResult.MOVE_VALID;
 			} else if (move.getDestination().getId().equals(start)) {
-
-				for (String basePositions : homeValues) {
-					BoardLocation home = HelpMethodsFinaMedKnuff
-							.getBoardLocationFromCoordinate(basePositions,
-									state.getBoard());
-					if (home.getPiece() != null
-							&& home.getPiece() != move.getPiece()) {
-						if (move.getDestination().getPieces().isEmpty())
-							return LudoMoveResult.MOVE_VALID_INBASE_TWO_PIECES;
+				if (destinationDoesNotAlreadyContainTwoPieces(move)) {
+					System.out.println("Does not contain two pieces");
+					for (String basePositions : homeValues) {
+						BoardLocation home = HelpMethodsFinaMedKnuff
+								.getBoardLocationFromCoordinate(basePositions,
+										state.getBoard());
+						if (home.getPiece() != null
+								&& home.getPiece() != move.getPiece()) {
+							if (checkIfDestinationIsEmptyOrContainsOpponentsPieces(move))
+								return LudoMoveResult.MOVE_VALID_INBASE_TWO_PIECES;
+							else
+								return LudoMoveResult.MOVE_INVALIDA_BOARDLOCATION_ALREADY_OCCUPIED;
+						}
 					}
 				}
 
@@ -100,6 +108,14 @@ public class BaseController {
 		else
 			return LudoMoveResult.MOVE_IN_BASE_DID_NOT_GET_THE_CORRECT_EYES_ON_THE_DICE_TO_MOVE_OUT;
 
+	}
+
+	private boolean checkIfDestinationIsEmptyOrContainsOpponentsPieces(Move move) {
+		if(move.getDestination().getPieces().isEmpty())
+			return true;
+		else
+			return !move.getPlayer().getPieces().contains(move.getDestination().getPiece());
+		
 	}
 
 	private boolean destinationDoesNotAlreadyContainTwoPieces(Move move) {

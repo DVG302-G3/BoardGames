@@ -119,6 +119,7 @@ public class LudoGUIInputUnit extends InputUnit implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		buttonGUI = (BackGroundButtonIDLudo) e.getSource();
 
+		
 		onClick(buttonGUI.getStringId());
 	}
 

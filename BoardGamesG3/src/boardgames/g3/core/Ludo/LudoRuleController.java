@@ -39,7 +39,7 @@ public class LudoRuleController {
 				move.getPlayer(), state.getBoard())) {
 			if (!checkIfDiceIsSIXorONE()) {
 				return LudoMoveResult.MOVE_IN_BASE_DID_NOT_GET_THE_CORRECT_EYES_ON_THE_DICE_TO_MOVE_OUT;
-			}
+			}		
 		}
 
 		if (source.getPiece() == null)
@@ -56,16 +56,41 @@ public class LudoRuleController {
 		if (checkIfPlayerStepsIsNotCorrect(move))
 			return LudoMoveResult.MOVE_INCORRECTNUMBEROFSTEPS;
 
-		if (checkIfPlayerIsTryingToLapseHisOwnPiece(move))
+		if (playerIsTryingToLapseHisOwnPiece(move))
 			return LudoMoveResult.MOVE_INVALID_CANT_LAPSE_YOUR_OWN_PIECE;
 
+		if (playerIsTryingToLapseAblock(move))
+			return LudoMoveResult.MOVE_INVALID_CANT_PASS_A_BLOCK;
+		
+		if(destinationIsAlreadyOccupado(move)){
+			return LudoMoveResult.MOVE_INVALIDA_BOARDLOCATION_ALREADY_OCCUPIED;
+		}
+		
 		else {
 			addStepsToCounter(move);
 			return LudoMoveResult.MOVE_VALID;
 		}
 	}
 
-	private boolean checkIfPlayerIsTryingToLapseHisOwnPiece(Move move) {
+	private boolean destinationIsAlreadyOccupado(Move move) {
+		if(move.getDestination().getPieces().size()>1)
+			return true;
+		else
+			return false;
+	}
+
+	private boolean playerIsTryingToLapseAblock(Move move) {
+		for (int i = 1; i < getNumberOfStepsFromDice(); i++) {
+			int index = (state.getBoard().getLocations()
+					.indexOf(move.getSource()) + i)
+					% LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD;
+
+			if (state.getBoard().getLocations().get(index).getPieces().size() > 1)
+				return true;
+		}
+		return false;
+	}
+	private boolean playerIsTryingToLapseHisOwnPiece(Move move) {
 
 		for (int i = 1; i < getNumberOfStepsFromDice(); i++) {
 			int index = (state.getBoard().getLocations()
@@ -241,7 +266,6 @@ public class LudoRuleController {
 			}
 		}
 		return "";
-
 	}
 	
 	public boolean needToPush(Move move) {
@@ -256,7 +280,7 @@ public class LudoRuleController {
 	
 
 	private int getNumberOfStepsFromDice() {
-		return state.getDieRollFactory().getLastRoll().getResult();
+				return state.getDieRollFactory().getLastRoll().getResult();
 	}
 
 }
