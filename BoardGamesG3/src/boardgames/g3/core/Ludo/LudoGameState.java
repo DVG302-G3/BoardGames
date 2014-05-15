@@ -50,23 +50,23 @@ public class LudoGameState implements GameState {
 		ruler = new LudoRuleController(this);
 		dieRollFactory.getNewRoll(getLastPlayer());
 		
-		testSetup();
+//		testSetup();
 
 	}
-
-	private void testSetup(){
-
-		HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EC", board).setPiece(players.get(1).getPieces().get(0));
-		HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BI", board).clear();
-
-		HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EC", board).addPiece(players.get(1).getPieces().get(1));
-		HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BJ", board).clear();
-
-		HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EA", board).setPiece(players.get(0).getPieces().get(0));
-		HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BB", board).clear();
-
-		
-	}
+//
+//	private void testSetup(){
+//
+//		HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EC", board).setPiece(players.get(1).getPieces().get(0));
+//		HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BI", board).clear();
+//
+//		HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EC", board).addPiece(players.get(1).getPieces().get(1));
+//		HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BJ", board).clear();
+//
+//		HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EA", board).setPiece(players.get(0).getPieces().get(0));
+//		HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BB", board).clear();
+//
+//		
+//	}
 	
 	@Override
 	public Board getBoard() {
@@ -118,12 +118,12 @@ public class LudoGameState implements GameState {
 			return true;		
 		
 		case MOVE_LAPSED:
-			message = "Lapsed!";
+			message = LudoStaticValues.MOVE_LAPSED;
 			move.execute();
 			nextTurn();
 			return true;
 		case MOVE_INVALID_CANT_LAPSE_AGAIN:
-			message = "You cant lapsed again";
+			message = LudoStaticValues.MOVE_INVALID_CANT_LAPSE_AGAIN;
 			return true;
 		case MOVE_NOGAMEPIECE:
 			message = LudoStaticValues.MOVE_NOGAMEPIECE;
