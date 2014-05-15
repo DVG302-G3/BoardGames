@@ -2,20 +2,14 @@ package boardgames.g3.core.Ludo;
 
 import game.api.GameState;
 import game.impl.Board;
-import game.impl.BoardLocation;
 import game.impl.DieRollFactory;
-import game.impl.GamePiece;
 import game.impl.Move;
 import game.impl.Player;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class LudoGameState implements GameState {
 
-	
-	
 	Board board;
 	List<Player> players;
 	private Player winnerPlayer;
@@ -34,8 +28,7 @@ public class LudoGameState implements GameState {
 	public LudoGameState() {
 		
 		this.dieRollFactory = new DieRollFactory();
-		moveValidExec = new MoveValidExecutor();
-		moveInBaseExec = new MoveValidInbaseTwoPiecesExecutor(this);
+
 		startToPlayNewGame();
 		
 	}
@@ -50,6 +43,9 @@ public class LudoGameState implements GameState {
 		BoardAndPlayerFactory factory = new BoardAndPlayerFactory();
 		factory.execute();
 
+		moveValidExec = new MoveValidExecutor();
+		moveInBaseExec = new MoveValidInbaseTwoPiecesExecutor(this);
+		
 		this.players = factory.getPlayers();
 		this.board = factory.getBoard();
 
