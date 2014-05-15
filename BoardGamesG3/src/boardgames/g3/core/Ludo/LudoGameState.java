@@ -17,7 +17,6 @@ public class LudoGameState implements GameState {
 	LudoRuleController ruler;
 	MoveValidExecutor moveValidExec;
 	MoveValidInbaseTwoPiecesExecutor moveInBaseExec;
-	
 
 	private int numberOfPlayers = 4;
 
@@ -26,11 +25,10 @@ public class LudoGameState implements GameState {
 	DieRollFactory dieRollFactory;
 
 	public LudoGameState() {
-		
-		this.dieRollFactory = new DieRollFactory();
 
+		this.dieRollFactory = new DieRollFactory();
 		startToPlayNewGame();
-		
+
 	}
 
 	public LudoGameState(int noPlayers) {
@@ -45,7 +43,7 @@ public class LudoGameState implements GameState {
 
 		moveValidExec = new MoveValidExecutor();
 		moveInBaseExec = new MoveValidInbaseTwoPiecesExecutor(this);
-		
+
 		this.players = factory.getPlayers();
 		this.board = factory.getBoard();
 
@@ -100,12 +98,12 @@ public class LudoGameState implements GameState {
 				ruler.pushOtherPiece(move.getDestination());
 			message = "";
 			moveValidExec.executeAndMakeSureThatNoPieceWillBeDeleted(move);
-			nextPlayer();
+			nextTurn();
 			return true;
 		case MOVE_LAPSED:
 			message = "Lapsed!";
 			move.execute();
-			nextPlayer();
+			nextTurn();
 			return true;
 		case MOVE_NOGAMEPIECE:
 			message = "No game piece located in source.";
@@ -115,7 +113,7 @@ public class LudoGameState implements GameState {
 			return false;
 		case MOVE_IN_BASE_DID_NOT_GET_THE_CORRECT_EYES_ON_THE_DICE_TO_MOVE_OUT:
 			message = "You need to get 1 or 6 in order to move out of base.";
-			nextPlayer();
+			nextTurn();
 			return false;
 		case MOVE_VALID_INBASE_TWO_PIECES:
 			if (ruler.needToPush(move))
@@ -123,7 +121,7 @@ public class LudoGameState implements GameState {
 			move.execute();
 			moveInBaseExec.moveSecondPieceToStartPosition(move);
 			message = "";
-			nextPlayer();
+			nextTurn();
 			return true;
 		case MOVE_PIECE_IN_TO_GOAL:
 			move.execute();
@@ -138,12 +136,12 @@ public class LudoGameState implements GameState {
 		}
 	}
 
-	private void nextPlayer() {
-		turnCounter++;
+	private void nextTurn() {
+		if(getDieRollFactory().getLastRoll().getResult() != 6)
+			turnCounter++;
 		getDieRollFactory().getNewRoll(getPlayerInTurn());
 	}
-
-
+	
 	@Override
 	public void reset() {
 		startToPlayNewGame();
