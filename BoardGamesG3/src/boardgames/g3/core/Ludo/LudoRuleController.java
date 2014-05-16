@@ -86,12 +86,17 @@ public class LudoRuleController {
 
 	private boolean playerCantMakeAMove(Move move) {
 		List<GamePiece> playersPieces = move.getPlayer().getPieces();
-		if(baseController.canPlayerMakeAMoveFromBase(move.getPlayer()))
+		if(baseController.canPlayerMakeAMoveFromBase(move.getPlayer())){
+			System.out.println("Move from base");
 			return false;
+		}
 		if(canAnyPieceMakeAMove(playersPieces, move.getPlayer()))
+		{
+			System.out.println("Other move");
 			return false;
+		}
 		
-		return false;
+		return true;
 	}
 
 	private boolean canAnyPieceMakeAMove(List<GamePiece> playersPieces, Player player) {
