@@ -26,13 +26,11 @@ public class BaseController {
 			BoardLocation source = HelpMethodsFinaMedKnuff
 					.getBoardLocationFromPiece(gp, state.getBoard());
 			
-			System.out.println(source+" hej");
 			if (checkIfPieceInbase(player, source)) {
 				result = checkPlayerColorAndGetValidMoveForPiece(player, gp,
 						source);
 				if (result == LudoMoveResult.MOVE_VALID
 						|| result == LudoMoveResult.MOVE_VALID_INBASE_TWO_PIECES) {
-					System.out.println("Plats som kan göra drag: "+source.getId());
 					return true;
 				}
 			}
