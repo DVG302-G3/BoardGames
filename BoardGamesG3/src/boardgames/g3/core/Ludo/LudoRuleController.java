@@ -39,10 +39,7 @@ public class LudoRuleController {
 			return LudoMoveResult.MOVE_NOGAMEPIECE;
 
 		if (baseController.checkIfPieceInbase(move))
-			{
-			System.out.println("RuleControler: "+baseController.checkValidMoveFromBase(move));
 			return baseController.checkValidMoveFromBase(move);
-			}
 
 		if (hasPieceLapsedAndAreInRigtFinishline(move))
 			return LudoMoveResult.MOVE_LAPSED;
@@ -64,6 +61,8 @@ public class LudoRuleController {
 
 		else {
 			return LudoMoveResult.MOVE_VALID;
+			
+			
 		}
 
 	}
@@ -80,8 +79,7 @@ public class LudoRuleController {
 		if (playerCantMakeAMove(move)) {
 			return LudoMoveResult.MOVE_NO_MOVES_AVAILABLE;
 		}
-		System.out.println("Total: "+stepCounter.get(move.getSource().getPiece().getId()));
-
+		
 		return checkAndReturnValidMoves(move);
 
 	}
@@ -117,7 +115,6 @@ public class LudoRuleController {
 			int newIndex = modulateAndReturnTheIndex(source, i);
 			destination = state.getBoard().getLocations().get(newIndex);
 			Move move = new Move(player, source, destination);
-			System.out.println(checkIfValidResult(move));
 			if (checkIfValidResult(move))
 				return true;
 		}
@@ -175,12 +172,17 @@ public class LudoRuleController {
 	
 	public void setStepsForPiece(GamePiece gamePiece, int steps){
 		stepCounter.put(gamePiece.getId(), steps);
+	
+		System.out.println("Total: "+stepCounter.get(gamePiece.getId()));
+
 	}
 
 	public void addStepsToCounter(Move move) {
-		System.out.println("hallå");
 		stepCounter.put(move.getSource().getPiece().getId(),
 				getTotalStepsForPiece(move));
+		
+		System.out.println("Total: "+stepCounter.get(move.getSource().getPiece().getId()));
+
 	}
 
 	private boolean hasPieceLapsed(Move move) {
@@ -254,19 +256,10 @@ public class LudoRuleController {
 		return player.getFinishLine().contains(move.getSource().getId());
 	}
 
-	private boolean existInList(String id, List<String> list) {
-
-		for (String coordinate : list) {
-			if (coordinate.equals(id))
-				System.out.println(coordinate + " " + id);
-			return true;
-		}
-		return false;
-	}
 
 	public Boolean isPiecesRightCollorForThisFinishline(Move move) {
 		LudoPlayer player = state.getLudoPlayerFromPlayer(move.getPlayer());
-		return existInList(move.getSource().getId(), player.getFinishLine());
+		return player.getFinishLine().contains(move.getSource().getId());
 	}
 
 	public Boolean isGameFinished(GameState state) {

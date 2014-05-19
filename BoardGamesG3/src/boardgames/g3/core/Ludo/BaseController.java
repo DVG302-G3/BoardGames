@@ -29,14 +29,18 @@ public class BaseController {
 			if (checkIfPieceInbase(player, source)) {
 				result = checkPlayerColorAndGetValidMoveForPiece(player, gp,
 						source);
-				if (result == LudoMoveResult.MOVE_VALID
-						|| result == LudoMoveResult.MOVE_VALID_INBASE_TWO_PIECES) {
+				if (resultIsValidMove(result)) {
 					return true;
 				}
 			}
 		}
 
 		return false;
+	}
+
+	private boolean resultIsValidMove(LudoMoveResult result) {
+		return result == LudoMoveResult.MOVE_VALID
+				|| result == LudoMoveResult.MOVE_VALID_INBASE_ONE || result == LudoMoveResult.MOVE_VALID_INBASE_SIX || result == LudoMoveResult.MOVE_VALID_INBASE_TWO_PIECES;
 	}
 
 	private LudoMoveResult checkPlayerColorAndGetValidMoveForPiece(
@@ -51,15 +55,15 @@ public class BaseController {
 			destination = HelpMethodsFinaMedKnuff
 					.getBoardLocationFromCoordinate(
 							player.getStartCoordinateOne(), state.getBoard());
-			result = checkValidMoveFromBase(new Move(
-					player.getPlayerObject(), source, destination));
+			result = checkValidMoveFromBase(new Move(player.getPlayerObject(),
+					source, destination));
 			break;
 		case 6:
 			destination = HelpMethodsFinaMedKnuff
 					.getBoardLocationFromCoordinate(
 							player.getStartCoordinateSix(), state.getBoard());
-			result = checkValidMoveFromBase(new Move(
-					player.getPlayerObject(), source, destination));
+			result = checkValidMoveFromBase(new Move(player.getPlayerObject(),
+					source, destination));
 			break;
 
 		default:
@@ -81,10 +85,12 @@ public class BaseController {
 		switch (getDiceResult()) {
 		case 1:
 			if (move.getDestination().getId().equals(start)) {
-				if (destinationDoesNotAlreadyContainTwoPieces(move))
+				if (destinationDoesNotAlreadyContainTwoPieces(move)) {
 					return LudoMoveResult.MOVE_VALID_INBASE_ONE;
-				else
+				} else {
 					return LudoMoveResult.MOVE_NO_MOVES_AVAILABLE;
+
+				}
 			}
 
 			else
@@ -96,7 +102,6 @@ public class BaseController {
 					return LudoMoveResult.MOVE_VALID_INBASE_SIX;
 			} else if (move.getDestination().getId().equals(start)) {
 				if (destinationDoesNotAlreadyContainTwoPieces(move)) {
-					System.out.println("Does not contain two pieces");
 					for (String basePositions : player.getHomePositions()) {
 						BoardLocation home = HelpMethodsFinaMedKnuff
 								.getBoardLocationFromCoordinate(basePositions,
