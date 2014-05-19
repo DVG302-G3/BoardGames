@@ -196,19 +196,8 @@ public class LudoRuleController {
 	}
 
 	public boolean checkIfPieceInGoalline(Move move) {
-		if (move.getPlayer().getName().equals(LudoStaticValues.REDPLAYER))
-			return LudoStaticValues.REDFINISHLINE.contains(move.getSource()
-					.getId());
-		else if (move.getPlayer().getName().equals(LudoStaticValues.BLUEPLAYER))
-			return LudoStaticValues.BLUEFINISHLINE.contains(move.getSource()
-					.getId());
-		else if (move.getPlayer().getName()
-				.equals(LudoStaticValues.YELLOWPLAYER))
-			return LudoStaticValues.YELLOWFINISHLINE.contains(move.getSource()
-					.getId());
-		else
-			return LudoStaticValues.GREENFINISHLINE.contains(move.getSource()
-					.getId());
+		LudoPlayer player = state.getLudoPlayerFromPlayer(move.getPlayer());
+		return player.getFinishLine().contains(move.getSource().getId());
 	}
 
 	public Boolean isPieceInGoal(Move move, GamePiece gamePiece) {
