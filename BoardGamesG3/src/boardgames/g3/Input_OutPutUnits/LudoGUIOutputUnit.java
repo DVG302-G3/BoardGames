@@ -247,8 +247,8 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 
 				
 				eastPanelDice.add(diceB);
-				
 			    diceB.addActionListener(diceB);
+			    
 			    
 				inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), "Space");
 			    actionMap.put("Space", diceB);
