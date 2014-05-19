@@ -44,7 +44,7 @@ public class HelpMethodsFinaMedKnuff {
 		}
 		return null;
 	}
-	
+		
 	public static boolean doesPlayerHaveAnyPiecesOnTheBoard(Player player, Board board){
 		List<String> homeLocations = new ArrayList<String>();
 		homeLocations.addAll(LudoStaticValues.BLUEHOME);

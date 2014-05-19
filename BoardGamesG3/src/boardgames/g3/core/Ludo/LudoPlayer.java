@@ -34,25 +34,29 @@ public class LudoPlayer {
 	}
 
 	private void getDataBasedOnPlayerColor() {
-		if (player.getName().equals(LudoStaticValues.GREENPLAYER)) {
+		switch (player.getName()) {
+		case LudoStaticValues.GREENPLAYER:
 			home = LudoStaticValues.GREENHOME;
 			startCoordinateOne = LudoStaticValues.GREENSTART;
 			startCoordinateSix = LudoStaticValues.GREENSTARTSIXES;
-		} else if (player.getName().equals(LudoStaticValues.BLUEPLAYER)) {
+			break;
+		case LudoStaticValues.BLUEPLAYER:
 			home = LudoStaticValues.BLUEHOME;
 			startCoordinateOne = LudoStaticValues.BLUESTART;
 			startCoordinateSix = LudoStaticValues.BLUESTARTSIXES;
-		} else if (player.getName().equals(LudoStaticValues.REDPLAYER)) {
+			break;
+		case LudoStaticValues.REDPLAYER:
 			home = LudoStaticValues.REDHOME;
 			startCoordinateOne = LudoStaticValues.REDSTART;
 			startCoordinateSix = LudoStaticValues.REDSTARTSIXES;
-		} else {
+			break;
+		case LudoStaticValues.YELLOWPLAYER:
 			home = LudoStaticValues.YELLOWHOME;
 			startCoordinateOne = LudoStaticValues.YELLOWSTART;
 			startCoordinateSix = LudoStaticValues.YELLOWSTARTSIXES;
+
 		}
 
 	}
-
 
 }

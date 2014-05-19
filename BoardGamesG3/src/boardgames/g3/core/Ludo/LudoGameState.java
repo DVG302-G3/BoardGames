@@ -161,6 +161,14 @@ public class LudoGameState implements GameState {
 		getDieRollFactory().getNewRoll(getPlayerInTurn());
 	}
 	
+	public LudoPlayer getLudoPlayerFromPlayer(Player player){
+		for(LudoPlayer p : players){
+			if(p.getPlayerObject().equals(player))
+				return p;
+		}
+		return null;
+	}
+	
 	@Override
 	public void reset() {
 		startToPlayNewGame();
@@ -175,4 +183,5 @@ public class LudoGameState implements GameState {
 	public Player getWinner() {
 		return winnerPlayer;
 	}
+	
 }
