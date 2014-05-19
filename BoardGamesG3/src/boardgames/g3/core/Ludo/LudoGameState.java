@@ -6,13 +6,14 @@ import game.impl.DieRollFactory;
 import game.impl.Move;
 import game.impl.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LudoGameState implements GameState {
 
 	Board board;
-	List<Player> players;
 	private Player winnerPlayer;
+	private List<LudoPlayer> players;
 
 	LudoRuleController ruler;
 	MoveValidExecutor moveValidExec;
@@ -60,9 +61,9 @@ public class LudoGameState implements GameState {
 	@Override
 	public Player getLastPlayer() {
 		if (turnCounter == 0) {
-			return players.get(0);
+			return players.get(0).getPlayerObject();
 		} else
-			return players.get(turnCounter % numberOfPlayers);
+			return players.get(turnCounter % numberOfPlayers).getPlayerObject();
 	}
 
 	@Override
@@ -72,12 +73,16 @@ public class LudoGameState implements GameState {
 
 	@Override
 	public Player getPlayerInTurn() {
-		return players.get(turnCounter % numberOfPlayers);
+		return players.get(turnCounter % numberOfPlayers).getPlayerObject();
 	}
 
 	@Override
 	public List<Player> getPlayers() {
-		return players;
+		List<Player> playerObjects = new ArrayList<Player>();
+		for(LudoPlayer lp : players){
+			playerObjects.add(lp.getPlayerObject());
+		}
+		return playerObjects;
 	}
 
 	@Override

@@ -12,20 +12,29 @@ import java.util.List;
 public class BoardAndPlayerFactory {
 
 	Board board;
-	List<Player> players;
+	List<LudoPlayer> players;
 
 	public void execute() {
 		board = createAndReturnBoard();
-		players = createAndReturnPlayers();
+		players = createAndReturnLudoPlayers();
 		addPlayersPiecesToTheBoard();
 	}
 
-	public List<Player> getPlayers() {
+	public List<LudoPlayer> getPlayers() {
 		return players;
 	}
 
 	public Board getBoard() {
 		return board;
+	}
+
+	private List<LudoPlayer> createAndReturnLudoPlayers() {
+		List<Player> plainPlayers = createAndReturnPlayers();
+		List<LudoPlayer> ludoPlayers = new ArrayList<>();
+		for (Player p : plainPlayers) {
+			ludoPlayers.add(new LudoPlayer(p));
+		}
+		return ludoPlayers;
 	}
 
 	private List<Player> createAndReturnPlayers() {
@@ -76,17 +85,9 @@ public class BoardAndPlayerFactory {
 	}
 
 	private void addPlayersPiecesToTheBoard() {
-		for (Player p : players) {
-			List<GamePiece> pieces = p.getPieces();
-			List<String> homePositions;
-			if (p.getName().equals(LudoStaticValues.GREENPLAYER))
-				homePositions = LudoStaticValues.GREENHOME;
-			else if (p.getName().equals(LudoStaticValues.BLUEPLAYER))
-				homePositions = LudoStaticValues.BLUEHOME;
-			else if (p.getName().equals(LudoStaticValues.REDPLAYER))
-				homePositions = LudoStaticValues.REDHOME;
-			else
-				homePositions = LudoStaticValues.YELLOWHOME;
+		for (LudoPlayer p : players) {
+			List<GamePiece> pieces = p.getPlayerObject().getPieces();
+			List<String> homePositions = p.getHomePositions();
 
 			int listIndex = 0;
 			for (GamePiece gp : pieces) {
@@ -94,7 +95,6 @@ public class BoardAndPlayerFactory {
 						.getFlatListIndexFromCoordinate(
 								homePositions.get(listIndex++), board);
 				board.getLocations().get(index).setPiece(gp);
-
 			}
 
 		}
