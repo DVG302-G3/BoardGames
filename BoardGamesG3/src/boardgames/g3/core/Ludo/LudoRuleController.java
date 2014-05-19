@@ -39,7 +39,10 @@ public class LudoRuleController {
 			return LudoMoveResult.MOVE_NOGAMEPIECE;
 
 		if (baseController.checkIfPieceInbase(move))
+			{
+			System.out.println("RuleControler: "+baseController.checkValidMoveFromBase(move));
 			return baseController.checkValidMoveFromBase(move);
+			}
 
 		if (hasPieceLapsedAndAreInRigtFinishline(move))
 			return LudoMoveResult.MOVE_LAPSED;
@@ -60,7 +63,6 @@ public class LudoRuleController {
 		}
 
 		else {
-			addStepsToCounter(move);
 			return LudoMoveResult.MOVE_VALID;
 		}
 
@@ -78,6 +80,7 @@ public class LudoRuleController {
 		if (playerCantMakeAMove(move)) {
 			return LudoMoveResult.MOVE_NO_MOVES_AVAILABLE;
 		}
+		System.out.println("Total: "+stepCounter.get(move.getSource().getPiece().getId()));
 
 		return checkAndReturnValidMoves(move);
 
@@ -114,10 +117,15 @@ public class LudoRuleController {
 			int newIndex = modulateAndReturnTheIndex(source, i);
 			destination = state.getBoard().getLocations().get(newIndex);
 			Move move = new Move(player, source, destination);
-			if (checkAndReturnValidMoves(move) == LudoMoveResult.MOVE_VALID)
+			System.out.println(checkIfValidResult(move));
+			if (checkIfValidResult(move))
 				return true;
 		}
 		return false;
+	}
+
+	private boolean checkIfValidResult(Move move) {
+		return checkAndReturnValidMoves(move) == LudoMoveResult.MOVE_VALID || checkAndReturnValidMoves(move) == LudoMoveResult.MOVE_VALID_INBASE_ONE || checkAndReturnValidMoves(move) == LudoMoveResult.MOVE_VALID_INBASE_SIX;
 	}
 
 	private boolean destinationIsAlreadyOccupado(Move move) {
@@ -164,8 +172,13 @@ public class LudoRuleController {
 		else
 			return false;
 	}
+	
+	public void setStepsForPiece(GamePiece gamePiece, int steps){
+		stepCounter.put(gamePiece.getId(), steps);
+	}
 
-	private void addStepsToCounter(Move move) {
+	public void addStepsToCounter(Move move) {
+		System.out.println("hallå");
 		stepCounter.put(move.getSource().getPiece().getId(),
 				getTotalStepsForPiece(move));
 	}

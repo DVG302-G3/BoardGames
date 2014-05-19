@@ -1,5 +1,6 @@
 package boardgames.g3.core.Ludo;
 
+import game.impl.GamePiece;
 import game.impl.Move;
 
 public class LudoMoveController {
@@ -27,6 +28,7 @@ public LudoMoveController(LudoGameState gameState) {
 			if (ruler.needToPush(move))
 				ruler.pushOtherPiece(move.getDestination());
 			gameState.setMessage("");
+			ruler.addStepsToCounter(move);
 			moveValidExec.executeAndMakeSureThatNoPieceWillBeDeleted(move);
 			gameState.nextTurn();
 			return true;		
@@ -49,11 +51,30 @@ public LudoMoveController(LudoGameState gameState) {
 			gameState.setMessage(LudoStaticValues.MOVE_IN_BASE_DID_NOT_GET_THE_CORRECT_EYES_ON_THE_DICE_TO_MOVE_OUT);
 			gameState.nextTurn();
 			return false;
+		case MOVE_VALID_INBASE_ONE:
+			if (ruler.needToPush(move))
+				ruler.pushOtherPiece(move.getDestination());
+			gameState.setMessage("");
+			ruler.setStepsForPiece(move.getSource().getPiece(), 1);
+			moveValidExec.executeAndMakeSureThatNoPieceWillBeDeleted(move);
+			gameState.nextTurn();
+			return true;
+		case MOVE_VALID_INBASE_SIX:
+			if (ruler.needToPush(move))
+				ruler.pushOtherPiece(move.getDestination());
+			gameState.setMessage("");
+			ruler.setStepsForPiece(move.getSource().getPiece(), 6);
+			moveValidExec.executeAndMakeSureThatNoPieceWillBeDeleted(move);
+			gameState.nextTurn();
+			return true;
 		case MOVE_VALID_INBASE_TWO_PIECES:
 			if (ruler.needToPush(move))
 				ruler.pushOtherPiece(move.getDestination());
-			move.execute();
+			move.execute();			
 			moveInBaseExec.moveSecondPieceToStartPosition(move);
+			for(GamePiece gp : move.getSource().getPieces()){
+				ruler.setStepsForPiece(gp, 1);
+			}
 			gameState.setMessage("");
 			gameState.nextTurn();
 			return true;

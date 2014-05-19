@@ -82,7 +82,7 @@ public class BaseController {
 		case 1:
 			if (move.getDestination().getId().equals(start)) {
 				if (destinationDoesNotAlreadyContainTwoPieces(move))
-					return LudoMoveResult.MOVE_VALID;
+					return LudoMoveResult.MOVE_VALID_INBASE_ONE;
 				else
 					return LudoMoveResult.MOVE_NO_MOVES_AVAILABLE;
 			}
@@ -93,7 +93,7 @@ public class BaseController {
 		case 6:
 			if (move.getDestination().getId().equals(startSix)) {
 				if (destinationDoesNotAlreadyContainTwoPieces(move))
-					return LudoMoveResult.MOVE_VALID;
+					return LudoMoveResult.MOVE_VALID_INBASE_SIX;
 			} else if (move.getDestination().getId().equals(start)) {
 				if (destinationDoesNotAlreadyContainTwoPieces(move)) {
 					System.out.println("Does not contain two pieces");

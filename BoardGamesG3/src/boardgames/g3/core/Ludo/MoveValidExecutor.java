@@ -15,6 +15,8 @@ public class MoveValidExecutor {
 
 		if (sourcePiece != null)
 			move.getSource().addPiece(sourcePiece);
+		
+		
 	}
 	
 	
