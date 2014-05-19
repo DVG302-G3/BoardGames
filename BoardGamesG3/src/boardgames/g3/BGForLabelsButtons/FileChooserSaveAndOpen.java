@@ -1,4 +1,5 @@
 package boardgames.g3.BGForLabelsButtons;
+
 import game.api.GameState;
 
 import java.awt.BorderLayout;
@@ -17,81 +18,68 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-public class FileChooserSaveAndOpen extends JPanel
-                             implements ActionListener {
+public class FileChooserSaveAndOpen extends JPanel implements ActionListener {
 
-    JButton openButton, saveButton;
-    JFileChooser fc;
-  
-    GameState gameState;
+	JButton openButton, saveButton;
+	JFileChooser fc;
 
-    public FileChooserSaveAndOpen(GameState state) {
-        super(new GridLayout(2,0));
-        
-        this.gameState = state;
-        
-        
-        
-        fc = new JFileChooser();
+	GameState gameState;
 
-        openButton = new JButton("Load Gamestate..");
-        openButton.addActionListener(this);
+	public FileChooserSaveAndOpen(GameState state) {
+		super(new GridLayout(2, 0));
 
+		this.gameState = state;
 
-        saveButton = new JButton("Save Gametate..");
-        saveButton.addActionListener(this);
+		fc = new JFileChooser();
 
-         
-        add(openButton);
-        add(saveButton);
-    
-        
-   
-    }
+		openButton = new JButton("Load Gamestate..");
+		openButton.addActionListener(this);
 
-    
-    public void actionPerformed(ActionEvent e) {
-     FileNameExtensionFilter filter = new FileNameExtensionFilter(".txt", "txt", "text");
-     
-        //Handle open button action.
-        if (e.getSource() == openButton) {
-            int returnVal = fc.showOpenDialog(FileChooserSaveAndOpen.this);
-            fc.setFileFilter(filter);
-            if (returnVal == JFileChooser.APPROVE_OPTION) {
-                try {
-                	File selectedFile = fc.getSelectedFile();
-					BufferedReader br = new BufferedReader(new FileReader(selectedFile));
-					
+		saveButton = new JButton("Save Gametate..");
+		saveButton.addActionListener(this);
+
+		add(openButton);
+		add(saveButton);
+
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		FileNameExtensionFilter filter = new FileNameExtensionFilter(".txt",
+				"txt", "text");
+
+		// Handle open button action.
+		if (e.getSource() == openButton) {
+			int returnVal = fc.showOpenDialog(FileChooserSaveAndOpen.this);
+			fc.setFileFilter(filter);
+			if (returnVal == JFileChooser.APPROVE_OPTION) {
+				try {
+					File selectedFile = fc.getSelectedFile();
+					BufferedReader br = new BufferedReader(new FileReader(
+							selectedFile));
+
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				}
-                
-                
-                
-            } 
-            
+			}
 
-        //Handle save button action.
-        } else if (e.getSource() == saveButton) {
-            int returnVal = fc.showSaveDialog(FileChooserSaveAndOpen.this);
-            fc.setFileFilter(filter);
-            if (returnVal == JFileChooser.APPROVE_OPTION) {          
-               try {
-                 File fileCreated = fc.getSelectedFile(); 
-                 PrintWriter printWriter = new PrintWriter(fileCreated);
-                 
+			// Handle save button action.
+		} else if (e.getSource() == saveButton) {
+			int returnVal = fc.showSaveDialog(FileChooserSaveAndOpen.this);
+			fc.setFileFilter(filter);
+			if (returnVal == JFileChooser.APPROVE_OPTION) {
+				try {
+					File fileCreated = fc.getSelectedFile();
+					PrintWriter printWriter = new PrintWriter(fileCreated);
 
-                 printWriter.print("");
-                 
-                 
-                 printWriter.close();
-                
-                } catch (FileNotFoundException e1) {
-                 e1.printStackTrace();
-                }
-            } 
-        }
-    }
+					printWriter.print("");
 
-  }
+					printWriter.close();
 
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
+	}
+
+}
