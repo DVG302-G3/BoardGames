@@ -60,7 +60,7 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 	public LudoGUIOutputUnit(LudoGUIInputUnit inputUnit) {
 		this.inputUnit = inputUnit;
 		createComponent();
-		// howManyPlayerAndSetName();
+//		 howManyPlayerAndSetName();
 		settingUpComponents();
 	}
 
@@ -97,7 +97,7 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 
 		players = Integer.parseInt(JOptionPane.showInputDialog(null,
 				"How many players? (2-4)"));
-		if (players >= 2 && players <= 4) {
+		if (players >= 1 && players <= 4) {
 			if (players == 2) {
 				player1 = JOptionPane.showInputDialog("Player 1 (Red) Name:");
 				player2 = JOptionPane.showInputDialog("Player 2 (Blue) Name:");
