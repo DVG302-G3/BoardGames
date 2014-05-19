@@ -177,9 +177,15 @@ public class LudoRuleController {
 			return false;
 
 	}
+<<<<<<< HEAD
 
 	private boolean hasPieceLapsedAndAreInRigtFinishline(Move move) {
 		if (hasPieceLapsed(move) == true && isPiecesInFinishline(move) == true) {
+=======
+	
+	private boolean hasPieceLapsedAndAreInRigtFinishline(Move move){
+		if(hasPieceLapsed(move) == true && isPiecesRightCollorForThisFinishline(move) == true){
+>>>>>>> 9ce8e7d72385ba5956729e086804038c87f71142
 			return true;
 		} else
 			return false;
@@ -193,6 +199,24 @@ public class LudoRuleController {
 
 			return false;
 	}
+<<<<<<< HEAD
+=======
+	
+	public boolean checkIfPieceInGoalline(Move move) {
+		if (move.getPlayer().getName().equals(LudoStaticValues.REDPLAYER))
+			return LudoStaticValues.REDFINISHLINE.contains(move.getSource().getId());
+		else if (move.getPlayer().getName().equals(LudoStaticValues.BLUEPLAYER))
+			return LudoStaticValues.BLUEFINISHLINE.contains(move.getSource().getId());
+		else if (move.getPlayer().getName()
+				.equals(LudoStaticValues.YELLOWPLAYER))
+			return LudoStaticValues.YELLOWFINISHLINE.contains(move.getSource()
+					.getId());
+		else
+			return LudoStaticValues.GREENFINISHLINE
+					.contains(move.getSource().getId());
+	}	
+	
+>>>>>>> 9ce8e7d72385ba5956729e086804038c87f71142
 
 	public Boolean isPieceInGoal(Move move, GamePiece gamePiece) {
 		for (GamePiece gp : move.getPieces()) {
@@ -230,9 +254,40 @@ public class LudoRuleController {
 		return stepsPlayerMoves;
 	}
 
+<<<<<<< HEAD
 	public Boolean isPiecesInFinishline(Move move) {
 		LudoPlayer player = state.getLudoPlayerFromPlayer(move.getPlayer());
 		return player.getHomePositions().contains(move.getSource().getId());
+=======
+	private boolean existInList(String id, List<String> list) {
+		
+		for (String coordinate : list) {
+			if (coordinate.equals(id))
+				System.out.println(coordinate+" "+id);
+				return true;
+		}
+		return false;
+	}
+
+	public Boolean isPiecesRightCollorForThisFinishline(Move move) {
+		if (move.getPlayer().getName().equals("Red")){
+			
+			return existInList(move.getSource().getId(),
+					LudoStaticValues.REDFINISHLINE);
+			
+			
+		}
+		else if (move.getPlayer().getName().equals("Blue"))
+			return existInList(move.getSource().getId(),
+					LudoStaticValues.BLUEFINISHLINE);
+
+		else if (move.getPlayer().getName().equals("Yellow"))
+			return existInList(move.getSource().getId(),
+					LudoStaticValues.YELLOWFINISHLINE);
+		else
+			return existInList(move.getSource().getId(),
+					LudoStaticValues.GREENFINISHLINE);
+>>>>>>> 9ce8e7d72385ba5956729e086804038c87f71142
 	}
 
 	public Boolean isGameFinished(GameState state) {
