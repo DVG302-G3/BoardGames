@@ -32,109 +32,142 @@ public class LudoRuleControllerTest {
 		ludoRuleController = new LudoRuleController(state);
 	}
 	
-//	@Test
-//	public void testIsGameFinished(){
-//		state.getPlayers().remove(0);
-//		state.getPlayers().remove(0);
-//		state.getPlayers().remove(0);
-//		Assert.assertTrue(ludoRuleController.isGameFinished(state));
-//	}
-//	
-//	
-//	
-//	@Test
-//	public void testMoveOutOfHome() {
-//		
-//		while(state.getDieRollFactory().getNewRoll(state.getPlayerInTurn()).getResult() != 6)
-//			continue;
-//		BoardLocation source = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BB", state.getBoard());
-//		BoardLocation destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EA", state.getBoard());
-//		state.proposeMove(new Move(state.getLastPlayer(), source, destination));
-//		
-//		assertNull(HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BB", state.getBoard()).getPiece());
-//		GamePiece gp1 = destination.getPiece();
-//		destination.removePiece(gp1);
-//		assertNotNull(destination.getPiece());
-//	}
-//	
-//	
-//	@Test
-//	public void testDoNotPuschYourOwnPiece(){
-//		
-//		BoardLocation sourceforPiece;
-//		BoardLocation destination;
-//		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EA", ludoGameState.getBoard());
-//		while(ludoGameState.getDieRollFactory().getNewRoll(ludoGameState.getPlayerInTurn()).getResult() != 1)
-//			continue;
-//		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BB", ludoGameState.getBoard());
-//		ludoGameState.proposeMove(new Move(ludoGameState.getLastPlayer(), sourceforPiece, destination));
-//		
-//		while(ludoGameState.getDieRollFactory().getNewRoll(ludoGameState.getPlayerInTurn()).getResult() != 1)
-//			continue;
-//
-//		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BC", ludoGameState.getBoard());
-//		ludoGameState.proposeMove(new Move(ludoGameState.getPlayerInTurn(),sourceforPiece,destination));
-//
-//		Assert.assertTrue(destination.getPieces().size()==2);
-//		
-//		
-//	}
+	@Test
+	public void testIsGameFinished(){
+		state.getPlayers().remove(0);
+		state.getPlayers().remove(0);
+		state.getPlayers().remove(0);
+		Assert.assertTrue(ludoRuleController.isGameFinished(state));
+	}
 	
-//	@Test
-//	public void testCanPlayerPushAnotherPlayersPiece(){
-//		BoardLocation sourceforPiece;
-//		BoardLocation destination;
-//		BoardLocation sourceForPuschPiece;
-//		
-//		//Röd
-//		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EA", state.getBoard());
-//		while(state.getDieRollFactory().getNewRoll(state.getPlayerInTurn()).getResult() != 1)
-//			continue;
-//		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BB", state.getBoard());
-//		state.proposeMove(new Move(state.getPlayerInTurn(),sourceforPiece,destination));
-//		System.out.println(destination.getPiece().getId());
-//		//Blå
-//		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EH", state.getBoard());
-//		while(state.getDieRollFactory().getNewRoll(state.getPlayerInTurn()).getResult() != 6)
-//			continue;
-//		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BI", state.getBoard());
-//		state.proposeMove(new Move(state.getPlayerInTurn(),sourceforPiece,destination));
-//		
-//		//Gul
-//		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("GK", state.getBoard());
-//		while(state.getDieRollFactory().getNewRoll(state.getPlayerInTurn()).getResult() != 1)
-//			continue;
-//		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("II", state.getBoard());
-//		state.proposeMove(new Move(state.getPlayerInTurn(),sourceforPiece,destination));
-//		
-//		//Grön
-//		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("KE", state.getBoard());
-//		while(state.getDieRollFactory().getNewRoll(state.getPlayerInTurn()).getResult() != 1)
-//			continue;
-//		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("IB", state.getBoard());
-//		state.proposeMove(new Move(state.getPlayerInTurn(),sourceforPiece,destination));
-//		
-//		//Röd
-//		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EB", state.getBoard());
-//		while(state.getDieRollFactory().getNewRoll(state.getPlayerInTurn()).getResult() != 1)
-//			continue;
-//		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EA", state.getBoard());
-//		state.proposeMove(new Move(state.getPlayerInTurn(),sourceforPiece,destination));
-//		
-//		
-//		//Blå
-//		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("GK", state.getBoard());
-//		while(state.getDieRollFactory().getNewRoll(state.getPlayerInTurn()).getResult() != 5)
-//			continue;
-//		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EH", state.getBoard());
-//		state.proposeMove(new Move(state.getPlayerInTurn(),sourceforPiece,destination));
-//		
-//		sourceForPuschPiece = HelpMethodsFinaMedKnuff.
-//				getBoardLocationFromPiece(state.getPlayerInTurn().getPieces().get(0), state.getBoard());
-//		
-//		Assert.assertTrue(state.getPlayerInTurn().getPieces().get(0).getId()== sourceForPuschPiece.getPiece().getId());
-////		Assert.assertFalse(state.getPlayerInTurn().getPieces().get(0).getId() == destination.getPiece().getId());
-//	}
+	@Test
+	public void testInitiateStepCounterMap(){
+		
+	}
+	
+	@Test
+	public void testCheckAndReturnValidMoves(){
+		
+	}
+	
+	@Test
+	public void testIsValidMove(){
+		
+	}
+	
+	@Test
+	public void testPlayerCantMakeAMove(){
+		
+	}
+	
+	@Test
+	public void testCanAnyPieceMakeAMove(){
+		
+	}
+	
+	@Test
+	public void testCanPieceMove(){
+		
+	}
+	
+	@Test
+	public void testDestinationIsAlreadyOccupado(){
+		
+	}
+	
+	@Test
+	public void testMoveOutOfHome() {
+		
+		while(state.getDieRollFactory().getNewRoll(state.getPlayerInTurn()).getResult() != 6)
+			continue;
+		BoardLocation source = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BB", state.getBoard());
+		BoardLocation destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EA", state.getBoard());
+		state.proposeMove(new Move(state.getLastPlayer(), source, destination));
+		
+		assertNull(HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BB", state.getBoard()).getPiece());
+		GamePiece gp1 = destination.getPiece();
+		destination.removePiece(gp1);
+		assertNotNull(destination.getPiece());
+	}
+	
+	
+	@Test
+	public void testDoNotPuschYourOwnPiece(){
+		
+		BoardLocation sourceforPiece;
+		BoardLocation destination;
+		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EA", ludoGameState.getBoard());
+		while(ludoGameState.getDieRollFactory().getNewRoll(ludoGameState.getPlayerInTurn()).getResult() != 1)
+			continue;
+		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BB", ludoGameState.getBoard());
+		ludoGameState.proposeMove(new Move(ludoGameState.getLastPlayer(), sourceforPiece, destination));
+		
+		while(ludoGameState.getDieRollFactory().getNewRoll(ludoGameState.getPlayerInTurn()).getResult() != 1)
+			continue;
+
+		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BC", ludoGameState.getBoard());
+		ludoGameState.proposeMove(new Move(ludoGameState.getPlayerInTurn(),sourceforPiece,destination));
+
+		Assert.assertTrue(destination.getPieces().size()==2);
+		
+		
+	}
+	
+	@Test
+	public void testCanPlayerPushAnotherPlayersPiece(){
+		BoardLocation sourceforPiece;
+		BoardLocation destination;
+		BoardLocation sourceForPuschPiece;
+		
+		//Röd
+		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EA", state.getBoard());
+		while(state.getDieRollFactory().getNewRoll(state.getPlayerInTurn()).getResult() != 1)
+			continue;
+		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BB", state.getBoard());
+		state.proposeMove(new Move(state.getPlayerInTurn(),sourceforPiece,destination));
+		System.out.println(destination.getPiece().getId());
+		//Blå
+		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EH", state.getBoard());
+		while(state.getDieRollFactory().getNewRoll(state.getPlayerInTurn()).getResult() != 6)
+			continue;
+		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BI", state.getBoard());
+		state.proposeMove(new Move(state.getPlayerInTurn(),sourceforPiece,destination));
+		
+		//Gul
+		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("GK", state.getBoard());
+		while(state.getDieRollFactory().getNewRoll(state.getPlayerInTurn()).getResult() != 1)
+			continue;
+		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("II", state.getBoard());
+		state.proposeMove(new Move(state.getPlayerInTurn(),sourceforPiece,destination));
+		
+		//Grön
+		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("KE", state.getBoard());
+		while(state.getDieRollFactory().getNewRoll(state.getPlayerInTurn()).getResult() != 1)
+			continue;
+		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("IB", state.getBoard());
+		state.proposeMove(new Move(state.getPlayerInTurn(),sourceforPiece,destination));
+		
+		//Röd
+		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EB", state.getBoard());
+		while(state.getDieRollFactory().getNewRoll(state.getPlayerInTurn()).getResult() != 1)
+			continue;
+		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EA", state.getBoard());
+		state.proposeMove(new Move(state.getPlayerInTurn(),sourceforPiece,destination));
+		
+		
+		//Blå
+		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("GK", state.getBoard());
+		while(state.getDieRollFactory().getNewRoll(state.getPlayerInTurn()).getResult() != 5)
+			continue;
+		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EH", state.getBoard());
+		state.proposeMove(new Move(state.getPlayerInTurn(),sourceforPiece,destination));
+		
+		sourceForPuschPiece = HelpMethodsFinaMedKnuff.
+				getBoardLocationFromPiece(state.getPlayerInTurn().getPieces().get(0), state.getBoard());
+		
+		Assert.assertTrue(state.getPlayerInTurn().getPieces().get(0).getId()== sourceForPuschPiece.getPiece().getId());
+		Assert.assertFalse(state.getPlayerInTurn().getPieces().get(0).getId() == destination.getPiece().getId());
+	}
 	
 	@Test
 	public void testCanPieceMoveInToGoalLine(){

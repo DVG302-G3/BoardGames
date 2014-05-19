@@ -183,7 +183,7 @@ public class LudoRuleController {
 	}
 	
 	private boolean hasPieceLapsedAndAreInRigtFinishline(Move move){
-		if(hasPieceLapsed(move) == true && isPiecesInFinishline(move) == true){
+		if(hasPieceLapsed(move) == true && isPiecesRightCollorForThisFinishline(move) == true){
 			return true;
 		}else
 			return false;
@@ -197,7 +197,19 @@ public class LudoRuleController {
 		return false;
 	}
 	
-	
+	public boolean checkIfPieceInGoalline(Move move) {
+		if (move.getPlayer().getName().equals(LudoStaticValues.REDPLAYER))
+			return LudoStaticValues.REDFINISHLINE.contains(move.getSource().getId());
+		else if (move.getPlayer().getName().equals(LudoStaticValues.BLUEPLAYER))
+			return LudoStaticValues.BLUEFINISHLINE.contains(move.getSource().getId());
+		else if (move.getPlayer().getName()
+				.equals(LudoStaticValues.YELLOWPLAYER))
+			return LudoStaticValues.YELLOWFINISHLINE.contains(move.getSource()
+					.getId());
+		else
+			return LudoStaticValues.GREENFINISHLINE
+					.contains(move.getSource().getId());
+	}	
 	
 
 	public Boolean isPieceInGoal(Move move, GamePiece gamePiece) {
@@ -250,7 +262,7 @@ public class LudoRuleController {
 		return false;
 	}
 
-	public Boolean isPiecesInFinishline(Move move) {
+	public Boolean isPiecesRightCollorForThisFinishline(Move move) {
 		if (move.getPlayer().getName().equals("Red")){
 			
 			return existInList(move.getSource().getId(),
