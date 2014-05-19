@@ -238,7 +238,7 @@ public class LudoRuleController {
 
 	public Boolean isPiecesInFinishline(Move move) {
 		LudoPlayer player = state.getLudoPlayerFromPlayer(move.getPlayer());
-		return player.getHomePositions().contains(move.getSource().getId());
+		return player.getFinishLine().contains(move.getSource().getId());
 	}
 
 	private boolean existInList(String id, List<String> list) {
