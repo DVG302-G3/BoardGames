@@ -4,6 +4,7 @@ import game.api.GameState;
 import game.impl.BoardLocation;
 import game.impl.GamePiece;
 import game.impl.Move;
+import game.impl.Player;
 
 import java.util.List;
 
@@ -15,17 +16,118 @@ public class BaseController {
 	}
 
 	public boolean checkIfPieceInbase(Move move) {
-		if (move.getPlayer().getName().equals(LudoStaticValues.REDPLAYER))
-			return LudoStaticValues.REDHOME.contains(move.getSource().getId());
-		else if (move.getPlayer().getName().equals(LudoStaticValues.BLUEPLAYER))
-			return LudoStaticValues.BLUEHOME.contains(move.getSource().getId());
-		else if (move.getPlayer().getName()
-				.equals(LudoStaticValues.YELLOWPLAYER))
-			return LudoStaticValues.YELLOWHOME.contains(move.getSource()
-					.getId());
+		return checkIfPieceInbase(move.getPlayer(), move.getSource());
+	}
+
+	public boolean canPlayerMakeAMoveFromBase(Player player) {
+
+		LudoMoveResult result;
+		for (GamePiece gp : player.getPieces()) {
+			BoardLocation source = HelpMethodsFinaMedKnuff
+					.getBoardLocationFromPiece(gp, state.getBoard());
+			
+			if (checkIfPieceInbase(player, source)) {
+				result = checkPlayerColorAndGetValidMoveForPiece(player, gp,
+						source);
+				if (result == LudoMoveResult.MOVE_VALID
+						|| result == LudoMoveResult.MOVE_VALID_INBASE_TWO_PIECES) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	private LudoMoveResult checkPlayerColorAndGetValidMoveForPiece(
+			Player player, GamePiece gp, BoardLocation source) {
+
+		LudoMoveResult result = LudoMoveResult.MOVE_NULLOBJECT;
+		BoardLocation destination;
+		switch (player.getName()) {
+		case LudoStaticValues.REDPLAYER:
+			if (getDiceResult() == 1) {
+				destination = HelpMethodsFinaMedKnuff
+						.getBoardLocationFromCoordinate(
+								LudoStaticValues.REDSTART, state.getBoard());
+				result = isValidMoveFromBase(new Move(player, source,
+						destination));
+			} else if (getDiceResult() == 6) {
+				destination = HelpMethodsFinaMedKnuff
+						.getBoardLocationFromCoordinate(
+								LudoStaticValues.REDSTARTSIXES,
+								state.getBoard());
+				result = isValidMoveFromBase(new Move(player, source,
+						destination));
+			}
+			break;
+
+		case LudoStaticValues.BLUEPLAYER:
+			if (getDiceResult() == 1) {
+				destination = HelpMethodsFinaMedKnuff
+						.getBoardLocationFromCoordinate(
+								LudoStaticValues.BLUESTART, state.getBoard());
+				result = isValidMoveFromBase(new Move(player, source,
+						destination));
+			} else if (getDiceResult() == 6) {
+				destination = HelpMethodsFinaMedKnuff
+						.getBoardLocationFromCoordinate(
+								LudoStaticValues.BLUESTARTSIXES,
+								state.getBoard());
+				result = isValidMoveFromBase(new Move(player, source,
+						destination));
+			}
+			break;
+
+		case LudoStaticValues.YELLOWPLAYER:
+			if (getDiceResult() == 1) {
+				destination = HelpMethodsFinaMedKnuff
+						.getBoardLocationFromCoordinate(
+								LudoStaticValues.YELLOWSTART, state.getBoard());
+				result = isValidMoveFromBase(new Move(player, source,
+						destination));
+			} else if (getDiceResult() == 6) {
+				destination = HelpMethodsFinaMedKnuff
+						.getBoardLocationFromCoordinate(
+								LudoStaticValues.YELLOWSTARTSIXES,
+								state.getBoard());
+				result = isValidMoveFromBase(new Move(player, source,
+						destination));
+			}
+			break;
+		case LudoStaticValues.GREENPLAYER:
+			if (getDiceResult() == 1) {
+				destination = HelpMethodsFinaMedKnuff
+						.getBoardLocationFromCoordinate(
+								LudoStaticValues.GREENSTART, state.getBoard());
+				result = isValidMoveFromBase(new Move(player, source,
+						destination));
+			} else if (getDiceResult() == 6) {
+				destination = HelpMethodsFinaMedKnuff
+						.getBoardLocationFromCoordinate(
+								LudoStaticValues.GREENSTARTSIXES,
+								state.getBoard());
+				result = isValidMoveFromBase(new Move(player, source,
+						destination));
+			}
+			break;
+
+		default:
+			result = LudoMoveResult.MOVE_NULLOBJECT;
+		}
+
+		return result;
+	}
+
+	public boolean checkIfPieceInbase(Player player, BoardLocation source) {
+		if (player.getName().equals(LudoStaticValues.REDPLAYER))
+			return LudoStaticValues.REDHOME.contains(source.getId());
+		else if (player.getName().equals(LudoStaticValues.BLUEPLAYER))
+			return LudoStaticValues.BLUEHOME.contains(source.getId());
+		else if (player.getName().equals(LudoStaticValues.YELLOWPLAYER))
+			return LudoStaticValues.YELLOWHOME.contains(source.getId());
 		else
-			return LudoStaticValues.GREENHOME
-					.contains(move.getSource().getId());
+			return LudoStaticValues.GREENHOME.contains(source.getId());
 	}
 
 	public LudoMoveResult isValidMoveFromBase(Move move) {
@@ -34,19 +136,19 @@ public class BaseController {
 	}
 
 	private LudoMoveResult isDestinationPlayersStartPosition(Move move) {
-		if (move.getPlayer().getName().equals("Red")) {
+		if (move.getPlayer().getName().equals(LudoStaticValues.REDPLAYER)) {
 			return checkValidMoveFromStartForPlayer(move,
 					LudoStaticValues.REDSTART, LudoStaticValues.REDSTARTSIXES,
 					LudoStaticValues.REDHOME);
 		}
 
-		else if (move.getPlayer().getName().equals("Blue")) {
+		else if (move.getPlayer().getName().equals(LudoStaticValues.BLUEPLAYER)) {
 			return checkValidMoveFromStartForPlayer(move,
 					LudoStaticValues.BLUESTART,
 					LudoStaticValues.BLUESTARTSIXES, LudoStaticValues.BLUEHOME);
 		}
 
-		else if (move.getPlayer().getName().equals("Yellow")) {
+		else if (move.getPlayer().getName().equals(LudoStaticValues.YELLOWPLAYER)) {
 			return checkValidMoveFromStartForPlayer(move,
 					LudoStaticValues.YELLOWSTART,
 					LudoStaticValues.YELLOWSTARTSIXES,
@@ -88,8 +190,10 @@ public class BaseController {
 								.getBoardLocationFromCoordinate(basePositions,
 										state.getBoard());
 						if (home.getPiece() != null
-								&& home.getPiece() != move.getPiece()) {
-							if (checkIfDestinationIsEmptyOrContainsOpponentsPieces(move))
+								&& home.getPiece() != move.getSource()
+										.getPiece()) {
+							if (checkIfDestinationIsEmptyOrContainsOpponentsPieces(
+									move.getPlayer(), move.getDestination()))
 								return LudoMoveResult.MOVE_VALID_INBASE_TWO_PIECES;
 							else
 								return LudoMoveResult.MOVE_INVALIDA_BOARDLOCATION_ALREADY_OCCUPIED;
@@ -110,12 +214,13 @@ public class BaseController {
 
 	}
 
-	private boolean checkIfDestinationIsEmptyOrContainsOpponentsPieces(Move move) {
-		if(move.getDestination().getPieces().isEmpty())
+	private boolean checkIfDestinationIsEmptyOrContainsOpponentsPieces(
+			Player player, BoardLocation destination) {
+		if (destination.getPieces().isEmpty())
 			return true;
 		else
-			return !move.getPlayer().getPieces().contains(move.getDestination().getPiece());
-		
+			return !player.getPieces().contains(destination.getPiece());
+
 	}
 
 	private boolean destinationDoesNotAlreadyContainTwoPieces(Move move) {

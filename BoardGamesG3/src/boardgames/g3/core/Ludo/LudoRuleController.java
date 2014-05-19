@@ -31,17 +31,10 @@ public class LudoRuleController {
 			}
 		}
 	}
-
-	public LudoMoveResult isValidMove(Move move) {
+	
+	public LudoMoveResult checkAndReturnValidMoves(Move move){
 		BoardLocation source = move.getSource();
-
-		if (!HelpMethodsFinaMedKnuff.doesPlayerHaveAnyPiecesOnTheBoard(
-				move.getPlayer(), state.getBoard())) {
-			if (!checkIfDiceIsSIXorONE()) {
-				return LudoMoveResult.MOVE_IN_BASE_DID_NOT_GET_THE_CORRECT_EYES_ON_THE_DICE_TO_MOVE_OUT;
-			}		
-		}
-
+		
 		if (source.getPiece() == null)
 			return LudoMoveResult.MOVE_NOGAMEPIECE;
 
@@ -56,10 +49,10 @@ public class LudoRuleController {
 		if (checkIfPlayerStepsIsNotCorrect(move))
 			return LudoMoveResult.MOVE_INCORRECTNUMBEROFSTEPS;
 
-		if (playerIsTryingToLapseHisOwnPiece(move))
+		if (playerIsTryingToLapseHisOwnPiece(move, getNumberOfStepsFromDice()))
 			return LudoMoveResult.MOVE_INVALID_CANT_LAPSE_YOUR_OWN_PIECE;
 
-		if (playerIsTryingToLapseAblock(move))
+		if (playerIsTryingToLapseAblock(move, getNumberOfStepsFromDice()))
 			return LudoMoveResult.MOVE_INVALID_CANT_PASS_A_BLOCK;
 		
 		if(destinationIsAlreadyOccupado(move)){
@@ -70,6 +63,61 @@ public class LudoRuleController {
 			addStepsToCounter(move);
 			return LudoMoveResult.MOVE_VALID;
 		}
+
+	}
+
+	public LudoMoveResult isValidMove(Move move) {
+		BoardLocation source = move.getSource();
+		
+		if (!HelpMethodsFinaMedKnuff.doesPlayerHaveAnyPiecesOnTheBoard(
+				move.getPlayer(), state.getBoard())) {
+			if (!checkIfDiceIsSIXorONE()) {
+				return LudoMoveResult.MOVE_IN_BASE_DID_NOT_GET_THE_CORRECT_EYES_ON_THE_DICE_TO_MOVE_OUT;
+			}		
+		}
+		
+		if(playerCantMakeAMove(move)){
+			return LudoMoveResult.MOVE_NO_MOVES_AVAILABLE;
+		}
+		
+		return checkAndReturnValidMoves(move);
+		
+	}
+
+	private boolean playerCantMakeAMove(Move move) {
+		List<GamePiece> playersPieces = move.getPlayer().getPieces();
+		if(baseController.canPlayerMakeAMoveFromBase(move.getPlayer())){
+			System.out.println("Move from base");
+			return false;
+		}
+		if(canAnyPieceMakeAMove(playersPieces, move.getPlayer()))
+		{
+			System.out.println("Other move");
+			return false;
+		}
+		
+		return true;
+	}
+
+	private boolean canAnyPieceMakeAMove(List<GamePiece> playersPieces, Player player) {
+		for(GamePiece piece : playersPieces)
+			if(canPieceMove(piece, player))
+				return true;
+		return false;
+	}
+
+	private boolean canPieceMove(GamePiece piece, Player player) {
+		BoardLocation source = HelpMethodsFinaMedKnuff.getBoardLocationFromPiece(piece, state.getBoard());
+		BoardLocation destination;
+		int maxEyesOnTheDice = 6;
+		for(int i = 1;i<maxEyesOnTheDice;i++){
+			int newIndex = modulateAndReturnTheIndex(source, i);
+			destination = state.getBoard().getLocations().get(newIndex);
+			Move move = new Move(player, source, destination);
+			if(checkAndReturnValidMoves(move) == LudoMoveResult.MOVE_VALID)
+				return true;
+		}
+		return false;
 	}
 
 	private boolean destinationIsAlreadyOccupado(Move move) {
@@ -79,8 +127,8 @@ public class LudoRuleController {
 			return false;
 	}
 
-	private boolean playerIsTryingToLapseAblock(Move move) {
-		for (int i = 1; i < getNumberOfStepsFromDice(); i++) {
+	private boolean playerIsTryingToLapseAblock(Move move, int dice) {
+		for (int i = 1; i < dice; i++) {
 			int index = (state.getBoard().getLocations()
 					.indexOf(move.getSource()) + i)
 					% LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD;
@@ -90,19 +138,23 @@ public class LudoRuleController {
 		}
 		return false;
 	}
-	private boolean playerIsTryingToLapseHisOwnPiece(Move move) {
+	private boolean playerIsTryingToLapseHisOwnPiece(Move move, int dice) {
 
-		for (int i = 1; i < getNumberOfStepsFromDice(); i++) {
-			int index = (state.getBoard().getLocations()
-					.indexOf(move.getSource()) + i)
-					% LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD;
-			System.out.println("Modulerad: " + index);
+		for (int i = 1; i < dice; i++) {
+			int index = modulateAndReturnTheIndex(move.getSource(), i);
 
 			if (move.getPlayer().hasPiece(
 					state.getBoard().getLocations().get(index).getPiece()))
 				return true;
 		}
 		return false;
+	}
+
+	private int modulateAndReturnTheIndex(BoardLocation source, int index) {
+		int newIndex = (state.getBoard().getLocations()
+				.indexOf(source) + index)
+				% LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD;
+		return newIndex;
 	}
 	
 	

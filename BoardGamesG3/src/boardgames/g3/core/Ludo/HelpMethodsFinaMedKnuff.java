@@ -36,16 +36,15 @@ public class HelpMethodsFinaMedKnuff {
 
 	public static BoardLocation getBoardLocationFromPiece(GamePiece piece,
 			Board board) {
-		List<BoardLocation> b = board.getLocations();
-		for (int i = 0; i < b.size(); i++) {
-			if (b.get(i).getPiece()!=null && b.get(i).getPiece().equals(piece)) {
-				return b.get(i);
+		for(BoardLocation boardLocation : board.getLocations()){
+			for(GamePiece gp : boardLocation.getPieces()){
+				if(gp != null && gp.equals(piece))
+					return boardLocation;
 			}
 		}
-
 		return null;
 	}
-
+	
 	public static boolean doesPlayerHaveAnyPiecesOnTheBoard(Player player, Board board){
 		List<String> homeLocations = new ArrayList<String>();
 		homeLocations.addAll(LudoStaticValues.BLUEHOME);
