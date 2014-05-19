@@ -33,6 +33,8 @@ public class LudoStaticValues {
 	public static final String MOVE_INVALID_CANT_LAPSE_YOUR_OWN_PIECE = "You are not allowed to pass your own piece, mate.";
 	public static final String MOVE_NO_MOVES_AVAILABLE = "No moves available.";
 	public static final String MOVE_INVALIDA_BOARDLOCATION_ALREADY_OCCUPIED = "Boardlocation can't hold that many pieces!";
+	public static final String MOVE_INVALID_CANT_PASS_A_BLOCK = "You are not allowed to pass a block, mate.";
+	
 	
 	public static final List<String> REDFINISHLINE = Arrays.asList("FB", "FC", "FD", "FE");
 	public static final List<String> BLUEFINISHLINE = Arrays.asList("BF", "CF", "DF", "EF");

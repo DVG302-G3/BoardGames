@@ -14,10 +14,7 @@ public class LudoGameState implements GameState {
 	Board board;
 	private Player winnerPlayer;
 	private List<LudoPlayer> players;
-
-	LudoRuleController ruler;
-	MoveValidExecutor moveValidExec;
-	MoveValidInbaseTwoPiecesExecutor moveInBaseExec;
+	private LudoMoveController ludoMoveController;
 
 	private int numberOfPlayers = 4;
 
@@ -39,18 +36,17 @@ public class LudoGameState implements GameState {
 	}
 
 	public void startToPlayNewGame() {
+
 		BoardAndPlayerFactory factory = new BoardAndPlayerFactory();
 		factory.execute();
-
-		moveValidExec = new MoveValidExecutor();
-		moveInBaseExec = new MoveValidInbaseTwoPiecesExecutor(this);
-
+		
 		this.players = factory.getPlayers();
 		this.board = factory.getBoard();
 
-		ruler = new LudoRuleController(this);
 		dieRollFactory.getNewRoll(getLastPlayer());
-	
+		ludoMoveController = new LudoMoveController(this);
+
+
 	}
 
 	@Override
@@ -79,7 +75,7 @@ public class LudoGameState implements GameState {
 	@Override
 	public List<Player> getPlayers() {
 		List<Player> playerObjects = new ArrayList<Player>();
-		for(LudoPlayer lp : players){
+		for (LudoPlayer lp : players) {
 			playerObjects.add(lp.getPlayerObject());
 		}
 		return playerObjects;
@@ -95,80 +91,23 @@ public class LudoGameState implements GameState {
 
 	@Override
 	public Boolean proposeMove(Move move) {
-		LudoMoveResult result = ruler.isValidMove(move);
-		System.out.println(result);
-		switch (result) {
-		case MOVE_VALID:
-			if (ruler.needToPush(move))
-				ruler.pushOtherPiece(move.getDestination());
-			message = "";
-			moveValidExec.executeAndMakeSureThatNoPieceWillBeDeleted(move);
-			nextTurn();
-			return true;		
-		
-		case MOVE_LAPSED:
-			message = "Lapsed!";
-			move.execute();
-			nextTurn();
-			return true;
-		case MOVE_INVALID_CANT_LAPSE_AGAIN:
-			message = "You cant lapsed again";
-			return true;
-		case MOVE_NOGAMEPIECE:
-			message = LudoStaticValues.MOVE_NOGAMEPIECE;
-			return false;
-		case MOVE_INCORRECTNUMBEROFSTEPS:
-			message = LudoStaticValues.MOVE_INCORRECTNUMBEROFSTEPS;
-			return false;
-		case MOVE_IN_BASE_DID_NOT_GET_THE_CORRECT_EYES_ON_THE_DICE_TO_MOVE_OUT:
-			message = LudoStaticValues.MOVE_IN_BASE_DID_NOT_GET_THE_CORRECT_EYES_ON_THE_DICE_TO_MOVE_OUT;
-			nextTurn();
-			return false;
-		case MOVE_VALID_INBASE_TWO_PIECES:
-			if (ruler.needToPush(move))
-				ruler.pushOtherPiece(move.getDestination());
-			move.execute();
-			moveInBaseExec.moveSecondPieceToStartPosition(move);
-			message = "";
-			nextTurn();
-			return true;
-		case MOVE_PIECE_IN_TO_GOAL:
-			move.execute();
-			return false;
-		case MOVE_INVALID_CANT_LAPSE_YOUR_OWN_PIECE:
-			message = LudoStaticValues.MOVE_INVALID_CANT_LAPSE_YOUR_OWN_PIECE;
-			return false;
-		case MOVE_INVALID_CANT_PASS_A_BLOCK:
-			message = "You are not allowed to pass a block, mate.";
-			return false;
-		case MOVE_NO_MOVES_AVAILABLE:
-			message = LudoStaticValues.MOVE_NO_MOVES_AVAILABLE;
-			nextTurn();
-			return false;
-		case MOVE_INVALIDA_BOARDLOCATION_ALREADY_OCCUPIED:
-			message = LudoStaticValues.MOVE_INVALIDA_BOARDLOCATION_ALREADY_OCCUPIED;
-			return false;
-		default: {
-			message = "Default!";
-			return false;
-		}
-		}
+		return ludoMoveController.proposeMove(move);
 	}
 
-	private void nextTurn() {
-		if(getDieRollFactory().getLastRoll().getResult() != 6)
+	public void nextTurn() {
+		if (getDieRollFactory().getLastRoll().getResult() != 6)
 			turnCounter++;
 		getDieRollFactory().getNewRoll(getPlayerInTurn());
 	}
-	
-	public LudoPlayer getLudoPlayerFromPlayer(Player player){
-		for(LudoPlayer p : players){
-			if(p.getPlayerObject().equals(player))
+
+	public LudoPlayer getLudoPlayerFromPlayer(Player player) {
+		for (LudoPlayer p : players) {
+			if (p.getPlayerObject().equals(player))
 				return p;
 		}
 		return null;
 	}
-	
+
 	@Override
 	public void reset() {
 		startToPlayNewGame();
@@ -183,5 +122,9 @@ public class LudoGameState implements GameState {
 	public Player getWinner() {
 		return winnerPlayer;
 	}
-	
+
+	public void setMessage(String newMessage) {
+		message = newMessage;
+	}
+
 }
