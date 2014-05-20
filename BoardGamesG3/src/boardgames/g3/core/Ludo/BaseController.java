@@ -25,7 +25,10 @@ public class BaseController {
 		for (GamePiece gp : player.getPlayerObject().getPieces()) {
 			BoardLocation source = HelpMethodsFinaMedKnuff
 					.getBoardLocationFromPiece(gp, state.getBoard());
-
+			
+			if(source == null)
+				continue;
+			
 			if (checkIfPieceInbase(player, source)) {
 				result = checkPlayerColorAndGetValidMoveForPiece(player, gp,
 						source);

@@ -29,9 +29,8 @@ public class LudoRuleControllerTest {
 	@Before
 	public void setup(){
 		
-		state = new LudoGameState();
 		ludoGameState = new LudoGameState(1);
-		ludoRuleController = new LudoRuleController(state);
+		ludoRuleController = new LudoRuleController(ludoGameState);
 	}
 	
 //	@Test
@@ -57,10 +56,11 @@ public class LudoRuleControllerTest {
 			continue;
 		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BB", ludoGameState.getBoard());
 		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("DE", ludoGameState.getBoard());
+		System.out.println(ludoGameState.getPlayerInTurn());
 		ludoMoveResult = ludoRuleController.checkAndReturnValidMoves
-				(new Move(ludoGameState.getLastPlayer(), sourceforPiece, destination));
+				(new Move(ludoGameState.getPlayerInTurn(), sourceforPiece, destination));
 		System.out.println("HÄR!!: "+ludoMoveResult);
-		Assert.assertTrue(ludoMoveResult == LudoMoveResult.MOVE_VALID);
+		Assert.assertTrue(ludoMoveResult == LudoMoveResult.MOVE_VALID_INBASE_SIX);
 		
 		while(ludoGameState.getDieRollFactory().getNewRoll(ludoGameState.getPlayerInTurn()).getResult() != 1)
 			continue;

@@ -15,10 +15,12 @@ public class LudoRuleController {
 	Map<String, Integer> stepCounter;
 	LudoGameState state;
 	BaseController baseController;
+	MoveLapsedExecutor moveLapsed;
 
 	public LudoRuleController(LudoGameState state) {
 		this.state = state;
 		baseController = new BaseController(state);
+		moveLapsed = new MoveLapsedExecutor(state);
 		initiateStepCounterMap();
 
 	}
@@ -40,9 +42,8 @@ public class LudoRuleController {
 
 		if (baseController.checkIfPieceInbase(move))
 			return baseController.checkValidMoveFromBase(move);
-
 		if (hasPieceLapsedAndAreInRigtFinishline(move))
-			return LudoMoveResult.MOVE_LAPSED;
+			return LudoMoveResult.MOVE_LAPSED_GOALSPRINT;
 		if (hasPiecePassedBefore(move))
 			return LudoMoveResult.MOVE_INVALID_CANT_LAPSE_AGAIN;
 
@@ -61,13 +62,12 @@ public class LudoRuleController {
 
 		else {
 			return LudoMoveResult.MOVE_VALID;
-			
-			
+
 		}
 
 	}
 
-	public LudoMoveResult isValidMove(Move move) {
+	public LudoMoveResult evaluateMove(Move move) {
 
 		if (!HelpMethodsFinaMedKnuff.doesPlayerHaveAnyPiecesOnTheBoard(
 				move.getPlayer(), state.getBoard())) {
@@ -79,7 +79,7 @@ public class LudoRuleController {
 		if (playerCantMakeAMove(move)) {
 			return LudoMoveResult.MOVE_NO_MOVES_AVAILABLE;
 		}
-		
+
 		return checkAndReturnValidMoves(move);
 
 	}
@@ -91,15 +91,36 @@ public class LudoRuleController {
 		if (baseController.canPlayerMakeAMoveFromBase(player)) {
 			return false;
 		}
-		if (canAnyPieceMakeAMove(playersPieces, move.getPlayer())) {
+
+//		if (canAnyPieceMakeAMoveOnFinishLineOrEnterGoal(move, playersPieces)) {
+//			return false;
+//		}
+
+		if (canAnyPieceMakeAMoveOnouterBoardArea(playersPieces,
+				move.getPlayer())) {
 			return false;
 		}
 
 		return true;
 	}
 
-	private boolean canAnyPieceMakeAMove(List<GamePiece> playersPieces,
-			Player player) {
+	private boolean canAnyPieceMakeAMoveOnFinishLineOrEnterGoal(Move move,
+			List<GamePiece> pieces) {
+		LudoPlayer player = state.getLudoPlayerFromPlayer(move.getPlayer());
+		for (GamePiece gp : pieces) {
+			BoardLocation source = HelpMethodsFinaMedKnuff
+					.getBoardLocationFromPiece(gp, state.getBoard());
+			if (source == null)
+				continue;
+
+			moveLapsed.checkIfPieceCanMakeAMove(player, source,
+					getRemainingStepsToFinishLine(move));
+		}
+		return false;
+	}
+
+	private boolean canAnyPieceMakeAMoveOnouterBoardArea(
+			List<GamePiece> playersPieces, Player player) {
 		for (GamePiece piece : playersPieces)
 			if (canPieceMove(piece, player))
 				return true;
@@ -109,20 +130,30 @@ public class LudoRuleController {
 	private boolean canPieceMove(GamePiece piece, Player player) {
 		BoardLocation source = HelpMethodsFinaMedKnuff
 				.getBoardLocationFromPiece(piece, state.getBoard());
+
+		if (source == null)
+			return false;
+
 		BoardLocation destination;
-		int maxEyesOnTheDice = 6;
-		for (int i = 1; i < maxEyesOnTheDice; i++) {
-			int newIndex = modulateAndReturnTheIndex(source, i);
-			destination = state.getBoard().getLocations().get(newIndex);
-			Move move = new Move(player, source, destination);
-			if (checkIfValidResult(move))
-				return true;
-		}
+
+		int newIndex = modulateAndReturnTheIndex(source,
+				getNumberOfStepsFromDice());
+		destination = state.getBoard().getLocations().get(newIndex);
+		Move move = new Move(player, source, destination);
+		if (checkIfValidResult(move))
+			return true;
+
 		return false;
 	}
 
 	private boolean checkIfValidResult(Move move) {
-		return checkAndReturnValidMoves(move) == LudoMoveResult.MOVE_VALID || checkAndReturnValidMoves(move) == LudoMoveResult.MOVE_VALID_INBASE_ONE || checkAndReturnValidMoves(move) == LudoMoveResult.MOVE_VALID_INBASE_SIX;
+		return checkLudoMoveResultsForValidMove(move);
+	}
+
+	private boolean checkLudoMoveResultsForValidMove(Move move) {
+		return checkAndReturnValidMoves(move) == LudoMoveResult.MOVE_VALID
+				|| checkAndReturnValidMoves(move) == LudoMoveResult.MOVE_VALID_INBASE_ONE
+				|| checkAndReturnValidMoves(move) == LudoMoveResult.MOVE_VALID_INBASE_SIX;
 	}
 
 	private boolean destinationIsAlreadyOccupado(Move move) {
@@ -169,24 +200,24 @@ public class LudoRuleController {
 		else
 			return false;
 	}
-	
-	public void setStepsForPiece(GamePiece gamePiece, int steps){
-		stepCounter.put(gamePiece.getId(), steps);
-	
-		System.out.println("Total: "+stepCounter.get(gamePiece.getId()));
 
+	public void setStepsForPiece(GamePiece gamePiece, int steps) {
+		stepCounter.put(gamePiece.getId(), steps);
 	}
 
 	public void addStepsToCounter(Move move) {
 		stepCounter.put(move.getSource().getPiece().getId(),
 				getTotalStepsForPiece(move));
-		
-		System.out.println("Total: "+stepCounter.get(move.getSource().getPiece().getId()));
+	}
 
+	public int getRemainingStepsToFinishLine(Move move) {
+		return Math.abs(LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD
+				- (stepCounter.get(move.getPiece().getId()) + state
+						.getDieRollFactory().getLastRoll().getResult()));
 	}
 
 	private boolean hasPieceLapsed(Move move) {
-		if (getTotalStepsForPiece(move) >= LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD - 1) {
+		if (getTotalStepsForPiece(move) >= LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD) {
 			return true;
 		} else
 			return false;
@@ -194,16 +225,15 @@ public class LudoRuleController {
 	}
 
 	private boolean hasPieceLapsedAndAreInRigtFinishline(Move move) {
-		if (hasPieceLapsed(move) == true
-				&& isPiecesRightCollorForThisFinishline(move) == true) {
+		if (hasPieceLapsed(move) && isPiecesRightColorForThisFinishline(move)) {
 			return true;
 		} else
 			return false;
 	}
 
 	private boolean hasPiecePassedBefore(Move move) {
-		if (hasPieceLapsedAndAreInRigtFinishline(move) == false
-				&& getTotalStepsForPiece(move) > LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD - 1) {
+		if (!hasPieceLapsedAndAreInRigtFinishline(move)
+				&& getTotalStepsForPiece(move) > LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD) {
 			return true;
 		} else
 
@@ -251,15 +281,10 @@ public class LudoRuleController {
 		return stepsPlayerMoves;
 	}
 
-	public Boolean isPiecesInFinishline(Move move) {
+	public Boolean isPiecesRightColorForThisFinishline(Move move) {
 		LudoPlayer player = state.getLudoPlayerFromPlayer(move.getPlayer());
-		return player.getFinishLine().contains(move.getSource().getId());
-	}
-
-
-	public Boolean isPiecesRightCollorForThisFinishline(Move move) {
-		LudoPlayer player = state.getLudoPlayerFromPlayer(move.getPlayer());
-		return player.getFinishLine().contains(move.getSource().getId());
+		return player.getFinishLine().contains(move.getDestination().getId())
+				|| move.getDestination().getId().equals(LudoStaticValues.GOAL);
 	}
 
 	public Boolean isGameFinished(GameState state) {

@@ -9,6 +9,7 @@ public class LudoMoveController {
 	LudoRuleController ruler;
 	MoveValidExecutor moveValidExec;
 	MoveValidInbaseTwoPiecesExecutor moveInBaseExec;
+	MoveLapsedExecutor moveLapsedExec;
 
 	public LudoMoveController(LudoGameState gameState) {
 		this.gameState = gameState;
@@ -16,11 +17,11 @@ public class LudoMoveController {
 		moveValidExec = new MoveValidExecutor();
 		moveInBaseExec = new MoveValidInbaseTwoPiecesExecutor(gameState);
 		ruler = new LudoRuleController(gameState);
-
+		moveLapsedExec = new MoveLapsedExecutor(gameState);
 	}
 
 	public Boolean proposeMove(Move move) {
-		LudoMoveResult result = ruler.isValidMove(move);
+		LudoMoveResult result = ruler.evaluateMove(move);
 		switch (result) {
 		case MOVE_VALID:
 			if (ruler.needToPush(move))
@@ -31,16 +32,22 @@ public class LudoMoveController {
 			gameState.nextTurn();
 			return true;
 
-		case MOVE_LAPSED:
+		case MOVE_LAPSED_GOALSPRINT:
 			gameState.setMessage(LudoStaticValues.MOVE_LAPSED);
-			move.execute();
-			System.out.println("Hallå!");
-			gameState.nextTurn();
-			return true;
+			int stepsToGoalLine = ruler.getRemainingStepsToFinishLine(move);
+			if(moveLapsedExec.controlAndExecuteMove(move, stepsToGoalLine))
+				{
+				gameState.nextTurn();
+				return true;
+				}
+			
+			else 
+				return false;
+
+
 		case MOVE_INVALID_CANT_LAPSE_AGAIN:
-			gameState
-					.setMessage(LudoStaticValues.MOVE_INVALID_CANT_LAPSE_AGAIN);
-			return true;
+			gameState.setMessage(LudoStaticValues.MOVE_INVALID_CANT_LAPSE_AGAIN);
+			return false;
 		case MOVE_NOGAMEPIECE:
 			gameState.setMessage(LudoStaticValues.MOVE_NOGAMEPIECE);
 			return false;
@@ -73,7 +80,7 @@ public class LudoMoveController {
 				ruler.pushOtherPiece(move.getDestination());
 			move.execute();
 			moveInBaseExec.moveSecondPieceToStartPosition(move);
-			for (GamePiece gp : move.getSource().getPieces()) {
+			for (GamePiece gp : move.getDestination().getPieces()) {
 				ruler.setStepsForPiece(gp, 1);
 			}
 			gameState.setMessage("");

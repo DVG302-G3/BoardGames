@@ -127,4 +127,8 @@ public class LudoGameState implements GameState {
 		message = newMessage;
 	}
 
+	public void removePlayer(LudoPlayer player) {
+		players.remove(player);
+	}
+
 }

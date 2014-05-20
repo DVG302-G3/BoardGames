@@ -11,11 +11,12 @@ public class LudoPlayer {
 	private List<String> finishLine;
 	private String startCoordinateOne;
 	private String startCoordinateSix;
+	private int piecesLeft;
 
 	public LudoPlayer(Player player) {
 		this.player = player;
 		getDataBasedOnPlayerColor();
-
+		piecesLeft = player.getPieces().size();
 	}
 
 	public Player getPlayerObject() {
@@ -66,6 +67,14 @@ public class LudoPlayer {
 
 	public List<String> getFinishLine() {
 		return finishLine;
+	}
+	
+	public int getPiecesLeft(){
+		return piecesLeft;
+	}
+	
+	public int aPieceJustEnteredGoal(){
+		return --piecesLeft;
 	}
 
 }
