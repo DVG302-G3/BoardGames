@@ -12,7 +12,6 @@ import org.junit.Test;
 import boardgames.g3.core.Ludo.BaseController;
 import boardgames.g3.core.Ludo.HelpMethodsFinaMedKnuff;
 import boardgames.g3.core.Ludo.LudoGameState;
-import boardgames.g3.core.Ludo.LudoMoveResult;
 import boardgames.g3.core.Ludo.LudoPlayer;
 import boardgames.g3.core.Ludo.LudoRuleController;
 import boardgames.g3.core.Ludo.MoveNoMovesAvailableImplementation;
