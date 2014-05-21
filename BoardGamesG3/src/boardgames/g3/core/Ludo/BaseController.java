@@ -7,6 +7,14 @@ import game.impl.Player;
 
 import java.util.List;
 
+import boardgames.g3.core.Ludo.StrategyMove.MoveIncorrectStepsImplementation;
+import boardgames.g3.core.Ludo.StrategyMove.MoveInvalidBaseCantMoveOut;
+import boardgames.g3.core.Ludo.StrategyMove.MoveInvalidBoardLocationAlreadyOccupied;
+import boardgames.g3.core.Ludo.StrategyMove.MoveNoMovesAvailableImplementation;
+import boardgames.g3.core.Ludo.StrategyMove.MoveStrategy;
+import boardgames.g3.core.Ludo.StrategyMove.MoveValidImplementation;
+import boardgames.g3.core.Ludo.StrategyMove.MoveValidInbaseTwoPiecesImplementation;
+
 public class BaseController {
 	LudoGameState state;
 	LudoRuleController ruler;

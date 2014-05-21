@@ -1,5 +1,6 @@
-package boardgames.g3.core.Ludo;
+package boardgames.g3.core.Ludo.StrategyMove;
 
+import boardgames.g3.core.Ludo.LudoGameState;
 import game.api.GameState;
 import game.impl.Move;
 
