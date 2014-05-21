@@ -18,6 +18,7 @@ public class BoardAndPlayerFactory {
 		board = createAndReturnBoard();
 		players = createAndReturnLudoPlayers();
 		addPlayersPiecesToTheBoard();
+		
 	}
 
 	public List<LudoPlayer> getPlayers() {
@@ -32,7 +33,7 @@ public class BoardAndPlayerFactory {
 		List<Player> plainPlayers = createAndReturnPlayers();
 		List<LudoPlayer> ludoPlayers = new ArrayList<>();
 		for (Player p : plainPlayers) {
-			ludoPlayers.add(new LudoPlayer(p));
+			ludoPlayers.add(new LudoPlayer(p, board));
 		}
 		return ludoPlayers;
 	}

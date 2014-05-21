@@ -4,6 +4,11 @@ import game.impl.GamePiece;
 import game.impl.Move;
 
 public class MoveValidExecutor {
+	
+	String goalCoordinate;
+	public MoveValidExecutor(String goalCoordinate){
+		this.goalCoordinate = goalCoordinate;
+	}
 
 	public void executeAndMakeSureThatNoPieceWillBeDeleted(Move move) {
 		GamePiece sourcePiece = checkSourceForDoublePieces(move);
@@ -15,7 +20,9 @@ public class MoveValidExecutor {
 
 		if (sourcePiece != null)
 			move.getSource().addPiece(sourcePiece);
-		
+
+		if(move.getDestination().getId().equals(goalCoordinate))
+			move.getDestination().clear();
 		
 	}
 	

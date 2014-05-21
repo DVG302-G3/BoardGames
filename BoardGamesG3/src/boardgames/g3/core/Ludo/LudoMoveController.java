@@ -9,15 +9,14 @@ public class LudoMoveController {
 	LudoRuleController ruler;
 	MoveValidExecutor moveValidExec;
 	MoveValidInbaseTwoPiecesExecutor moveInBaseExec;
-	MoveLapsedExecutor moveLapsedExec;
-
+	
+	
 	public LudoMoveController(LudoGameState gameState) {
 		this.gameState = gameState;
 
-		moveValidExec = new MoveValidExecutor();
+		moveValidExec = new MoveValidExecutor(LudoStaticValues.GOAL);
 		moveInBaseExec = new MoveValidInbaseTwoPiecesExecutor(gameState);
 		ruler = new LudoRuleController(gameState);
-		moveLapsedExec = new MoveLapsedExecutor(gameState);
 	}
 
 	public Boolean proposeMove(Move move) {
@@ -31,19 +30,6 @@ public class LudoMoveController {
 			moveValidExec.executeAndMakeSureThatNoPieceWillBeDeleted(move);
 			gameState.nextTurn();
 			return true;
-
-		case MOVE_LAPSED_GOALSPRINT:
-			gameState.setMessage(LudoStaticValues.MOVE_LAPSED);
-			int stepsToGoalLine = ruler.getRemainingStepsToFinishLine(move);
-			if(moveLapsedExec.controlAndExecuteMove(move, stepsToGoalLine))
-				{
-				gameState.nextTurn();
-				return true;
-				}
-			
-			else 
-				return false;
-
 
 		case MOVE_INVALID_CANT_LAPSE_AGAIN:
 			gameState.setMessage(LudoStaticValues.MOVE_INVALID_CANT_LAPSE_AGAIN);

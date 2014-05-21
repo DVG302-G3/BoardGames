@@ -1,7 +1,10 @@
 package boardgames.g3.core.Ludo;
 
+import game.impl.Board;
+import game.impl.BoardLocation;
 import game.impl.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LudoPlayer {
@@ -9,16 +12,50 @@ public class LudoPlayer {
 	private Player player;
 	private List<String> home;
 	private List<String> finishLine;
+	private List<BoardLocation> playersBoardlist;
 	private String startCoordinateOne;
 	private String startCoordinateSix;
 	private int piecesLeft;
 
-	public LudoPlayer(Player player) {
+	public LudoPlayer(Player player, Board board) {
 		this.player = player;
 		getDataBasedOnPlayerColor();
 		piecesLeft = player.getPieces().size();
+		initiatePlayersBoardList(board);
 	}
 
+	private void initiatePlayersBoardList(Board board) {
+		playersBoardlist = new ArrayList<BoardLocation>();
+		List<BoardLocation> boardList = board.getLocations();
+		
+		BoardLocation start = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(startCoordinateOne, board);
+		int index = boardList.indexOf(start);
+		boolean lapsed = false;
+		
+		while(!lapsed){
+			playersBoardlist.add(boardList.get(index));
+
+			if(boardList.get(index+1).equals(start))
+				lapsed = true;
+			
+			index = (index+1) % LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD;
+		}
+		
+		for(String s : finishLine){
+			BoardLocation finishLineLocation = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(s, board);
+			playersBoardlist.add(finishLineLocation);
+		}
+		
+		BoardLocation goal = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(LudoStaticValues.GOAL, board);
+		playersBoardlist.add(goal);
+	
+	
+	}
+
+	public List<BoardLocation> getBoardList(){
+		return playersBoardlist;
+	}
+	
 	public Player getPlayerObject() {
 		return player;
 	}

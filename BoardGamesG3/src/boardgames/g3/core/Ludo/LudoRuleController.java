@@ -15,12 +15,10 @@ public class LudoRuleController {
 	Map<String, Integer> stepCounter;
 	LudoGameState state;
 	BaseController baseController;
-	MoveLapsedExecutor moveLapsed;
 
 	public LudoRuleController(LudoGameState state) {
 		this.state = state;
 		baseController = new BaseController(state);
-		moveLapsed = new MoveLapsedExecutor(state);
 		initiateStepCounterMap();
 
 	}
@@ -42,10 +40,6 @@ public class LudoRuleController {
 
 		if (baseController.checkIfPieceInbase(move))
 			return baseController.checkValidMoveFromBase(move);
-		if (hasPieceLapsedAndAreInRigtFinishline(move))
-			return LudoMoveResult.MOVE_LAPSED_GOALSPRINT;
-		if (hasPiecePassedBefore(move))
-			return LudoMoveResult.MOVE_INVALID_CANT_LAPSE_AGAIN;
 
 		if (checkIfPlayerStepsIsNotCorrect(move))
 			return LudoMoveResult.MOVE_INCORRECTNUMBEROFSTEPS;
@@ -62,7 +56,6 @@ public class LudoRuleController {
 
 		else {
 			return LudoMoveResult.MOVE_VALID;
-
 		}
 
 	}
@@ -92,54 +85,35 @@ public class LudoRuleController {
 			return false;
 		}
 
-//		if (canAnyPieceMakeAMoveOnFinishLineOrEnterGoal(move, playersPieces)) {
-//			return false;
-//		}
-
-		if (canAnyPieceMakeAMoveOnouterBoardArea(playersPieces,
-				move.getPlayer())) {
+		if (canAnyPieceMakeAMoveOnouterBoardArea(playersPieces, player)) {
 			return false;
 		}
 
 		return true;
 	}
 
-	private boolean canAnyPieceMakeAMoveOnFinishLineOrEnterGoal(Move move,
-			List<GamePiece> pieces) {
-		LudoPlayer player = state.getLudoPlayerFromPlayer(move.getPlayer());
-		for (GamePiece gp : pieces) {
-			BoardLocation source = HelpMethodsFinaMedKnuff
-					.getBoardLocationFromPiece(gp, state.getBoard());
-			if (source == null)
-				continue;
-
-			moveLapsed.checkIfPieceCanMakeAMove(player, source,
-					getRemainingStepsToFinishLine(move));
-		}
-		return false;
-	}
-
 	private boolean canAnyPieceMakeAMoveOnouterBoardArea(
-			List<GamePiece> playersPieces, Player player) {
+			List<GamePiece> playersPieces, LudoPlayer player) {
 		for (GamePiece piece : playersPieces)
 			if (canPieceMove(piece, player))
 				return true;
 		return false;
 	}
 
-	private boolean canPieceMove(GamePiece piece, Player player) {
+	private boolean canPieceMove(GamePiece piece, LudoPlayer player) {
 		BoardLocation source = HelpMethodsFinaMedKnuff
 				.getBoardLocationFromPiece(piece, state.getBoard());
-
-		if (source == null)
-			return false;
-
 		BoardLocation destination;
 
-		int newIndex = modulateAndReturnTheIndex(source,
-				getNumberOfStepsFromDice());
-		destination = state.getBoard().getLocations().get(newIndex);
-		Move move = new Move(player, source, destination);
+		List<BoardLocation> playerListOfBoardLocations = player.getBoardList();
+		int sourceIndex = playerListOfBoardLocations.indexOf(source);
+		int destinationIndex = sourceIndex + getNumberOfStepsFromDice();
+		if (destinationIndex > playerListOfBoardLocations.size())
+			return false;
+
+		destination = playerListOfBoardLocations.get(destinationIndex);
+
+		Move move = new Move(player.getPlayerObject(), source, destination);
 		if (checkIfValidResult(move))
 			return true;
 
@@ -210,51 +184,6 @@ public class LudoRuleController {
 				getTotalStepsForPiece(move));
 	}
 
-	public int getRemainingStepsToFinishLine(Move move) {
-		return Math.abs(LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD
-				- (stepCounter.get(move.getPiece().getId()) + state
-						.getDieRollFactory().getLastRoll().getResult()));
-	}
-
-	private boolean hasPieceLapsed(Move move) {
-		if (getTotalStepsForPiece(move) >= LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD) {
-			return true;
-		} else
-			return false;
-
-	}
-
-	private boolean hasPieceLapsedAndAreInRigtFinishline(Move move) {
-		if (hasPieceLapsed(move) && isPiecesRightColorForThisFinishline(move)) {
-			return true;
-		} else
-			return false;
-	}
-
-	private boolean hasPiecePassedBefore(Move move) {
-		if (!hasPieceLapsedAndAreInRigtFinishline(move)
-				&& getTotalStepsForPiece(move) > LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD) {
-			return true;
-		} else
-
-			return false;
-	}
-
-	public boolean checkIfPieceInGoalline(Move move) {
-		LudoPlayer player = state.getLudoPlayerFromPlayer(move.getPlayer());
-		return player.getFinishLine().contains(move.getSource().getId());
-	}
-
-	public Boolean isPieceInGoal(Move move, GamePiece gamePiece) {
-		for (GamePiece gp : move.getPieces()) {
-			if (gp.getId() == gamePiece.getId()) {
-				return true;
-			}
-		}
-		return false;
-
-	}
-
 	private int getTotalStepsForPiece(Move move) {
 		return stepCounter.get(move.getSource().getPiece().getId())
 				+ stepsPlayerMoves(move);
@@ -265,33 +194,14 @@ public class LudoRuleController {
 	}
 
 	private int stepsPlayerMoves(Move move) {
-		int destinationValue = HelpMethodsFinaMedKnuff
-				.getFlatListIndexFromCoordinate(move.getDestination().getId(),
-						state.getBoard());
-		int sourceValue = HelpMethodsFinaMedKnuff
-				.getFlatListIndexFromCoordinate(move.getSource().getId(),
-						state.getBoard());
-
-		int stepsPlayerMoves = (destinationValue - sourceValue)
-				% LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD;
-
-		if (stepsPlayerMoves < 0)
-			stepsPlayerMoves = stepsPlayerMoves
-					+ LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD;
-		return stepsPlayerMoves;
-	}
-
-	public Boolean isPiecesRightColorForThisFinishline(Move move) {
 		LudoPlayer player = state.getLudoPlayerFromPlayer(move.getPlayer());
-		return player.getFinishLine().contains(move.getDestination().getId())
-				|| move.getDestination().getId().equals(LudoStaticValues.GOAL);
-	}
+		List<BoardLocation> playersList = player.getBoardList();
 
-	public Boolean isGameFinished(GameState state) {
-		if (state.hasEnded() == true) {
-			return true;
-		} else
-			return false;
+		int destinationValue = playersList.indexOf(move.getDestination());
+		int sourceValue = playersList.indexOf(move.getSource());
+		int stepsPlayerMoves = destinationValue - sourceValue;
+
+		return stepsPlayerMoves;
 	}
 
 	public void pushOtherPiece(BoardLocation destination) {
@@ -300,7 +210,6 @@ public class LudoRuleController {
 
 		putInBase(player.getHomePositions(), piece);
 		destination.clear();
-
 	}
 
 	private void putInBase(List<String> home, GamePiece pieceToPush) {
