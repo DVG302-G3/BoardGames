@@ -1,6 +1,7 @@
 package boardgames.g3.core.Ludo.StrategyMove;
 
 import boardgames.g3.core.Ludo.LudoGameState;
+import boardgames.g3.core.Ludo.LudoPlayer;
 import boardgames.g3.core.Ludo.LudoRuleController;
 import game.impl.GamePiece;
 import game.impl.Move;
@@ -47,14 +48,24 @@ public class MoveValidImplementation implements MoveStrategy{
 		if (sourcePiece != null)
 			move.getSource().addPiece(sourcePiece);
 
-		if(move.getDestination().getId().equals(goalCoordinate))
+		if(move.getDestination().getId().equals(goalCoordinate)){
+			updatePlayerInfoAndCheckIfWinner(move, state);
 			move.getDestination().clear();
+			
+		}
 		
 		state.setMessage("");
 		state.nextTurn();
 
 		return true;
 		
+	}
+
+	private void updatePlayerInfoAndCheckIfWinner(Move move, LudoGameState state) {
+		LudoPlayer player = state.getLudoPlayerFromPlayer(move.getPlayer());
+		player.aPieceJustEnteredGoal();
+		if(player.getPiecesLeft() == 0)
+			state.setWinner(player.getPlayerObject());
 	}
 
 }

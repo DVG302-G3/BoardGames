@@ -122,6 +122,10 @@ public class LudoGameState implements GameState {
 	public Player getWinner() {
 		return winnerPlayer;
 	}
+	
+	public void setWinner(Player player){
+		this.winnerPlayer = player;
+	}
 
 	public void setMessage(String newMessage) {
 		message = newMessage;
