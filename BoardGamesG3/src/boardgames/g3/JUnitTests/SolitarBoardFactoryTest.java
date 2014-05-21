@@ -19,5 +19,10 @@ public class SolitarBoardFactoryTest {
 	public void testPutAllTheBeadsOnTheBoard() {
 		fail("Not yet implemented");
 	}
+	
+	@Test
+	public void testCreateBoardLocations(){
+		
+	}
 
 }
