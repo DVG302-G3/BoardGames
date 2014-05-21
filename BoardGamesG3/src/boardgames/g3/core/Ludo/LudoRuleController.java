@@ -82,7 +82,6 @@ public class LudoRuleController {
 			return false;
 		}
 
-		if(!HelpMethodsFinaMedKnuff.doesPlayerHaveAnyPiecesOnTheBoard(player.getPlayerObject(), state.getBoard()))
 			if (canAnyPieceMakeAMoveOnouterBoardArea(playersPieces, player))
 				return false;
 		
@@ -106,7 +105,7 @@ public class LudoRuleController {
 		List<BoardLocation> playerListOfBoardLocations = player.getBoardList();
 		int sourceIndex = playerListOfBoardLocations.indexOf(source);
 		int destinationIndex = sourceIndex + getNumberOfStepsFromDice();
-		if (destinationIndex > playerListOfBoardLocations.size())
+		if (destinationIndex >= playerListOfBoardLocations.size())
 			return false;
 
 		destination = playerListOfBoardLocations.get(destinationIndex);

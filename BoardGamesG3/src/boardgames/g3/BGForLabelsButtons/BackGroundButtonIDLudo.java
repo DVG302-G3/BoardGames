@@ -152,7 +152,6 @@ public class BackGroundButtonIDLudo extends JButton {
 		} else if (location.getId() != null) {
 			this.setButtonEmptyPiece();
 			this.checkFinishLineColor();
-		
 		}
 	}
 
@@ -206,7 +205,7 @@ public class BackGroundButtonIDLudo extends JButton {
 			else
 				this.setButtonWithTwoGreen();
 	}
-
+	
 	private boolean checkFinishLineColor(BoardLocation location,
 			List<String> finishLine) {
 		for (String s : finishLine)
@@ -220,7 +219,6 @@ public class BackGroundButtonIDLudo extends JButton {
 			if(s.equals(location.getPiece().getId()))
 				return true;
 		return false;
-		
 	}
 
 }
