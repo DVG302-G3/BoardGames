@@ -25,15 +25,13 @@ public class LudoStaticValues {
 	public static final String GREENSTARTSIXES = "GD";
 	public static final String YELLOWSTARTSIXES = "HG";
 
-	public static final String MOVE_INCORRECTNUMBEROFSTEPS = "You can't move to this position. Please try again.";
-	public static final String MOVE_NOGAMEPIECE = "No game piece located in source.";
-	public static final String MOVE_INVALID_CANT_LAPSE_AGAIN = "You cant lapsed again";
-	public static final String MOVE_LAPSED = "Lapsed!";
-	public static final String MOVE_IN_BASE_DID_NOT_GET_THE_CORRECT_EYES_ON_THE_DICE_TO_MOVE_OUT = "You need to get 1 or 6 in order to move out of base.";
-	public static final String MOVE_INVALID_CANT_LAPSE_YOUR_OWN_PIECE = "You are not allowed to pass your own piece, mate.";
-	public static final String MOVE_NO_MOVES_AVAILABLE = "No moves available.";
-	public static final String MOVE_INVALIDA_BOARDLOCATION_ALREADY_OCCUPIED = "Boardlocation can't hold that many pieces!";
-	public static final String MOVE_INVALID_CANT_PASS_A_BLOCK = "You are not allowed to pass a block, mate.";
+	public static final String MESSAGE_INCORRECTNUMBEROFSTEPS = "You can't move to this position. Please try again.";
+	public static final String MESSAGE_NOGAMEPIECE = "No game piece located in source.";
+	public static final String MESSAGE_IN_BASE_CANTMOVEOUT = "You need to get 1 or 6 in order to move out of base.";
+	public static final String MESSAGE_INVALID_CANT_LAPSE_YOUR_OWN_PIECE = "You are not allowed to pass your own piece, mate.";
+	public static final String MESSAGE_NO_MOVE_AVAILABLE = "No move available.";
+	public static final String MESSAGE_INVALIDA_BOARDLOCATION_ALREADY_OCCUPIED = "Boardlocation can't hold that many pieces!";
+	public static final String MESSAGE_INVALID_CANT_PASS_A_BLOCK = "You are not allowed to pass a block, mate.";
 	
 	
 	public static final List<String> REDFINISHLINE = Arrays.asList("FB", "FC", "FD", "FE");

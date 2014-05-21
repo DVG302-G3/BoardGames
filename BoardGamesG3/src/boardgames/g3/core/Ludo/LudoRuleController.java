@@ -1,6 +1,5 @@
 package boardgames.g3.core.Ludo;
 
-import game.api.GameState;
 import game.impl.BoardLocation;
 import game.impl.GamePiece;
 import game.impl.Move;
@@ -12,66 +11,54 @@ import java.util.Map;
 
 public class LudoRuleController {
 
-	Map<String, Integer> stepCounter;
 	LudoGameState state;
 	BaseController baseController;
 
 	public LudoRuleController(LudoGameState state) {
 		this.state = state;
-		baseController = new BaseController(state);
-		initiateStepCounterMap();
-
+		baseController = new BaseController(state, this);
 	}
 
-	private void initiateStepCounterMap() {
-		stepCounter = new HashMap<String, Integer>();
-		for (Player p : state.getPlayers()) {
-			for (GamePiece gp : p.getPieces()) {
-				stepCounter.put(gp.getId(), 0);
-			}
-		}
-	}
-
-	public LudoMoveResult checkAndReturnValidMoves(Move move) {
+	public MoveStrategy checkAndReturnValidMoves(Move move) {
 		BoardLocation source = move.getSource();
 
 		if (source.getPiece() == null)
-			return LudoMoveResult.MOVE_NOGAMEPIECE;
+			return new MoveNoGamePieceImplementation();
 
 		if (baseController.checkIfPieceInbase(move))
 			return baseController.checkValidMoveFromBase(move);
 
 		if (checkIfPlayerStepsIsNotCorrect(move))
-			return LudoMoveResult.MOVE_INCORRECTNUMBEROFSTEPS;
+			return new MoveIncorrectStepsImplementation();
 
 		if (playerIsTryingToLapseHisOwnPiece(move, getNumberOfStepsFromDice()))
-			return LudoMoveResult.MOVE_INVALID_CANT_LAPSE_YOUR_OWN_PIECE;
+			return new MoveLapseOwnPieceImplementation();
 
 		if (playerIsTryingToLapseAblock(move, getNumberOfStepsFromDice()))
-			return LudoMoveResult.MOVE_INVALID_CANT_PASS_A_BLOCK;
+			return new MoveInvalidBlockImplementation();
 
 		if (destinationIsAlreadyOccupado(move)) {
-			return LudoMoveResult.MOVE_INVALIDA_BOARDLOCATION_ALREADY_OCCUPIED;
+			return new MoveInvalidBoardLocationAlreadyOccupied();
 		}
 
 		else {
-			return LudoMoveResult.MOVE_VALID;
+			return new MoveValidImplementation(LudoStaticValues.GOAL, this);
 		}
 
 	}
 
-	public LudoMoveResult evaluateMove(Move move) {
+	public MoveStrategy evaluateMove(Move move) {
 
 		if (!HelpMethodsFinaMedKnuff.doesPlayerHaveAnyPiecesOnTheBoard(
 				move.getPlayer(), state.getBoard())) {
 			if (!checkIfDiceIsSIXorONE()) {
-				return LudoMoveResult.MOVE_IN_BASE_DID_NOT_GET_THE_CORRECT_EYES_ON_THE_DICE_TO_MOVE_OUT;
+				return new MoveInvalidBaseCantMoveOut();
 			}
 		}
 
-		if (playerCantMakeAMove(move)) {
-			return LudoMoveResult.MOVE_NO_MOVES_AVAILABLE;
-		}
+		if (playerCantMakeAMove(move)) 
+					return new MoveNoMovesAvailableImplementation();
+		
 
 		return checkAndReturnValidMoves(move);
 
@@ -85,9 +72,10 @@ public class LudoRuleController {
 			return false;
 		}
 
-		if (canAnyPieceMakeAMoveOnouterBoardArea(playersPieces, player)) {
-			return false;
-		}
+		if(!HelpMethodsFinaMedKnuff.doesPlayerHaveAnyPiecesOnTheBoard(player.getPlayerObject(), state.getBoard()))
+			if (canAnyPieceMakeAMoveOnouterBoardArea(playersPieces, player))
+				return false;
+		
 
 		return true;
 	}
@@ -112,6 +100,8 @@ public class LudoRuleController {
 			return false;
 
 		destination = playerListOfBoardLocations.get(destinationIndex);
+		if(source == null || destination == null)
+			return false;
 
 		Move move = new Move(player.getPlayerObject(), source, destination);
 		if (checkIfValidResult(move))
@@ -125,10 +115,7 @@ public class LudoRuleController {
 	}
 
 	private boolean checkLudoMoveResultsForValidMove(Move move) {
-		return checkAndReturnValidMoves(move) == LudoMoveResult.MOVE_VALID
-				|| checkAndReturnValidMoves(move) == LudoMoveResult.MOVE_VALID_INBASE_ONE
-				|| checkAndReturnValidMoves(move) == LudoMoveResult.MOVE_VALID_INBASE_SIX;
-	}
+		return checkAndReturnValidMoves(move) instanceof MoveValidImplementation;}
 
 	private boolean destinationIsAlreadyOccupado(Move move) {
 		if (move.getDestination().getPieces().size() > 1)
@@ -173,20 +160,6 @@ public class LudoRuleController {
 			return true;
 		else
 			return false;
-	}
-
-	public void setStepsForPiece(GamePiece gamePiece, int steps) {
-		stepCounter.put(gamePiece.getId(), steps);
-	}
-
-	public void addStepsToCounter(Move move) {
-		stepCounter.put(move.getSource().getPiece().getId(),
-				getTotalStepsForPiece(move));
-	}
-
-	private int getTotalStepsForPiece(Move move) {
-		return stepCounter.get(move.getSource().getPiece().getId())
-				+ stepsPlayerMoves(move);
 	}
 
 	private boolean checkIfPlayerStepsIsNotCorrect(Move move) {

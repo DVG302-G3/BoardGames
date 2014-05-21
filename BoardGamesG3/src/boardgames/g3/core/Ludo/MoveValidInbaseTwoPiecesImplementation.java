@@ -3,14 +3,20 @@ package boardgames.g3.core.Ludo;
 import game.impl.BoardLocation;
 import game.impl.Move;
 
-public class MoveValidInbaseTwoPiecesExecutor {
-	LudoGameState state;
+public class MoveValidInbaseTwoPiecesImplementation implements MoveStrategy {
 
-	public MoveValidInbaseTwoPiecesExecutor(LudoGameState state) {
-		this.state = state;
+	LudoRuleController ruler;
+
+	public MoveValidInbaseTwoPiecesImplementation(LudoRuleController ruler) {
+		this.ruler = ruler;
 	}
 
-	public void moveSecondPieceToStartPosition(Move move) {
+	@Override
+	public Boolean execute(Move move, LudoGameState state) {
+		if (ruler.needToPush(move))
+			ruler.pushOtherPiece(move.getDestination());
+		move.execute();
+
 		LudoPlayer player = state.getLudoPlayerFromPlayer(move.getPlayer());
 		for (String basePositions : player.getHomePositions()) {
 			BoardLocation home = HelpMethodsFinaMedKnuff
@@ -27,5 +33,11 @@ public class MoveValidInbaseTwoPiecesExecutor {
 			}
 		}
 
+		state.setMessage("");
+		state.nextTurn();
+		
+		return true;
+		
 	}
+
 }

@@ -9,9 +9,11 @@ import java.util.List;
 
 public class BaseController {
 	LudoGameState state;
-
-	public BaseController(LudoGameState state) {
+	LudoRuleController ruler;
+	
+	public BaseController(LudoGameState state, LudoRuleController ruler) {
 		this.state = state;
+		this.ruler = ruler;
 	}
 
 	public boolean checkIfPieceInbase(Move move) {
@@ -21,14 +23,14 @@ public class BaseController {
 
 	public boolean canPlayerMakeAMoveFromBase(LudoPlayer player) {
 
-		LudoMoveResult result;
+		MoveStrategy result;
 		for (GamePiece gp : player.getPlayerObject().getPieces()) {
 			BoardLocation source = HelpMethodsFinaMedKnuff
 					.getBoardLocationFromPiece(gp, state.getBoard());
-			
-			if(source == null)
+
+			if (source == null)
 				continue;
-			
+
 			if (checkIfPieceInbase(player, source)) {
 				result = checkPlayerColorAndGetValidMoveForPiece(player, gp,
 						source);
@@ -41,15 +43,15 @@ public class BaseController {
 		return false;
 	}
 
-	private boolean resultIsValidMove(LudoMoveResult result) {
-		return result == LudoMoveResult.MOVE_VALID
-				|| result == LudoMoveResult.MOVE_VALID_INBASE_ONE || result == LudoMoveResult.MOVE_VALID_INBASE_SIX || result == LudoMoveResult.MOVE_VALID_INBASE_TWO_PIECES;
+	private boolean resultIsValidMove(MoveStrategy result) {
+		return result instanceof MoveValidImplementation
+				|| result instanceof MoveValidInbaseTwoPiecesImplementation;
 	}
 
-	private LudoMoveResult checkPlayerColorAndGetValidMoveForPiece(
+	private MoveStrategy checkPlayerColorAndGetValidMoveForPiece(
 			LudoPlayer player, GamePiece gp, BoardLocation source) {
 
-		LudoMoveResult result = LudoMoveResult.MOVE_NULLOBJECT;
+		MoveStrategy result = null;
 
 		BoardLocation destination;
 
@@ -70,7 +72,7 @@ public class BaseController {
 			break;
 
 		default:
-			return LudoMoveResult.MOVE_NULLOBJECT;
+			return null;
 		}
 
 		return result;
@@ -80,7 +82,7 @@ public class BaseController {
 		return player.getHomePositions().contains(source.getId());
 	}
 
-	public LudoMoveResult checkValidMoveFromBase(Move move) {
+	public MoveStrategy checkValidMoveFromBase(Move move) {
 		LudoPlayer player = state.getLudoPlayerFromPlayer(move.getPlayer());
 		String start = player.getStartCoordinateOne();
 		String startSix = player.getStartCoordinateSix();
@@ -89,20 +91,21 @@ public class BaseController {
 		case 1:
 			if (move.getDestination().getId().equals(start)) {
 				if (destinationDoesNotAlreadyContainTwoPieces(move)) {
-					return LudoMoveResult.MOVE_VALID_INBASE_ONE;
+					return new MoveValidImplementation(LudoStaticValues.GOAL,
+							ruler);
 				} else {
-					return LudoMoveResult.MOVE_NO_MOVES_AVAILABLE;
-
+					return new MoveNoMovesAvailableImplementation();
 				}
 			}
 
 			else
-				return LudoMoveResult.MOVE_INCORRECTNUMBEROFSTEPS;
+				return new MoveIncorrectStepsImplementation();
 
 		case 6:
 			if (move.getDestination().getId().equals(startSix)) {
 				if (destinationDoesNotAlreadyContainTwoPieces(move))
-					return LudoMoveResult.MOVE_VALID_INBASE_SIX;
+					return new MoveValidImplementation(LudoStaticValues.GOAL,
+							ruler);
 			} else if (move.getDestination().getId().equals(start)) {
 				if (destinationDoesNotAlreadyContainTwoPieces(move)) {
 					for (String basePositions : player.getHomePositions()) {
@@ -114,21 +117,22 @@ public class BaseController {
 										.getPiece()) {
 							if (checkIfDestinationIsEmptyOrContainsOpponentsPieces(
 									move.getPlayer(), move.getDestination()))
-								return LudoMoveResult.MOVE_VALID_INBASE_TWO_PIECES;
+								return new MoveValidInbaseTwoPiecesImplementation(
+										ruler);
 							else
-								return LudoMoveResult.MOVE_INVALIDA_BOARDLOCATION_ALREADY_OCCUPIED;
+								return new MoveInvalidBoardLocationAlreadyOccupied();
 						}
 					}
 				}
 
-				return LudoMoveResult.MOVE_INVALID_INBASE_TWO_PIECES_NOT_AVAILABLE;
+				return new MoveInvalidBaseCantMoveOut();
 			}
 		default:
 			if (HelpMethodsFinaMedKnuff.doesPlayerHaveAnyPiecesOnTheBoard(
 					move.getPlayer(), state.getBoard()))
-				return LudoMoveResult.MOVE_INCORRECTNUMBEROFSTEPS;
+				return new MoveIncorrectStepsImplementation();
 			else
-				return LudoMoveResult.MOVE_IN_BASE_DID_NOT_GET_THE_CORRECT_EYES_ON_THE_DICE_TO_MOVE_OUT;
+				return new MoveInvalidBaseCantMoveOut();
 
 		}
 	}

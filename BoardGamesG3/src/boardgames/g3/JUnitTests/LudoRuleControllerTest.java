@@ -1,9 +1,6 @@
 package boardgames.g3.JUnitTests;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import game.impl.BoardLocation;
 import game.impl.DieRollFactory;
-import game.impl.GamePiece;
 import game.impl.Move;
 import game.impl.Player;
 
@@ -15,6 +12,8 @@ import boardgames.g3.core.Ludo.HelpMethodsFinaMedKnuff;
 import boardgames.g3.core.Ludo.LudoGameState;
 import boardgames.g3.core.Ludo.LudoMoveResult;
 import boardgames.g3.core.Ludo.LudoRuleController;
+import boardgames.g3.core.Ludo.MoveStrategy;
+import boardgames.g3.core.Ludo.MoveValidImplementation;
 
 
 public class LudoRuleControllerTest {
@@ -24,7 +23,7 @@ public class LudoRuleControllerTest {
 	Player player;
 	LudoGameState ludoGameState;
 	LudoRuleController ludoRuleController;
-	LudoMoveResult ludoMoveResult; 
+	MoveStrategy ludoMoveResult; 
 	
 	@Before
 	public void setup(){
@@ -60,7 +59,7 @@ public class LudoRuleControllerTest {
 		ludoMoveResult = ludoRuleController.checkAndReturnValidMoves
 				(new Move(ludoGameState.getPlayerInTurn(), sourceforPiece, destination));
 		System.out.println("HÄR!!: "+ludoMoveResult);
-		Assert.assertTrue(ludoMoveResult == LudoMoveResult.MOVE_VALID_INBASE_SIX);
+		Assert.assertTrue(ludoMoveResult instanceof MoveValidImplementation);
 		
 		while(ludoGameState.getDieRollFactory().getNewRoll(ludoGameState.getPlayerInTurn()).getResult() != 1)
 			continue;

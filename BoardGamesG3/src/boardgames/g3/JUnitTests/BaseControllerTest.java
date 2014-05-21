@@ -14,15 +14,21 @@ import boardgames.g3.core.Ludo.HelpMethodsFinaMedKnuff;
 import boardgames.g3.core.Ludo.LudoGameState;
 import boardgames.g3.core.Ludo.LudoMoveResult;
 import boardgames.g3.core.Ludo.LudoPlayer;
+import boardgames.g3.core.Ludo.LudoRuleController;
+import boardgames.g3.core.Ludo.MoveNoMovesAvailableImplementation;
+import boardgames.g3.core.Ludo.MoveValidInbaseTwoPiecesImplementation;
 
 public class BaseControllerTest {
 	LudoGameState gameState;
 	BaseController base;
+	LudoRuleController ruler;
+	
 	
 	@Before
 	public void setup(){
 		gameState = new LudoGameState(1);
-		base = new BaseController(gameState);
+		ruler = new LudoRuleController(gameState);
+		base = new BaseController(gameState, ruler);
 	}
 
 	@Test
@@ -98,7 +104,7 @@ public class BaseControllerTest {
 		
 		
 		Move move = new Move(player, source1, destination1);
-		assertTrue(base.checkValidMoveFromBase(move) == LudoMoveResult.MOVE_VALID_INBASE_TWO_PIECES);
+		assertTrue(base.checkValidMoveFromBase(move) instanceof MoveValidInbaseTwoPiecesImplementation);
 
 		
 		while(gameState.getDieRollFactory().getNewRoll(player).getResult() != 1)
@@ -111,7 +117,7 @@ public class BaseControllerTest {
 		
 		move = new Move(player, source4, destination1);
 		
-		assertTrue(base.checkValidMoveFromBase(move) == LudoMoveResult.MOVE_NO_MOVES_AVAILABLE);
+		assertTrue(base.checkValidMoveFromBase(move) instanceof MoveNoMovesAvailableImplementation);
 	}
 
 }
