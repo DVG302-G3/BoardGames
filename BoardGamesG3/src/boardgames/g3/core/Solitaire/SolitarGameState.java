@@ -4,14 +4,13 @@ import game.api.GameState;
 import game.impl.Board;
 import game.impl.BoardLocation;
 import game.impl.DieRollFactory;
-import game.impl.GamePiece;
 import game.impl.Move;
 import game.impl.Player;
 
-import java.io.IOException;
-import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.List;
+
 
 public class SolitarGameState implements GameState   {
 
@@ -20,45 +19,28 @@ public class SolitarGameState implements GameState   {
 	SolitarRuleController ruler;
 	
 	public SolitarGameState() {
-		newGame();
+		startToPlayNewGame();
 	}
 	
-	private void putAllTheBeadsOnTheBoard() {
-		for (BoardLocation b : board.getLocations()) {
-			if(b != null)
-				b.setPiece(new GamePiece("O"));
-		}
+	public void startToPlayNewGame() {
 
-		board.getLocations().get(24).setPiece(null);
+		SolitarBoardFactory factory = new SolitarBoardFactory();
+		factory.execute();
+		createSolitarPlayer();
+		this.player = getPlayer();
+		this.board = factory.getBoard();
+		ruler = new SolitarRuleController(SolitarStaticValue.ROW, SolitarStaticValue.COL);
+	}
+	
+	
+	private void createSolitarPlayer() {
+		this.player = new Player("Playah!", null);
+	}
+	
+	public Player getPlayer(){
+		return player;
 	}
 
-	private List<BoardLocation> createBoardLocations() {
-		List<BoardLocation> boardLocations = new ArrayList<BoardLocation>();
-		List<String> listOfRows = null;
-		try {
-			listOfRows = SolitarFileHandler.readCoordinate();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		while (!listOfRows.isEmpty()) {
-			boardLocations.addAll(getBoardLocationFromRow(listOfRows.get(0)));
-			listOfRows.remove(0);
-		}
-		return boardLocations;
-	}
-
-	private List<BoardLocation> getBoardLocationFromRow(String row) {
-		String[] locations = row.split(";");
-		List<BoardLocation> boardLocations = new ArrayList<BoardLocation>();
-		for (String s : locations) {
-			if (s.equals("null"))
-				boardLocations.add(null);
-			else
-				boardLocations.add(new BoardLocation(s));
-		}
-		return boardLocations;
-	}
 
 	@Override
 	public Board getBoard() {
@@ -106,17 +88,10 @@ public class SolitarGameState implements GameState   {
 
 		}
 	}
-	
-	private void newGame(){
-		this.board = new Board(createBoardLocations());
-		putAllTheBeadsOnTheBoard();
-		this.player = new Player("Playah!", null);
-		ruler = new SolitarRuleController(SolitarStaticValue.ROW, SolitarStaticValue.COL);
-	}
+		
 
-	@Override
 	public void reset() {
-		newGame();
+		startToPlayNewGame();
 	}
 
 	private void removeBeadInBetween(Move move) {
