@@ -25,7 +25,7 @@ public class BoardGamesLudoGUIRunner extends JPanel {
 		
 		inputUnit = new LudoGUIInputUnit();
 		outputUnit = new LudoGUIOutputUnit(inputUnit);
-		new Runner(new LudoGameState(1), new LudoGUIIOFactory(inputUnit, outputUnit)).run();
+		new Runner(new LudoGameState(2), new LudoGUIIOFactory(inputUnit, outputUnit)).run();
 		
 		setNewMidPanel(outputUnit);
 		

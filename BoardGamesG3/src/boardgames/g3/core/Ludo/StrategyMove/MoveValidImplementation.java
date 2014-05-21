@@ -31,13 +31,16 @@ public class MoveValidImplementation implements MoveStrategy{
 	@Override
 	public Boolean execute(Move move, LudoGameState state) {
 		GamePiece sourcePiece = checkSourceForDoublePieces(move);
-		GamePiece destinationPiece = checkDestinationForExistingPieces(move);
+		GamePiece destinationPiece = null;
 
 		if (ruler.needToPush(move))
 			ruler.pushOtherPiece(move.getDestination());
+		else
+			destinationPiece = checkDestinationForExistingPieces(move);
 
 		
 		move.execute();
+
 		if (destinationPiece != null)
 			move.getDestination().addPiece(destinationPiece);
 
