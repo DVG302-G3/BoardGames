@@ -128,6 +128,10 @@ public class BackGroundButtonIDLudo extends JButton {
 	private void setButtonWithGreenFinishLine() {
 		setIcon(new ImageIcon("src\\boardgames\\img\\finishlineGreen.png"));
 	}
+	
+	private void setButtonWithGOAL() {
+		setIcon(new ImageIcon("src\\boardgames\\img\\goalPiece.png"));
+	}
 
 	private void checkLocationContent() {
 		String col;
@@ -141,10 +145,14 @@ public class BackGroundButtonIDLudo extends JButton {
 
 		} else if (location.getPiece() != null) {
 			this.checkColorOnThePiece();
+			
+		} else if (location.getId().equals(LudoStaticValues.GOAL)){
+			this.setButtonWithGOAL();	
 
 		} else if (location.getId() != null) {
 			this.setButtonEmptyPiece();
 			this.checkFinishLineColor();
+		
 		}
 	}
 
@@ -168,27 +176,30 @@ public class BackGroundButtonIDLudo extends JButton {
 	}
 
 	private void checkColorOnThePiece() {
-		if (checkColorOfBoardlocation(location, LudoStaticValues.REDPIECES)) {
-			if (location.getPieces().size() == 1)
-				this.setButtonWithRed();
-			else
+		if (checkColorOfPieceBoardlocation(location, LudoStaticValues.REDPIECES)) {
+			if (location.getPieces().size() == 1){
+				if(location.getId().equals(LudoStaticValues.REDFINISHLINE))
+					this.setButtonWithRedFinishLinePiece();
+				else
+					this.setButtonWithRed();
+			}else
 				this.setButtonWithTwoRed();
 
-		} else if (checkColorOfBoardlocation(location,
+		} else if (checkColorOfPieceBoardlocation(location,
 				LudoStaticValues.BLUEPIECES)) {
 			if (location.getPieces().size() == 1)
 				this.setButtonWithBlue();
 			else
 				this.setButtonWithTwoBlue();
 
-		} else if (checkColorOfBoardlocation(location,
+		} else if (checkColorOfPieceBoardlocation(location,
 				LudoStaticValues.YELLOWPIECES)) {
 			if (location.getPieces().size() == 1)
 				this.setButtonWithYellow();
 			else
 				this.setButtonWithTwoYellow();
 
-		} else if (checkColorOfBoardlocation(location,
+		} else if (checkColorOfPieceBoardlocation(location,
 				LudoStaticValues.GREENPIECES))
 			if (location.getPieces().size() == 1)
 				this.setButtonWithGreen();
@@ -204,7 +215,7 @@ public class BackGroundButtonIDLudo extends JButton {
 		return false;
 	}
 
-	private boolean checkColorOfBoardlocation(BoardLocation location, List<String> pieces ) {
+	private boolean checkColorOfPieceBoardlocation(BoardLocation location, List<String> pieces ) {
 		for(String s : pieces)
 			if(s.equals(location.getPiece().getId()))
 				return true;

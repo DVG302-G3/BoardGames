@@ -51,8 +51,6 @@ public class LudoStaticValues {
 	public static final List<String> YELLOWPIECES = Arrays.asList("Y1", "Y2", "Y3", "Y4");
 	public static final List<String> GREENPIECES = Arrays.asList("G1", "G2", "G3", "G4");
 	
-	
-	
 	public static final String GOAL = "FF";
 
 	
