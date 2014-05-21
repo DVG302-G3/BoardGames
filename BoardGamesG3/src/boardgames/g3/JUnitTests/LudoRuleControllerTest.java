@@ -11,8 +11,8 @@ import org.junit.Test;
 import boardgames.g3.core.Ludo.HelpMethodsFinaMedKnuff;
 import boardgames.g3.core.Ludo.LudoGameState;
 import boardgames.g3.core.Ludo.LudoRuleController;
-import boardgames.g3.core.Ludo.MoveStrategy;
-import boardgames.g3.core.Ludo.MoveValidImplementation;
+import boardgames.g3.core.Ludo.StrategyMove.MoveStrategy;
+import boardgames.g3.core.Ludo.StrategyMove.MoveValidImplementation;
 
 
 public class LudoRuleControllerTest {

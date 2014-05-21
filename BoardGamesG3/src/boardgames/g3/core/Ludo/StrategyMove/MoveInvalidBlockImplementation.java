@@ -1,5 +1,7 @@
-package boardgames.g3.core.Ludo;
+package boardgames.g3.core.Ludo.StrategyMove;
 
+import boardgames.g3.core.Ludo.LudoGameState;
+import boardgames.g3.core.Ludo.LudoStaticValues;
 import game.impl.Move;
 
 public class MoveInvalidBlockImplementation implements MoveStrategy {

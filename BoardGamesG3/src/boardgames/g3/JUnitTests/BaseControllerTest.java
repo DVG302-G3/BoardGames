@@ -14,8 +14,8 @@ import boardgames.g3.core.Ludo.HelpMethodsFinaMedKnuff;
 import boardgames.g3.core.Ludo.LudoGameState;
 import boardgames.g3.core.Ludo.LudoPlayer;
 import boardgames.g3.core.Ludo.LudoRuleController;
-import boardgames.g3.core.Ludo.MoveNoMovesAvailableImplementation;
-import boardgames.g3.core.Ludo.MoveValidInbaseTwoPiecesImplementation;
+import boardgames.g3.core.Ludo.StrategyMove.MoveNoMovesAvailableImplementation;
+import boardgames.g3.core.Ludo.StrategyMove.MoveValidInbaseTwoPiecesImplementation;
 
 public class BaseControllerTest {
 	LudoGameState gameState;

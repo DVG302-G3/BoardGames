@@ -1,5 +1,9 @@
-package boardgames.g3.core.Ludo;
+package boardgames.g3.core.Ludo.StrategyMove;
 
+import boardgames.g3.core.Ludo.HelpMethodsFinaMedKnuff;
+import boardgames.g3.core.Ludo.LudoGameState;
+import boardgames.g3.core.Ludo.LudoPlayer;
+import boardgames.g3.core.Ludo.LudoRuleController;
 import game.impl.BoardLocation;
 import game.impl.Move;
 

@@ -9,6 +9,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import boardgames.g3.core.Ludo.StrategyMove.MoveIncorrectStepsImplementation;
+import boardgames.g3.core.Ludo.StrategyMove.MoveInvalidBaseCantMoveOut;
+import boardgames.g3.core.Ludo.StrategyMove.MoveInvalidBlockImplementation;
+import boardgames.g3.core.Ludo.StrategyMove.MoveInvalidBoardLocationAlreadyOccupied;
+import boardgames.g3.core.Ludo.StrategyMove.MoveLapseOwnPieceImplementation;
+import boardgames.g3.core.Ludo.StrategyMove.MoveNoGamePieceImplementation;
+import boardgames.g3.core.Ludo.StrategyMove.MoveNoMovesAvailableImplementation;
+import boardgames.g3.core.Ludo.StrategyMove.MoveStrategy;
+import boardgames.g3.core.Ludo.StrategyMove.MoveValidImplementation;
+
 public class LudoRuleController {
 
 	LudoGameState state;
@@ -72,7 +82,6 @@ public class LudoRuleController {
 			return false;
 		}
 
-		if(!HelpMethodsFinaMedKnuff.doesPlayerHaveAnyPiecesOnTheBoard(player.getPlayerObject(), state.getBoard()))
 			if (canAnyPieceMakeAMoveOnouterBoardArea(playersPieces, player))
 				return false;
 		
@@ -96,7 +105,7 @@ public class LudoRuleController {
 		List<BoardLocation> playerListOfBoardLocations = player.getBoardList();
 		int sourceIndex = playerListOfBoardLocations.indexOf(source);
 		int destinationIndex = sourceIndex + getNumberOfStepsFromDice();
-		if (destinationIndex > playerListOfBoardLocations.size())
+		if (destinationIndex >= playerListOfBoardLocations.size())
 			return false;
 
 		destination = playerListOfBoardLocations.get(destinationIndex);
