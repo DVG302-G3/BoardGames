@@ -64,8 +64,10 @@ public class MoveValidImplementation implements MoveStrategy{
 	private void updatePlayerInfoAndCheckIfWinner(Move move, LudoGameState state) {
 		LudoPlayer player = state.getLudoPlayerFromPlayer(move.getPlayer());
 		player.aPieceJustEnteredGoal();
-		if(player.getPiecesLeft() == 0)
-			state.setWinner(player.getPlayerObject());
+		if(player.getPiecesLeft() == 0){
+			if(state.getWinner() == null)
+				state.setWinner(player.getPlayerObject());
+		}
 	}
 
 }
