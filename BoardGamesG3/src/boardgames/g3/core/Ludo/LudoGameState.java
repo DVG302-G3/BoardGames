@@ -70,7 +70,7 @@ public class LudoGameState implements GameState {
 		if (turnCounter == 0) {
 			return players.get(0).getPlayerObject();
 		} else
-			return players.get(turnCounter % numberOfPlayers).getPlayerObject();
+			return players.get(turnCounter % players.size()).getPlayerObject();
 	}
 
 	@Override
@@ -80,7 +80,7 @@ public class LudoGameState implements GameState {
 
 	@Override
 	public Player getPlayerInTurn() {
-		return players.get(turnCounter % numberOfPlayers).getPlayerObject();
+		return players.get(turnCounter % players.size()).getPlayerObject();
 	}
 
 	@Override
@@ -145,6 +145,7 @@ public class LudoGameState implements GameState {
 
 	public void removePlayer(LudoPlayer player) {
 		players.remove(player);
+		turnCounter--;
 	}
 
 }
