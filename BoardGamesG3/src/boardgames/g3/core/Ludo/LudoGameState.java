@@ -109,7 +109,8 @@ public class LudoGameState implements GameState {
 	public void nextTurn() {
 		if (getDieRollFactory().getLastRoll().getResult() != 6)
 			turnCounter++;
-		getDieRollFactory().getNewRoll(getPlayerInTurn());
+		while(getDieRollFactory().getNewRoll(getPlayerInTurn()).getResult() != 1)
+			continue;
 	}
 
 	public LudoPlayer getLudoPlayerFromPlayer(Player player) {

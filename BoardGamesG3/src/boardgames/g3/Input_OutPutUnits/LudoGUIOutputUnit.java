@@ -23,9 +23,12 @@ import javax.swing.border.TitledBorder;
 
 import boardgames.g3.BGForLabelsButtons.BackGroundButtonIDLudo;
 import boardgames.g3.BGForLabelsButtons.BackGroundLabelLudo;
+import boardgames.g3.JUnitTests.SolitarJOptionFinishTest;
 import boardgames.g3.core.Ludo.HelpMethodsFinaMedKnuff;
 import boardgames.g3.core.Ludo.LudoDiceChooser;
 import boardgames.g3.core.Ludo.LudoStaticValues;
+import boardgames.g3.core.Solitaire.SolitarJOptionFinish;
+import boardgames.g3.core.Solitaire.SolitarTimer;
 
 public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 
@@ -283,6 +286,19 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 
 			cordCol = 'A';
 			cordRow++;
+		}
+		if (gameState.hasEnded()) {
+			
+			SolitarJOptionFinish optionLabel = new SolitarJOptionFinish();
+
+			optionLabel.dataTaker(0,0,"0","0");
+
+			optionLabel.displayGUI();
+
+			if (optionLabel.getReturnValue() == 1) {
+				gameState.reset();
+				publish(gameState);
+			}
 		}
 		backgroundLabel.revalidate();
 		eastPanelDice.revalidate();
