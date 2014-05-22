@@ -8,21 +8,37 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-public class SolitarJOptionFinish {
+public class FinishPopUpWindow {
 
 	SolitarTimer solidTimer;
 
 	private int value = -1;
-	private int timeInMin, timeInSec;
-	private String beadsTaken, beadsLeft;
+
 	private JPanel mainPanel, westPanel, eastPanel;
 	private JLabel westLabel;
 	private JTextArea eastTextArea;
-	private String[] choice = { "Ok! Back to main menu", "Ok! Reset Game!" };
+	private String[] choice = { "Ok! Thanks!", "Ok! Reset Game!" };
 	private ImageIcon image;
 
-	public void displayGUI() {
-		value = JOptionPane.showOptionDialog(null, createAndGetPanel(),
+	private String textSolitar;
+
+	private String textLudo = "Game is over!! Good job soliders!";
+
+	private String solitarURL = "src\\boardgames\\img\\peggy.gif";
+	private String ludoURL = "";
+
+	public void displayWindowSolitar() {
+		value = JOptionPane.showOptionDialog(null,
+				createAndGetPanelSolitar(solitarURL, textSolitar),
+				"Game's Finished!", JOptionPane.OK_CANCEL_OPTION,
+				JOptionPane.INFORMATION_MESSAGE, null, choice, "default");
+
+		setReturnValue(value);
+	}
+
+	public void displayWindowLudo() {
+		value = JOptionPane.showOptionDialog(null,
+				createAndGetPanelSolitar(ludoURL, textLudo),
 				"Game's Finished!", JOptionPane.OK_CANCEL_OPTION,
 				JOptionPane.INFORMATION_MESSAGE, null, choice, "default");
 
@@ -30,29 +46,27 @@ public class SolitarJOptionFinish {
 
 	}
 
-	public void dataTaker(int timeInMin, int timeInSec, String beadsTaken,
-			String beadsLeft) {
-		this.timeInMin = timeInMin;
-		this.timeInSec = timeInSec;
-		this.beadsTaken = beadsTaken;
-		this.beadsLeft = beadsLeft;
+	public void dataTakerSolitar(int timeInMin, int timeInSec,
+			String beadsTaken, String beadsLeft) {
+
+		textSolitar = "No more moves are available! \nBeads taken: "
+				+ beadsTaken + "\nBeads left: " + beadsLeft + "\nTime: "
+				+ String.format("%02d:%02d", timeInMin, timeInSec);
 	}
 
-	private JPanel createAndGetPanel() {
+	private JPanel createAndGetPanelSolitar(String textURL, String text) {
 		mainPanel = new JPanel();
 		westPanel = new JPanel();
 		eastPanel = new JPanel();
 		westLabel = new JLabel();
 		eastTextArea = new JTextArea();
 
-		eastTextArea.setText("No more moves are available! \nBeads taken: "
-				+ beadsTaken + "\nBeads left: " + beadsLeft + "\nTime: "
-				+ String.format("%02d:%02d", timeInMin, timeInSec));
+		eastTextArea.setText(text);
 		eastTextArea.setFocusable(false);
 		eastTextArea.setEditable(false);
 		eastTextArea.setOpaque(false);
 
-		image = new ImageIcon("src\\boardgames\\img\\peggy.gif");
+		image = new ImageIcon(textURL);
 
 		westLabel.setIcon(image);
 		westPanel.add(westLabel);

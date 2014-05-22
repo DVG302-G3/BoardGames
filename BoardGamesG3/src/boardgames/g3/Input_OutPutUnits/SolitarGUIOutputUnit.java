@@ -19,7 +19,7 @@ import boardgames.g3.BGForLabelsButtons.BackGroundButtonIDSolitaire;
 import boardgames.g3.BGForLabelsButtons.BackGroundLabelSolitaire;
 import boardgames.g3.BGForLabelsButtons.FileChooserSaveAndOpen;
 import boardgames.g3.core.Solitaire.SolitarCounterBeads;
-import boardgames.g3.core.Solitaire.SolitarJOptionFinish;
+import boardgames.g3.core.Solitaire.FinishPopUpWindow;
 import boardgames.g3.core.Solitaire.SolitarStaticValue;
 import boardgames.g3.core.Solitaire.SolitarTimer;
 
@@ -32,7 +32,7 @@ public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 	FileChooserSaveAndOpen fileChooser;
 
 	private JTextArea textAreaBeadsLeftAndTaken;
-	private SolitarJOptionFinish optionLabel;
+	private FinishPopUpWindow winnerWindow;
 	private ActionListener inputUnit;
 	private JPanel topPanel, topPanelFileChooser, topPanelBeadsLeftAndTaken,
 			topPanelTimer, mainPanel;
@@ -51,7 +51,7 @@ public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 
 		timer = new SolitarTimer();
 		counterBeads = new SolitarCounterBeads(SolitarStaticValue.BEADS_TOTAL);
-		optionLabel = new SolitarJOptionFinish();
+		winnerWindow = new FinishPopUpWindow();
 
 		textAreaBeadsLeftAndTaken = new JTextArea();
 
@@ -145,16 +145,16 @@ public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 		if (gameState.hasEnded()) {
 			timer.StopTimeAndTask();
 
-			optionLabel.dataTaker(timer.getCountTimeMin(),
+			winnerWindow.dataTakerSolitar(timer.getCountTimeMin(),
 					timer.getCountTimeSec(), counterBeads.getBeadsTaken(),
 					counterBeads.getBeadsLeft());
 
-			optionLabel.displayGUI();
+			winnerWindow.displayWindowSolitar();
 
-			// if (optionLabel.getReturnValue() == 0) {
+			// if (winnerWindow.getReturnValue() == 0) {
 			// new BoardGamesCoreGUI();
 			// }
-			if (optionLabel.getReturnValue() == 1) {
+			if (winnerWindow.getReturnValue() == 1) {
 				gameState.reset();
 				publish(gameState);
 				timer = new SolitarTimer();

@@ -23,18 +23,18 @@ import javax.swing.border.TitledBorder;
 
 import boardgames.g3.BGForLabelsButtons.BackGroundButtonIDLudo;
 import boardgames.g3.BGForLabelsButtons.BackGroundLabelLudo;
-import boardgames.g3.JUnitTests.SolitarJOptionFinishTest;
 import boardgames.g3.core.Ludo.HelpMethodsFinaMedKnuff;
 import boardgames.g3.core.Ludo.LudoDiceChooser;
 import boardgames.g3.core.Ludo.LudoStaticValues;
-import boardgames.g3.core.Solitaire.SolitarJOptionFinish;
-import boardgames.g3.core.Solitaire.SolitarTimer;
+import boardgames.g3.core.Solitaire.FinishPopUpWindow;
 
 public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 
-	BackGroundLabelLudo backgroundLabel;
+	private BackGroundLabelLudo backgroundLabel;
+	
+	private FinishPopUpWindow finishWindow;
 
-	LudoDiceChooser diceB;
+	private LudoDiceChooser diceB;
 
 	private String redURL = "src\\boardgames\\img\\red.jpg";
 	private String blueURL = "src\\boardgames\\img\\blue.jpg";
@@ -59,7 +59,6 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 			topPanelWhoPlay, topPanelMessage, eastPanel, eastPanelDice, easttopFinishPanel, eastbottomFinishPanel;
 
 	private JLabel eastbottomWinnerLabel;
-	private ImageIcon winnerImage;
 	
 	private JTextField textFieldWhosTurn, winnerTextField;
 	private JTextArea textAreaMessage;
@@ -289,13 +288,11 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 		}
 		if (gameState.hasEnded()) {
 			
-			SolitarJOptionFinish optionLabel = new SolitarJOptionFinish();
+			finishWindow = new FinishPopUpWindow();
 
-			optionLabel.dataTaker(0,0,"0","0");
+			finishWindow.displayWindowLudo();
 
-			optionLabel.displayGUI();
-
-			if (optionLabel.getReturnValue() == 1) {
+			if (finishWindow.getReturnValue() == 1) {
 				gameState.reset();
 				publish(gameState);
 			}
