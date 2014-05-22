@@ -277,28 +277,7 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 				
 				backgroundLabel.add(button[rows][cols]);
 				
-				if(gameState.getWinner() != null){
-					String winner = gameState.getWinner().getName();
-
-					switch(winner){
-					
-					case LudoStaticValues.REDPLAYER :
-						winnerIcon = new ImageIcon(winnerRedIconURL);
-						
-					case LudoStaticValues.BLUEPLAYER :
-						winnerIcon = new ImageIcon(winnerBlueIconURL);
-						
-					case LudoStaticValues.YELLOWPLAYER :
-						winnerIcon = new ImageIcon(winnerYellowIconURL);
-						
-					case LudoStaticValues.GREENPLAYER :
-						winnerIcon = new ImageIcon(winnerGreenIconURL);
-					
-					}
-					winnerTextField.setText(winner);
-					winnerTextField.repaint();
-					eastbottomWinnerLabel.setIcon(winnerIcon);
-				}
+				getWinner(gameState);
 				
 			}
 
@@ -309,5 +288,30 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 		eastPanelDice.revalidate();
 		eastPanelFinished.revalidate();
 		topPanelMessage.revalidate();
+	}
+
+	private void getWinner(GameState gameState) {
+		if(gameState.getWinner() != null){
+			String winner = gameState.getWinner().getName();
+
+			switch(winner){
+			
+			case LudoStaticValues.REDPLAYER :
+				winnerIcon = new ImageIcon(winnerRedIconURL);
+			break;	
+			case LudoStaticValues.BLUEPLAYER :
+				winnerIcon = new ImageIcon(winnerBlueIconURL);
+			break;	
+			case LudoStaticValues.YELLOWPLAYER :
+				winnerIcon = new ImageIcon(winnerYellowIconURL);
+			break;	
+			case LudoStaticValues.GREENPLAYER :
+				winnerIcon = new ImageIcon(winnerGreenIconURL);
+			break;
+			}
+			winnerTextField.setText(winner);
+			winnerTextField.repaint();
+			eastbottomWinnerLabel.setIcon(winnerIcon);
+		}
 	}
 }
