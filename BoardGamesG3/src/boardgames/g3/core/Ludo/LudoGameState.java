@@ -45,6 +45,19 @@ public class LudoGameState implements GameState {
 
 		dieRollFactory.getNewRoll(getLastPlayer());
 		ludoMoveController = new LudoMoveController(this);
+		
+		
+		HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("FE", board).addPiece(getPlayerInTurn().getPieces().get(0));
+		HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("FD", board).addPiece(getPlayerInTurn().getPieces().get(1));
+		HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("FC", board).addPiece(getPlayerInTurn().getPieces().get(2));
+		HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("FB", board).addPiece(getPlayerInTurn().getPieces().get(3));
+
+		HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BB", board).clear();
+		HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BC", board).clear();
+		HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("CB", board).clear();
+		HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("CC", board).clear();
+		
+		
 	}
 
 	@Override
@@ -81,6 +94,7 @@ public class LudoGameState implements GameState {
 
 	@Override
 	public Boolean hasEnded() {
+
 		if (players.size() == 1) {
 			return true;
 		} else
