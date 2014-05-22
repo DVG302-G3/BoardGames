@@ -66,7 +66,10 @@ public class MoveValidImplementation implements MoveStrategy{
 		player.aPieceJustEnteredGoal();
 		if(player.getPiecesLeft() == 0){
 			if(state.getWinner() == null)
+				{
 				state.setWinner(player.getPlayerObject());
+				state.removePlayer(player);
+				}
 		}
 	}
 

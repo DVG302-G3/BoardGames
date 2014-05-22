@@ -13,13 +13,22 @@ public class BoardAndPlayerFactory {
 
 	Board board;
 	List<LudoPlayer> players;
+	int noPlayers;
 
+	public BoardAndPlayerFactory(){
+		this(4);
+	}
+
+	
+	public BoardAndPlayerFactory(int noplayers){
+		this.noPlayers = noplayers;
+	}
+	
 	public void execute() {
 		board = createAndReturnBoard();
 		players = createAndReturnLudoPlayers();
 		addPlayersPiecesToTheBoard();
-		
-	}
+		}
 
 	public List<LudoPlayer> getPlayers() {
 		return players;
@@ -32,7 +41,9 @@ public class BoardAndPlayerFactory {
 	private List<LudoPlayer> createAndReturnLudoPlayers() {
 		List<Player> plainPlayers = createAndReturnPlayers();
 		List<LudoPlayer> ludoPlayers = new ArrayList<>();
-		for (Player p : plainPlayers) {
+		
+		for(int i = 0;i<noPlayers;i++){
+			Player p = plainPlayers.get(i);
 			ludoPlayers.add(new LudoPlayer(p, board));
 		}
 		return ludoPlayers;
