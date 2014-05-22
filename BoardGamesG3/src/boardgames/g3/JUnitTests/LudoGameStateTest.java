@@ -1,7 +1,6 @@
 package boardgames.g3.JUnitTests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 import game.impl.Board;
 import game.impl.BoardLocation;
 import game.impl.Move;
@@ -29,23 +28,13 @@ public class LudoGameStateTest {
 	public void setUp() throws Exception {
 		ludoGameState = new LudoGameState();
 		
-		
 	}
-	@Test
-	public void testGetBoard() {
-		
-		for(int i = 0; i<=72; i++){
-			boardLocation = new BoardLocation("ID: "+i);
-			System.out.println(boardLocation.getId());
-			boardLocations.add(boardLocation);
-		}
-		
-		System.out.println(ludoGameState.getBoard().getLocations().size());
-		
-		Board board = new Board(boardLocations);
-		
-//		assertTrue(board.getLocations().size() == ludoGameState.getBoard().getLocations().size());
-	}
+	
+//	@Test
+//	public void testStartToPlayNewGame(){
+//		fail();
+//	}
+	
 	
 	@Test
 	public void testGetLastPlayer(){
@@ -53,9 +42,7 @@ public class LudoGameStateTest {
 		BoardLocation sourceforPiece;
 		BoardLocation destination;
 		
-		
-		
-		//Rï¿½d
+		//Red
 		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EA", ludoGameState.getBoard());
 		while(ludoGameState.getDieRollFactory().getNewRoll(ludoGameState.getPlayerInTurn()).getResult() != 1)
 			continue;
@@ -63,8 +50,7 @@ public class LudoGameStateTest {
 		ludoGameState.proposeMove(new Move(ludoGameState.getPlayerInTurn(),sourceforPiece,destination));
 		assertEquals("Red", ludoGameState.getLastPlayer().getName());
 		
-		
-		//Blï¿½
+		//Blue
 		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("AG", ludoGameState.getBoard());
 		while(ludoGameState.getDieRollFactory().getNewRoll(ludoGameState.getPlayerInTurn()).getResult() != 1)
 			continue;
@@ -72,9 +58,7 @@ public class LudoGameStateTest {
 		ludoGameState.proposeMove(new Move(ludoGameState.getPlayerInTurn(),sourceforPiece,destination));
 		
 		assertEquals("Blue", ludoGameState.getLastPlayer().getName());
-		
-				
-		//Gul
+		//Yellow
 		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("GK", ludoGameState.getBoard());
 		while(ludoGameState.getDieRollFactory().getNewRoll(ludoGameState.getPlayerInTurn()).getResult() != 1)
 			continue;
@@ -82,9 +66,7 @@ public class LudoGameStateTest {
 		ludoGameState.proposeMove(new Move(ludoGameState.getPlayerInTurn(),sourceforPiece,destination));
 		
 		assertEquals("Yellow", ludoGameState.getLastPlayer().getName());
-		
-			
-		//Grï¿½n
+		//Green
 		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("KE", ludoGameState.getBoard());
 		while(ludoGameState.getDieRollFactory().getNewRoll(ludoGameState.getPlayerInTurn()).getResult() != 1)
 			continue;
@@ -102,7 +84,7 @@ public class LudoGameStateTest {
 		
 		assertEquals("Red", ludoGameState.getPlayerInTurn().getName());
 		
-		//Rï¿½d
+		//Red
 		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EA", ludoGameState.getBoard());
 		while(ludoGameState.getDieRollFactory().getNewRoll(ludoGameState.getPlayerInTurn()).getResult() != 1)
 			continue;
@@ -110,7 +92,7 @@ public class LudoGameStateTest {
 		ludoGameState.proposeMove(new Move(ludoGameState.getPlayerInTurn(),sourceforPiece,destination));
 		assertEquals("Blue", ludoGameState.getPlayerInTurn().getName());
 		
-		//Blï¿½
+		//Blue
 		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("AG", ludoGameState.getBoard());
 		while(ludoGameState.getDieRollFactory().getNewRoll(ludoGameState.getPlayerInTurn()).getResult() != 1)
 			continue;
@@ -118,7 +100,7 @@ public class LudoGameStateTest {
 		ludoGameState.proposeMove(new Move(ludoGameState.getPlayerInTurn(),sourceforPiece,destination));
 		
 		assertEquals("Yellow", ludoGameState.getPlayerInTurn().getName());		
-		//Gul
+		//Yellow
 		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("GK", ludoGameState.getBoard());
 		while(ludoGameState.getDieRollFactory().getNewRoll(ludoGameState.getPlayerInTurn()).getResult() != 1)
 			continue;
@@ -126,7 +108,7 @@ public class LudoGameStateTest {
 		ludoGameState.proposeMove(new Move(ludoGameState.getPlayerInTurn(),sourceforPiece,destination));
 		
 		assertEquals("Green", ludoGameState.getPlayerInTurn().getName());		
-		//Grï¿½n
+		//Green
 		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("KE", ludoGameState.getBoard());
 		while(ludoGameState.getDieRollFactory().getNewRoll(ludoGameState.getPlayerInTurn()).getResult() != 1)
 			continue;
@@ -136,41 +118,113 @@ public class LudoGameStateTest {
 	
 	
 	@Test
-	public void testGetPlayers(){
-		
-		List<LudoPlayer> players = new ArrayList<LudoPlayer>();
-		
-		assertEquals(players, ludoGameState.getPlayers());
-	}
-	
-	@Test
 	public void testHasEnded(){
-		fail();
+		assertFalse(ludoGameState.hasEnded());
+		assertTrue(ludoGameState.hasEnded());
+		
 	}
 	
 	@Test
 	public void testProposeMove(){
-		fail();
+		
+		BoardLocation sourceforPiece;
+		BoardLocation destination;
+		
+		//Röd
+		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EA", ludoGameState.getBoard());
+		while(ludoGameState.getDieRollFactory().getNewRoll(ludoGameState.getPlayerInTurn()).getResult() != 1)
+			continue;
+		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BB", ludoGameState.getBoard());
+		assertTrue(ludoGameState.proposeMove(new Move(ludoGameState.getPlayerInTurn(), sourceforPiece, destination)));
+		
+
+		//Blue
+		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("AG", ludoGameState.getBoard());
+		while(ludoGameState.getDieRollFactory().getNewRoll(ludoGameState.getPlayerInTurn()).getResult() != 1)
+			continue;
+		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BI", ludoGameState.getBoard());
+		assertTrue(ludoGameState.proposeMove(new Move(ludoGameState.getPlayerInTurn(), sourceforPiece, destination)));	
+		
+		//Yellow
+		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("GK", ludoGameState.getBoard());
+		while(ludoGameState.getDieRollFactory().getNewRoll(ludoGameState.getPlayerInTurn()).getResult() != 1)
+			continue;
+		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("II", ludoGameState.getBoard());
+		assertTrue(ludoGameState.proposeMove(new Move(ludoGameState.getPlayerInTurn(), sourceforPiece, destination)));
+		
+		//Green
+		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EI", ludoGameState.getBoard());
+		while(ludoGameState.getDieRollFactory().getNewRoll(ludoGameState.getPlayerInTurn()).getResult() != 4)
+			continue;
+		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("IB", ludoGameState.getBoard());
+		assertFalse(ludoGameState.proposeMove(new Move(ludoGameState.getPlayerInTurn(), sourceforPiece, destination)));
+		
 	}
 	
 	@Test
 	public void testNextTurn(){
-		fail();
+		
+		while(ludoGameState.getDieRollFactory().getNewRoll(ludoGameState.getPlayerInTurn()).getResult() != 1)
+			continue;
+		assertTrue(ludoGameState.getPlayerInTurn().getName() == "Red");
+		ludoGameState.nextTurn();
+		while(ludoGameState.getDieRollFactory().getNewRoll(ludoGameState.getPlayerInTurn()).getResult() != 1)
+			continue;
+		assertTrue(ludoGameState.getPlayerInTurn().getName() == "Blue");
+		ludoGameState.nextTurn();
+		while(ludoGameState.getDieRollFactory().getNewRoll(ludoGameState.getPlayerInTurn()).getResult() != 1)
+			continue;
+		assertTrue(ludoGameState.getPlayerInTurn().getName() == "Yellow");
+		ludoGameState.nextTurn();
+		while(ludoGameState.getDieRollFactory().getNewRoll(ludoGameState.getPlayerInTurn()).getResult() != 1)
+			continue;
+		assertTrue(ludoGameState.getPlayerInTurn().getName() == "Green");
 	}
 	
-	@Test
-	public void testGetLudoPlayerFromPlayer(){
-		fail();
-	}
 	
 	@Test
 	public void testReset(){
-		fail();
+		
+		BoardLocation sourceforPiece;
+		BoardLocation destination;
+		
+		//Röd
+		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EA", ludoGameState.getBoard());
+		while(ludoGameState.getDieRollFactory().getNewRoll(ludoGameState.getPlayerInTurn()).getResult() != 1)
+			continue;
+		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BB", ludoGameState.getBoard());
+		ludoGameState.proposeMove(new Move(ludoGameState.getPlayerInTurn(),sourceforPiece,destination));
+//		System.out.println(destination.getPiece().getId()+" står på "+ destination.getId());
+		assertTrue(ludoGameState.getPlayers().get(0).getPieces().get(0).getId() == destination.getPiece().getId());
+
+		//Blue
+		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("AG", ludoGameState.getBoard());
+		while(ludoGameState.getDieRollFactory().getNewRoll(ludoGameState.getPlayerInTurn()).getResult() != 1)
+			continue;
+		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BI", ludoGameState.getBoard());
+
+		ludoGameState.proposeMove(new Move(ludoGameState.getPlayerInTurn(),sourceforPiece,destination));
+//		System.out.println(destination.getPiece().getId()+" står på "+ destination.getId());
+		
+		assertTrue(ludoGameState.getPlayers().get(1).getPieces().get(0).getId() == destination.getPiece().getId());
+		
+		ludoGameState.reset();
+		
+		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BB", ludoGameState.getBoard());
+//		System.out.println(sourceforPiece.getPiece().getId()+" står på "+ sourceforPiece.getId());
+		
+		assertTrue(ludoGameState.getPlayers().get(0).getPieces().get(0).getId() == sourceforPiece.getPiece().getId());
+		
+		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BI", ludoGameState.getBoard());
+		
+//		System.out.println(sourceforPiece.getPiece().getId()+" står på "+ sourceforPiece.getId());
+		assertTrue(ludoGameState.getPlayers().get(1).getPieces().get(0).getId() == sourceforPiece.getPiece().getId());
 	}
 	
 	@Test
-	public void testGetDieRollFactory(){
+	public void testRemovePlayer(){
 		fail();
 	}
+	
 
 }
