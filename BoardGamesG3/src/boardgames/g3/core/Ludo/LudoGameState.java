@@ -2,6 +2,7 @@ package boardgames.g3.core.Ludo;
 
 import game.api.GameState;
 import game.impl.Board;
+import game.impl.BoardLocation;
 import game.impl.DieRollFactory;
 import game.impl.Move;
 import game.impl.Player;
@@ -26,7 +27,6 @@ public class LudoGameState implements GameState {
 		
 		this.dieRollFactory = new DieRollFactory();
 		startToPlayNewGame();
-
 	}
 
 	public LudoGameState(int noPlayers) {
@@ -45,8 +45,6 @@ public class LudoGameState implements GameState {
 
 		dieRollFactory.getNewRoll(getLastPlayer());
 		ludoMoveController = new LudoMoveController(this);
-
-
 	}
 
 	@Override

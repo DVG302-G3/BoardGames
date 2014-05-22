@@ -58,6 +58,10 @@ public class FileChooserSaveAndOpen extends JPanel implements ActionListener {
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				}
+				
+				finally{
+
+				}
 			}
 
 			// Handle save button action.
