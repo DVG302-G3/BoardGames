@@ -1,6 +1,5 @@
 package boardgames.g3.GUI;
 
-import javax.swing.ImageIcon;
 
 public class BoardGamesMain {
 

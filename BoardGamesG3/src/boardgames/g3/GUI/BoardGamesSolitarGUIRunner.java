@@ -1,8 +1,8 @@
 package boardgames.g3.GUI;
 
-import java.awt.Color;
-
 import game.init.Runner;
+
+import java.awt.Color;
 
 import javax.swing.JPanel;
 

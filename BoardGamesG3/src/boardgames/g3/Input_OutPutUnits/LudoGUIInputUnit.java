@@ -1,15 +1,16 @@
 package boardgames.g3.Input_OutPutUnits;
 
+import game.api.GameState;
+import game.impl.BoardLocation;
+import game.impl.Move;
+import game.io.InputUnit;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import boardgames.g3.BGForLabelsButtons.BackGroundButtonIDLudo;
 import boardgames.g3.core.Ludo.LudoStaticValues;
 import boardgames.g3.core.Solitaire.SolitarHelpMethods;
-import game.api.GameState;
-import game.impl.BoardLocation;
-import game.impl.Move;
-import game.io.InputUnit;
 
 public class LudoGUIInputUnit extends InputUnit implements ActionListener {
 

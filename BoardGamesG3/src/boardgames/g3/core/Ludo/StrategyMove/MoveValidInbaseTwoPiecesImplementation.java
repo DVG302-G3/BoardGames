@@ -1,11 +1,11 @@
 package boardgames.g3.core.Ludo.StrategyMove;
 
+import game.impl.BoardLocation;
+import game.impl.Move;
 import boardgames.g3.core.Ludo.HelpMethodsFinaMedKnuff;
 import boardgames.g3.core.Ludo.LudoGameState;
 import boardgames.g3.core.Ludo.LudoPlayer;
 import boardgames.g3.core.Ludo.LudoRuleController;
-import game.impl.BoardLocation;
-import game.impl.Move;
 
 public class MoveValidInbaseTwoPiecesImplementation implements MoveStrategy {
 

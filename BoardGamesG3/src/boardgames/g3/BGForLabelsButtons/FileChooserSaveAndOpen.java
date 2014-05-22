@@ -2,7 +2,6 @@ package boardgames.g3.BGForLabelsButtons;
 
 import game.api.GameState;
 
-import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,7 +14,6 @@ import java.io.PrintWriter;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class FileChooserSaveAndOpen extends JPanel implements ActionListener {

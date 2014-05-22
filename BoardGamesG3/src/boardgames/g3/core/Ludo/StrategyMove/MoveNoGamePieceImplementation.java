@@ -1,8 +1,8 @@
 package boardgames.g3.core.Ludo.StrategyMove;
 
+import game.impl.Move;
 import boardgames.g3.core.Ludo.LudoGameState;
 import boardgames.g3.core.Ludo.LudoStaticValues;
-import game.impl.Move;
 
 public class MoveNoGamePieceImplementation implements MoveStrategy {
 

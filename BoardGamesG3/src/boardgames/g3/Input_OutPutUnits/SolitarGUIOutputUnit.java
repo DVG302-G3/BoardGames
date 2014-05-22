@@ -2,7 +2,6 @@ package boardgames.g3.Input_OutPutUnits;
 
 import game.api.GameState;
 import game.impl.BoardLocation;
-import game.impl.GamePiece;
 import game.io.OutputUnit;
 
 import java.awt.BorderLayout;
@@ -16,7 +15,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
 
-import boardgames.g3.BGForLabelsButtons.BackGroundButtonIDLudo;
 import boardgames.g3.BGForLabelsButtons.BackGroundButtonIDSolitaire;
 import boardgames.g3.BGForLabelsButtons.BackGroundLabelSolitaire;
 import boardgames.g3.BGForLabelsButtons.FileChooserSaveAndOpen;

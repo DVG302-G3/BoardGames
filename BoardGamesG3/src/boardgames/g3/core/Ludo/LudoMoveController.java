@@ -1,9 +1,8 @@
 package boardgames.g3.core.Ludo;
 
+import game.impl.Move;
 import boardgames.g3.core.Ludo.StrategyMove.MoveStrategy;
 import boardgames.g3.core.Ludo.StrategyMove.MoveValidImplementation;
-import game.impl.GamePiece;
-import game.impl.Move;
 
 public class LudoMoveController {
 

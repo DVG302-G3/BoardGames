@@ -1,12 +1,12 @@
 package boardgames.g3.core.Solitaire;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import game.impl.Board;
 import game.impl.BoardLocation;
 import game.impl.GamePiece;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SolitarBoardFactory {
 	

@@ -1,10 +1,10 @@
 package boardgames.g3.core.Ludo.StrategyMove;
 
+import game.impl.GamePiece;
+import game.impl.Move;
 import boardgames.g3.core.Ludo.LudoGameState;
 import boardgames.g3.core.Ludo.LudoPlayer;
 import boardgames.g3.core.Ludo.LudoRuleController;
-import game.impl.GamePiece;
-import game.impl.Move;
 
 public class MoveValidImplementation implements MoveStrategy{
 	

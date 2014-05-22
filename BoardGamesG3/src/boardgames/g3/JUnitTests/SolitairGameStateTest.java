@@ -1,6 +1,8 @@
 package boardgames.g3.JUnitTests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import game.impl.BoardLocation;
 import game.impl.GamePiece;
 import game.impl.Move;

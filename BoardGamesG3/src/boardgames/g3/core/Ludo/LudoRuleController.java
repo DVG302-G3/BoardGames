@@ -5,9 +5,7 @@ import game.impl.GamePiece;
 import game.impl.Move;
 import game.impl.Player;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import boardgames.g3.core.Ludo.StrategyMove.MoveIncorrectStepsImplementation;
 import boardgames.g3.core.Ludo.StrategyMove.MoveInvalidBaseCantMoveOut;
