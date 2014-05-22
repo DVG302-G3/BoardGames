@@ -28,76 +28,50 @@ public class LudoGUIInputUnit extends InputUnit implements ActionListener {
 	}
 
 	public void onClick(String coordinate) {
-		if (sourceClick == null) {
+		if (checkIfSourceMarked()) {
 			sourceClick = SolitarHelpMethods.getBoardLocationFromCoordinate(
 					coordinate, gameState.getBoard());
-			if (sourceClick.getPiece() != null) {
 
-				if (gameState.getLastPlayer().getName().equals(LudoStaticValues.REDPLAYER)) {
-					if(gameState.getLastPlayer().hasPiece(sourceClick.getPiece()))
-						if(sourceClick.getPieces().size() == 1)
-					    	buttonGUI.setButtonWithRedMarked();
-						else 
-							buttonGUI.setButtonWithTwoRedMarked();
-					else 
-						sourceClick = null;
-					
-				} else if (gameState.getLastPlayer().getName().equals(LudoStaticValues.BLUEPLAYER)) {
-					if(gameState.getLastPlayer().hasPiece(sourceClick.getPiece()))
-						if(sourceClick.getPieces().size() == 1)
-					    	buttonGUI.setButtonWithBlueMarked();
-						else 
-							buttonGUI.setButtonWithTwoBlueMarked();
-					else 
+			if (checkIfBoardlocationEmpty()) {
+				if (checkPlayer(LudoStaticValues.REDPLAYER)) {
+					if (checkSourceForPlayerPiece())
+						setButtonIconMarked(LudoStaticValues.REDPLAYER);
+					else
 						sourceClick = null;
 
-				} else if (gameState.getLastPlayer().getName().equals(LudoStaticValues.YELLOWPLAYER)) {
-					if(gameState.getLastPlayer().hasPiece(sourceClick.getPiece()))
-						if(sourceClick.getPieces().size() == 1)
-							buttonGUI.setButtonWithYellowMarked();
-						else 
-							buttonGUI.setButtonWithTwoYellowMarked();
-					else 
+				} else if (checkPlayer(LudoStaticValues.BLUEPLAYER)) {
+					if (checkSourceForPlayerPiece())
+						setButtonIconMarked(LudoStaticValues.BLUEPLAYER);
+					else
 						sourceClick = null;
 
-				} else if (gameState.getLastPlayer().getName().equals(LudoStaticValues.GREENPLAYER)) {
-					if(gameState.getLastPlayer().hasPiece(sourceClick.getPiece()))
-						if(sourceClick.getPieces().size() == 1)
-							buttonGUI.setButtonWithGreenMarked();
-						else 
-							buttonGUI.setButtonWithTwoGreenMarked();
-					else 
+				} else if (checkPlayer(LudoStaticValues.YELLOWPLAYER)) {
+					if (checkSourceForPlayerPiece())
+						setButtonIconMarked(LudoStaticValues.YELLOWPLAYER);
+					else
 						sourceClick = null;
 
+				} else if (checkPlayer(LudoStaticValues.GREENPLAYER)) {
+					if (checkSourceForPlayerPiece())
+						setButtonIconMarked(LudoStaticValues.GREENPLAYER);
+					else
+						sourceClick = null;
 				}
 			}
 
-		} else if (sourceClick.getId().equals(coordinate)) {
-			if (sourceClick.getPiece() != null) {
-				
-				if (gameState.getLastPlayer().getName().equals(LudoStaticValues.REDPLAYER)) {
-					if(sourceClick.getPieces().size() == 1)
-						buttonGUI.setButtonWithRed();
-					else 
-						buttonGUI.setButtonWithTwoRed();
+		} else if (checkSourceEqualsDestination(coordinate)) {
+			if (checkIfBoardlocationEmpty()) {
+				if (checkPlayer(LudoStaticValues.REDPLAYER)) {
+					setButtonIconRegular(LudoStaticValues.REDPLAYER);
 
-				} else if (gameState.getLastPlayer().getName().equals(LudoStaticValues.BLUEPLAYER)) {
-					if(sourceClick.getPieces().size() == 1)
-						buttonGUI.setButtonWithBlue();
-					else 
-						buttonGUI.setButtonWithTwoBlue();
+				} else if (checkPlayer(LudoStaticValues.BLUEPLAYER)) {
+					setButtonIconRegular(LudoStaticValues.BLUEPLAYER);
 
-				} else if (gameState.getLastPlayer().getName().equals(LudoStaticValues.YELLOWPLAYER)) {
-					if(sourceClick.getPieces().size() == 1)
-						buttonGUI.setButtonWithYellow();
-					else 
-						buttonGUI.setButtonWithTwoYellow();
-					
-				} else if (gameState.getLastPlayer().getName().equals(LudoStaticValues.GREENPLAYER)) {
-					if(sourceClick.getPieces().size() == 1)
-						buttonGUI.setButtonWithGreen();
-					else 
-						buttonGUI.setButtonWithTwoGreen();
+				} else if (checkPlayer(LudoStaticValues.YELLOWPLAYER)) {
+					setButtonIconRegular(LudoStaticValues.YELLOWPLAYER);
+
+				} else if (checkPlayer(LudoStaticValues.GREENPLAYER)) {
+					setButtonIconRegular(LudoStaticValues.GREENPLAYER);
 				}
 			}
 
@@ -116,11 +90,47 @@ public class LudoGUIInputUnit extends InputUnit implements ActionListener {
 		}
 	}
 
+	private boolean checkSourceEqualsDestination(String coordinate) {
+		return sourceClick.getId().equals(coordinate);
+	}
+
+	private boolean checkIfBoardlocationEmpty() {
+		return sourceClick.getPiece() != null;
+	}
+
+	private boolean checkIfSourceMarked() {
+		return sourceClick == null;
+	}
+
+	private void setButtonIconMarked(String pathURL) {
+
+		if (sourceClick.getPieces().size() == 1)
+			buttonGUI.setButtonIcon(pathURL.toLowerCase() + "PieceMarked.png");
+		else
+			buttonGUI.setButtonIcon(pathURL.toLowerCase()
+					+ "PieceTwoMarked.png");
+	}
+
+	private void setButtonIconRegular(String pathURL) {
+
+		if (sourceClick.getPieces().size() == 1)
+			buttonGUI.setButtonIcon(pathURL.toLowerCase() + "Piece.png");
+		else
+			buttonGUI.setButtonIcon(pathURL.toLowerCase() + "PieceTwo.png");
+	}
+
+	private Boolean checkSourceForPlayerPiece() {
+		return gameState.getLastPlayer().hasPiece(sourceClick.getPiece());
+	}
+
+	private boolean checkPlayer(String player) {
+		return gameState.getLastPlayer().getName().equals(player);
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		buttonGUI = (BackGroundButtonIDLudo) e.getSource();
 
-		
 		onClick(buttonGUI.getStringId());
 	}
 

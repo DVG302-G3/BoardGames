@@ -11,6 +11,8 @@ import boardgames.g3.core.Ludo.LudoStaticValues;
 
 public class BackGroundButtonIDLudo extends JButton {
 
+	final String stubPath = "src\\boardgames\\img\\";
+	
 	private String coordinate;
 	BoardLocation location;
 
@@ -27,6 +29,10 @@ public class BackGroundButtonIDLudo extends JButton {
 
 	public String getStringId() {
 		return coordinate;
+	}
+	
+	public void setButtonIcon(String pathURL){
+		setIcon(new ImageIcon(stubPath + pathURL));
 	}
 
 	private void setButtonEmptyPiece() {
