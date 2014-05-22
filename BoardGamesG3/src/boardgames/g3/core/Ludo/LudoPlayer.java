@@ -101,7 +101,7 @@ public class LudoPlayer {
 		}
 
 	}
-
+	
 	public List<String> getFinishLine() {
 		return finishLine;
 	}

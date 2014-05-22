@@ -23,7 +23,7 @@ public class LudoGameState implements GameState {
 	DieRollFactory dieRollFactory;
 
 	public LudoGameState() {
-
+		
 		this.dieRollFactory = new DieRollFactory();
 		startToPlayNewGame();
 

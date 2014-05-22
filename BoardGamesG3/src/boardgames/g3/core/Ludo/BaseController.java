@@ -162,6 +162,19 @@ public class BaseController {
 			return true;
 	}
 
+	public void putInBase(List<String> home, GamePiece pieceToPush) {
+		for (String homeCoordinate : home) {
+			BoardLocation homeLocation = HelpMethodsFinaMedKnuff
+					.getBoardLocationFromCoordinate(homeCoordinate,
+							state.getBoard());
+			if (homeLocation.getPiece() == null) {
+				homeLocation.setPiece(pieceToPush);
+				break;
+			}
+		}
+	}
+
+	
 	private int getDiceResult() {
 		return state.getDieRollFactory().getLastRoll().getResult();
 	}

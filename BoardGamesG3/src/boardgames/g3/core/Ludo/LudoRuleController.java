@@ -56,7 +56,6 @@ public class LudoRuleController {
 	}
 
 	public MoveStrategy evaluateMove(Move move) {
-
 		if (!HelpMethodsFinaMedKnuff.doesPlayerHaveAnyPiecesOnTheBoard(
 				move.getPlayer(), state.getBoard())) {
 			if (!checkIfDiceIsSIXorONE()) {
@@ -64,9 +63,8 @@ public class LudoRuleController {
 			}
 		}
 
-		if (playerCantMakeAMove(move)) 
-					return new MoveNoMovesAvailableImplementation();
-		
+		if (playerCantMakeAMove(move))
+			return new MoveNoMovesAvailableImplementation();
 
 		return checkAndReturnValidMoves(move);
 
@@ -76,13 +74,11 @@ public class LudoRuleController {
 		List<GamePiece> playersPieces = move.getPlayer().getPieces();
 		LudoPlayer player = state.getLudoPlayerFromPlayer(move.getPlayer());
 
-		if (baseController.canPlayerMakeAMoveFromBase(player)) {
+		if (baseController.canPlayerMakeAMoveFromBase(player))
 			return false;
-		}
 
-			if (canAnyPieceMakeAMoveOnouterBoardArea(playersPieces, player))
-				return false;
-		
+		if (canAnyPieceMakeAMoveOnouterBoardArea(playersPieces, player))
+			return false;
 
 		return true;
 	}
@@ -107,7 +103,7 @@ public class LudoRuleController {
 			return false;
 
 		destination = playerListOfBoardLocations.get(destinationIndex);
-		if(source == null || destination == null)
+		if (source == null || destination == null)
 			return false;
 
 		Move move = new Move(player.getPlayerObject(), source, destination);
@@ -122,7 +118,8 @@ public class LudoRuleController {
 	}
 
 	private boolean checkLudoMoveResultsForValidMove(Move move) {
-		return checkAndReturnValidMoves(move) instanceof MoveValidImplementation;}
+		return checkAndReturnValidMoves(move) instanceof MoveValidImplementation;
+	}
 
 	private boolean destinationIsAlreadyOccupado(Move move) {
 		if (move.getDestination().getPieces().size() > 1)
@@ -132,12 +129,12 @@ public class LudoRuleController {
 	}
 
 	private boolean playerIsTryingToLapseAblock(Move move, int dice) {
+		LudoPlayer player = state.getLudoPlayerFromPlayer(move.getPlayer());
+		int sourceIndex = player.getBoardList().indexOf(move.getSource());
 		for (int i = 1; i < dice; i++) {
-			int index = (state.getBoard().getLocations()
-					.indexOf(move.getSource()) + i)
-					% LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD;
-
-			if (state.getBoard().getLocations().get(index).getPieces().size() > 1)
+			BoardLocation destination = player.getBoardList().get(
+					sourceIndex + i);
+			if (destination.getPieces().size() > 1)
 				return true;
 		}
 		return false;
@@ -145,20 +142,15 @@ public class LudoRuleController {
 
 	private boolean playerIsTryingToLapseHisOwnPiece(Move move, int dice) {
 
+		LudoPlayer player = state.getLudoPlayerFromPlayer(move.getPlayer());
+		int sourceIndex = player.getBoardList().indexOf(move.getSource());
 		for (int i = 1; i < dice; i++) {
-			int index = modulateAndReturnTheIndex(move.getSource(), i);
-
-			if (move.getPlayer().hasPiece(
-					state.getBoard().getLocations().get(index).getPiece()))
+			BoardLocation destination = player.getBoardList().get(
+					sourceIndex + i);
+			if (move.getPlayer().hasPiece(destination.getPiece()))
 				return true;
 		}
 		return false;
-	}
-
-	private int modulateAndReturnTheIndex(BoardLocation source, int index) {
-		int newIndex = (state.getBoard().getLocations().indexOf(source) + index)
-				% LudoStaticValues.TOTALSTEPSAROUNDTHEBOARD;
-		return newIndex;
 	}
 
 	private boolean checkIfDiceIsSIXorONE() {
@@ -188,20 +180,8 @@ public class LudoRuleController {
 		GamePiece piece = destination.getPiece();
 		LudoPlayer player = getPlayerFromPiece(piece);
 
-		putInBase(player.getHomePositions(), piece);
+		baseController.putInBase(player.getHomePositions(), piece);
 		destination.clear();
-	}
-
-	private void putInBase(List<String> home, GamePiece pieceToPush) {
-		for (String homeCoordinate : home) {
-			BoardLocation homeLocation = HelpMethodsFinaMedKnuff
-					.getBoardLocationFromCoordinate(homeCoordinate,
-							state.getBoard());
-			if (homeLocation.getPiece() == null) {
-				homeLocation.setPiece(pieceToPush);
-				break;
-			}
-		}
 	}
 
 	private LudoPlayer getPlayerFromPiece(GamePiece pieceToPush) {
