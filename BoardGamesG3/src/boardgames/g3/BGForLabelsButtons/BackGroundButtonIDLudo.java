@@ -96,7 +96,7 @@ public class BackGroundButtonIDLudo extends JButton {
 		}
 	}
 
-	private void setButtonIconOneOrTwo(String pathColorURL, List<String> colorFinishLine) {
+	public void setButtonIconOneOrTwo(String pathColorURL, List<String> colorFinishLine) {
 
 		if (location.getPieces().size() == 1) {
 			if (checkFinishLineColor(location, colorFinishLine))

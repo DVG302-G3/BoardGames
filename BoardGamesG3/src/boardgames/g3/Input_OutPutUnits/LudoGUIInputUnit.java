@@ -62,16 +62,16 @@ public class LudoGUIInputUnit extends InputUnit implements ActionListener {
 		} else if (checkSourceEqualsDestination(coordinate)) {
 			if (checkIfBoardlocationEmpty()) {
 				if (checkPlayer(LudoStaticValues.REDPLAYER)) {
-					setButtonIconRegular(LudoStaticValues.REDPLAYER);
+					buttonGUI.setButtonIconOneOrTwo(LudoStaticValues.REDPLAYER, LudoStaticValues.REDFINISHLINE);
 
 				} else if (checkPlayer(LudoStaticValues.BLUEPLAYER)) {
-					setButtonIconRegular(LudoStaticValues.BLUEPLAYER);
+					buttonGUI.setButtonIconOneOrTwo(LudoStaticValues.BLUEPLAYER, LudoStaticValues.BLUEFINISHLINE);
 
 				} else if (checkPlayer(LudoStaticValues.YELLOWPLAYER)) {
-					setButtonIconRegular(LudoStaticValues.YELLOWPLAYER);
-
+					buttonGUI.setButtonIconOneOrTwo(LudoStaticValues.YELLOWPLAYER, LudoStaticValues.YELLOWFINISHLINE);
+					
 				} else if (checkPlayer(LudoStaticValues.GREENPLAYER)) {
-					setButtonIconRegular(LudoStaticValues.GREENPLAYER);
+					buttonGUI.setButtonIconOneOrTwo(LudoStaticValues.GREENPLAYER, LudoStaticValues.GREENFINISHLINE);
 				}
 			}
 
@@ -109,14 +109,6 @@ public class LudoGUIInputUnit extends InputUnit implements ActionListener {
 		else
 			buttonGUI.setButtonIcon(pathURL.toLowerCase()
 					+ "PieceTwoMarked.png");
-	}
-
-	private void setButtonIconRegular(String pathURL) {
-
-		if (sourceClick.getPieces().size() == 1)
-			buttonGUI.setButtonIcon(pathURL.toLowerCase() + "Piece.png");
-		else
-			buttonGUI.setButtonIcon(pathURL.toLowerCase() + "PieceTwo.png");
 	}
 
 	private Boolean checkSourceForPlayerPiece() {
