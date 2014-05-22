@@ -36,7 +36,7 @@ public class LudoStaticValues {
 	
 	public static final List<String> REDFINISHLINE = Arrays.asList("FB", "FC", "FD", "FE");
 	public static final List<String> BLUEFINISHLINE = Arrays.asList("BF", "CF", "DF", "EF");
-	public static final List<String> GREENFINISHLINE = Arrays.asList("JF", "IF", "GF", "HF");
+	public static final List<String> GREENFINISHLINE = Arrays.asList("JF", "IF", "HF", "GF");
 	public static final List<String> YELLOWFINISHLINE = Arrays.asList("FJ", "FI", "FH", "FG" );
 
 	public static final List<String> REDHOME = Arrays.asList("BB", "BC", "CB", "CC");
