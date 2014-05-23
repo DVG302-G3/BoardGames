@@ -9,6 +9,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -46,7 +48,7 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 	private String winnerYellowIconURL = "src\\boardgames\\img\\yellowWINNER.png";
 	private String winnerGreenIconURL = "src\\boardgames\\img\\greenWINNER.png";
 	
-	private ActionListener inputUnit;
+	private List<ActionListener> inputUnits;
 	
 	private ImageIcon winnerIcon;
 	
@@ -66,17 +68,18 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 	private String player1, player2, player3, player4;
 	private int players;
 
-	public LudoGUIOutputUnit(LudoGUIInputUnit inputUnit) {
-		this.inputUnit = inputUnit;
+	public LudoGUIOutputUnit() {
 		createComponent();
 //		howManyPlayerAndSetName();
 		settingUpComponents();
 	}
 
 	private void createComponent() {
+		inputUnits = new ArrayList<ActionListener>();
+		
 		backgroundLabel = new BackGroundLabelLudo(LudoStaticValues.ROWS,
 				LudoStaticValues.COLS);
-
+		
 		winnerIcon = new ImageIcon();
 		
 		textFieldWhosTurn = new JTextField();
@@ -262,7 +265,9 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 
 				button[rows][cols] = new BackGroundButtonIDLudo(location,
 						coordinate);
-				button[rows][cols].addActionListener(inputUnit);
+				for(ActionListener listener : inputUnits){
+					button[rows][cols].addActionListener(listener);
+				}
 
 				diceB.addActionListener(diceB);
 
@@ -326,5 +331,9 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 			winnerTextField.repaint();
 			eastbottomWinnerLabel.setIcon(winnerIcon);
 		}
+	}
+	
+	public void registerListener(ActionListener listener){
+		inputUnits.add(listener);
 	}
 }

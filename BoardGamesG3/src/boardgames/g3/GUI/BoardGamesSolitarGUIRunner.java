@@ -23,7 +23,8 @@ public class BoardGamesSolitarGUIRunner extends JPanel {
 		mainPanel.setBackground(Color.BLACK);
 		
 		in = new SolitarGUIInputUnit();
-		out = new SolitarGUIOutputUnit(in);
+		out = new SolitarGUIOutputUnit();
+		out.registerListener(in);
 		new Runner(new SolitarGameState(), new SolitarGUIIOFactory(in, out))
 				.run();
 		
