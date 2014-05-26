@@ -30,12 +30,6 @@ public class LudoGameStateTest {
 		
 	}
 	
-//	@Test
-//	public void testStartToPlayNewGame(){
-//		fail();
-//	}
-	
-	
 	@Test
 	public void testGetLastPlayer(){
 				
@@ -121,7 +115,6 @@ public class LudoGameStateTest {
 	public void testHasEnded(){
 		assertFalse(ludoGameState.hasEnded());
 		assertTrue(ludoGameState.hasEnded());
-		
 	}
 	
 	@Test
@@ -130,7 +123,7 @@ public class LudoGameStateTest {
 		BoardLocation sourceforPiece;
 		BoardLocation destination;
 		
-		//Röd
+		//Rï¿½d
 		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EA", ludoGameState.getBoard());
 		while(ludoGameState.getDieRollFactory().getNewRoll(ludoGameState.getPlayerInTurn()).getResult() != 1)
 			continue;
@@ -188,13 +181,12 @@ public class LudoGameStateTest {
 		BoardLocation sourceforPiece;
 		BoardLocation destination;
 		
-		//Röd
+		//Rï¿½d
 		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EA", ludoGameState.getBoard());
 		while(ludoGameState.getDieRollFactory().getNewRoll(ludoGameState.getPlayerInTurn()).getResult() != 1)
 			continue;
 		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BB", ludoGameState.getBoard());
 		ludoGameState.proposeMove(new Move(ludoGameState.getPlayerInTurn(),sourceforPiece,destination));
-//		System.out.println(destination.getPiece().getId()+" står på "+ destination.getId());
 		assertTrue(ludoGameState.getPlayers().get(0).getPieces().get(0).getId() == destination.getPiece().getId());
 
 		//Blue
@@ -204,27 +196,18 @@ public class LudoGameStateTest {
 		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BI", ludoGameState.getBoard());
 
 		ludoGameState.proposeMove(new Move(ludoGameState.getPlayerInTurn(),sourceforPiece,destination));
-//		System.out.println(destination.getPiece().getId()+" står på "+ destination.getId());
-		
 		assertTrue(ludoGameState.getPlayers().get(1).getPieces().get(0).getId() == destination.getPiece().getId());
 		
 		ludoGameState.reset();
 		
 		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BB", ludoGameState.getBoard());
-//		System.out.println(sourceforPiece.getPiece().getId()+" står på "+ sourceforPiece.getId());
-		
 		assertTrue(ludoGameState.getPlayers().get(0).getPieces().get(0).getId() == sourceforPiece.getPiece().getId());
 		
 		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BI", ludoGameState.getBoard());
-		
-//		System.out.println(sourceforPiece.getPiece().getId()+" står på "+ sourceforPiece.getId());
 		assertTrue(ludoGameState.getPlayers().get(1).getPieces().get(0).getId() == sourceforPiece.getPiece().getId());
 	}
 	
-	@Test
-	public void testRemovePlayer(){
-		fail();
-	}
+
 	
 
 }

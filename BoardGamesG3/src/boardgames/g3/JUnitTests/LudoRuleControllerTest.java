@@ -48,10 +48,8 @@ public class LudoRuleControllerTest {
 			continue;
 		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BB", ludoGameState.getBoard());
 		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("DE", ludoGameState.getBoard());
-//		System.out.println(ludoGameState.getPlayerInTurn());
 		ludoMoveResult = ludoRuleController.checkAndReturnValidMoves
 				(new Move(ludoGameState.getPlayerInTurn(), sourceforPiece, destination));
-//		System.out.println("HÄR!!: "+ludoMoveResult);
 		Assert.assertTrue(ludoMoveResult instanceof MoveValidImplementation);
 		
 		while(ludoGameState.getDieRollFactory().getNewRoll(ludoGameState.getPlayerInTurn()).getResult() != 1)
@@ -60,31 +58,9 @@ public class LudoRuleControllerTest {
 		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("AE", ludoGameState.getBoard());
 		ludoMoveResult = ludoRuleController.checkAndReturnValidMoves
 				(new Move(ludoGameState.getLastPlayer(), sourceforPiece, destination));
-//		System.out.println("HÄR!!: "+ludoMoveResult);
 	}
-	
-	@Test
-	public void testEvaluateMove(){
-		fail();
-	}
-	
-//	@Test
-//	public void testMoveOutOfHome() {
-//		
-//		while(state.getDieRollFactory().getNewRoll(state.getPlayerInTurn()).getResult() != 1)
-//			continue;
-//		BoardLocation source = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BB", state.getBoard());
-//		BoardLocation destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EA", state.getBoard());
-//		state.proposeMove(new Move(state.getLastPlayer(), source, destination));
-//		
-//		assertNull(HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BB", state.getBoard()).getPiece());
-//		GamePiece gp1 = destination.getPiece();
-//		destination.removePiece(gp1);
-//		assertNotNull(destination.getPiece());
-//		
-//	}
 
-	
+	// Used for testing of method. Changed visibilty to private.
 	@Test
 	public void testCheckIfDiceIsSIXorONE(){
 		while(ludoGameState.getDieRollFactory().getNewRoll(ludoGameState.getPlayerInTurn()).getResult() != 1)
@@ -105,25 +81,25 @@ public class LudoRuleControllerTest {
 		BoardLocation destination;
 		BoardLocation sourceForPuschPiece;
 		
-		//Röd
+		//Rï¿½d
 		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EA", lGameState.getBoard());
 		while(lGameState.getDieRollFactory().getNewRoll(lGameState.getPlayerInTurn()).getResult() != 1)
 			continue;
 		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BB", lGameState.getBoard());
 		lGameState.proposeMove(new Move(lGameState.getPlayerInTurn(),sourceforPiece,destination));
-		//Blå
+		//Blï¿½
 		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("AG", lGameState.getBoard());
 		while(lGameState.getDieRollFactory().getNewRoll(lGameState.getPlayerInTurn()).getResult() != 1)
 			continue;
 		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BI", lGameState.getBoard());
 		lGameState.proposeMove(new Move(lGameState.getPlayerInTurn(),sourceforPiece,destination));
-		//Röd
+		//Rï¿½d
 		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("CE", lGameState.getBoard());
 		while(lGameState.getDieRollFactory().getNewRoll(lGameState.getPlayerInTurn()).getResult() != 6)
 			continue;
 		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EA", lGameState.getBoard());
 		lGameState.proposeMove(new Move(lGameState.getPlayerInTurn(),sourceforPiece,destination));
-		//Röd
+		//Rï¿½d
 		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("AG", lGameState.getBoard());
 		while(lGameState.getDieRollFactory().getNewRoll(lGameState.getPlayerInTurn()).getResult() != 4)
 			continue;
@@ -162,25 +138,25 @@ public class LudoRuleControllerTest {
 		BoardLocation destination;
 		BoardLocation sourceForPuschPiece;
 		
-		//Röd
+		//Rï¿½d
 		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EA", lGameState.getBoard());
 		while(lGameState.getDieRollFactory().getNewRoll(lGameState.getPlayerInTurn()).getResult() != 1)
 			continue;
 		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BB", lGameState.getBoard());
 		lGameState.proposeMove(new Move(lGameState.getPlayerInTurn(),sourceforPiece,destination));
-		//Blå
+		//Blï¿½
 		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("AG", lGameState.getBoard());
 		while(lGameState.getDieRollFactory().getNewRoll(lGameState.getPlayerInTurn()).getResult() != 1)
 			continue;
 		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BI", lGameState.getBoard());
 		lGameState.proposeMove(new Move(lGameState.getPlayerInTurn(),sourceforPiece,destination));
-		//Röd
+		//Rï¿½d
 		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("CE", lGameState.getBoard());
 		while(lGameState.getDieRollFactory().getNewRoll(lGameState.getPlayerInTurn()).getResult() != 6)
 			continue;
 		sourceforPiece = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EA", lGameState.getBoard());
 		lGameState.proposeMove(new Move(lGameState.getPlayerInTurn(),sourceforPiece,destination));
-		//Röd
+		//Rï¿½d
 		destination = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("AG", lGameState.getBoard());
 		while(lGameState.getDieRollFactory().getNewRoll(lGameState.getPlayerInTurn()).getResult() != 4)
 			continue;
