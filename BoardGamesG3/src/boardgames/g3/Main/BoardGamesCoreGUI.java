@@ -23,10 +23,10 @@ public class BoardGamesCoreGUI extends JFrame {
 
 	private JMenuBar menuBar;
 
-	private JMenu menuMenu, menuItemNewGame;
+	private JMenu menuMenu, menuItemNewGame, menuAbout;
 
 	private JMenuItem menuItemNewGameFMK, menuItemNewGameSolitar,
-			menuItemNewSettings, menuItemQuit, menuAbout;
+			menuItemNewSettings, menuItemQuit, menuItemAbout;
 
 	BackGroundLabel backgroundPanel;
 
@@ -45,12 +45,14 @@ public class BoardGamesCoreGUI extends JFrame {
 
 		menuBar = new JMenuBar();
 		menuMenu = new JMenu("Menu");
-		menuAbout = new JMenuItem("About");
-
+		menuAbout = new JMenu("About");
+		
+		menuItemAbout = new JMenuItem("About");
 		menuItemNewGame = new JMenu("Choose Game");
 		menuItemNewGameFMK = new JMenuItem("Ludo");
 		menuItemNewGameSolitar = new JMenuItem("Solitär");
 
+		
 		menuItemNewSettings = new JMenuItem("Settings");
 		menuItemQuit = new JMenuItem("Quit");
 
@@ -68,6 +70,8 @@ public class BoardGamesCoreGUI extends JFrame {
 		menuBar.add(menuMenu);
 		menuBar.add(menuAbout);
 
+		menuAbout.add(menuItemAbout);
+		
 		menuMenu.add(menuItemNewGame);
 		menuMenu.add(menuItemNewSettings);
 		menuMenu.add(menuItemQuit);
@@ -86,7 +90,7 @@ public class BoardGamesCoreGUI extends JFrame {
 
 		menuItemQuit.addActionListener(new BoardGamesListenersQuit());
 
-		menuAbout.addActionListener(new BoardGamesListenersAbout());
+		menuItemAbout.addActionListener(new BoardGamesListenersAbout());
 
 		menuItemNewGameFMK
 				.addActionListener(new newGamesListenersFiaMedKnuff());
