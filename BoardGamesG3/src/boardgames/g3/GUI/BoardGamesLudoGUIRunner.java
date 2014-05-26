@@ -13,7 +13,6 @@ import boardgames.g3.core.Ludo.LudoGameState;
 
 public class BoardGamesLudoGUIRunner extends JPanel {
 
-
 	private JPanel mainPanel;
 
 	LudoGUIInputUnit inputUnit;
@@ -22,13 +21,15 @@ public class BoardGamesLudoGUIRunner extends JPanel {
 	public BoardGamesLudoGUIRunner() {
 		mainPanel = new JPanel();
 		mainPanel.setBackground(Color.BLACK);
-		
+
 		inputUnit = new LudoGUIInputUnit();
-		outputUnit = new LudoGUIOutputUnit(inputUnit);
-		new Runner(new LudoGameState(), new LudoGUIIOFactory(inputUnit, outputUnit)).run();
-		
+		outputUnit = new LudoGUIOutputUnit();
+		outputUnit.registerListener(inputUnit);
+		new Runner(new LudoGameState(), new LudoGUIIOFactory(inputUnit,
+				outputUnit)).run();
+
 		setNewMidPanel(outputUnit);
-		
+
 		this.add(mainPanel);
 	}
 
@@ -40,5 +41,4 @@ public class BoardGamesLudoGUIRunner extends JPanel {
 		this.revalidate();
 	}
 
-	}
-
+}

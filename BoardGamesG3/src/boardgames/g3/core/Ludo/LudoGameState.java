@@ -43,10 +43,8 @@ public class LudoGameState implements GameState {
 		this.players = factory.getPlayers();
 		this.board = factory.getBoard();
 
-		dieRollFactory.getNewRoll(getLastPlayer());
+		dieRollFactory.getNewRoll(getPlayerInTurn());
 		ludoMoveController = new LudoMoveController(this);
-		
-
 	}
 
 	@Override
@@ -60,7 +58,6 @@ public class LudoGameState implements GameState {
 			return players.get(0).getPlayerObject();
 		} else
 			return players.get((turnCounter-1) % players.size()).getPlayerObject();
-
 	}
 
 	@Override
@@ -99,8 +96,8 @@ public class LudoGameState implements GameState {
 	public void nextTurn() {
 		if (getDieRollFactory().getLastRoll().getResult() != 6)
 			turnCounter++;
-		while(getDieRollFactory().getNewRoll(getPlayerInTurn()).getResult() != 1)
-			continue;
+		getDieRollFactory().getNewRoll(getPlayerInTurn()).getResult();
+			
 	}
 
 	public LudoPlayer getLudoPlayerFromPlayer(Player player) {

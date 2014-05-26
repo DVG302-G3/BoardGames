@@ -8,6 +8,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -18,8 +19,8 @@ import javax.swing.border.TitledBorder;
 import boardgames.g3.BGForLabelsButtons.BackGroundButtonIDSolitaire;
 import boardgames.g3.BGForLabelsButtons.BackGroundLabelSolitaire;
 import boardgames.g3.BGForLabelsButtons.FileChooserSaveAndOpen;
-import boardgames.g3.core.Solitaire.SolitarCounterBeads;
 import boardgames.g3.core.Solitaire.FinishPopUpWindow;
+import boardgames.g3.core.Solitaire.SolitarCounterBeads;
 import boardgames.g3.core.Solitaire.SolitarStaticValue;
 import boardgames.g3.core.Solitaire.SolitarTimer;
 
@@ -33,19 +34,19 @@ public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 
 	private JTextArea textAreaBeadsLeftAndTaken;
 	private FinishPopUpWindow winnerWindow;
-	private ActionListener inputUnit;
+	private List<ActionListener> inputUnits;
 	private JPanel topPanel, topPanelFileChooser, topPanelBeadsLeftAndTaken,
 			topPanelTimer, mainPanel;
-	
+
 	private BackGroundButtonIDSolitaire button[][];
 
-	public SolitarGUIOutputUnit(SolitarGUIInputUnit inputUnit) {
-		this.inputUnit = inputUnit;
+	public SolitarGUIOutputUnit() {
 		createComponent();
 		settingUpComponents();
 	}
 
 	private void createComponent() {
+		inputUnits = new ArrayList<ActionListener>();
 		backgroundLabel = new BackGroundLabelSolitaire(SolitarStaticValue.ROW,
 				SolitarStaticValue.COL);
 
@@ -75,7 +76,7 @@ public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 				BorderFactory.createEtchedBorder(), "Load & Save",
 				TitledBorder.LEFT, TitledBorder.TOP));
 		topPanelFileChooser.setOpaque(false);
-		
+
 		topPanelBeadsLeftAndTaken.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(), "Beads Taken",
 				TitledBorder.LEFT, TitledBorder.TOP));
@@ -125,19 +126,20 @@ public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 						Integer.toString((rows + 1))
 								+ Integer.toString((cols + 1)), locations, counterBeads, index);
 
-				button[rows][cols].addActionListener(inputUnit);
+				for(ActionListener listener : inputUnits)
+					button[rows][cols].addActionListener(listener);
 
 				backgroundLabel.add(button[rows][cols]);
 
-							
+
         index++;
 			}
 		}
-		
+
 		topPanelFileChooser.removeAll();
 		topPanelFileChooser.add(fileChooser);
 		topPanelFileChooser.revalidate();
-		
+
 		textAreaBeadsLeftAndTaken.setText("Beads left:\t"
 				+ counterBeads.getBeadsLeft() + "\nBeads Taken:\t"
 				+ counterBeads.getBeadsTaken());
@@ -151,9 +153,7 @@ public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 
 			winnerWindow.displayWindowSolitar();
 
-			// if (winnerWindow.getReturnValue() == 0) {
-			// new BoardGamesCoreGUI();
-			// }
+
 			if (winnerWindow.getReturnValue() == 1) {
 				gameState.reset();
 				publish(gameState);
@@ -165,5 +165,9 @@ public class SolitarGUIOutputUnit extends JPanel implements OutputUnit {
 		}
 
 		backgroundLabel.revalidate();
+	}
+
+	public void registerListener(ActionListener listener){
+		inputUnits.add(listener);
 	}
 }

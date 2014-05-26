@@ -112,11 +112,11 @@ public class LudoGUIInputUnit extends InputUnit implements ActionListener {
 	}
 
 	private Boolean checkSourceForPlayerPiece() {
-		return gameState.getLastPlayer().hasPiece(sourceClick.getPiece());
+		return gameState.getPlayerInTurn().hasPiece(sourceClick.getPiece());
 	}
 
 	private boolean checkPlayer(String player) {
-		return gameState.getLastPlayer().getName().equals(player);
+		return gameState.getPlayerInTurn().getName().equals(player);
 	}
 
 	@Override

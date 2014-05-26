@@ -9,6 +9,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -31,7 +33,7 @@ import boardgames.g3.core.Solitaire.FinishPopUpWindow;
 public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 
 	private BackGroundLabelLudo backgroundLabel;
-	
+
 	private FinishPopUpWindow finishWindow;
 
 	private LudoDiceChooser diceB;
@@ -45,11 +47,11 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 	private String winnerBlueIconURL = "src\\boardgames\\img\\blueWINNER.png";
 	private String winnerYellowIconURL = "src\\boardgames\\img\\yellowWINNER.png";
 	private String winnerGreenIconURL = "src\\boardgames\\img\\greenWINNER.png";
-	
-	private ActionListener inputUnit;
-	
+
+	private List<ActionListener> inputUnits;
+
 	private ImageIcon winnerIcon;
-	
+
 	private BackGroundButtonIDLudo button[][];
 
 	private ButtonGroup buttonGroup;
@@ -59,26 +61,27 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 			topPanelWhoPlay, topPanelMessage, eastPanel, eastPanelDice, easttopFinishPanel, eastbottomFinishPanel;
 
 	private JLabel eastbottomWinnerLabel;
-	
+
 	private JTextField textFieldWhosTurn, winnerTextField;
 	private JTextArea textAreaMessage;
 
 	private String player1, player2, player3, player4;
 	private int players;
 
-	public LudoGUIOutputUnit(LudoGUIInputUnit inputUnit) {
-		this.inputUnit = inputUnit;
+	public LudoGUIOutputUnit() {
 		createComponent();
 //		howManyPlayerAndSetName();
 		settingUpComponents();
 	}
 
 	private void createComponent() {
+		inputUnits = new ArrayList<ActionListener>();
+
 		backgroundLabel = new BackGroundLabelLudo(LudoStaticValues.ROWS,
 				LudoStaticValues.COLS);
 
 		winnerIcon = new ImageIcon();
-		
+
 		textFieldWhosTurn = new JTextField();
 		textAreaMessage = new JTextArea();
 		winnerTextField = new JTextField();
@@ -87,17 +90,17 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 		topPanelPlayers = new JPanel(new GridLayout(2, 2));
 		topPanelWhoPlay = new JPanel(new GridLayout(1, 1));
 		topPanelMessage = new JPanel(new GridLayout(1, 1));
-		
+
 		eastPanel = new JPanel(new GridLayout(2, 1));
 		eastPanelDice = new JPanel(new GridLayout(1, 1));
 		eastPanelFinished = new JPanel(new GridLayout(4, 4));
 		easttopFinishPanel = new JPanel();
 		eastbottomFinishPanel = new JPanel();
-		
+
 		eastbottomWinnerLabel = new JLabel();
 
 		midPanel = new JPanel();
-		
+
 		buttonGroup = new ButtonGroup();
 
 		redC = new JCheckBox();
@@ -135,7 +138,7 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 		blueC.setIcon(new ImageIcon(blueURL));
 		greenC.setIcon(new ImageIcon(greenURL));
 		yellowC.setIcon(new ImageIcon(yellowURL));
-		
+
 		redC.setOpaque(false);
 		blueC.setOpaque(false);
 		greenC.setOpaque(false);
@@ -164,14 +167,14 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 		winnerTextField.setBorder(BorderFactory.createEmptyBorder());
 		winnerTextField.setHorizontalAlignment(JLabel.CENTER);
 		winnerTextField.setFont(new Font("Arial", Font.CENTER_BASELINE, 15));
-		
+
 		textAreaMessage.setFocusable(false);
 		textAreaMessage.setEditable(false);
 		textAreaMessage.setOpaque(false);
 		textAreaMessage.setLineWrap(true);
 		textAreaMessage.setWrapStyleWord(true);
 		textAreaMessage.setFont(new Font("Arial", Font.CENTER_BASELINE, 10));
-		
+
 		topPanel.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(), "Ludo", TitledBorder.LEFT,
 				TitledBorder.TOP));
@@ -208,12 +211,12 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 				BorderFactory.createEtchedBorder(), "Finished Pieces",
 				TitledBorder.LEFT, TitledBorder.TOP));
 		eastPanelFinished.setBackground(Color.WHITE);
-		
+
 		easttopFinishPanel.setOpaque(false);
 		eastbottomFinishPanel.setOpaque(false);
 		easttopFinishPanel.add(winnerTextField);
 		eastbottomFinishPanel.add(eastbottomWinnerLabel);
-		
+
 		eastPanelFinished.setLayout(new BorderLayout());
 		eastPanelFinished.add(easttopFinishPanel, BorderLayout.NORTH);
 		eastPanelFinished.add(eastbottomFinishPanel, BorderLayout.SOUTH);
@@ -241,12 +244,12 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 		backgroundLabel.removeAll();
 		eastPanelDice.removeAll();
 		topPanelMessage.removeAll();
-		
 
-		textFieldWhosTurn.setText(gameState.getLastPlayer().getName());
+
+		textFieldWhosTurn.setText(gameState.getPlayerInTurn().getName());
 
 		textAreaMessage.setText(gameState.getMessage());
-		
+
 		button = new BackGroundButtonIDLudo[LudoStaticValues.ROWS][LudoStaticValues.COLS];
 		diceB = new LudoDiceChooser(gameState);
 
@@ -262,32 +265,35 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 
 				button[rows][cols] = new BackGroundButtonIDLudo(location,
 						coordinate);
-				button[rows][cols].addActionListener(inputUnit);
+				
+				for(ActionListener listener : inputUnits){
+					button[rows][cols].addActionListener(listener);
+				}
 
 				diceB.addActionListener(diceB);
 
-				
+
 				eastPanelDice.add(diceB);
 			    diceB.addActionListener(diceB);			
 			    eastPanelDice.add(diceB);
-			    
+
 				topPanelMessage.add(textAreaMessage);
 				easttopFinishPanel.add(winnerTextField);
-				
-				
+
+
 				textAreaMessage.repaint();
-				
+
 				backgroundLabel.add(button[rows][cols]);
-				
+
 				getWinner(gameState);
-				
+
 			}
 
 			cordCol = 'A';
 			cordRow++;
 		}
 		if (gameState.hasEnded()) {
-			
+
 			finishWindow = new FinishPopUpWindow();
 
 			finishWindow.displayWindowLudo();
@@ -308,7 +314,7 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 			String winner = gameState.getWinner().getName();
 
 			switch(winner){
-			
+
 			case LudoStaticValues.REDPLAYER :
 				winnerIcon = new ImageIcon(winnerRedIconURL);
 			break;	
@@ -326,5 +332,9 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 			winnerTextField.repaint();
 			eastbottomWinnerLabel.setIcon(winnerIcon);
 		}
+	}
+
+	public void registerListener(ActionListener listener){
+		inputUnits.add(listener);
 	}
 }
