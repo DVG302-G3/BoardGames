@@ -16,10 +16,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
 
-import boardgames.g3.BGForLabelsButtons.BackGroundButtonIDSolitaire;
-import boardgames.g3.BGForLabelsButtons.BackGroundLabelSolitaire;
-import boardgames.g3.BGForLabelsButtons.FileChooserSaveAndOpen;
-import boardgames.g3.core.Solitaire.FinishPopUpWindow;
+import boardgames.g3.SwingComponents.BackGroundButtonIDSolitaire;
+import boardgames.g3.SwingComponents.BackGroundLabelSolitaire;
+import boardgames.g3.SwingComponents.FileChooserSaveAndOpen;
+import boardgames.g3.SwingComponents.FinishPopUpWindow;
 import boardgames.g3.core.Solitaire.SolitarCounterBeads;
 import boardgames.g3.core.Solitaire.SolitarStaticValue;
 import boardgames.g3.core.Solitaire.SolitarTimer;

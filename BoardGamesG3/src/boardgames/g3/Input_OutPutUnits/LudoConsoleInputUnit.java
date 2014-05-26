@@ -12,7 +12,7 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
 
-import boardgames.g3.core.Ludo.HelpMethodsFinaMedKnuff;
+import boardgames.g3.core.Ludo.LudoHelpMethods;
 
 public class LudoConsoleInputUnit extends InputUnit {
 	BufferedReader br;
@@ -59,10 +59,10 @@ public class LudoConsoleInputUnit extends InputUnit {
 				System.out.print("Vilken pjäs vill du flytta:");
 				try {
 					input = Arrays.asList(br.readLine().split(" "));
-					source = HelpMethodsFinaMedKnuff
+					source = LudoHelpMethods
 							.getBoardLocationFromCoordinate(input.get(0),
 									state.getBoard());
-					destination = HelpMethodsFinaMedKnuff
+					destination = LudoHelpMethods
 							.getBoardLocationFromCoordinate(input.get(1),
 									state.getBoard());
 
@@ -95,7 +95,7 @@ public class LudoConsoleInputUnit extends InputUnit {
 
 	private boolean playerCanMakeAMove(GameState state, Player player,
 			int dieRollNumber) {
-		return !(!isDieSixOrOne(dieRollNumber) && !HelpMethodsFinaMedKnuff
+		return !(!isDieSixOrOne(dieRollNumber) && !LudoHelpMethods
 				.doesPlayerHaveAnyPiecesOnTheBoard(player, state.getBoard()));
 	}
 

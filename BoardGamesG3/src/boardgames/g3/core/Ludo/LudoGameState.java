@@ -37,7 +37,7 @@ public class LudoGameState implements GameState {
 
 	public void startToPlayNewGame() {
 
-		BoardAndPlayerFactory factory = new BoardAndPlayerFactory(numberOfPlayers);
+		LudoBoardAndPlayerFactory factory = new LudoBoardAndPlayerFactory(numberOfPlayers);
 		factory.execute();
 		
 		this.players = factory.getPlayers();

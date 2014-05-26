@@ -2,7 +2,7 @@ package boardgames.g3.core.Ludo.StrategyMove;
 
 import game.impl.BoardLocation;
 import game.impl.Move;
-import boardgames.g3.core.Ludo.HelpMethodsFinaMedKnuff;
+import boardgames.g3.core.Ludo.LudoHelpMethods;
 import boardgames.g3.core.Ludo.LudoGameState;
 import boardgames.g3.core.Ludo.LudoPlayer;
 import boardgames.g3.core.Ludo.LudoRuleController;
@@ -23,11 +23,11 @@ public class MoveValidInbaseTwoPiecesImplementation implements MoveStrategy {
 
 		LudoPlayer player = state.getLudoPlayerFromPlayer(move.getPlayer());
 		for (String basePositions : player.getHomePositions()) {
-			BoardLocation home = HelpMethodsFinaMedKnuff
+			BoardLocation home = LudoHelpMethods
 					.getBoardLocationFromCoordinate(basePositions,
 							state.getBoard());
 			if (home.getPiece() != null && home.getPiece() != move.getPiece()) {
-				BoardLocation start = HelpMethodsFinaMedKnuff
+				BoardLocation start = LudoHelpMethods
 						.getBoardLocationFromCoordinate(
 								player.getStartCoordinateOne(),
 								state.getBoard());

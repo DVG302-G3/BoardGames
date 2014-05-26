@@ -1,7 +1,0 @@
-null;null;13;14;15;null;null
-null;null;23;24;25;null;null
-31;32;33;34;35;36;37
-41;42;43;44;45;46;47
-51;52;53;54;55;56;57
-null;null;63;64;65;null;null
-null;null;73;74;75;null;null

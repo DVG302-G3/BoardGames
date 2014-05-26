@@ -8,7 +8,7 @@ import game.io.InputUnit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import boardgames.g3.BGForLabelsButtons.BackGroundButtonIDSolitaire;
+import boardgames.g3.SwingComponents.BackGroundButtonIDSolitaire;
 import boardgames.g3.core.Solitaire.SolitarHelpMethods;
 
 public class SolitarGUIInputUnit extends InputUnit implements ActionListener {

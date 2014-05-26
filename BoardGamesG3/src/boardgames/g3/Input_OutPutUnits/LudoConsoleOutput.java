@@ -7,7 +7,7 @@ import game.io.OutputUnit;
 
 import java.util.List;
 
-import boardgames.g3.core.Ludo.HelpMethodsFinaMedKnuff;
+import boardgames.g3.core.Ludo.LudoHelpMethods;
 import boardgames.g3.core.Ludo.LudoStaticValues;
 
 public class LudoConsoleOutput implements OutputUnit {
@@ -26,7 +26,7 @@ public class LudoConsoleOutput implements OutputUnit {
 				String coordinate = Character.toString(cordRow)
 						+ Character.toString(cordCol++);
 				String col;
-				BoardLocation location = HelpMethodsFinaMedKnuff
+				BoardLocation location = LudoHelpMethods
 						.getBoardLocationFromCoordinate(coordinate,
 								state.getBoard());
 

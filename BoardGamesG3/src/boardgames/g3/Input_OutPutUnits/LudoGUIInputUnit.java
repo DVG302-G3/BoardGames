@@ -8,7 +8,7 @@ import game.io.InputUnit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import boardgames.g3.BGForLabelsButtons.BackGroundButtonIDLudo;
+import boardgames.g3.SwingComponents.BackGroundButtonIDLudo;
 import boardgames.g3.core.Ludo.LudoStaticValues;
 import boardgames.g3.core.Solitaire.SolitarHelpMethods;
 

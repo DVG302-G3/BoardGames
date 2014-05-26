@@ -12,7 +12,7 @@ public class SolitarFileHandler {
 			throws IOException {
 		
 		List<String> lines = new ArrayList<String>();
-		BufferedReader br = new BufferedReader(new FileReader("src\\solitarcoordinates.txt"));
+		BufferedReader br = new BufferedReader(new FileReader("src\\SolitaireGameBoard.txt"));
 		
 		while (true) {
 			String line = br.readLine();

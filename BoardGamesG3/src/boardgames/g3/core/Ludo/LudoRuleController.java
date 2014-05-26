@@ -20,11 +20,11 @@ import boardgames.g3.core.Ludo.StrategyMove.MoveValidImplementation;
 public class LudoRuleController {
 
 	LudoGameState state;
-	BaseController baseController;
+	LudoBaseController baseController;
 
 	public LudoRuleController(LudoGameState state) {
 		this.state = state;
-		baseController = new BaseController(state, this);
+		baseController = new LudoBaseController(state, this);
 	}
 
 	public MoveStrategy checkAndReturnValidMoves(Move move) {
@@ -56,7 +56,7 @@ public class LudoRuleController {
 	}
 
 	public MoveStrategy evaluateMove(Move move) {
-		if (!HelpMethodsFinaMedKnuff.doesPlayerHaveAnyPiecesOnTheBoard(
+		if (!LudoHelpMethods.doesPlayerHaveAnyPiecesOnTheBoard(
 				move.getPlayer(), state.getBoard())) {
 			if (!checkIfDiceIsSIXorONE()) {
 				return new MoveInvalidBaseCantMoveOut();
@@ -92,7 +92,7 @@ public class LudoRuleController {
 	}
 
 	private boolean canPieceMove(GamePiece piece, LudoPlayer player) {
-		BoardLocation source = HelpMethodsFinaMedKnuff
+		BoardLocation source = LudoHelpMethods
 				.getBoardLocationFromPiece(piece, state.getBoard());
 		BoardLocation destination;
 

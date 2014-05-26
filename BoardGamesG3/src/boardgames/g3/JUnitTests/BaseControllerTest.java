@@ -9,8 +9,8 @@ import game.impl.Player;
 import org.junit.Before;
 import org.junit.Test;
 
-import boardgames.g3.core.Ludo.BaseController;
-import boardgames.g3.core.Ludo.HelpMethodsFinaMedKnuff;
+import boardgames.g3.core.Ludo.LudoBaseController;
+import boardgames.g3.core.Ludo.LudoHelpMethods;
 import boardgames.g3.core.Ludo.LudoGameState;
 import boardgames.g3.core.Ludo.LudoPlayer;
 import boardgames.g3.core.Ludo.LudoRuleController;
@@ -19,7 +19,7 @@ import boardgames.g3.core.Ludo.StrategyMove.MoveValidInbaseTwoPiecesImplementati
 
 public class BaseControllerTest {
 	LudoGameState gameState;
-	BaseController base;
+	LudoBaseController base;
 	LudoRuleController ruler;
 	
 	
@@ -27,17 +27,17 @@ public class BaseControllerTest {
 	public void setup(){
 		gameState = new LudoGameState(1);
 		ruler = new LudoRuleController(gameState);
-		base = new BaseController(gameState, ruler);
+		base = new LudoBaseController(gameState, ruler);
 	}
 
 	@Test
 	public void testCanPlayerMakeAMoveFromBase() {
 		Player player = gameState.getPlayers().get(0);
 		LudoPlayer ludoPlayer = gameState.getLudoPlayerFromPlayer(player);
-		BoardLocation source1 = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BC", gameState.getBoard());
-		BoardLocation source2 = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("CB", gameState.getBoard());
-		BoardLocation destination1 = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EA", gameState.getBoard());
-		BoardLocation destination6 = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("DE", gameState.getBoard());
+		BoardLocation source1 = LudoHelpMethods.getBoardLocationFromCoordinate("BC", gameState.getBoard());
+		BoardLocation source2 = LudoHelpMethods.getBoardLocationFromCoordinate("CB", gameState.getBoard());
+		BoardLocation destination1 = LudoHelpMethods.getBoardLocationFromCoordinate("EA", gameState.getBoard());
+		BoardLocation destination6 = LudoHelpMethods.getBoardLocationFromCoordinate("DE", gameState.getBoard());
 		
 		while(gameState.getDieRollFactory().getNewRoll(player).getResult() != 6)
 			continue;
@@ -74,13 +74,13 @@ public class BaseControllerTest {
 	public void testCheckIfPieceInbasePlayerBoardLocation() {
 		Player player = gameState.getPlayers().get(0);
 		LudoPlayer ludoPlayer = gameState.getLudoPlayerFromPlayer(player);
-		assertTrue(base.checkIfPieceInbase(ludoPlayer, HelpMethodsFinaMedKnuff.getBoardLocationFromPiece(gameState.getPlayers().get(0).getPieces().get(0), gameState.getBoard())));
+		assertTrue(base.checkIfPieceInbase(ludoPlayer, LudoHelpMethods.getBoardLocationFromPiece(gameState.getPlayers().get(0).getPieces().get(0), gameState.getBoard())));
 	
 		GamePiece piece = player.getPieces().get(0);
-		BoardLocation pieceLocation = HelpMethodsFinaMedKnuff.getBoardLocationFromPiece(piece, gameState.getBoard());
+		BoardLocation pieceLocation = LudoHelpMethods.getBoardLocationFromPiece(piece, gameState.getBoard());
 		pieceLocation.clear();
 		
-		BoardLocation outsideOfStart = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EA", gameState.getBoard());
+		BoardLocation outsideOfStart = LudoHelpMethods.getBoardLocationFromCoordinate("EA", gameState.getBoard());
 		outsideOfStart.addPiece(piece);
 
 		assertTrue(!base.checkIfPieceInbase(ludoPlayer, outsideOfStart));
@@ -90,13 +90,13 @@ public class BaseControllerTest {
 	@Test
 	public void testIsValidMoveFromBase() {
 		Player player = gameState.getPlayers().get(0);
-		BoardLocation source1 = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BB", gameState.getBoard());
-		BoardLocation source2 = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("BC", gameState.getBoard());
-		BoardLocation source3 = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("CB", gameState.getBoard());
-		BoardLocation source4 = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("CC", gameState.getBoard());
+		BoardLocation source1 = LudoHelpMethods.getBoardLocationFromCoordinate("BB", gameState.getBoard());
+		BoardLocation source2 = LudoHelpMethods.getBoardLocationFromCoordinate("BC", gameState.getBoard());
+		BoardLocation source3 = LudoHelpMethods.getBoardLocationFromCoordinate("CB", gameState.getBoard());
+		BoardLocation source4 = LudoHelpMethods.getBoardLocationFromCoordinate("CC", gameState.getBoard());
 
-		BoardLocation destination1 = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("EA", gameState.getBoard());
-		BoardLocation destination6 = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate("DE", gameState.getBoard());
+		BoardLocation destination1 = LudoHelpMethods.getBoardLocationFromCoordinate("EA", gameState.getBoard());
+		BoardLocation destination6 = LudoHelpMethods.getBoardLocationFromCoordinate("DE", gameState.getBoard());
 		
 		while(gameState.getDieRollFactory().getNewRoll(player).getResult() != 6)
 			continue;

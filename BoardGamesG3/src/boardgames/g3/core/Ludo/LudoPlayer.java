@@ -28,7 +28,7 @@ public class LudoPlayer {
 		playersBoardlist = new ArrayList<BoardLocation>();
 		List<BoardLocation> boardList = board.getLocations();
 		
-		BoardLocation start = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(startCoordinateOne, board);
+		BoardLocation start = LudoHelpMethods.getBoardLocationFromCoordinate(startCoordinateOne, board);
 		int index = boardList.indexOf(start);
 		boolean lapsed = false;
 		
@@ -42,11 +42,11 @@ public class LudoPlayer {
 		}
 		
 		for(String s : finishLine){
-			BoardLocation finishLineLocation = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(s, board);
+			BoardLocation finishLineLocation = LudoHelpMethods.getBoardLocationFromCoordinate(s, board);
 			playersBoardlist.add(finishLineLocation);
 		}
 		
-		BoardLocation goal = HelpMethodsFinaMedKnuff.getBoardLocationFromCoordinate(LudoStaticValues.GOAL, board);
+		BoardLocation goal = LudoHelpMethods.getBoardLocationFromCoordinate(LudoStaticValues.GOAL, board);
 		playersBoardlist.add(goal);
 	
 	

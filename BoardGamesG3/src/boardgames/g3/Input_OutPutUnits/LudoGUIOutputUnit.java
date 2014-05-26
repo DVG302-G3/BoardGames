@@ -23,12 +23,12 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
-import boardgames.g3.BGForLabelsButtons.BackGroundButtonIDLudo;
-import boardgames.g3.BGForLabelsButtons.BackGroundLabelLudo;
-import boardgames.g3.core.Ludo.HelpMethodsFinaMedKnuff;
+import boardgames.g3.SwingComponents.BackGroundButtonIDLudo;
+import boardgames.g3.SwingComponents.BackGroundLabelLudo;
+import boardgames.g3.SwingComponents.FinishPopUpWindow;
+import boardgames.g3.core.Ludo.LudoHelpMethods;
 import boardgames.g3.core.Ludo.LudoDiceChooser;
 import boardgames.g3.core.Ludo.LudoStaticValues;
-import boardgames.g3.core.Solitaire.FinishPopUpWindow;
 
 public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 
@@ -259,7 +259,7 @@ public class LudoGUIOutputUnit extends JPanel implements OutputUnit {
 				String coordinate = Character.toString(cordRow)
 						+ Character.toString(cordCol++);
 
-				BoardLocation location = HelpMethodsFinaMedKnuff
+				BoardLocation location = LudoHelpMethods
 						.getBoardLocationFromCoordinate(coordinate,
 								gameState.getBoard());
 
